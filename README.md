@@ -2,15 +2,40 @@
 
 A new Flutter project.
 
-## Getting Started
+<br>
+<br>
+<br>
 
-This project is a starting point for a Flutter application.
+## Docs
 
-A few resources to get you started if this is your first Flutter project:
+---
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+https://www.notion.so/Theo-227f5559ce404a87b34fbe8f58a2cc1b
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<br>
+<br>
+<br>
+
+## Directory Structure
+
+---
+
+#### **# MODELS**
+
+Data class models
+
+#### **# PAGES**
+
+Screen pages, layout and design code
+
+#### **# SERVICES**
+
+Aplication logic, and backend requests
+
+#### **# UI_KIT**
+
+Atomic layout, user interface components reusables
+
+#### **# COMPONENTS**
+
+Group of ui_kits that represents a concept, and are reusables.

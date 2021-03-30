@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:theo/core/routes.dart';
-import 'package:theo/pages/login_screen.dart';
-import 'package:theo/pages/splash_screen.dart';
+import 'package:theo/pages/login_screen/login_screen.dart';
+import 'package:theo/pages/splash_screen/splash_screen.dart';
 
 void main() {
   runApp(MyApp());

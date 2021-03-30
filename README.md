@@ -32,10 +32,10 @@ Screen pages, layout and design code
 
 Aplication logic, and backend requests
 
-#### **# UI_KIT**
+#### **# COMPONENTS**
 
 Atomic layout, user interface components reusables
 
-#### **# COMPONENTS**
+#### **# ASSETS**
 
-Group of ui_kits that represents a concept, and are reusables.
+Images, icons, files

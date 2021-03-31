@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart' as flutter_splash;
 import 'package:theo/core/routes.dart';
-import 'package:theo/pages/login_screen.dart';
+import 'package:theo/pages/login_screen/login_screen.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 

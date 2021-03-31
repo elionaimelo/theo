@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:theo/components/bottom_button/bottom_button.dart';
 import 'package:theo/constant.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -7,101 +9,92 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  void _onBackPressed() {
+    Navigator.of(context).pop();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
-              flex: 1,
-              child: Container(
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage('assets/images/bg1.png'),
-                        fit: BoxFit.cover)),
-              )),
-          Expanded(
-              child: Column(
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.only(top: 30),
-                child: FittedBox(
-                  fit: BoxFit.contain,
-                  child: Image.asset('assets/images/logo-theo.png'),
-                ),
-              ),
-              Container(
-                width: 262,
-                height: 80,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 24.0),
-                  child: RichText(
-                    textAlign: TextAlign.center,
-                    text: TextSpan(
-                        text:
-                            'Veja histórias em qualquer\n lugar e compartilhe com facilidade!',
-                        style: Theme.of(context).textTheme.bodyText1.copyWith(
-                            color: kprimaryColor, fontWeight: FontWeight.w600)),
-                  ),
-                ),
-              ),
-              Container(
-                  margin: const EdgeInsets.only(top: 30, right: 10, left: 10),
-                  child: Column(
-                    children: [
-                      TextButton(
-                        style: TextButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0)),
-                            primary: Colors.white,
-                            backgroundColor: kprimaryColor,
-                            textStyle: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w900)),
-                        onPressed: () {},
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Criar perfil',
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(top: 20),
-                        child: TextButton(
-                          style: TextButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0)),
-                              primary: kprimaryColor,
-                              backgroundColor: klightColor,
-                              textStyle: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.w900)),
-                          onPressed: () {},
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Já tenho uma conta',
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ))
-            ],
-          ))
-        ],
-      ),
+      backgroundColor: Colors.white,
+      appBar: _appBar,
+      body: _body,
     );
   }
+
+  Widget get _body => Container(
+        padding: EdgeInsets.only(left: 16, right: 16, bottom: 71, top: 15),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            _text,
+            _inputText(
+                hintText: 'Escreva seu email aqui', label: 'Endereço de Email'),
+            BottomButton(
+              text: 'Continuar',
+              onPressed: () {},
+            )
+          ],
+        ),
+      );
+
+  Widget _inputText({String hintText = '', String label = ''}) => Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(label),
+            TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: hintText,
+              ),
+            ),
+          ],
+        ),
+      );
+
+  Widget get _text => Text(
+        'Bem-vindo de volta!',
+        style: GoogleFonts.muli(
+          fontSize: 24,
+          fontWeight: FontWeight.w900,
+          color: kthirdColor,
+        ),
+      );
+
+  Widget get _backButton => Container(
+        margin: EdgeInsets.only(left: 5),
+        child: InkWell(
+            borderRadius: BorderRadius.circular(30),
+            onTap: _onBackPressed,
+            child: Container(
+              padding: EdgeInsets.all(5),
+              child: Icon(
+                Icons.arrow_back,
+                color: kprimaryColor,
+                size: 30,
+              ),
+            )),
+      );
+
+  AppBar get _appBar => AppBar(
+        backgroundColor: Colors.white,
+        titleSpacing: 0.0,
+        automaticallyImplyLeading: false,
+        title: Row(
+          children: [
+            _backButton,
+            Text(
+              'Voltar',
+              style: GoogleFonts.muli(
+                fontWeight: FontWeight.w600,
+                color: kprimaryColor,
+                fontSize: 16,
+              ),
+            ),
+          ],
+        ),
+        elevation: 0,
+      );
 }

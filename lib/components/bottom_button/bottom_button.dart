@@ -33,6 +33,14 @@ class BottomButton extends StatelessWidget {
             Text(
               text,
             ),
+            if (icon != null)
+              Container(
+                margin: EdgeInsets.only(left: 5),
+                child: Icon(
+                  icon,
+                  color: Colors.white,
+                ),
+              )
           ],
         ),
       ),

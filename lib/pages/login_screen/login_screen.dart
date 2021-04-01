@@ -8,45 +8,134 @@ class LoginScreen extends StatefulWidget {
   _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  void _onBackPressed() {
+class _LoginScreenState extends State<LoginScreen>
+    with SingleTickerProviderStateMixin {
+  TabController _tabController;
+
+  Future<bool> _onBackPressed() async {
+    if (_tabController.index > 0) {
+      _tabController.animateTo(_tabController.index - 1);
+      return false;
+    }
+
     Navigator.of(context).pop();
+    return true;
+  }
+
+  void _onEmailButtonTap() {
+    _tabController.animateTo(1);
+  }
+
+  void _onPasswordButtonTap() {}
+
+  @override
+  void initState() {
+    super.initState();
+
+    _tabController = TabController(vsync: this, length: _tabs.length);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: _appBar,
-      body: _body,
+    return WillPopScope(
+      onWillPop: _onBackPressed,
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: _appBar,
+        body: _body,
+      ),
     );
   }
 
   Widget get _body => Container(
-        padding: EdgeInsets.only(left: 16, right: 16, bottom: 71, top: 15),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            _text,
-            _inputText(
-                hintText: 'Escreva seu email aqui', label: 'Endereço de Email'),
-            BottomButton(
-              text: 'Continuar',
-              onPressed: () {},
-            )
-          ],
-        ),
+      padding: EdgeInsets.only(left: 16, right: 16, bottom: 71, top: 15),
+      child: TabBarView(
+        physics: NeverScrollableScrollPhysics(),
+        controller: _tabController,
+        children: _tabs,
+      ));
+
+  List<Widget> get _tabs => [
+        _emailTab,
+        _passwordTab,
+      ];
+
+  Widget get _passwordTab => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          _text,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _inputText(
+                  hintText: 'Escreva sua senha aqui',
+                  label: 'Insira sua senha'),
+              Container(
+                margin: EdgeInsets.only(top: 30),
+                child: Divider(
+                  height: 5,
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  print('Pressed');
+                },
+                child: Text(
+                  'Esqueceu a senha? Redefina aqui',
+                  style: GoogleFonts.muli(
+                    color: kprimaryColor,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          BottomButton(
+            text: 'Entrar',
+            icon: Icons.arrow_forward,
+            onPressed: _onPasswordButtonTap,
+          ),
+        ],
+      );
+
+  Widget get _emailTab => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          _text,
+          _inputText(
+              hintText: 'Escreva seu email aqui', label: 'Endereço de email'),
+          BottomButton(
+            text: 'Continuar',
+            icon: Icons.arrow_forward,
+            onPressed: _onEmailButtonTap,
+          )
+        ],
       );
 
   Widget _inputText({String hintText = '', String label = ''}) => Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(label),
+            Container(
+              margin: EdgeInsets.only(bottom: 15),
+              child: Text(
+                label,
+                style: GoogleFonts.muli(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w900,
+                  color: kprimaryColor,
+                ),
+              ),
+            ),
             TextField(
               decoration: InputDecoration(
-                border: OutlineInputBorder(),
+                contentPadding:
+                    EdgeInsets.symmetric(vertical: 2, horizontal: 15),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
                 hintText: hintText,
               ),
             ),

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'package:theo/pages/login_screen/login_screen.dart';
+
 import 'package:theo/pages/splash_screen/splash_screen.dart';
 
 import 'package:theo/core/routes.dart';
 
 import 'package:theo/constant.dart';
+import 'package:theo/pages/start_screen/start_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -27,7 +28,8 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         Routes.splash: (context) => SplashScreen(),
-        Routes.login: (context) => LoginScreen()
+        Routes.start: (context) => StartScreen(),
+        Routes.login: (context) => LoginScreen(),
       },
     );
   }

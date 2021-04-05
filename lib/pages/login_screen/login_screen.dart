@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:theo/components/bottom_button/bottom_button.dart';
 import 'package:theo/constant.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -6,102 +8,182 @@ class LoginScreen extends StatefulWidget {
   _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends State<LoginScreen>
+    with SingleTickerProviderStateMixin {
+  TabController _tabController;
+
+  Future<bool> _onBackPressed() async {
+    if (_tabController.index > 0) {
+      _tabController.animateTo(_tabController.index - 1);
+      return false;
+    }
+
+    Navigator.of(context).pop();
+    return true;
+  }
+
+  void _onEmailButtonTap() {
+    _tabController.animateTo(1);
+  }
+
+  void _onPasswordButtonTap() {}
+
+  @override
+  void initState() {
+    super.initState();
+
+    _tabController = TabController(vsync: this, length: _tabs.length);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
-              flex: 1,
-              child: Container(
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage('assets/images/bg1.png'),
-                        fit: BoxFit.cover)),
-              )),
-          Expanded(
-              child: Column(
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.only(top: 30),
-                child: FittedBox(
-                  fit: BoxFit.contain,
-                  child: Image.asset('assets/images/logo-theo.png'),
-                ),
-              ),
-              Container(
-                width: 262,
-                height: 80,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 24.0),
-                  child: RichText(
-                    textAlign: TextAlign.center,
-                    text: TextSpan(
-                        text:
-                            'Veja histórias em qualquer\n lugar e compartilhe com facilidade!',
-                        style: Theme.of(context).textTheme.bodyText1.copyWith(
-                            color: kprimaryColor, fontWeight: FontWeight.w600)),
-                  ),
-                ),
-              ),
-              Container(
-                  margin: const EdgeInsets.only(top: 30, right: 10, left: 10),
-                  child: Column(
-                    children: [
-                      TextButton(
-                        style: TextButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0)),
-                            primary: Colors.white,
-                            backgroundColor: kprimaryColor,
-                            textStyle: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w900)),
-                        onPressed: () {},
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Criar perfil',
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(top: 20),
-                        child: TextButton(
-                          style: TextButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0)),
-                              primary: kprimaryColor,
-                              backgroundColor: klightColor,
-                              textStyle: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.w900)),
-                          onPressed: () {},
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Já tenho uma conta',
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ))
-            ],
-          ))
-        ],
+    return WillPopScope(
+      onWillPop: _onBackPressed,
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: _appBar,
+        body: _body,
       ),
     );
   }
+
+  Widget get _body => Container(
+      padding: EdgeInsets.only(left: 16, right: 16, bottom: 71, top: 15),
+      child: TabBarView(
+        physics: NeverScrollableScrollPhysics(),
+        controller: _tabController,
+        children: _tabs,
+      ));
+
+  List<Widget> get _tabs => [
+        _emailTab,
+        _passwordTab,
+      ];
+
+  Widget get _passwordTab => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          _text,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _inputText(
+                  hintText: 'Escreva sua senha aqui',
+                  label: 'Insira sua senha'),
+              Container(
+                margin: EdgeInsets.only(top: 30),
+                child: Divider(
+                  height: 5,
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  print('Pressed');
+                },
+                child: Text(
+                  'Esqueceu a senha? Redefina aqui',
+                  style: GoogleFonts.muli(
+                    color: kprimaryColor,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          BottomButton(
+            text: 'Entrar',
+            icon: Icons.arrow_forward,
+            onPressed: _onPasswordButtonTap,
+          ),
+        ],
+      );
+
+  Widget get _emailTab => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          _text,
+          _inputText(
+              hintText: 'Escreva seu email aqui', label: 'Endereço de email'),
+          BottomButton(
+            text: 'Continuar',
+            icon: Icons.arrow_forward,
+            onPressed: _onEmailButtonTap,
+          )
+        ],
+      );
+
+  Widget _inputText({String hintText = '', String label = ''}) => Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              margin: EdgeInsets.only(bottom: 15),
+              child: Text(
+                label,
+                style: GoogleFonts.muli(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w900,
+                  color: kprimaryColor,
+                ),
+              ),
+            ),
+            TextField(
+              decoration: InputDecoration(
+                contentPadding:
+                    EdgeInsets.symmetric(vertical: 2, horizontal: 15),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                hintText: hintText,
+              ),
+            ),
+          ],
+        ),
+      );
+
+  Widget get _text => Text(
+        'Bem-vindo de volta!',
+        style: GoogleFonts.muli(
+          fontSize: 24,
+          fontWeight: FontWeight.w900,
+          color: kthirdColor,
+        ),
+      );
+
+  Widget get _backButton => Container(
+        margin: EdgeInsets.only(left: 5),
+        child: InkWell(
+            borderRadius: BorderRadius.circular(30),
+            onTap: _onBackPressed,
+            child: Container(
+              padding: EdgeInsets.all(5),
+              child: Icon(
+                Icons.arrow_back,
+                color: kprimaryColor,
+                size: 30,
+              ),
+            )),
+      );
+
+  AppBar get _appBar => AppBar(
+        backgroundColor: Colors.white,
+        titleSpacing: 0.0,
+        automaticallyImplyLeading: false,
+        title: Row(
+          children: [
+            _backButton,
+            Text(
+              'Voltar',
+              style: GoogleFonts.muli(
+                fontWeight: FontWeight.w600,
+                color: kprimaryColor,
+                fontSize: 16,
+              ),
+            ),
+          ],
+        ),
+        elevation: 0,
+      );
 }

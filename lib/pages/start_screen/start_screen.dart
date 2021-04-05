@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:theo/components/bottom_button/bottom_button.dart';
 import 'package:theo/constant.dart';
 import 'package:theo/core/routes.dart';
 
@@ -11,6 +12,8 @@ class _StartScreenState extends State<StartScreen> {
   void _onLoginButtonPress() {
     Navigator.of(context).pushNamed(Routes.login);
   }
+
+  void _onSignupButtonPress() {}
 
   @override
   Widget build(BuildContext context) {
@@ -54,53 +57,18 @@ class _StartScreenState extends State<StartScreen> {
                   margin: const EdgeInsets.only(top: 30, right: 10, left: 10),
                   child: Column(
                     children: [
-                      TextButton(
-                        style: TextButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0)),
-                            primary: Colors.white,
-                            backgroundColor: kprimaryColor,
-                            textStyle: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w900)),
-                        onPressed: () {},
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Criar perfil',
-                              ),
-                            ],
-                          ),
-                        ),
+                      BottomButton(
+                        onPressed: _onSignupButtonPress,
+                        text: 'Criar perfil',
                       ),
                       Container(
-                        margin: const EdgeInsets.only(top: 20),
-                        child: TextButton(
-                          style: TextButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0)),
-                              primary: kprimaryColor,
-                              backgroundColor: klightColor,
-                              textStyle: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.w900)),
-                          onPressed: _onLoginButtonPress,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Já tenho uma conta',
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
+                          margin: const EdgeInsets.only(top: 20),
+                          child: BottomButton(
+                            onPressed: _onLoginButtonPress,
+                            text: 'Já tenho uma conta',
+                            primaryColor: kprimaryColor,
+                            backgroundColor: klightColor,
+                          )),
                     ],
                   ))
             ],

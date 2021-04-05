@@ -5,14 +5,16 @@ class BottomButton extends StatelessWidget {
   const BottomButton({
     this.text = '',
     this.icon,
-    this.filled = true,
     this.onPressed,
+    this.primaryColor = Colors.white,
+    this.backgroundColor = kprimaryColor,
   });
 
   final String text;
   final IconData icon;
-  final bool filled;
   final Function onPressed;
+  final Color backgroundColor;
+  final Color primaryColor;
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +22,8 @@ class BottomButton extends StatelessWidget {
       style: TextButton.styleFrom(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-          primary: Colors.white,
-          backgroundColor: kprimaryColor,
+          primary: primaryColor,
+          backgroundColor: backgroundColor,
           textStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.w900)),
       onPressed: () => onPressed?.call(),
       child: Padding(

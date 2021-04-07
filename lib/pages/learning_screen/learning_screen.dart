@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:theo/components/story_progress/story_progress.dart';
+import 'package:theo/pages/learning_screen/components/story_card.dart';
 
 class LearningScreen extends StatefulWidget {
   @override
@@ -26,6 +27,8 @@ class _LearningScreenState extends State<LearningScreen> {
                 progress: 4,
                 total: 5,
               ),
+
+              StoryCard(),
               // Expanded(child: _list),
             ],
           ),

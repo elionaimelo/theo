@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:theo/pages/learning_screen/learning_screen.dart';
 import 'package:theo/pages/login_screen/login_screen.dart';
 
 import 'package:theo/pages/splash_screen/splash_screen.dart';
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         Routes.splash: (context) => SplashScreen(),
         Routes.start: (context) => StartScreen(),
         Routes.login: (context) => LoginScreen(),
+        Routes.learning: (context) => LearningScreen(),
       },
     );
   }

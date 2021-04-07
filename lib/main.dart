@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:theo/pages/home_screen/home_screen.dart';
 
 import 'package:theo/pages/login_screen/login_screen.dart';
 import 'package:theo/pages/splash_screen/splash_screen.dart';
 
 import 'package:theo/core/routes.dart';
 
-import 'package:theo/constant.dart';
+import 'package:theo/styles/colors.dart';
 
 void main() {
   runApp(MyApp());
@@ -20,14 +21,16 @@ class MyApp extends StatelessWidget {
       title: 'Theo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: kprimaryColor,
+        primaryColor: TheoColors.primary,
+        scaffoldBackgroundColor: Colors.white,
         textTheme: GoogleFonts.muliTextTheme(
           Theme.of(context).textTheme,
         ),
       ),
       routes: {
         Routes.splash: (context) => SplashScreen(),
-        Routes.login: (context) => LoginScreen()
+        Routes.login: (context) => LoginScreen(),
+        Routes.feed: (context) => HomeScreen()
       },
     );
   }

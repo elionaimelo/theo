@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:theo/constant.dart';
+import 'package:theo/styles/colors.dart';
+
+import 'package:theo/pages/home_screen/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -41,7 +43,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         text:
                             'Veja histórias em qualquer\n lugar e compartilhe com facilidade!',
                         style: Theme.of(context).textTheme.bodyText1.copyWith(
-                            color: kprimaryColor, fontWeight: FontWeight.w600)),
+                            color: TheoColors.primary,
+                            fontWeight: FontWeight.w600)),
                   ),
                 ),
               ),
@@ -54,7 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0)),
                             primary: Colors.white,
-                            backgroundColor: kprimaryColor,
+                            backgroundColor: TheoColors.primary,
                             textStyle: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.w900)),
                         onPressed: () {},
@@ -77,11 +80,15 @@ class _LoginScreenState extends State<LoginScreen> {
                           style: TextButton.styleFrom(
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10.0)),
-                              primary: kprimaryColor,
-                              backgroundColor: klightColor,
+                              primary: TheoColors.primary,
+                              backgroundColor: TheoColors.five,
                               textStyle: TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.w900)),
-                          onPressed: () {},
+                          onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomeScreen()),
+                          ),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Row(

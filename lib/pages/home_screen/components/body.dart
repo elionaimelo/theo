@@ -46,7 +46,7 @@ class Body extends StatelessWidget {
                   TextButton.icon(
                     onPressed: () {},
                     icon:
-                        SvgPicture.asset('assets/images/icone-como-contar.svg'),
+                        SvgPicture.asset('assets/icons/icone-como-contar.svg'),
                     label: Padding(
                       padding: const EdgeInsets.only(left: 20),
                       child: Column(
@@ -88,7 +88,7 @@ class Body extends StatelessWidget {
                   TextButton.icon(
                     onPressed: () {},
                     icon: SvgPicture.asset(
-                        'assets/images/icone-descobrir-historias.svg'),
+                        'assets/icons/icone-descobrir-historias.svg'),
                     label: Padding(
                       padding: const EdgeInsets.only(left: 20),
                       child: Column(
@@ -127,7 +127,7 @@ class Body extends StatelessWidget {
                   TextButton.icon(
                     onPressed: () {},
                     icon: SvgPicture.asset(
-                        'assets/images/icone-contar-historia.svg'),
+                        'assets/icons/icone-contar-historia.svg'),
                     label: Padding(
                       padding: const EdgeInsets.only(left: 20),
                       child: Column(
@@ -166,7 +166,7 @@ class Body extends StatelessWidget {
                     ],
                   ),
                   SvgPicture.asset(
-                      'assets/images/icone-feather-arrow-right.svg'),
+                      'assets/icons/icone-feather-arrow-right.svg'),
                 ],
               ),
             ),

@@ -79,7 +79,7 @@ class CategoryCard extends StatelessWidget {
                                 ),
                               ),
                               SvgPicture.asset(
-                                  'assets/images/icon-feather-chevron-right.svg'),
+                                  'assets/icons/icon-feather-chevron-right.svg'),
                             ],
                           ),
                         ),

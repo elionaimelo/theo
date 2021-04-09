@@ -1,17 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:theo/models/story.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
 class StoryCard extends StatelessWidget {
+  StoryCard({
+    this.story,
+  });
+
+  final Story story;
+
   @override
   Widget build(BuildContext context) {
     return Card(
+      elevation: 2,
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 22, vertical: 17),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _title,
+            Container(
+              margin: EdgeInsets.only(bottom: 20),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -25,10 +37,41 @@ class StoryCard extends StatelessWidget {
     );
   }
 
-  Widget get _status => Container();
+  Widget get _checkedIcon => Container(
+        padding: EdgeInsets.all(3),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30),
+          color: Color(0xFF5AB9CC),
+        ),
+        child: Icon(
+          FeatherIcons.check,
+          color: TheoColors.secondary,
+        ),
+      );
+
+  Widget get _status => story.finished
+      ? Container(
+          child: Row(
+            children: [
+              _checkedIcon,
+              Container(
+                margin: EdgeInsets.only(left: 7),
+              ),
+              Text(
+                'Concluído',
+                style: GoogleFonts.muli(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xFF5AB9CC),
+                ),
+              ),
+            ],
+          ),
+        )
+      : Container();
 
   Widget get _title => Text(
-        'Primeiro titulo aqui - Sobre o storytelling?',
+        story.title,
         style: GoogleFonts.muli(
           fontSize: 18,
           fontWeight: FontWeight.w800,
@@ -50,7 +93,10 @@ class StoryCard extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Icon(FeatherIcons.plus),
+                Icon(
+                  FeatherIcons.plus,
+                  color: TheoColors.primary,
+                ),
                 Container(
                   margin: EdgeInsets.only(left: 5),
                 ),

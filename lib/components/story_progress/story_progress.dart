@@ -80,7 +80,7 @@ class StoryProgress extends StatelessWidget {
             ),
           ),
           Text(
-            '0/5',
+            '0/' + total?.toString(),
             style: GoogleFonts.muli(
               fontWeight: FontWeight.normal,
               fontSize: 16,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:theo/components/story_progress/story_progress.dart';
+import 'package:theo/models/story.dart';
 import 'package:theo/pages/learning_screen/components/story_card.dart';
 
 class LearningScreen extends StatefulWidget {
@@ -9,6 +10,44 @@ class LearningScreen extends StatefulWidget {
 }
 
 class _LearningScreenState extends State<LearningScreen> {
+  List<Story> stories = [
+    Story(
+      title: 'Primeiro titulo aqui - Sobre o storytelling?',
+      finished: true,
+    ),
+    Story(
+      title: 'Direitos Autorais',
+    ),
+    Story(
+      title: 'Título aqui - lorem ipsum dolor sit amet consetetur',
+      finished: false,
+    ),
+    Story(
+      title: 'Título aqui - lorem ipsum dolor sit amet consetetur',
+      finished: false,
+    ),
+    Story(
+      title: 'Título aqui - lorem ipsum dolor sit amet consetetur',
+      finished: false,
+    ),
+    Story(
+      title: 'Título aqui - lorem ipsum dolor sit amet consetetur',
+      finished: false,
+    ),
+    Story(
+      title: 'Título aqui - lorem ipsum dolor sit amet consetetur',
+      finished: false,
+    ),
+    Story(
+      title: 'Título aqui - lorem ipsum dolor sit amet consetetur',
+      finished: false,
+    ),
+    Story(
+      title: 'Título aqui - lorem ipsum dolor sit amet consetetur',
+      finished: false,
+    ),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -24,12 +63,16 @@ class _LearningScreenState extends State<LearningScreen> {
                 child: _title,
               ),
               StoryProgress(
-                progress: 4,
+                progress: 3,
                 total: 5,
               ),
-
-              StoryCard(),
-              // Expanded(child: _list),
+              Container(
+                margin: EdgeInsets.only(bottom: 27),
+              ),
+              Expanded(child: _list),
+              Container(
+                margin: EdgeInsets.only(bottom: 20),
+              )
             ],
           ),
         ),
@@ -38,7 +81,10 @@ class _LearningScreenState extends State<LearningScreen> {
   }
 
   Widget get _list => ListView.builder(
-        itemBuilder: (_, int index) => Container(),
+        itemCount: stories.length,
+        itemBuilder: (_, int index) => StoryCard(
+          story: stories[index],
+        ),
       );
 
   Widget get _title => Text(

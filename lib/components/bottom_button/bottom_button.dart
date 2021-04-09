@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:theo/constant.dart';
+import 'package:theo/styles/colors.dart';
 
 class BottomButton extends StatelessWidget {
   const BottomButton({
@@ -7,7 +7,7 @@ class BottomButton extends StatelessWidget {
     this.icon,
     this.onPressed,
     this.primaryColor = Colors.white,
-    this.backgroundColor = kprimaryColor,
+    this.backgroundColor = TheoColors.primary,
   });
 
   final String text;

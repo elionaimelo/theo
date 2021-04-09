@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:theo/components/bottom_button/bottom_button.dart';
+import 'package:theo/core/routes.dart';
 import 'package:theo/styles/colors.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -26,7 +27,9 @@ class _LoginScreenState extends State<LoginScreen>
     _tabController.animateTo(1);
   }
 
-  void _onPasswordButtonTap() {}
+  void _onPasswordButtonTap() {
+    Navigator.of(context).pushNamed(Routes.home);
+  }
 
   @override
   void initState() {

@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         Routes.splash: (context) => SplashScreen(),
         Routes.start: (context) => StartScreen(),
         Routes.login: (context) => LoginScreen(),
-        Routes.feed: (context) => HomeScreen()
+        Routes.home: (context) => HomeScreen()
       },
     );
   }

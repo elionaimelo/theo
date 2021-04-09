@@ -3,6 +3,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:theo/components/bottom_button/bottom_button.dart';
 import 'package:theo/constant.dart';
 import 'package:theo/core/routes.dart';
+import 'package:theo/pages/login_screen/components/login_email_tag.dart';
+
+import 'components/login_input_text.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -12,6 +15,9 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
+
+  String email;
+  String password;
 
   Future<bool> _onBackPressed() async {
     if (_tabController.index > 0) {
@@ -30,6 +36,18 @@ class _LoginScreenState extends State<LoginScreen>
   void _onPasswordButtonTap() {
     Navigator.of(context).popUntil((route) => route.isFirst);
     Navigator.of(context).pushReplacementNamed(Routes.learning);
+  }
+
+  void _onEmailTextChanged(String value) {
+    setState(() {
+      email = value;
+    });
+  }
+
+  void _onPasswordTextChanged(String value) {
+    setState(() {
+      password = value;
+    });
   }
 
   @override
@@ -68,13 +86,17 @@ class _LoginScreenState extends State<LoginScreen>
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _text,
+          LoginEmailTag(
+            email: email,
+          ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _inputText(
-                  hintText: 'Escreva sua senha aqui',
-                  label: 'Insira sua senha'),
+              LoginInputText(
+                hintText: 'Escreva sua senha aqui',
+                label: 'Insira sua senha',
+                onTextChanged: _onPasswordTextChanged,
+              ),
               Container(
                 margin: EdgeInsets.only(top: 30),
                 child: Divider(
@@ -107,9 +129,12 @@ class _LoginScreenState extends State<LoginScreen>
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _text,
-          _inputText(
-              hintText: 'Escreva seu email aqui', label: 'Endereço de email'),
+          _title,
+          LoginInputText(
+            hintText: 'Escreva seu email aqui',
+            label: 'Endereço de email',
+            onTextChanged: _onEmailTextChanged,
+          ),
           BottomButton(
             text: 'Continuar',
             icon: Icons.arrow_forward,
@@ -118,36 +143,7 @@ class _LoginScreenState extends State<LoginScreen>
         ],
       );
 
-  Widget _inputText({String hintText = '', String label = ''}) => Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              margin: EdgeInsets.only(bottom: 15),
-              child: Text(
-                label,
-                style: GoogleFonts.muli(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w900,
-                  color: kprimaryColor,
-                ),
-              ),
-            ),
-            TextField(
-              decoration: InputDecoration(
-                contentPadding:
-                    EdgeInsets.symmetric(vertical: 2, horizontal: 15),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                hintText: hintText,
-              ),
-            ),
-          ],
-        ),
-      );
-
-  Widget get _text => Text(
+  Widget get _title => Text(
         'Bem-vindo de volta!',
         style: GoogleFonts.muli(
           fontSize: 24,

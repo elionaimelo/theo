@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:theo/components/bottom_button/bottom_button.dart';
-import 'package:theo/constant.dart';
 import 'package:theo/core/routes.dart';
+import 'package:theo/styles/colors.dart';
 
 class StartScreen extends StatefulWidget {
   @override
@@ -49,7 +49,8 @@ class _StartScreenState extends State<StartScreen> {
                         text:
                             'Veja histórias em qualquer\n lugar e compartilhe com facilidade!',
                         style: Theme.of(context).textTheme.bodyText1.copyWith(
-                            color: kprimaryColor, fontWeight: FontWeight.w600)),
+                            color: TheoColors.primary,
+                            fontWeight: FontWeight.w600)),
                   ),
                 ),
               ),
@@ -66,8 +67,8 @@ class _StartScreenState extends State<StartScreen> {
                           child: BottomButton(
                             onPressed: _onLoginButtonPress,
                             text: 'Já tenho uma conta',
-                            primaryColor: kprimaryColor,
-                            backgroundColor: klightColor,
+                            primaryColor: TheoColors.primary,
+                            backgroundColor: TheoColors.five,
                           )),
                     ],
                   ))

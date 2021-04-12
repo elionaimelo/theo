@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:theo/components/bottom_button/bottom_button.dart';
-import 'package:theo/constant.dart';
 import 'package:theo/core/routes.dart';
 import 'package:theo/pages/login_screen/components/login_email_tag.dart';
+import 'package:theo/styles/colors.dart';
 
 import 'components/login_input_text.dart';
 
@@ -48,6 +48,8 @@ class _LoginScreenState extends State<LoginScreen>
     setState(() {
       password = value;
     });
+
+    Navigator.of(context).pushNamed(Routes.home);
   }
 
   @override
@@ -110,7 +112,7 @@ class _LoginScreenState extends State<LoginScreen>
                 child: Text(
                   'Esqueceu a senha? Redefina aqui',
                   style: GoogleFonts.muli(
-                    color: kprimaryColor,
+                    color: TheoColors.primary,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -148,7 +150,7 @@ class _LoginScreenState extends State<LoginScreen>
         style: GoogleFonts.muli(
           fontSize: 24,
           fontWeight: FontWeight.w900,
-          color: kthirdColor,
+          color: TheoColors.third,
         ),
       );
 
@@ -161,7 +163,7 @@ class _LoginScreenState extends State<LoginScreen>
               padding: EdgeInsets.all(5),
               child: Icon(
                 Icons.arrow_back,
-                color: kprimaryColor,
+                color: TheoColors.primary,
                 size: 30,
               ),
             )),
@@ -178,7 +180,7 @@ class _LoginScreenState extends State<LoginScreen>
               'Voltar',
               style: GoogleFonts.muli(
                 fontWeight: FontWeight.w600,
-                color: kprimaryColor,
+                color: TheoColors.primary,
                 fontSize: 16,
               ),
             ),

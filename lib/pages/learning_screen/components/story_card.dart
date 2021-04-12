@@ -41,7 +41,7 @@ class StoryCard extends StatelessWidget {
         padding: EdgeInsets.all(3),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30),
-          color: Color(0xFF5AB9CC),
+          color: TheoColors.thirteen,
         ),
         child: Icon(
           FeatherIcons.check,
@@ -62,7 +62,7 @@ class StoryCard extends StatelessWidget {
                 style: GoogleFonts.muli(
                   fontSize: 15,
                   fontWeight: FontWeight.w700,
-                  color: Color(0xFF5AB9CC),
+                  color: TheoColors.thirteen,
                 ),
               ),
             ],

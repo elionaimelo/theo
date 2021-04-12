@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:theo/components/bottom_button/bottom_button.dart';
+import 'package:theo/components/bottom_button.dart';
 import 'package:theo/core/routes.dart';
 import 'package:theo/pages/login_screen/components/login_email_tag.dart';
 import 'package:theo/styles/colors.dart';
@@ -16,8 +16,8 @@ class _LoginScreenState extends State<LoginScreen>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
 
-  String email;
-  String password;
+  String email = '';
+  String password = '';
 
   Future<bool> _onBackPressed() async {
     if (_tabController.index > 0) {
@@ -35,7 +35,7 @@ class _LoginScreenState extends State<LoginScreen>
 
   void _onPasswordButtonTap() {
     Navigator.of(context).popUntil((route) => route.isFirst);
-    Navigator.of(context).pushReplacementNamed(Routes.learning);
+    Navigator.of(context).pushReplacementNamed(Routes.home);
   }
 
   void _onEmailTextChanged(String value) {
@@ -64,7 +64,6 @@ class _LoginScreenState extends State<LoginScreen>
     return WillPopScope(
       onWillPop: _onBackPressed,
       child: Scaffold(
-        backgroundColor: Colors.white,
         appBar: _appBar,
         body: _body,
       ),

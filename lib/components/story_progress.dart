@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:theo/styles/colors.dart';
 import 'package:theo/utils/AssetsPath.dart';
 
 class StoryProgress extends StatelessWidget {
@@ -50,7 +51,7 @@ class StoryProgress extends StatelessWidget {
             // Tip: The last item doesnt have margin
             margin: i < total - 1 ? EdgeInsets.only(right: 4) : null,
             decoration: BoxDecoration(
-              color: i < progress - 1 ? Color(0xFFFF776D) : Color(0xFFD9D9D9),
+              color: i < progress - 1 ? TheoColors.eleven : TheoColors.twelve,
               borderRadius: BorderRadius.circular(15),
             ),
             width: 8,
@@ -76,7 +77,7 @@ class StoryProgress extends StatelessWidget {
             style: GoogleFonts.muli(
               fontWeight: FontWeight.normal,
               fontSize: 16,
-              color: Colors.black,
+              color: TheoColors.seven,
             ),
           ),
           Text(
@@ -84,7 +85,7 @@ class StoryProgress extends StatelessWidget {
             style: GoogleFonts.muli(
               fontWeight: FontWeight.normal,
               fontSize: 16,
-              color: Colors.black,
+              color: TheoColors.seven,
             ),
           )
         ],
@@ -93,14 +94,14 @@ class StoryProgress extends StatelessWidget {
   Widget get _icon => Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30),
-          color: Color(0xFFFF9C90),
+          color: TheoColors.ten,
         ),
         padding: EdgeInsets.all(8),
         width: 35,
         height: 35,
         child: SvgPicture.asset(
           AssetsPath.thunderSvg,
-          color: Colors.white,
+          color: TheoColors.secondary,
         ),
       );
 }

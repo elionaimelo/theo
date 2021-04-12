@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:theo/styles/colors.dart';
 
 class LoginEmailTag extends StatelessWidget {
   LoginEmailTag({
@@ -18,8 +19,8 @@ class LoginEmailTag extends StatelessWidget {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                Color(0xFF8371DF),
-                Color(0xFF4A3C91),
+                TheoColors.forth,
+                TheoColors.primary,
               ],
             ),
             borderRadius: BorderRadius.circular(30),

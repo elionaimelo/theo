@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../../../constant.dart';
+import 'package:theo/styles/colors.dart';
 
 class LoginInputText extends StatelessWidget {
   const LoginInputText({
@@ -27,7 +26,7 @@ class LoginInputText extends StatelessWidget {
               style: GoogleFonts.muli(
                 fontSize: 20,
                 fontWeight: FontWeight.w900,
-                color: kprimaryColor,
+                color: TheoColors.primary,
               ),
             ),
           ),

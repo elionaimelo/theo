@@ -127,7 +127,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  selectedTab(index) {
+  void selectedTab(index) {
     print(index);
     setState(() {
       pageIndex = index;

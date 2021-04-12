@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:theo/components/story_progress.dart';
 import 'package:theo/components/titleText.dart';
 import 'package:theo/models/story.dart';

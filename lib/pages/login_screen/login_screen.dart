@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:theo/components/bottom_button.dart';
+import 'package:theo/components/theo_app_bar.dart';
 import 'package:theo/core/routes.dart';
 import 'package:theo/pages/login_screen/components/login_email_tag.dart';
 import 'package:theo/styles/colors.dart';
+import 'package:theo/styles/metrics.dart';
 
 import 'components/login_input_text.dart';
 
@@ -64,7 +67,13 @@ class _LoginScreenState extends State<LoginScreen>
     return WillPopScope(
       onWillPop: _onBackPressed,
       child: Scaffold(
-        appBar: _appBar,
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(TheoMetrics.appBarHeight),
+          child: TheoAppBar(
+            withBackButton: true,
+            onBackPressed: _onBackPressed,
+          ),
+        ),
         body: _body,
       ),
     );
@@ -151,40 +160,5 @@ class _LoginScreenState extends State<LoginScreen>
           fontWeight: FontWeight.w900,
           color: TheoColors.third,
         ),
-      );
-
-  Widget get _backButton => Container(
-        margin: EdgeInsets.only(left: 5),
-        child: InkWell(
-            borderRadius: BorderRadius.circular(30),
-            onTap: _onBackPressed,
-            child: Container(
-              padding: EdgeInsets.all(5),
-              child: Icon(
-                Icons.arrow_back,
-                color: TheoColors.primary,
-                size: 30,
-              ),
-            )),
-      );
-
-  AppBar get _appBar => AppBar(
-        backgroundColor: Colors.white,
-        titleSpacing: 0.0,
-        automaticallyImplyLeading: false,
-        title: Row(
-          children: [
-            _backButton,
-            Text(
-              'Voltar',
-              style: GoogleFonts.muli(
-                fontWeight: FontWeight.w600,
-                color: TheoColors.primary,
-                fontSize: 16,
-              ),
-            ),
-          ],
-        ),
-        elevation: 0,
       );
 }

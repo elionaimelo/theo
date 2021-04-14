@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:theo/components/bottom_button/bottom_button.dart';
+import 'package:theo/components/bottom_button.dart';
 import 'package:theo/core/routes.dart';
 import 'package:theo/styles/colors.dart';
 

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:theo/components/theo_app_bar.dart';
 
 import 'package:theo/pages/home_screen/components/body.dart';
+import 'package:theo/pages/learning_screen/learning_screen.dart';
 import 'package:theo/styles/colors.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -17,20 +19,32 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: buildBuildAppBar(),
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(46),
+          child: TheoAppBar(
+            withBackButton: pageIndex != 0,
+            withMenu: true,
+            withProfile: true,
+            onBackPressed: _onBackPressed,
+          ),
+        ),
         body: getBody(),
         bottomNavigationBar: bottomNavigator());
+  }
+
+  void _onBackPressed() {
+    print(pageIndex);
+    if (pageIndex != 0) {
+      setState(() {
+        pageIndex = 0;
+      });
+    }
   }
 
   Widget getBody() {
     var pages = [
       Body(),
-      Center(
-        child: Text(
-          'Aprender',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-        ),
-      ),
+      LearningScreen(),
       Center(
         child: Text(
           'Descobrir',
@@ -113,46 +127,10 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  selectedTab(index) {
+  void selectedTab(index) {
+    print(index);
     setState(() {
       pageIndex = index;
     });
-  }
-
-  AppBar buildBuildAppBar() => buildAppBar();
-
-  AppBar buildAppBar() {
-    return AppBar(
-      automaticallyImplyLeading: false,
-      backgroundColor: Colors.white,
-      elevation: 0,
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Image.asset('assets/icons/simbolo-app.png', fit: BoxFit.cover)
-        ],
-      ),
-      actions: [
-        CircleAvatar(
-          radius: 30,
-          backgroundColor: Colors.transparent,
-          child: ClipOval(
-            child: Image.asset(
-              'assets/images/avataaars.jpg',
-              width: 30,
-              height: 30,
-            ),
-          ),
-        ),
-        IconButton(
-          iconSize: 35,
-          icon: Icon(
-            Icons.menu,
-            color: TheoColors.primary,
-          ),
-          onPressed: () {},
-        ),
-      ],
-    );
   }
 }

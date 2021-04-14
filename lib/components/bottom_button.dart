@@ -6,7 +6,7 @@ class BottomButton extends StatelessWidget {
     this.text = '',
     this.icon,
     this.onPressed,
-    this.primaryColor = Colors.white,
+    this.primaryColor = TheoColors.secondary,
     this.backgroundColor = TheoColors.primary,
   });
 
@@ -40,7 +40,7 @@ class BottomButton extends StatelessWidget {
                 margin: EdgeInsets.only(left: 5),
                 child: Icon(
                   icon,
-                  color: Colors.white,
+                  color: primaryColor,
                 ),
               )
           ],

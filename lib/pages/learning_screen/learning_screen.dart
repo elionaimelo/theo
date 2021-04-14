@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:theo/components/story_progress.dart';
 import 'package:theo/components/titleText.dart';
 import 'package:theo/models/story.dart';
 import 'package:theo/pages/learning_screen/components/story_card.dart';
+import 'package:theo/styles/colors.dart';
 
 class LearningScreen extends StatefulWidget {
   @override
@@ -66,6 +68,7 @@ class _LearningScreenState extends State<LearningScreen> {
           Container(
             margin: EdgeInsets.only(bottom: 27),
           ),
+          _presentation,
           Expanded(child: _list),
           Container(
             margin: EdgeInsets.only(bottom: 20),
@@ -74,6 +77,37 @@ class _LearningScreenState extends State<LearningScreen> {
       ),
     );
   }
+
+  Widget get _presentation => InkWell(
+        onTap: () {},
+        child: Container(
+          child: Card(
+            elevation: 2,
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 22, vertical: 17),
+              child: Row(
+                children: [
+                  Icon(
+                    FeatherIcons.playCircle,
+                    color: TheoColors.primary,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 10),
+                  ),
+                  Text(
+                    'Apresentação',
+                    style: Theme.of(context).textTheme.bodyText1.copyWith(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w800,
+                          color: TheoColors.seven,
+                        ),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
 
   Widget get _list => ListView.builder(
         itemCount: stories.length,

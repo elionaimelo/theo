@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:theo/components/theo_app_bar.dart';
+import 'package:theo/components/theoAppBar.dart';
 
 import 'package:theo/pages/home_screen/components/body.dart';
-import 'package:theo/pages/learning_screen/learning_screen.dart';
+import 'package:theo/pages/learning_screen/learningScreen.dart';
 import 'package:theo/styles/colors.dart';
 
 class HomeScreen extends StatefulWidget {

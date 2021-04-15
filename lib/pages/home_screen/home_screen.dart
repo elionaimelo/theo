@@ -4,6 +4,7 @@ import 'package:theo/components/theoAppBar.dart';
 
 import 'package:theo/pages/home_screen/components/body.dart';
 import 'package:theo/pages/learning_screen/learningScreen.dart';
+import 'package:theo/pages/tell_screen/tellScreen.dart';
 import 'package:theo/styles/colors.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -51,12 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
       ),
-      Center(
-        child: Text(
-          'Contar',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-        ),
-      ),
+      TellScreen()
     ];
     return IndexedStack(
       index: pageIndex,

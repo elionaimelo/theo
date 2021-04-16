@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:theo/components/titleText.dart';
 import 'package:theo/pages/tell_screen/components/tellMenuItem.dart';
 import 'package:theo/styles/colors.dart';
-import 'package:theo/utils/AssetsPath.dart';
+import 'package:theo/utils/assetsPath.dart';
 
 class TellScreen extends StatefulWidget {
   @override

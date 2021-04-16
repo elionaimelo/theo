@@ -4,6 +4,7 @@ import 'package:theo/components/theoAppBar.dart';
 
 import 'package:theo/pages/home_screen/components/body.dart';
 import 'package:theo/pages/learning_screen/learningScreen.dart';
+import 'package:theo/pages/tell_game_screen/tellGameScreen.dart';
 import 'package:theo/pages/tell_screen/tellScreen.dart';
 import 'package:theo/styles/colors.dart';
 
@@ -14,30 +15,39 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
+enum HomePagesIndex {
+  HOME,
+  LEARNING,
+  DISCOVER,
+  TELL,
+  TELL_GAME,
+}
+
 class _HomeScreenState extends State<HomeScreen> {
   int pageIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(46),
-          child: TheoAppBar(
-            withBackButton: pageIndex != 0,
-            withMenu: true,
-            withProfile: true,
-            onBackPressed: _onBackPressed,
-          ),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(46),
+        child: TheoAppBar(
+          withBackButton: pageIndex != 0,
+          withMenu: true,
+          withProfile: true,
+          onBackPressed: _onBackPressed,
         ),
-        body: getBody(),
-        bottomNavigationBar: bottomNavigator());
+      ),
+      body: getBody(),
+      bottomNavigationBar: bottomNavigator(),
+    );
   }
 
   void _onBackPressed() {
     print(pageIndex);
-    if (pageIndex != 0) {
+    if (pageIndex != HomePagesIndex.HOME.index) {
       setState(() {
-        pageIndex = 0;
+        pageIndex = HomePagesIndex.HOME.index;
       });
     }
   }
@@ -52,7 +62,8 @@ class _HomeScreenState extends State<HomeScreen> {
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
       ),
-      TellScreen()
+      TellScreen(),
+      TellGameScreen()
     ];
     return IndexedStack(
       index: pageIndex,
@@ -124,7 +135,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void selectedTab(index) {
-    print(index);
     setState(() {
       pageIndex = index;
     });

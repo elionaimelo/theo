@@ -3,15 +3,16 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:theo/styles/colors.dart';
 
 class TellMenuItem extends StatelessWidget {
-  TellMenuItem({this.icon, this.text});
+  TellMenuItem({this.icon, this.text, this.onTap});
 
   final Widget icon;
   final String text;
+  final Function onTap;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () => onTap?.call(),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
         child: Row(

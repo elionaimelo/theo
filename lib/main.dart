@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:theo/pages/learning_screen/learningScreen.dart';
 
 import 'package:theo/core/routes.dart';
+import 'package:theo/pages/tell_game_screen/tellGameScreen.dart';
 import 'package:theo/styles/colors.dart';
 
 import 'package:theo/pages/splash_screen/splash_screen.dart';
@@ -33,7 +34,8 @@ class MyApp extends StatelessWidget {
         Routes.start: (context) => StartScreen(),
         Routes.login: (context) => LoginScreen(),
         Routes.learning: (context) => LearningScreen(),
-        Routes.home: (context) => HomeScreen()
+        Routes.home: (context) => HomeScreen(),
+        Routes.tellGame: (context) => TellGameScreen()
       },
     );
   }

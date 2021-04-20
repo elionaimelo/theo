@@ -11,8 +11,8 @@ class BottomButton extends StatelessWidget {
   });
 
   final String text;
-  final IconData icon;
-  final Function onPressed;
+  final IconData? icon;
+  final Function? onPressed;
   final Color backgroundColor;
   final Color primaryColor;
 

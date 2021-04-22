@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
 import 'package:theo/components/theoAppBar.dart';
 
@@ -9,7 +8,7 @@ import 'package:theo/pages/home_screen/home_screen_controller.dart';
 import 'package:theo/pages/learning_screen/learningScreen.dart';
 import 'package:theo/pages/tell_game_screen/tell_game_screen.dart';
 import 'package:theo/pages/tell_screen/tellScreen.dart';
-import 'package:theo/states/navigation.dart';
+import 'package:theo/states/navigation_store.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key, required this.controller}) : super(key: key);
@@ -45,14 +44,10 @@ class _HomeScreenState extends State<HomeScreen>
             .setCurrentPageIndex(TabPagesIndexes.values[_tabController.index]);
       }
     });
-  }
 
-  @override
-  void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
-    super.didChangeDependencies();
-
-    GetIt.I.get<NavigationStore>().withBottomNavigationBar = true;
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      widget.controller.showBottomBar();
+    });
   }
 
   @override

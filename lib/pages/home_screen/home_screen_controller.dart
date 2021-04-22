@@ -1,5 +1,5 @@
 import 'package:mobx/mobx.dart';
-import 'package:theo/states/navigation.dart';
+import 'package:theo/states/navigation_store.dart';
 part 'home_screen_controller.g.dart';
 
 class HomeScreenController = _HomeScreenControllerBase

@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get_it/get_it.dart';
 import 'package:theo/components/subTitleText.dart';
 
 import 'package:theo/components/titleText.dart';
 import 'package:theo/components/titleButton.dart';
 import 'package:theo/pages/home_screen/components/categoryCard.dart';
-import 'package:theo/states/navigation.dart';
 
 class Body extends StatelessWidget {
   const Body({Key? key}) : super(key: key);
@@ -46,10 +44,7 @@ class Body extends StatelessWidget {
               child: Row(
                 children: [
                   TextButton.icon(
-                    onPressed: () {
-                      GetIt.I.get<NavigationStore>().withBottomNavigationBar =
-                          true;
-                    },
+                    onPressed: () {},
                     icon:
                         SvgPicture.asset('assets/icons/icone-como-contar.svg'),
                     label: Padding(

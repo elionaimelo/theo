@@ -4,7 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:splashscreen/splashscreen.dart' as flutter_splash;
 import 'package:theo/core/routes.dart';
 import 'package:theo/pages/start_screen/start_screen.dart';
-import 'package:theo/states/navigation.dart';
+import 'package:theo/states/navigation_store.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -20,10 +20,11 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
-    GetIt.I.get<NavigationStore>().withBottomNavigationBar = false;
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      GetIt.I.get<NavigationStore>().withBottomNavigationBar = false;
+    });
   }
 
   @override

@@ -13,7 +13,7 @@ class TheoAppBar extends StatelessWidget {
   final bool withBackButton;
   final bool withProfile;
   final bool withMenu;
-  final Function onBackPressed;
+  final Function? onBackPressed;
 
   Widget _backButton(BuildContext context) => Container(
         child: InkWell(
@@ -30,7 +30,7 @@ class TheoAppBar extends StatelessWidget {
                   ),
                   Text(
                     'Voltar',
-                    style: Theme.of(context).textTheme.bodyText1.copyWith(
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
                           fontWeight: FontWeight.w600,
                           color: TheoColors.primary,
                           fontSize: 16,

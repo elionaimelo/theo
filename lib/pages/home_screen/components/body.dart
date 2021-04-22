@@ -7,7 +7,7 @@ import 'package:theo/components/titleButton.dart';
 import 'package:theo/pages/home_screen/components/categoryCard.dart';
 
 class Body extends StatelessWidget {
-  const Body({Key key}) : super(key: key);
+  const Body({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

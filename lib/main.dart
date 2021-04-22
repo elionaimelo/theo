@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:theo/pages/learning_screen/learning_screen.dart';
+import 'package:get_it/get_it.dart';
 
-import 'package:theo/core/routes.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:theo/components/theo_bottom_bar.dart';
+import 'package:theo/core/navigator.dart';
+import 'package:theo/core/services_locator.dart';
 import 'package:theo/styles/colors.dart';
 
-import 'package:theo/pages/splash_screen/splash_screen.dart';
-import 'package:theo/pages/start_screen/start_screen.dart';
-import 'package:theo/pages/login_screen/login_screen.dart';
-import 'package:theo/pages/home_screen/home_screen.dart';
-
 void main() {
+  ServicesLocator().setup();
   runApp(MyApp());
 }
 
@@ -28,13 +26,14 @@ class MyApp extends StatelessWidget {
           Theme.of(context).textTheme,
         ),
       ),
-      routes: {
-        Routes.splash: (context) => SplashScreen(),
-        Routes.start: (context) => StartScreen(),
-        Routes.login: (context) => LoginScreen(),
-        Routes.learning: (context) => LearningScreen(),
-        Routes.home: (context) => HomeScreen()
-      },
+      home: Scaffold(
+        body: TheoNavigator(
+          navigationStore: GetIt.I.get(),
+        ),
+        bottomNavigationBar: TheoBottomBar(
+          navigationStore: GetIt.I.get(),
+        ),
+      ),
     );
   }
 }

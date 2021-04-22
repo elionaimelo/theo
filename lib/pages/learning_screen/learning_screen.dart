@@ -96,7 +96,7 @@ class _LearningScreenState extends State<LearningScreen> {
                   ),
                   Text(
                     'Apresentação',
-                    style: Theme.of(context).textTheme.bodyText1.copyWith(
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
                           fontSize: 18,
                           fontWeight: FontWeight.w800,
                           color: TheoColors.seven,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:splashscreen/splashscreen.dart' as flutter_splash;
 import 'package:theo/core/routes.dart';
 import 'package:theo/pages/start_screen/start_screen.dart';

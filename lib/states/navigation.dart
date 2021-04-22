@@ -7,10 +7,18 @@ enum TabPagesIndexes { HOME, LEARNING, DISCOVER, TELL }
 
 abstract class _NavigationStoreBase with Store {
   @observable
+  bool withBottomNavigationBar = true;
+
+  @observable
   TabPagesIndexes currentTabPageIndex = TabPagesIndexes.HOME;
 
   @action
   void setCurrentPageIndex(TabPagesIndexes index) {
     currentTabPageIndex = index;
+  }
+
+  @action
+  void setWithBottomNavigationBar(bool value) {
+    withBottomNavigationBar = value;
   }
 }

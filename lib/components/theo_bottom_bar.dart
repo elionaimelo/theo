@@ -5,13 +5,12 @@ import 'package:theo/core/routes.dart';
 import 'package:theo/states/navigation.dart';
 
 class TheoBottomBar extends StatefulWidget {
-  TheoBottomBar({required this.navigationStore, this.visible = true});
+  TheoBottomBar({required this.navigationStore});
 
   @override
   _TheoBottomBarState createState() => _TheoBottomBarState();
 
   final NavigationStore navigationStore;
-  final bool visible;
 }
 
 class _TheoBottomBarState extends State<TheoBottomBar> {
@@ -19,7 +18,7 @@ class _TheoBottomBarState extends State<TheoBottomBar> {
     widget.navigationStore.setCurrentPageIndex(TabPagesIndexes.values[index]);
 
     if (ModalRoute.of(context)!.settings.name != Routes.home) {
-      Navigator.pushReplacementNamed(context, Routes.home);
+      Navigator.of(context).pushNamed(Routes.home);
     }
   }
 
@@ -46,7 +45,7 @@ class _TheoBottomBarState extends State<TheoBottomBar> {
             : 'assets/icons/icon-contar.svg';
 
         return Offstage(
-          offstage: !widget.visible,
+          offstage: !widget.navigationStore.withBottomNavigationBar,
           child: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
             currentIndex: pageIndex.index,

@@ -111,6 +111,6 @@ class _TellScreenState extends State<TellScreen> {
 
   Widget get _title => TitleText(
         title: 'Contar uma história',
-        subtitle: 'Selecione a opção que deseja compartilhar',
+        // subtitle: 'Selecione a opção que deseja compartilhar',
       );
 }

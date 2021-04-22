@@ -6,7 +6,7 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
 class StoryCard extends StatelessWidget {
   StoryCard({
-    this.story,
+    required this.story,
   });
 
   final Story story;

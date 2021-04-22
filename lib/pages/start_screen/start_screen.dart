@@ -48,7 +48,7 @@ class _StartScreenState extends State<StartScreen> {
                     text: TextSpan(
                         text:
                             'Veja histórias em qualquer\n lugar e compartilhe com facilidade!',
-                        style: Theme.of(context).textTheme.bodyText1.copyWith(
+                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
                             color: TheoColors.primary,
                             fontWeight: FontWeight.w600)),
                   ),

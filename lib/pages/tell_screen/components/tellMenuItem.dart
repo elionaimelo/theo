@@ -3,11 +3,11 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:theo/styles/colors.dart';
 
 class TellMenuItem extends StatelessWidget {
-  TellMenuItem({this.icon, this.text, this.onTap});
+  TellMenuItem({required this.icon, required this.text, this.onTap});
 
   final Widget icon;
   final String text;
-  final Function onTap;
+  final Function? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +33,8 @@ class TellMenuItem extends StatelessWidget {
   }
 
   Widget _text(BuildContext context) => Text(
-        text ?? '',
-        style: Theme.of(context).textTheme.headline1.copyWith(
+        text,
+        style: Theme.of(context).textTheme.headline1!.copyWith(
               fontSize: 16,
               fontWeight: FontWeight.w600,
               color: TheoColors.seven,

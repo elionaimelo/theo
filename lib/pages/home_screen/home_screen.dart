@@ -1,59 +1,91 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get_it/get_it.dart';
+import 'package:mobx/mobx.dart';
 import 'package:theo/components/theoAppBar.dart';
 
 import 'package:theo/pages/home_screen/components/body.dart';
+import 'package:theo/pages/home_screen/home_screen_controller.dart';
 import 'package:theo/pages/learning_screen/learningScreen.dart';
-import 'package:theo/pages/tell_game_screen/tellGameScreen.dart';
+import 'package:theo/pages/tell_game_screen/tell_game_screen.dart';
 import 'package:theo/pages/tell_screen/tellScreen.dart';
-import 'package:theo/styles/colors.dart';
+import 'package:theo/states/navigation.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key key}) : super(key: key);
+  HomeScreen({Key? key, required this.controller}) : super(key: key);
+
+  final HomeScreenController controller;
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-enum HomePagesIndex {
-  HOME,
-  LEARNING,
-  DISCOVER,
-  TELL,
-  TELL_GAME,
-}
+class _HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
 
-class _HomeScreenState extends State<HomeScreen> {
-  int pageIndex = 0;
+  @override
+  void initState() {
+    super.initState();
+
+    _tabController = TabController(
+      vsync: this,
+      length: _tabs.length,
+      initialIndex: widget.controller.currentPageIndex.index,
+    );
+
+    reaction((_) => widget.controller.currentPageIndex, (_) {
+      _tabController.animateTo(widget.controller.currentPageIndex.index);
+    });
+
+    // Handle the manually tab change by the user
+    _tabController.addListener(() {
+      if (_tabController.index != widget.controller.currentPageIndex.index) {
+        widget.controller
+            .setCurrentPageIndex(TabPagesIndexes.values[_tabController.index]);
+      }
+    });
+  }
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+
+    GetIt.I.get<NavigationStore>().withBottomNavigationBar = true;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(46),
-        child: TheoAppBar(
-          withBackButton: pageIndex != 0,
+      appBar: PreferredSize(preferredSize: Size.fromHeight(46), child: _appBar),
+      body: TabBarView(
+        controller: _tabController,
+        children: _tabs,
+      ),
+    );
+  }
+
+  Widget get _appBar => Observer(
+        builder: (_) => TheoAppBar(
+          withBackButton:
+              widget.controller.currentPageIndex != TabPagesIndexes.HOME,
           withMenu: true,
           withProfile: true,
           onBackPressed: _onBackPressed,
         ),
-      ),
-      body: getBody(),
-      bottomNavigationBar: bottomNavigator(),
-    );
-  }
+      );
 
   void _onBackPressed() {
-    print(pageIndex);
-    if (pageIndex != HomePagesIndex.HOME.index) {
+    if (widget.controller.currentPageIndex != TabPagesIndexes.HOME) {
       setState(() {
-        pageIndex = HomePagesIndex.HOME.index;
+        widget.controller.setCurrentPageIndex(TabPagesIndexes.HOME);
       });
     }
   }
 
-  Widget getBody() {
-    var pages = [
+  List<Widget> get _tabs {
+    return [
       Body(),
       LearningScreen(),
       Center(
@@ -65,78 +97,5 @@ class _HomeScreenState extends State<HomeScreen> {
       TellScreen(),
       TellGameScreen()
     ];
-    return IndexedStack(
-      index: pageIndex,
-      children: pages,
-    );
-  }
-
-  Widget bottomNavigator() {
-    var bottomItens = [
-      pageIndex == 0
-          ? 'assets/icons/icon-feather-home-active.svg'
-          : 'assets/icons/icone-feather-home.svg',
-      pageIndex == 1
-          ? 'assets/icons/icon-aprender-active.svg'
-          : 'assets/icons/icon-aprender.svg',
-      pageIndex == 2
-          ? 'assets/icons/icon-descobrir-active.svg'
-          : 'assets/icons/icon-descobrir.svg',
-      pageIndex == 3
-          ? 'assets/icons/icon-contar-active.svg'
-          : 'assets/icons/icon-contar.svg',
-    ];
-    var title = ['Início', 'Aprender', 'Descobrir', 'Contar'];
-
-    return Container(
-      width: double.infinity,
-      height: 75,
-      decoration: BoxDecoration(color: TheoColors.eight),
-      child: Padding(
-        padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10, top: 0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: List.generate(bottomItens.length, (index) {
-            return Container(
-              padding: EdgeInsets.only(left: 10, right: 10),
-              decoration: BoxDecoration(
-                  border: Border(
-                top: pageIndex == index
-                    ? BorderSide(width: 3.0, color: TheoColors.primary)
-                    : BorderSide(width: 3.0, color: Colors.transparent),
-              )),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10, bottom: 5),
-                    child: InkWell(
-                      onTap: () {
-                        selectedTab(index);
-                      },
-                      child: SvgPicture.asset(
-                        bottomItens[index],
-                        height: 27,
-                      ),
-                    ),
-                  ),
-                  Text(
-                    title[index],
-                    style: pageIndex == index
-                        ? TextStyle(color: TheoColors.primary)
-                        : TextStyle(color: TheoColors.nine),
-                  ),
-                ],
-              ),
-            );
-          }),
-        ),
-      ),
-    );
-  }
-
-  void selectedTab(index) {
-    setState(() {
-      pageIndex = index;
-    });
   }
 }

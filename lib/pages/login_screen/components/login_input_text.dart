@@ -6,7 +6,7 @@ class LoginInputText extends StatelessWidget {
   const LoginInputText({
     this.hintText = '',
     this.label = '',
-    @required this.onTextChanged,
+    required this.onTextChanged,
   });
 
   final String hintText;

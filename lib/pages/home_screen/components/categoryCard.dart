@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class CategoryCard extends StatelessWidget {
   const CategoryCard({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -38,11 +38,12 @@ class CategoryCard extends StatelessWidget {
                       children: [
                         Text(
                           'Sifilis',
-                          style: Theme.of(context).textTheme.headline2.copyWith(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.headline2!.copyWith(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
                         ),
                         SizedBox(
                           height: 20,
@@ -71,7 +72,7 @@ class CategoryCard extends StatelessWidget {
                                   'Ver',
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headline2
+                                      .headline2!
                                       .copyWith(
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold,

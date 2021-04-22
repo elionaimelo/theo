@@ -6,8 +6,8 @@ import 'package:theo/utils/assetsPath.dart';
 
 class StoryProgress extends StatelessWidget {
   StoryProgress({
-    @required this.progress,
-    @required this.total,
+    required this.progress,
+    required this.total,
     this.hasThunder = true,
     this.hasTitle = true,
   });
@@ -81,7 +81,7 @@ class StoryProgress extends StatelessWidget {
             ),
           ),
           Text(
-            '0/' + total?.toString(),
+            '0/' + total.toString(),
             style: GoogleFonts.muli(
               fontWeight: FontWeight.normal,
               fontSize: 16,

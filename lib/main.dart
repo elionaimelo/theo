@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:theo/components/theo_bottom_bar.dart';
 import 'package:theo/core/navigator.dart';
 import 'package:theo/core/services_locator.dart';
+import 'package:theo/states/navigation_store.dart';
 import 'package:theo/styles/colors.dart';
+import 'package:theo/styles/metrics.dart';
+
+import 'components/theo_app_bar.dart';
 
 void main() {
   ServicesLocator().setup();
@@ -13,6 +18,9 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  final _navigatorKey = GlobalKey<NavigatorState>();
+  final NavigationStore _navigationStore = GetIt.I.get();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -26,13 +34,27 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: Scaffold(
+        appBar: _appBar,
         body: TheoNavigator(
-          navigationStore: GetIt.I.get(),
+          navigationStore: _navigationStore,
+          navigationKey: _navigatorKey,
         ),
         bottomNavigationBar: TheoBottomBar(
-          navigationStore: GetIt.I.get(),
+          navigationStore: _navigationStore,
         ),
       ),
     );
   }
+
+  PreferredSize get _appBar => PreferredSize(
+        preferredSize: Size.fromHeight(TheoMetrics.appBarHeight),
+        child: Observer(
+          builder: (_) => TheoAppBar(
+            settings: _navigationStore.appBarSettings,
+            onBackPressed: () {
+              _navigatorKey.currentState!.maybePop();
+            },
+          ),
+        ),
+      );
 }

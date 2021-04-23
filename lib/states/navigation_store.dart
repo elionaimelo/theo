@@ -1,4 +1,5 @@
 import 'package:mobx/mobx.dart';
+import 'package:theo/models/theo_app_bar_settings.dart';
 part 'navigation_store.g.dart';
 
 class NavigationStore = _NavigationStoreBase with _$NavigationStore;
@@ -10,6 +11,12 @@ abstract class _NavigationStoreBase with Store {
   bool withBottomNavigationBar = false;
 
   @observable
+  TheoAppBarSettings appBarSettings = TheoAppBarSettings();
+
+  @observable
+  bool withAppBar = false;
+
+  @observable
   String currentRoute = '';
 
   @observable
@@ -18,10 +25,5 @@ abstract class _NavigationStoreBase with Store {
   @action
   void setCurrentPageIndex(TabPagesIndexes index) {
     currentTabPageIndex = index;
-  }
-
-  @action
-  void setWithBottomNavigationBar(bool value) {
-    withBottomNavigationBar = value;
   }
 }

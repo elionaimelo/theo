@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:theo/models/theo_app_bar_settings.dart';
 import 'package:theo/styles/colors.dart';
 
 class TheoAppBar extends StatelessWidget {
   TheoAppBar({
-    this.withBackButton = false,
-    this.withProfile = false,
-    this.withMenu = false,
+    required this.settings,
     this.onBackPressed,
   });
 
-  final bool withBackButton;
-  final bool withProfile;
-  final bool withMenu;
+  final TheoAppBarSettings settings;
   final Function? onBackPressed;
 
   Widget _backButton(BuildContext context) => Container(
@@ -41,45 +38,48 @@ class TheoAppBar extends StatelessWidget {
             )),
       );
 
-  Widget _leftAction(BuildContext context) => withBackButton
+  Widget _leftAction(BuildContext context) => settings.withBackButton
       ? _backButton(context)
       : Image.asset('assets/icons/simbolo-app.png', fit: BoxFit.cover);
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      automaticallyImplyLeading: false,
-      backgroundColor: Colors.white,
-      elevation: 0,
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          _leftAction(context),
-        ],
-      ),
-      actions: [
-        if (withProfile)
-          CircleAvatar(
-            radius: 30,
-            backgroundColor: Colors.transparent,
-            child: ClipOval(
-              child: Image.asset(
-                'assets/images/avataaars.jpg',
-                width: 30,
-                height: 30,
+    return Visibility(
+      visible: settings.visible,
+      child: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.white,
+        elevation: 0,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            _leftAction(context),
+          ],
+        ),
+        actions: [
+          if (settings.withProfile)
+            CircleAvatar(
+              radius: 30,
+              backgroundColor: Colors.transparent,
+              child: ClipOval(
+                child: Image.asset(
+                  'assets/images/avataaars.jpg',
+                  width: 30,
+                  height: 30,
+                ),
               ),
             ),
-          ),
-        if (withMenu)
-          IconButton(
-            iconSize: 35,
-            icon: Icon(
-              Icons.menu,
-              color: TheoColors.primary,
+          if (settings.withMenu)
+            IconButton(
+              iconSize: 35,
+              icon: Icon(
+                Icons.menu,
+                color: TheoColors.primary,
+              ),
+              onPressed: () {},
             ),
-            onPressed: () {},
-          ),
-      ],
+        ],
+      ),
     );
   }
 }

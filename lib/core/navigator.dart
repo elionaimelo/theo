@@ -3,33 +3,32 @@ import 'package:theo/core/routes.dart';
 import 'package:theo/pages/home_screen/home_screen.dart';
 import 'package:theo/pages/home_screen/home_screen_controller.dart';
 import 'package:theo/pages/login_screen/login_screen.dart';
+import 'package:theo/pages/login_screen/login_screen_controller.dart';
 import 'package:theo/pages/splash_screen/splash_screen.dart';
 import 'package:theo/pages/start_screen/start_screen.dart';
-import 'package:theo/pages/tell_screen/tell_screen.dart';
 import 'package:theo/states/navigation_store.dart';
 
 class TheoNavigator extends StatefulWidget {
-  TheoNavigator({required this.navigationStore});
+  TheoNavigator({required this.navigationStore, required this.navigationKey});
   @override
   _TheoNavigatorState createState() => _TheoNavigatorState();
 
   final NavigationStore navigationStore;
+  final GlobalKey<NavigatorState> navigationKey;
 }
 
 class _TheoNavigatorState extends State<TheoNavigator> {
   Future<bool> _willPop() async {
-    await _navigationKey.currentState!.maybePop();
+    await widget.navigationKey.currentState!.maybePop();
     return Future.value(false);
   }
-
-  final GlobalKey<NavigatorState> _navigationKey = GlobalKey<NavigatorState>();
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: _willPop,
       child: Navigator(
-        key: _navigationKey,
+        key: widget.navigationKey,
         initialRoute: Routes.splash,
         onGenerateRoute: (RouteSettings settings) {
           WidgetBuilder builder;
@@ -41,7 +40,7 @@ class _TheoNavigatorState extends State<TheoNavigator> {
               builder = (BuildContext context) => SplashScreen();
               break;
             case Routes.login:
-              builder = (BuildContext context) => LoginScreen();
+              builder = (BuildContext context) => _loginScreen;
               break;
             case Routes.start:
               builder = (BuildContext context) => StartScreen();
@@ -66,5 +65,10 @@ class _TheoNavigatorState extends State<TheoNavigator> {
         controller: HomeScreenController(
           navigationStore: widget.navigationStore,
         ),
+      );
+
+  Widget get _loginScreen => LoginScreen(
+        controller:
+            LoginScreenController(navigationStore: widget.navigationStore),
       );
 }

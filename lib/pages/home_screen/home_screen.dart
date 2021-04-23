@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
-import 'package:theo/components/theoAppBar.dart';
 
 import 'package:theo/pages/home_screen/components/body.dart';
 import 'package:theo/pages/home_screen/home_screen_controller.dart';
@@ -20,62 +18,50 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
-  late TabController _tabController;
+  late TabController tabController;
 
   @override
   void initState() {
     super.initState();
 
-    _tabController = TabController(
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      widget.controller.showBottomBar();
+    });
+
+    tabController = TabController(
       vsync: this,
       length: _tabs.length,
       initialIndex: widget.controller.currentPageIndex.index,
     );
 
+    tabController.addListener(() {
+      widget.controller.onTabControllerEvent(tabController);
+    });
+
     reaction((_) => widget.controller.currentPageIndex, (_) {
-      _tabController.animateTo(widget.controller.currentPageIndex.index);
-    });
-
-    // Handle the manually tab change by the user
-    _tabController.addListener(() {
-      if (_tabController.index != widget.controller.currentPageIndex.index) {
-        widget.controller
-            .setCurrentPageIndex(TabPagesIndexes.values[_tabController.index]);
-      }
-    });
-
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
-      widget.controller.showBottomBar();
+      tabController.animateTo(widget.controller.currentPageIndex.index);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: PreferredSize(preferredSize: Size.fromHeight(46), child: _appBar),
-      body: TabBarView(
-        controller: _tabController,
-        children: _tabs,
+    return WillPopScope(
+      onWillPop: _onBackPressed,
+      child: Scaffold(
+        body: TabBarView(
+          controller: tabController,
+          children: _tabs,
+        ),
       ),
     );
   }
 
-  Widget get _appBar => Observer(
-        builder: (_) => TheoAppBar(
-          withBackButton:
-              widget.controller.currentPageIndex != TabPagesIndexes.HOME,
-          withMenu: true,
-          withProfile: true,
-          onBackPressed: _onBackPressed,
-        ),
-      );
-
-  void _onBackPressed() {
+  Future<bool> _onBackPressed() async {
     if (widget.controller.currentPageIndex != TabPagesIndexes.HOME) {
-      setState(() {
-        widget.controller.setCurrentPageIndex(TabPagesIndexes.HOME);
-      });
+      widget.controller.setCurrentPageIndex(TabPagesIndexes.HOME);
     }
+
+    return Future.value(true);
   }
 
   List<Widget> get _tabs {

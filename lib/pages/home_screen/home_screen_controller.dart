@@ -18,18 +18,16 @@ abstract class _HomeScreenControllerBase with Store {
   @action
   void setCurrentPageIndex(TabPagesIndexes index) {
     navigationStore.setCurrentPageIndex(index);
-
-    navigationStore.appBarSettings = TheoAppBarSettings(
-      visible: true,
-      withBackButton: index != TabPagesIndexes.HOME,
-      withMenu: true,
-      withProfile: true,
-    );
   }
 
   @action
   void showBottomBar() {
     navigationStore.withBottomNavigationBar = true;
+  }
+
+  @action
+  void setAppBar(TheoAppBarSettings settings) {
+    navigationStore.appBarSettings = settings;
   }
 
   @action

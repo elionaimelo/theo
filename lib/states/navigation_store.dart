@@ -20,10 +20,20 @@ abstract class _NavigationStoreBase with Store {
   String currentRoute = '';
 
   @observable
-  TabPagesIndexes currentTabPageIndex = TabPagesIndexes.HOME;
+  TabPagesIndexes _currentTabPageIndex = TabPagesIndexes.HOME;
+
+  @computed
+  TabPagesIndexes get currentTabPageIndex => _currentTabPageIndex;
 
   @action
   void setCurrentPageIndex(TabPagesIndexes index) {
-    currentTabPageIndex = index;
+    _currentTabPageIndex = index;
+
+    appBarSettings = TheoAppBarSettings(
+      visible: true,
+      withBackButton: index != TabPagesIndexes.HOME,
+      withMenu: true,
+      withProfile: true,
+    );
   }
 }

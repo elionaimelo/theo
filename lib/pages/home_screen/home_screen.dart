@@ -5,9 +5,8 @@ import 'package:theo/components/theoAppBar.dart';
 
 import 'package:theo/pages/home_screen/components/body.dart';
 import 'package:theo/pages/home_screen/home_screen_controller.dart';
-import 'package:theo/pages/learning_screen/learningScreen.dart';
-import 'package:theo/pages/tell_game_screen/tell_game_screen.dart';
-import 'package:theo/pages/tell_screen/tellScreen.dart';
+import 'package:theo/pages/learning_screen/learning_screen.dart';
+import 'package:theo/pages/tell_screen/tell_screen.dart';
 import 'package:theo/states/navigation_store.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -90,7 +89,6 @@ class _HomeScreenState extends State<HomeScreen>
         ),
       ),
       TellScreen(),
-      TellGameScreen()
     ];
   }
 }

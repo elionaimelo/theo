@@ -28,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen>
     }
 
     Navigator.of(context).pop();
-    return true;
+    return false;
   }
 
   void _onEmailButtonTap() {

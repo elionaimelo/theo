@@ -5,6 +5,7 @@ import 'package:theo/pages/home_screen/home_screen_controller.dart';
 import 'package:theo/pages/login_screen/login_screen.dart';
 import 'package:theo/pages/splash_screen/splash_screen.dart';
 import 'package:theo/pages/start_screen/start_screen.dart';
+import 'package:theo/pages/tell_screen/tell_screen.dart';
 import 'package:theo/states/navigation_store.dart';
 
 class TheoNavigator extends StatefulWidget {
@@ -12,16 +13,23 @@ class TheoNavigator extends StatefulWidget {
   @override
   _TheoNavigatorState createState() => _TheoNavigatorState();
 
-  final _navigatorKey = GlobalKey<NavigatorState>();
   final NavigationStore navigationStore;
 }
 
 class _TheoNavigatorState extends State<TheoNavigator> {
+  Future<bool> _willPop() async {
+    await _navigationKey.currentState!.maybePop();
+    return Future.value(false);
+  }
+
+  final GlobalKey<NavigatorState> _navigationKey = GlobalKey<NavigatorState>();
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Navigator(
-        key: widget._navigatorKey,
+    return WillPopScope(
+      onWillPop: _willPop,
+      child: Navigator(
+        key: _navigationKey,
         initialRoute: Routes.splash,
         onGenerateRoute: (RouteSettings settings) {
           WidgetBuilder builder;
@@ -44,8 +52,6 @@ class _TheoNavigatorState extends State<TheoNavigator> {
             default:
               throw Exception('Invalid route: ${settings.name}');
           }
-
-          // setBottomBar(settings.name ?? Routes.splash);
 
           return MaterialPageRoute(
             builder: builder,

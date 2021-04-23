@@ -3,7 +3,7 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:theo/components/storyProgress.dart';
 import 'package:theo/components/titleText.dart';
 import 'package:theo/models/story.dart';
-import 'package:theo/pages/learning_screen/components/storyCard.dart';
+import 'package:theo/pages/learning_screen/components/story_card.dart';
 import 'package:theo/styles/colors.dart';
 
 class LearningScreen extends StatefulWidget {

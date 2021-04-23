@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:theo/components/titleText.dart';
 
-class TellGameScreen extends StatefulWidget {
+class NewTellScreen extends StatefulWidget {
   @override
-  _TellGameScreenState createState() => _TellGameScreenState();
+  _NewTellScreenState createState() => _NewTellScreenState();
 }
 
-class _TellGameScreenState extends State<TellGameScreen> {
+class _NewTellScreenState extends State<NewTellScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Column(
         children: [
           TitleText(
-            title: 'Jogo',
+            title: 'Josadasdasdasdgosasdd',
           ),
         ],
       ),

@@ -7,7 +7,7 @@ import 'package:theo/pages/login_screen/components/login_email_tag.dart';
 import 'package:theo/pages/login_screen/login_screen_controller.dart';
 import 'package:theo/styles/colors.dart';
 
-import 'components/login_input_text.dart';
+import '../../components/text_input.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({required this.controller});
@@ -102,7 +102,7 @@ class _LoginScreenState extends State<LoginScreen>
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              LoginInputText(
+              InputText(
                 hintText: 'Escreva sua senha aqui',
                 label: 'Insira sua senha',
                 onTextChanged: _onPasswordTextChanged,
@@ -140,7 +140,7 @@ class _LoginScreenState extends State<LoginScreen>
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           _title,
-          LoginInputText(
+          InputText(
             hintText: 'Escreva seu email aqui',
             label: 'Endereço de email',
             onTextChanged: _onEmailTextChanged,

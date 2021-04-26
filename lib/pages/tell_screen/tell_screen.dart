@@ -16,7 +16,11 @@ class TellScreen extends StatefulWidget {
 class _TellScreenState extends State<TellScreen> {
   void _onVideoTap() {
     Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) => NewTellScreen()),
+      MaterialPageRoute(
+        builder: (context) => NewTellScreen(
+          title: 'Video',
+        ),
+      ),
     );
   }
 

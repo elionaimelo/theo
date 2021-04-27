@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:theo/components/gallery_image_picker.dart';
+import 'package:theo/components/image_input.dart';
 import 'package:theo/components/text_input.dart';
 import 'package:theo/components/text_selector.dart';
 import 'package:theo/components/titleText.dart';
@@ -80,6 +82,10 @@ class _NewTellScreenState extends State<NewTellScreen> {
                     ),
                 labelMargin: EdgeInsets.only(bottom: 5),
               ),
+              ImageInput(
+                label: 'Imagem de Capa (Opcional)',
+                minImageLength: '0',
+              )
             ],
           ),
         ),

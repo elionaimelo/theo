@@ -6,8 +6,14 @@ import 'package:photo_manager/photo_manager.dart';
 import 'package:theo/styles/colors.dart';
 
 class GalleryImagePicker extends StatefulWidget {
+  GalleryImagePicker({
+    required this.onImageTap,
+  });
+
   @override
   _GalleryImagePickerState createState() => _GalleryImagePickerState();
+
+  final Function(AssetEntity assetImage) onImageTap;
 }
 
 class _GalleryImagePickerState extends State<GalleryImagePicker> {
@@ -29,6 +35,11 @@ class _GalleryImagePickerState extends State<GalleryImagePicker> {
   }
 
   void _onCloseTap() {
+    Navigator.of(context).pop();
+  }
+
+  void _onImageTap(AssetEntity assetImage) {
+    widget.onImageTap(assetImage);
     Navigator.of(context).pop();
   }
 
@@ -56,9 +67,12 @@ class _GalleryImagePickerState extends State<GalleryImagePicker> {
                     Radius.circular(10.0),
                   ),
                 ),
-                child: Image.memory(
-                  snapshot.data as Uint8List,
-                  fit: BoxFit.cover,
+                child: InkWell(
+                  onTap: () => _onImageTap(asset),
+                  child: Image.memory(
+                    snapshot.data as Uint8List,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               );
             }
@@ -106,24 +120,24 @@ class _GalleryImagePickerState extends State<GalleryImagePicker> {
       );
 
   Widget get _actions => Container(
-        child: Row(
-          children: [
-            InkWell(
-              onTap: _onCloseTap,
-              child: Icon(
+        child: InkWell(
+          onTap: _onCloseTap,
+          child: Row(
+            children: [
+              Icon(
                 FeatherIcons.x,
                 size: 30,
                 color: TheoColors.primary,
               ),
-            ),
-            Text(
-              'Cancelar',
-              style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                    fontSize: 14,
-                    color: TheoColors.primary,
-                  ),
-            )
-          ],
+              Text(
+                'Cancelar',
+                style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      fontSize: 14,
+                      color: TheoColors.primary,
+                    ),
+              )
+            ],
+          ),
         ),
       );
 

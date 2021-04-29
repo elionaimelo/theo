@@ -38,7 +38,7 @@ class _MultiSelectorButtonInputState extends State<MultiSelectorButtonInput> {
   void initState() {
     super.initState();
 
-    selectedItems = widget.values;
+    selectedItems = [];
   }
 
   void _onButtonItemTap(SelectorItem item) {

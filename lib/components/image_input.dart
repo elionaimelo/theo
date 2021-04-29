@@ -45,7 +45,7 @@ class _ImageInputState extends State<ImageInput> {
       context: context,
       builder: (BuildContext context) {
         return GalleryImagePicker(
-          onImageTap: _onImageSelected,
+          onSelectedImage: _onImageSelected,
         );
       },
       isScrollControlled: true,

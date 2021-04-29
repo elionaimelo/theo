@@ -3,6 +3,7 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:theo/components/subTitleText.dart';
 import 'package:theo/components/titleText.dart';
+import 'package:theo/core/routes.dart';
 import 'package:theo/pages/new_tell_screen/new_tell_screen.dart';
 import 'package:theo/pages/tell_screen/components/tell_menu_item.dart';
 import 'package:theo/styles/colors.dart';
@@ -15,12 +16,10 @@ class TellScreen extends StatefulWidget {
 
 class _TellScreenState extends State<TellScreen> {
   void _onVideoTap() {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => NewTellScreen(
-          title: 'Video',
-        ),
-      ),
+    Navigator.pushNamed(
+      context,
+      Routes.newTell,
+      arguments: NewTellScreenArgs(title: 'Video'),
     );
   }
 

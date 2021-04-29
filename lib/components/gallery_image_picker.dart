@@ -3,23 +3,25 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:photo_manager/photo_manager.dart';
+import 'package:theo/pages/confirm_image_screen/confirm_image_screen.dart';
 import 'package:theo/styles/colors.dart';
 
 class GalleryImagePicker extends StatefulWidget {
   GalleryImagePicker({
-    required this.onImageTap,
+    required this.onSelectedImage,
   });
 
   @override
   _GalleryImagePickerState createState() => _GalleryImagePickerState();
 
-  final Function(AssetEntity assetImage) onImageTap;
+  final Function(AssetEntity assetImage) onSelectedImage;
 }
 
 class _GalleryImagePickerState extends State<GalleryImagePicker> {
   final List<Widget> _mediaList = [];
   int currentPage = 0;
   late int lastPage;
+
   @override
   void initState() {
     super.initState();
@@ -39,8 +41,18 @@ class _GalleryImagePickerState extends State<GalleryImagePicker> {
   }
 
   void _onImageTap(AssetEntity assetImage) {
-    widget.onImageTap(assetImage);
-    Navigator.of(context).pop();
+    Navigator.of(context).push(
+      PageRouteBuilder(
+        opaque: false,
+        pageBuilder: (BuildContext context, _, __) => CorfirmImageScreen(
+          assetImage: assetImage,
+          onConfirmImage: (AssetEntity image) {
+            widget.onSelectedImage(image);
+            Navigator.of(context).pop();
+          },
+        ),
+      ),
+    );
   }
 
   Future<void> _fetchNewMedia() async {

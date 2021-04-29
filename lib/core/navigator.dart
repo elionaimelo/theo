@@ -4,6 +4,7 @@ import 'package:theo/pages/home_screen/home_screen.dart';
 import 'package:theo/pages/home_screen/home_screen_controller.dart';
 import 'package:theo/pages/login_screen/login_screen.dart';
 import 'package:theo/pages/login_screen/login_screen_controller.dart';
+import 'package:theo/pages/new_tell_screen/new_tell_screen.dart';
 import 'package:theo/pages/splash_screen/splash_screen.dart';
 import 'package:theo/pages/start_screen/start_screen.dart';
 import 'package:theo/states/navigation_store.dart';
@@ -18,6 +19,14 @@ class TheoNavigator extends StatefulWidget {
 }
 
 class _TheoNavigatorState extends State<TheoNavigator> {
+  _TheoNavigatorState() {}
+  @override
+  void initState() {
+    super.initState();
+
+    widget.navigationStore.navigationKey = widget.navigationKey;
+  }
+
   Future<bool> _willPop() async {
     await widget.navigationKey.currentState!.maybePop();
     return Future.value(false);
@@ -33,7 +42,8 @@ class _TheoNavigatorState extends State<TheoNavigator> {
         onGenerateRoute: (RouteSettings settings) {
           WidgetBuilder builder;
 
-          widget.navigationStore.currentRoute = settings.name ?? '';
+          widget.navigationStore.currentNamedRoute = settings.name!;
+
           // Manage your route names here
           switch (settings.name) {
             case Routes.splash:
@@ -47,6 +57,10 @@ class _TheoNavigatorState extends State<TheoNavigator> {
               break;
             case Routes.home:
               builder = (BuildContext context) => _homeScreen;
+              break;
+            case Routes.newTell:
+              builder = (BuildContext context) =>
+                  NewTellScreen(args: settings.arguments as NewTellScreenArgs);
               break;
             default:
               throw Exception('Invalid route: ${settings.name}');

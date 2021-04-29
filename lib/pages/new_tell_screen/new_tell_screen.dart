@@ -7,13 +7,20 @@ import 'package:theo/components/titleText.dart';
 import 'package:theo/components/multi_selector_button_input.dart';
 import 'package:theo/styles/colors.dart';
 
+class NewTellScreenArgs {
+  NewTellScreenArgs({required this.title});
+  final String title;
+}
+
 class NewTellScreen extends StatefulWidget {
-  NewTellScreen({required this.title});
+  NewTellScreen({required this.args});
+
+  final NewTellScreenArgs args;
+
+  String get title => args.title;
 
   @override
   _NewTellScreenState createState() => _NewTellScreenState();
-
-  final String title;
 }
 
 class _NewTellScreenState extends State<NewTellScreen> {

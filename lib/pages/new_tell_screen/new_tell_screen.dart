@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:theo/components/alert_message.dart';
+import 'package:theo/components/bottom_button.dart';
 import 'package:theo/components/gallery_image_picker.dart';
 import 'package:theo/components/image_input.dart';
 import 'package:theo/components/text_input.dart';
@@ -6,6 +8,7 @@ import 'package:theo/components/text_selector.dart';
 import 'package:theo/components/titleText.dart';
 import 'package:theo/components/multi_selector_button_input.dart';
 import 'package:theo/styles/colors.dart';
+import 'package:theo/styles/gerenal.dart';
 
 class NewTellScreenArgs {
   NewTellScreenArgs({required this.title});
@@ -28,7 +31,7 @@ class _NewTellScreenState extends State<NewTellScreen> {
 
   void _onLangSelectionChanged(String? value) {}
 
-  List<SelectorItem> _categoryItems = [
+  final List<SelectorItem> _categoryItems = [
     SelectorItem(displayValue: 'Ciência'),
     SelectorItem(displayValue: 'Sífilis'),
     SelectorItem(displayValue: 'Saúde'),
@@ -61,10 +64,7 @@ class _NewTellScreenState extends State<NewTellScreen> {
                 onTextChanged: _onTitleTextChanged,
                 label: 'Título',
                 hintText: 'Escreva aqui',
-                labelStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 14,
-                    ),
+                labelStyle: TheoStyles.of(context).labelInputStyle,
                 labelMargin: EdgeInsets.only(bottom: 5),
               ),
               InputText(
@@ -73,33 +73,21 @@ class _NewTellScreenState extends State<NewTellScreen> {
                 hintText: 'Escreva aqui',
                 maxLength: 125,
                 containerHeight: 110,
-                labelStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 14,
-                      color: TheoColors.seven,
-                    ),
+                labelStyle: TheoStyles.of(context).labelInputStyle,
                 labelMargin: EdgeInsets.only(bottom: 5),
               ),
               InputText(
                 onTextChanged: _onTitleTextChanged,
                 label: 'Autor',
                 hintText: 'Escreva aqui',
-                labelStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 14,
-                      color: TheoColors.seven,
-                    ),
+                labelStyle: TheoStyles.of(context).labelInputStyle,
                 labelMargin: EdgeInsets.only(bottom: 5),
               ),
               InputText(
                 onTextChanged: _onTitleTextChanged,
                 label: 'Inserir link do video',
                 hintText: 'Escreva aqui',
-                labelStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 14,
-                      color: TheoColors.seven,
-                    ),
+                labelStyle: TheoStyles.of(context).labelInputStyle,
                 labelMargin: EdgeInsets.only(bottom: 5),
               ),
               ImageInput(
@@ -122,6 +110,54 @@ class _NewTellScreenState extends State<NewTellScreen> {
                 values: _categoryItems,
                 uniqueSelect: false,
                 bold: false,
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 9),
+              ),
+              InputText(
+                onTextChanged: _onTitleTextChanged,
+                label: 'Inserir link do video',
+                hintText: 'Palavra-chave 1 aqui',
+                labelStyle: TheoStyles.of(context).labelInputStyle,
+                labelMargin: EdgeInsets.only(bottom: 5),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 9),
+              ),
+              InputText(
+                onTextChanged: _onTitleTextChanged,
+                hintText: 'Palavra-chave 2 aqui',
+                labelStyle: TheoStyles.of(context).labelInputStyle,
+                labelMargin: EdgeInsets.only(bottom: 5),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 9),
+              ),
+              InputText(
+                onTextChanged: _onTitleTextChanged,
+                hintText: 'Palavra-chave 3 aqui',
+                labelStyle: TheoStyles.of(context).labelInputStyle,
+                labelMargin: EdgeInsets.only(bottom: 5),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 25),
+                child: AlertMessage(
+                  text:
+                      'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita',
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 50, bottom: 10),
+                child: BottomButton(
+                  backgroundColor: TheoColors.secondary,
+                  primaryColor: TheoColors.primary,
+                  text: 'Publicar',
+                  textStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
+                      ),
+                  borderColor: TheoColors.primary,
+                ),
               )
             ],
           ),

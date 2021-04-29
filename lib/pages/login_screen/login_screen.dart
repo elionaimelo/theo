@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:theo/components/bottomButton.dart';
+import 'package:theo/components/bottom_button.dart';
 import 'package:theo/core/routes.dart';
 import 'package:theo/models/theo_app_bar_settings.dart';
 import 'package:theo/pages/login_screen/components/login_email_tag.dart';

@@ -5,7 +5,7 @@ import 'package:theo/styles/colors.dart';
 class InputText extends StatefulWidget {
   const InputText(
       {this.hintText = '',
-      this.label = '',
+      this.label,
       this.labelStyle,
       this.labelMargin,
       required this.onTextChanged,
@@ -13,7 +13,7 @@ class InputText extends StatefulWidget {
       this.containerHeight});
 
   final String hintText;
-  final String label;
+  final String? label;
   final TextStyle? labelStyle;
   final EdgeInsets? labelMargin;
   final int? maxLength;
@@ -40,7 +40,7 @@ class _InputTextState extends State<InputText> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _label,
+          if (widget.label != null) _label,
           Stack(
             children: [
               _inputWithHeight,
@@ -62,7 +62,7 @@ class _InputTextState extends State<InputText> {
   Widget get _label => Container(
         margin: widget.labelMargin ?? EdgeInsets.only(bottom: 15),
         child: Text(
-          widget.label,
+          widget.label!,
           style: widget.labelStyle ??
               GoogleFonts.muli(
                 fontSize: 20,

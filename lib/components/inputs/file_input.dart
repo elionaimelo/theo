@@ -1,6 +1,5 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:theo/components/inputs/gallery_image_picker.dart';
 import 'package:theo/styles/colors.dart';

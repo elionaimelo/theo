@@ -19,7 +19,6 @@ class TheoNavigator extends StatefulWidget {
 }
 
 class _TheoNavigatorState extends State<TheoNavigator> {
-  _TheoNavigatorState() {}
   @override
   void initState() {
     super.initState();

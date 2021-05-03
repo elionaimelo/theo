@@ -8,7 +8,7 @@ class HomeScreenController = _HomeScreenControllerBase
     with _$HomeScreenController;
 
 abstract class _HomeScreenControllerBase with Store {
-  _HomeScreenControllerBase({required this.navigationStore}) {}
+  _HomeScreenControllerBase({required this.navigationStore});
 
   final NavigationStore navigationStore;
 

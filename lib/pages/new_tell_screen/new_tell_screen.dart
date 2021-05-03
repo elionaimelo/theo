@@ -4,7 +4,6 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:theo/components/alert_message.dart';
 import 'package:theo/components/bottom_button.dart';
-import 'package:theo/components/inputs/gallery_image_picker.dart';
 import 'package:theo/components/inputs/file_input.dart';
 import 'package:theo/components/inputs/text_input.dart';
 import 'package:theo/components/inputs/text_selector_input.dart';

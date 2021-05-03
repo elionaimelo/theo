@@ -76,137 +76,142 @@ class _NewTellScreenState extends State<NewTellScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var inputs = <Widget>[
+      TitleText(
+        title: widget.title,
+      ),
+      TextSelectorInput(
+        items: ['Português', 'Inglês'],
+        onSelectionChanged: _onLangSelectionChanged,
+        label: 'Idioma padrão',
+      ),
+      TextInput(
+        onTextChanged: _onTitleTextChanged,
+        label: 'Título',
+        hintText: 'Escreva aqui',
+        labelStyle: TheoStyles.of(context).labelInputStyle,
+        labelMargin: EdgeInsets.only(bottom: 5),
+      ),
+      TextInput(
+        onTextChanged: _onDescTextChanged,
+        label: 'Breve descrição (opcional)',
+        hintText: 'Escreva aqui',
+        maxLength: 125,
+        containerHeight: 110,
+        labelStyle: TheoStyles.of(context).labelInputStyle,
+        labelMargin: EdgeInsets.only(bottom: 5),
+      ),
+      TextInput(
+        onTextChanged: _onAuthorTextChanged,
+        label: 'Autor',
+        hintText: 'Escreva aqui',
+        labelStyle: TheoStyles.of(context).labelInputStyle,
+        labelMargin: EdgeInsets.only(bottom: 5),
+      ),
+      if (widget.withLink)
+        TextInput(
+          onTextChanged: _onLinkTextChanged,
+          label: 'Inserir link',
+          hintText: 'Escreva aqui',
+          labelStyle: TheoStyles.of(context).labelInputStyle,
+          labelMargin: EdgeInsets.only(bottom: 5),
+        ),
+      if (widget.withArchive)
+        FileInput(
+          label: 'Arquivo',
+          minFileLength: '0',
+          onImageSelected: _onImageSelected,
+          buttonIcon: FeatherIcons.file,
+          buttonText: 'Inserir Arquivo',
+          fileType: EFileType.OTHER,
+        ),
+      FileInput(
+        label: 'Imagem de Capa (Opcional)',
+        minFileLength: '0',
+        onImageSelected: _onImageSelected,
+        buttonIcon: FeatherIcons.image,
+        buttonText: 'Inserir Imagem',
+        fileType: EFileType.IMAGE,
+      ),
+      MultiSelectorButtonInput(
+        label: 'Conteúdo restrito a maiores de 18 anos?',
+        onSelectedValuesChanged: (List<SelectorItem> values) =>
+            _onContentAgeChanged(values.single),
+        values: [
+          SelectorItem(displayValue: 'Sim', value: true),
+          SelectorItem(displayValue: 'Não', value: false),
+        ],
+        uniqueSelect: true,
+        bold: true,
+      ),
+      MultiSelectorButtonInput(
+        label: 'Categoria',
+        onSelectedValuesChanged: _onSelectedCategoriesChanged,
+        values: _categoryItems,
+        uniqueSelect: false,
+        bold: false,
+      ),
+      Column(
+        children: [
+          TextInput(
+            onTextChanged: _onKeyword1TextChanged,
+            label: 'Inserir link do video',
+            hintText: 'Palavra-chave 1 aqui',
+            labelStyle: TheoStyles.of(context).labelInputStyle,
+            labelMargin: EdgeInsets.only(bottom: 5),
+          ),
+          Container(
+            margin: EdgeInsets.only(top: 9),
+          ),
+          TextInput(
+            onTextChanged: _onKeyword2TextChanged,
+            hintText: 'Palavra-chave 2 aqui',
+            labelStyle: TheoStyles.of(context).labelInputStyle,
+            labelMargin: EdgeInsets.only(bottom: 5),
+          ),
+          Container(
+            margin: EdgeInsets.only(top: 9),
+          ),
+          TextInput(
+            onTextChanged: _onKeyword3TextChanged,
+            hintText: 'Palavra-chave 3 aqui',
+            labelStyle: TheoStyles.of(context).labelInputStyle,
+            labelMargin: EdgeInsets.only(bottom: 5),
+          ),
+        ],
+      ),
+      Container(
+        margin: EdgeInsets.only(top: 25),
+        child: AlertMessage(
+          text:
+              'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita',
+        ),
+      ),
+      Container(
+        margin: EdgeInsets.only(top: 50, bottom: 10),
+        child: BottomButton(
+          onPressed: _onPublishButtonTap,
+          backgroundColor: TheoColors.secondary,
+          primaryColor: TheoColors.primary,
+          text: 'Publicar',
+          textStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
+                fontSize: 16,
+                fontWeight: FontWeight.w700,
+              ),
+          borderColor: TheoColors.primary,
+        ),
+      )
+    ];
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Form(
-          child: ListView(
-            children: [
-              TitleText(
-                title: widget.title,
-              ),
-              TextSelectorInput(
-                items: ['Português', 'Inglês'],
-                onSelectionChanged: _onLangSelectionChanged,
-                label: 'Idioma padrão',
-              ),
-              TextInput(
-                onTextChanged: _onTitleTextChanged,
-                label: 'Título',
-                hintText: 'Escreva aqui',
-                labelStyle: TheoStyles.of(context).labelInputStyle,
-                labelMargin: EdgeInsets.only(bottom: 5),
-              ),
-              TextInput(
-                onTextChanged: _onDescTextChanged,
-                label: 'Breve descrição (opcional)',
-                hintText: 'Escreva aqui',
-                maxLength: 125,
-                containerHeight: 110,
-                labelStyle: TheoStyles.of(context).labelInputStyle,
-                labelMargin: EdgeInsets.only(bottom: 5),
-              ),
-              TextInput(
-                onTextChanged: _onAuthorTextChanged,
-                label: 'Autor',
-                hintText: 'Escreva aqui',
-                labelStyle: TheoStyles.of(context).labelInputStyle,
-                labelMargin: EdgeInsets.only(bottom: 5),
-              ),
-              if (widget.withLink)
-                TextInput(
-                  onTextChanged: _onLinkTextChanged,
-                  label: 'Inserir link',
-                  hintText: 'Escreva aqui',
-                  labelStyle: TheoStyles.of(context).labelInputStyle,
-                  labelMargin: EdgeInsets.only(bottom: 5),
-                ),
-              if (widget.withArchive)
-                FileInput(
-                  label: 'Arquivo',
-                  minFileLength: '0',
-                  onImageSelected: _onImageSelected,
-                  buttonIcon: FeatherIcons.file,
-                  buttonText: 'Inserir Arquivo',
-                  fileType: EFileType.OTHER,
-                ),
-              FileInput(
-                label: 'Imagem de Capa (Opcional)',
-                minFileLength: '0',
-                onImageSelected: _onImageSelected,
-                buttonIcon: FeatherIcons.image,
-                buttonText: 'Inserir Imagem',
-                fileType: EFileType.IMAGE,
-              ),
-              MultiSelectorButtonInput(
-                label: 'Conteúdo restrito a maiores de 18 anos?',
-                onSelectedValuesChanged: (List<SelectorItem> values) =>
-                    _onContentAgeChanged(values.single),
-                values: [
-                  SelectorItem(displayValue: 'Sim', value: true),
-                  SelectorItem(displayValue: 'Não', value: false),
-                ],
-                uniqueSelect: true,
-                bold: true,
-              ),
-              MultiSelectorButtonInput(
-                label: 'Categoria',
-                onSelectedValuesChanged: _onSelectedCategoriesChanged,
-                values: _categoryItems,
-                uniqueSelect: false,
-                bold: false,
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 9),
-              ),
-              TextInput(
-                onTextChanged: _onKeyword1TextChanged,
-                label: 'Inserir link do video',
-                hintText: 'Palavra-chave 1 aqui',
-                labelStyle: TheoStyles.of(context).labelInputStyle,
-                labelMargin: EdgeInsets.only(bottom: 5),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 9),
-              ),
-              TextInput(
-                onTextChanged: _onKeyword2TextChanged,
-                hintText: 'Palavra-chave 2 aqui',
-                labelStyle: TheoStyles.of(context).labelInputStyle,
-                labelMargin: EdgeInsets.only(bottom: 5),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 9),
-              ),
-              TextInput(
-                onTextChanged: _onKeyword3TextChanged,
-                hintText: 'Palavra-chave 3 aqui',
-                labelStyle: TheoStyles.of(context).labelInputStyle,
-                labelMargin: EdgeInsets.only(bottom: 5),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 25),
-                child: AlertMessage(
-                  text:
-                      'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita',
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 50, bottom: 10),
-                child: BottomButton(
-                  onPressed: _onPublishButtonTap,
-                  backgroundColor: TheoColors.secondary,
-                  primaryColor: TheoColors.primary,
-                  text: 'Publicar',
-                  textStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                      ),
-                  borderColor: TheoColors.primary,
-                ),
-              )
-            ],
-          ),
+          child: ListView.separated(
+              itemBuilder: (_, int index) => inputs[index],
+              separatorBuilder: (_, int index) => Container(
+                    margin: EdgeInsets.only(top: 20),
+                  ),
+              itemCount: inputs.length),
         ),
       ),
     );

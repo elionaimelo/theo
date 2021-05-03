@@ -23,7 +23,8 @@ class FileInput extends StatefulWidget {
   FileInput({
     required this.label,
     required this.minFileLength,
-    required this.onImageSelected,
+    this.onImageSelected,
+    this.onFileSelected,
     required this.buttonText,
     required this.buttonIcon,
     required this.fileType,
@@ -33,7 +34,9 @@ class FileInput extends StatefulWidget {
   final String minFileLength;
   final String buttonText;
   final IconData buttonIcon;
-  final Function(AssetEntity image) onImageSelected;
+  final Function(AssetEntity image)? onImageSelected;
+  final Function(PlatformFile image)? onFileSelected;
+
   final EFileType fileType;
 
   @override
@@ -59,7 +62,7 @@ class _FileInputState extends State<FileInput> {
       );
     });
 
-    widget.onImageSelected(assetImage);
+    widget.onImageSelected?.call(assetImage);
   }
 
   Future<void> _onTap() async {
@@ -93,6 +96,8 @@ class _FileInputState extends State<FileInput> {
           size: Formatter.formatBytes(resultFile.size!, 0),
         );
       });
+
+      widget.onFileSelected?.call(resultFile);
     }
   }
 

@@ -1,3 +1,4 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:photo_manager/photo_manager.dart';
@@ -48,6 +49,8 @@ class _NewTellScreenState extends State<NewTellScreen> {
   void _onLangSelectionChanged(String? value) {}
 
   void _onImageSelected(AssetEntity value) {}
+
+  void _onFileSelected(PlatformFile value) {}
 
   void _onContentAgeChanged(SelectorItem value) {}
 
@@ -120,7 +123,7 @@ class _NewTellScreenState extends State<NewTellScreen> {
         FileInput(
           label: 'Arquivo',
           minFileLength: '0',
-          onImageSelected: _onImageSelected,
+          onFileSelected: _onFileSelected,
           buttonIcon: FeatherIcons.file,
           buttonText: 'Inserir Arquivo',
           fileType: EFileType.OTHER,

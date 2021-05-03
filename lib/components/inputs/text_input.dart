@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:theo/styles/colors.dart';
 
-class InputText extends StatefulWidget {
-  const InputText(
+class TextInput extends StatefulWidget {
+  const TextInput(
       {this.hintText = '',
       this.label,
       this.labelStyle,
@@ -21,10 +21,10 @@ class InputText extends StatefulWidget {
   final double? containerHeight;
 
   @override
-  _InputTextState createState() => _InputTextState();
+  _TextInputState createState() => _TextInputState();
 }
 
-class _InputTextState extends State<InputText> {
+class _TextInputState extends State<TextInput> {
   String currentText = '';
 
   void _onTextChanged(String value) {

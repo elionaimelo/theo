@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:theo/styles/colors.dart';
 
-class TextSelector extends StatefulWidget {
-  TextSelector({
+class TextSelectorInput extends StatefulWidget {
+  TextSelectorInput({
     required this.items,
     required this.onSelectionChanged,
     required this.label,
@@ -14,10 +14,10 @@ class TextSelector extends StatefulWidget {
   final String label;
 
   @override
-  _TextSelectorState createState() => _TextSelectorState();
+  _TextSelectorInputState createState() => _TextSelectorInputState();
 }
 
-class _TextSelectorState extends State<TextSelector> {
+class _TextSelectorInputState extends State<TextSelectorInput> {
   String? currentValue;
 
   void _onSelectionChanged(String? value) {

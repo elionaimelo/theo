@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:photo_manager/photo_manager.dart';
+import 'package:theo/components/close_bottom_sheet_button.dart';
 import 'package:theo/pages/confirm_image_screen/confirm_image_screen.dart';
 import 'package:theo/styles/colors.dart';
 
@@ -34,10 +35,6 @@ class _GalleryImagePickerState extends State<GalleryImagePicker> {
         _fetchNewMedia();
       }
     }
-  }
-
-  void _onCloseTap() {
-    Navigator.of(context).pop();
   }
 
   void _onImageTap(AssetEntity assetImage) {
@@ -119,35 +116,13 @@ class _GalleryImagePickerState extends State<GalleryImagePicker> {
             children: [
               Container(
                 margin: EdgeInsets.only(top: 10, left: 9, bottom: 25),
-                child: _actions,
+                child: CloseBottomSheetButton(),
               ),
               Expanded(
                   child: Container(
                 margin: EdgeInsets.all(3),
                 child: _grid,
               )),
-            ],
-          ),
-        ),
-      );
-
-  Widget get _actions => Container(
-        child: InkWell(
-          onTap: _onCloseTap,
-          child: Row(
-            children: [
-              Icon(
-                FeatherIcons.x,
-                size: 30,
-                color: TheoColors.primary,
-              ),
-              Text(
-                'Cancelar',
-                style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                      fontSize: 14,
-                      color: TheoColors.primary,
-                    ),
-              )
             ],
           ),
         ),

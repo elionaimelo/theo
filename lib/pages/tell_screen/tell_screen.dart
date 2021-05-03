@@ -15,11 +15,11 @@ class TellScreen extends StatefulWidget {
 }
 
 class _TellScreenState extends State<TellScreen> {
-  void _onVideoTap() {
+  void _onMenuItemTap(NewTellScreenArgs args) {
     Navigator.pushNamed(
       context,
       Routes.newTell,
-      arguments: NewTellScreenArgs(title: 'Video'),
+      arguments: args,
     );
   }
 
@@ -37,7 +37,7 @@ class _TellScreenState extends State<TellScreen> {
             color: TheoColors.eleven,
           ),
           text: 'Vídeo',
-          onTap: () => _onVideoTap(),
+          onTap: () => _onMenuItemTap(NewTellScreenArgs(title: 'Video')),
         ),
       ),
       TellMenuItem(
@@ -50,6 +50,8 @@ class _TellScreenState extends State<TellScreen> {
           color: TheoColors.primary,
         ),
         text: 'Texto',
+        onTap: () => _onMenuItemTap(
+            NewTellScreenArgs(title: 'Texto', withArchive: true)),
       ),
       TellMenuItem(
         icon: SvgPicture.asset(AssetsPath.comicSvg),

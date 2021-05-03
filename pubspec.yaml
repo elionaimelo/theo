@@ -36,6 +36,8 @@ dependencies:
   build_runner: ^1.12.2
   flutter_mobx: ^2.0.0
   photo_manager: ^1.1.4
+  file_picker: ^3.0.1
+  flutter_plugin_android_lifecycle: ^2.0.1
 
 dev_dependencies:
   flutter_test:

@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:theo/components/bottom_button.dart';
-import 'package:theo/components/theo_app_bar.dart';
 import 'package:theo/core/routes.dart';
+import 'package:theo/models/theo_app_bar_settings.dart';
 import 'package:theo/pages/login_screen/components/login_email_tag.dart';
+import 'package:theo/pages/login_screen/login_screen_controller.dart';
 import 'package:theo/styles/colors.dart';
-import 'package:theo/styles/metrics.dart';
 
-import 'components/login_input_text.dart';
+import '../../components/inputs/text_input.dart';
 
 class LoginScreen extends StatefulWidget {
+  LoginScreen({required this.controller});
   @override
   _LoginScreenState createState() => _LoginScreenState();
+
+  final LoginScreenController controller;
 }
 
 class _LoginScreenState extends State<LoginScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-
-  String email = '';
-  String password = '';
 
   Future<bool> _onBackPressed() async {
     if (_tabController.index > 0) {
@@ -28,6 +28,9 @@ class _LoginScreenState extends State<LoginScreen>
     }
 
     Navigator.of(context).pop();
+    widget.controller.setAppBar(TheoAppBarSettings(
+      visible: false,
+    ));
     return true;
   }
 
@@ -42,13 +45,13 @@ class _LoginScreenState extends State<LoginScreen>
 
   void _onEmailTextChanged(String value) {
     setState(() {
-      email = value;
+      widget.controller.email = value;
     });
   }
 
   void _onPasswordTextChanged(String value) {
     setState(() {
-      password = value;
+      widget.controller.password = value;
     });
 
     Navigator.of(context).pushNamed(Routes.home);
@@ -59,6 +62,11 @@ class _LoginScreenState extends State<LoginScreen>
     super.initState();
 
     _tabController = TabController(vsync: this, length: _tabs.length);
+
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      widget.controller
+          .setAppBar(TheoAppBarSettings(visible: true, withBackButton: true));
+    });
   }
 
   @override
@@ -66,13 +74,6 @@ class _LoginScreenState extends State<LoginScreen>
     return WillPopScope(
       onWillPop: _onBackPressed,
       child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(TheoMetrics.appBarHeight),
-          child: TheoAppBar(
-            withBackButton: true,
-            onBackPressed: _onBackPressed,
-          ),
-        ),
         body: _body,
       ),
     );
@@ -96,12 +97,12 @@ class _LoginScreenState extends State<LoginScreen>
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           LoginEmailTag(
-            email: email,
+            email: widget.controller.email,
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              LoginInputText(
+              TextInput(
                 hintText: 'Escreva sua senha aqui',
                 label: 'Insira sua senha',
                 onTextChanged: _onPasswordTextChanged,
@@ -139,7 +140,7 @@ class _LoginScreenState extends State<LoginScreen>
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           _title,
-          LoginInputText(
+          TextInput(
             hintText: 'Escreva seu email aqui',
             label: 'Endereço de email',
             onTextChanged: _onEmailTextChanged,

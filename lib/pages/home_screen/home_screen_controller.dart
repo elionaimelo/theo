@@ -1,5 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-import 'package:theo/states/navigation.dart';
+import 'package:theo/models/theo_app_bar_settings.dart';
+import 'package:theo/states/navigation_store.dart';
 part 'home_screen_controller.g.dart';
 
 class HomeScreenController = _HomeScreenControllerBase
@@ -16,5 +18,22 @@ abstract class _HomeScreenControllerBase with Store {
   @action
   void setCurrentPageIndex(TabPagesIndexes index) {
     navigationStore.setCurrentPageIndex(index);
+  }
+
+  @action
+  void showBottomBar() {
+    navigationStore.withBottomNavigationBar = true;
+  }
+
+  @action
+  void setAppBar(TheoAppBarSettings settings) {
+    navigationStore.appBarSettings = settings;
+  }
+
+  @action
+  void onTabControllerEvent(TabController tab) {
+    if (tab.index != currentPageIndex.index) {
+      setCurrentPageIndex(TabPagesIndexes.values[tab.index]);
+    }
   }
 }

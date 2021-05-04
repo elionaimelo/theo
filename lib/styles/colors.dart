@@ -11,13 +11,12 @@ class TheoColors {
   static const Color eight = Color(0xFFF5F5F5);
   static const Color nine = Color(0xFF5D5D5D);
   static const Color ten = Color(0xFFFF9C90);
-
   static const Color eleven = Color(0xFFFF776D);
   static const Color twelve = Color(0xFFD9D9D9);
-
   static const Color thirteen = Color(0xFF5AB9CC);
+  static const Color fourteen = Color(0xFF959595);
+  static const Color fiftteen = Color(0xFFF1F1F5);
+  static const Color sixteen = Color(0xFF717171);
 
-  // static const Color twelve = Color(0xFF5AB9CC);
-  // static const Color twelve = Color(0xFFD9D9D9);
-  // static const Color twelve = Color(0xFFD9D9D9);
+  static const Color seventeen = Color(0xFFEFEEF9);
 }

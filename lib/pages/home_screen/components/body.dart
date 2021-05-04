@@ -20,7 +20,7 @@ class Body extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.only(
-                top: 50,
+                top: 30,
               ),
               child: TitleText(title: 'O que você quer explorar hoje?'),
             ),

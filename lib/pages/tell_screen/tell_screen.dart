@@ -43,6 +43,8 @@ class _TellScreenState extends State<TellScreen> {
       TellMenuItem(
         icon: SvgPicture.asset(AssetsPath.animationSvg),
         text: 'Animação',
+        onTap: () => _onMenuItemTap(
+            NewTellScreenArgs(title: 'Animação', withLink: true)),
       ),
       TellMenuItem(
         icon: Icon(
@@ -56,10 +58,15 @@ class _TellScreenState extends State<TellScreen> {
       TellMenuItem(
         icon: SvgPicture.asset(AssetsPath.comicSvg),
         text: 'HQ',
+        onTap: () => _onMenuItemTap(NewTellScreenArgs(
+          title: 'HQ',
+        )),
       ),
       TellMenuItem(
         icon: SvgPicture.asset(AssetsPath.gameSvg),
         text: 'Jogo',
+        onTap: () =>
+            _onMenuItemTap(NewTellScreenArgs(title: 'Jogo', withLink: true)),
       ),
       TellMenuItem(
         icon: Icon(
@@ -67,6 +74,8 @@ class _TellScreenState extends State<TellScreen> {
           color: TheoColors.primary,
         ),
         text: 'Infográfico',
+        onTap: () => _onMenuItemTap(
+            NewTellScreenArgs(title: 'Infográfico', withArchive: true)),
       ),
       TellMenuItem(
         icon: Icon(
@@ -74,10 +83,13 @@ class _TellScreenState extends State<TellScreen> {
           color: TheoColors.eleven,
         ),
         text: 'Imagem',
+        onTap: () => _onMenuItemTap(NewTellScreenArgs(title: 'Imagem')),
       ),
       TellMenuItem(
         icon: SvgPicture.asset(AssetsPath.interactiveSvg),
         text: 'Figura interativa',
+        onTap: () =>
+            _onMenuItemTap(NewTellScreenArgs(title: 'Figura Interativa')),
       ),
       TellMenuItem(
         icon: Icon(
@@ -85,6 +97,8 @@ class _TellScreenState extends State<TellScreen> {
           color: TheoColors.primary,
         ),
         text: 'Música',
+        onTap: () => _onMenuItemTap(
+            NewTellScreenArgs(title: 'Música', withArchive: true)),
       ),
       TellMenuItem(
         icon: Icon(
@@ -92,6 +106,8 @@ class _TellScreenState extends State<TellScreen> {
           color: TheoColors.eleven,
         ),
         text: 'Podcast',
+        onTap: () =>
+            _onMenuItemTap(NewTellScreenArgs(title: 'Podcast', withLink: true)),
       ),
       Container(),
     ];

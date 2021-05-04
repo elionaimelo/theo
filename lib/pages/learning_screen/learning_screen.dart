@@ -68,7 +68,6 @@ class _LearningScreenState extends State<LearningScreen> {
           Container(
             margin: EdgeInsets.only(bottom: 27),
           ),
-          _presentation,
           Expanded(child: _list),
           Container(
             margin: EdgeInsets.only(bottom: 20),
@@ -110,11 +109,14 @@ class _LearningScreenState extends State<LearningScreen> {
       );
 
   Widget get _list => ListView.builder(
-        itemCount: stories.length,
-        itemBuilder: (_, int index) => StoryCard(
-          story: stories[index],
-        ),
-      );
+      itemCount: stories.length + 1,
+      itemBuilder: (_, int index) {
+        if (index == 0) return _presentation;
+
+        return StoryCard(
+          story: stories[index - 1],
+        );
+      });
 
   Widget get _title => TitleText(
         title: 'Como contar?',

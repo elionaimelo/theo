@@ -5,4 +5,5 @@ class Routes {
   static const String login = '/login';
   static const String newTell = '/new-tell';
   static const String about = '/about';
+  static const String contact = '/contact';
 }

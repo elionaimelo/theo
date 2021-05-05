@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:theo/core/routes.dart';
 import 'package:theo/pages/about_screen/about_screen.dart';
+import 'package:theo/pages/contact_screen/contact_screen.dart';
 import 'package:theo/pages/home_screen/home_screen.dart';
 import 'package:theo/pages/home_screen/home_screen_controller.dart';
 import 'package:theo/pages/login_screen/login_screen.dart';
@@ -60,6 +61,10 @@ class _TheoNavigatorState extends State<TheoNavigator> {
             case Routes.about:
               builder = (BuildContext context) => AboutScreen();
               break;
+            case Routes.contact:
+              builder = (BuildContext context) => ContactScreen();
+              break;
+
             case Routes.newTell:
               builder = (BuildContext context) =>
                   NewTellScreen(args: settings.arguments as NewTellScreenArgs);

@@ -48,7 +48,7 @@ class TopSheetMenu extends StatefulWidget {
 class _TopSheetMenuState extends State<TopSheetMenu> {
   void navigateToRoute(String route) {
     Navigator.of(context).pop();
-    widget.navigationStore.navigator.pushNamed(Routes.about);
+    widget.navigationStore.navigator.pushNamed(route);
   }
 
   @override
@@ -133,7 +133,7 @@ class _TopSheetMenuState extends State<TopSheetMenu> {
             TextIconButton(
               foregroundColor: TheoColors.secondary,
               text: 'Contato',
-              onTap: () {},
+              onTap: () => navigateToRoute(Routes.contact),
               textStyle: _buttonTextStyle,
             ),
             Container(

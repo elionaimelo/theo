@@ -7,7 +7,7 @@ import 'package:theo/core/routes.dart';
 import 'package:theo/pages/new_tell_screen/new_tell_screen.dart';
 import 'package:theo/pages/tell_screen/components/tell_menu_item.dart';
 import 'package:theo/styles/colors.dart';
-import 'package:theo/utils/assetsPath.dart';
+import 'package:theo/utils/assets_path.dart';
 
 class TellScreen extends StatefulWidget {
   @override

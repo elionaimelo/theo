@@ -29,6 +29,9 @@ abstract class _NavigationStoreBase with Store {
   @computed
   TabPagesIndexes get currentTabPageIndex => _currentTabPageIndex;
 
+  @computed
+  NavigatorState get navigator => Navigator.of(navigationKey!.currentContext!);
+
   @action
   void setCurrentPageIndex(TabPagesIndexes index) {
     _currentTabPageIndex = index;

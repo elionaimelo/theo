@@ -1,8 +1,9 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:photo_manager/photo_manager.dart';
-import 'package:theo/components/close_bottom_sheet_button.dart';
+import 'package:theo/components/text_icon_button.dart';
 import 'package:theo/pages/confirm_image_screen/confirm_image_screen.dart';
 import 'package:theo/styles/colors.dart';
 
@@ -15,6 +16,21 @@ class GalleryImagePicker extends StatefulWidget {
   _GalleryImagePickerState createState() => _GalleryImagePickerState();
 
   final Function(AssetEntity assetImage) onSelectedImage;
+
+  static Future<void> showGalleryBottomSheet(BuildContext context,
+      Function(AssetEntity assetImage) onSelectedImage) async {
+    return showModalBottomSheet<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return GalleryImagePicker(
+          onSelectedImage: onSelectedImage,
+        );
+      },
+      isScrollControlled: true,
+      useRootNavigator: true,
+      backgroundColor: Colors.transparent,
+    );
+  }
 }
 
 class _GalleryImagePickerState extends State<GalleryImagePicker> {
@@ -115,7 +131,14 @@ class _GalleryImagePickerState extends State<GalleryImagePicker> {
             children: [
               Container(
                 margin: EdgeInsets.only(top: 10, left: 9, bottom: 25),
-                child: CloseBottomSheetButton(),
+                child: TextIconButton(
+                  onTap: () => Navigator.of(context).pop(),
+                  icon: Icon(
+                    FeatherIcons.x,
+                    size: 30,
+                    color: TheoColors.secondary,
+                  ),
+                ),
               ),
               Expanded(
                   child: Container(

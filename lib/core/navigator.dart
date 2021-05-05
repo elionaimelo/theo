@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:theo/core/routes.dart';
+import 'package:theo/pages/about_screen/about_screen.dart';
 import 'package:theo/pages/home_screen/home_screen.dart';
 import 'package:theo/pages/home_screen/home_screen_controller.dart';
 import 'package:theo/pages/login_screen/login_screen.dart';
@@ -43,7 +44,6 @@ class _TheoNavigatorState extends State<TheoNavigator> {
 
           widget.navigationStore.currentNamedRoute = settings.name!;
 
-          // Manage your route names here
           switch (settings.name) {
             case Routes.splash:
               builder = (BuildContext context) => SplashScreen();
@@ -56,6 +56,9 @@ class _TheoNavigatorState extends State<TheoNavigator> {
               break;
             case Routes.home:
               builder = (BuildContext context) => _homeScreen;
+              break;
+            case Routes.about:
+              builder = (BuildContext context) => AboutScreen();
               break;
             case Routes.newTell:
               builder = (BuildContext context) =>

@@ -45,10 +45,8 @@ class MyApp extends StatelessWidget {
         child: Observer(
           builder: (_) => TheoAppBar(
             settings: _navigationStore.appBarSettings,
-            onBackPressed: () async {
-              var result =
-                  await _navigationStore.navigationKey.currentState!.maybePop();
-              print(result);
+            onBackPressed: () {
+              _navigationStore.navigationKey.currentState!.maybePop();
             },
           ),
         ),

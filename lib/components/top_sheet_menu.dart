@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
-import 'package:navigation_history_observer/navigation_history_observer.dart';
 import 'package:theo/components/text_icon_button.dart';
 import 'package:theo/core/routes.dart';
 import 'package:theo/states/navigation_store.dart';
@@ -50,8 +49,7 @@ class _TopSheetMenuState extends State<TopSheetMenu> {
   void navigateToRoute(String route) {
     Navigator.of(context).pop();
 
-    print(widget.navigationStore.currentNamedRoute);
-
+    // If the current route is the some of the routes that the menu can navegate
     if ([Routes.about, Routes.contact]
         .contains(widget.navigationStore.currentNamedRoute)) {
       widget.navigationStore.navigator.pushReplacementNamed(route);

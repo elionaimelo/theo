@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
+import 'package:navigation_history_observer/navigation_history_observer.dart';
 import 'package:theo/components/text_icon_button.dart';
 import 'package:theo/core/routes.dart';
 import 'package:theo/states/navigation_store.dart';
@@ -48,7 +49,15 @@ class TopSheetMenu extends StatefulWidget {
 class _TopSheetMenuState extends State<TopSheetMenu> {
   void navigateToRoute(String route) {
     Navigator.of(context).pop();
-    widget.navigationStore.navigator.pushNamed(route);
+
+    print(widget.navigationStore.currentNamedRoute);
+
+    if ([Routes.about, Routes.contact]
+        .contains(widget.navigationStore.currentNamedRoute)) {
+      widget.navigationStore.navigator.pushReplacementNamed(route);
+    } else {
+      widget.navigationStore.navigator.pushNamed(route);
+    }
   }
 
   @override

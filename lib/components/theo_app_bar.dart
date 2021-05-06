@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:theo/components/top_sheet_menu.dart';
 import 'package:theo/models/theo_app_bar_settings.dart';
 import 'package:theo/styles/colors.dart';
+import 'package:theo/utils/assets_path.dart';
 
 class TheoAppBar extends StatelessWidget {
   TheoAppBar({
@@ -12,35 +14,9 @@ class TheoAppBar extends StatelessWidget {
   final TheoAppBarSettings settings;
   final Function? onBackPressed;
 
-  Widget _backButton(BuildContext context) => Container(
-        child: InkWell(
-            borderRadius: BorderRadius.circular(30),
-            onTap: () => onBackPressed?.call(),
-            child: Container(
-              padding: EdgeInsets.only(right: 10),
-              child: Row(
-                children: [
-                  Icon(
-                    FeatherIcons.arrowLeft,
-                    color: TheoColors.primary,
-                    size: 30,
-                  ),
-                  Text(
-                    'Voltar',
-                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                          fontWeight: FontWeight.w600,
-                          color: TheoColors.primary,
-                          fontSize: 16,
-                        ),
-                  ),
-                ],
-              ),
-            )),
-      );
-
-  Widget _leftAction(BuildContext context) => settings.withBackButton
-      ? _backButton(context)
-      : Image.asset('assets/icons/simbolo-app.png', fit: BoxFit.cover);
+  void _onMenuPressed(BuildContext context) {
+    TopSheetMenu.showTopSheetMenu(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,10 +52,40 @@ class TheoAppBar extends StatelessWidget {
                 Icons.menu,
                 color: TheoColors.primary,
               ),
-              onPressed: () {},
+              onPressed: () => _onMenuPressed(context),
             ),
         ],
       ),
     );
   }
+
+  Widget _backButton(BuildContext context) => Container(
+        child: InkWell(
+            borderRadius: BorderRadius.circular(30),
+            onTap: () => onBackPressed?.call(),
+            child: Container(
+              padding: EdgeInsets.only(right: 10),
+              child: Row(
+                children: [
+                  Icon(
+                    FeatherIcons.arrowLeft,
+                    color: TheoColors.primary,
+                    size: 30,
+                  ),
+                  Text(
+                    'Voltar',
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                          fontWeight: FontWeight.w600,
+                          color: TheoColors.primary,
+                          fontSize: 16,
+                        ),
+                  ),
+                ],
+              ),
+            )),
+      );
+
+  Widget _leftAction(BuildContext context) => settings.withBackButton
+      ? _backButton(context)
+      : Image.asset(AssetsPath.appSymbolPng, fit: BoxFit.cover);
 }

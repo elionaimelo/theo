@@ -114,9 +114,7 @@ class _LoginScreenState extends State<LoginScreen>
                 ),
               ),
               TextButton(
-                onPressed: () {
-                  print('Pressed');
-                },
+                onPressed: () {},
                 child: Text(
                   'Esqueceu a senha? Redefina aqui',
                   style: GoogleFonts.muli(

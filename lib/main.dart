@@ -18,7 +18,6 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  final _navigatorKey = GlobalKey<NavigatorState>();
   final NavigationStore _navigationStore = GetIt.I.get();
 
   @override
@@ -35,13 +34,8 @@ class MyApp extends StatelessWidget {
       ),
       home: Scaffold(
         appBar: _appBar,
-        body: TheoNavigator(
-          navigationStore: _navigationStore,
-          navigationKey: _navigatorKey,
-        ),
-        bottomNavigationBar: TheoBottomBar(
-          navigationStore: _navigationStore,
-        ),
+        body: TheoNavigator(navigationStore: _navigationStore),
+        bottomNavigationBar: TheoBottomBar(navigationStore: _navigationStore),
       ),
     );
   }
@@ -52,7 +46,7 @@ class MyApp extends StatelessWidget {
           builder: (_) => TheoAppBar(
             settings: _navigationStore.appBarSettings,
             onBackPressed: () {
-              _navigatorKey.currentState!.maybePop();
+              _navigationStore.navigationKey.currentState!.maybePop();
             },
           ),
         ),

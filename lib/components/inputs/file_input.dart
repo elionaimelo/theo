@@ -66,17 +66,8 @@ class _FileInputState extends State<FileInput> {
 
   Future<void> _onTap() async {
     if (widget.fileType == EFileType.IMAGE) {
-      await showModalBottomSheet<void>(
-        context: context,
-        builder: (BuildContext context) {
-          return GalleryImagePicker(
-            onSelectedImage: _onImageSelected,
-          );
-        },
-        isScrollControlled: true,
-        useRootNavigator: true,
-        backgroundColor: Colors.transparent,
-      );
+      await GalleryImagePicker.showGalleryBottomSheet(
+          context, _onImageSelected);
 
       return;
     }

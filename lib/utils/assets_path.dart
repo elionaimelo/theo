@@ -4,4 +4,8 @@ class AssetsPath {
   static const interactiveSvg = 'assets/icons/interactive.svg';
   static const comicSvg = 'assets/icons/comic.svg';
   static const gameSvg = 'assets/icons/game.svg';
+  static const appSymbolPng = 'assets/icons/simbolo-app.png';
+  static const brSvg = 'assets/icons/br.svg';
+  static const enSvg = 'assets/icons/en.svg';
+  static const espSvg = 'assets/icons/esp.svg';
 }

@@ -10,6 +10,7 @@ class BottomButton extends StatelessWidget {
     this.backgroundColor = TheoColors.primary,
     this.textStyle,
     this.borderColor = Colors.transparent,
+    this.textDirection = TextDirection.ltr,
   });
 
   final String text;
@@ -19,7 +20,7 @@ class BottomButton extends StatelessWidget {
   final Color primaryColor;
   final Color borderColor;
   final TextStyle? textStyle;
-
+  final TextDirection textDirection;
   @override
   Widget build(BuildContext context) {
     return TextButton(
@@ -39,6 +40,7 @@ class BottomButton extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
+          textDirection: textDirection,
           children: [
             Text(
               text,

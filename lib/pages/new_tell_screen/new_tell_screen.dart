@@ -9,6 +9,7 @@ import 'package:theo/components/inputs/text_input.dart';
 import 'package:theo/components/inputs/text_selector_input.dart';
 import 'package:theo/components/titleText.dart';
 import 'package:theo/components/inputs/multi_selector_button_input.dart';
+import 'package:theo/models/theo_mocks.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/styles/gerenal.dart';
 
@@ -62,19 +63,6 @@ class _NewTellScreenState extends State<NewTellScreen> {
   void _onPublishButtonTap() {
     Navigator.of(context).pop();
   }
-
-  final List<SelectorItem> _categoryItems = [
-    SelectorItem(displayValue: 'Ciência'),
-    SelectorItem(displayValue: 'Sífilis'),
-    SelectorItem(displayValue: 'Saúde'),
-    SelectorItem(displayValue: 'Tecnologia'),
-    SelectorItem(displayValue: 'Meio ambiente'),
-    SelectorItem(displayValue: 'Matemática'),
-    SelectorItem(displayValue: 'Inovação'),
-    SelectorItem(displayValue: 'Artes'),
-    SelectorItem(displayValue: 'História'),
-    SelectorItem(displayValue: 'Linguística'),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -149,7 +137,9 @@ class _NewTellScreenState extends State<NewTellScreen> {
       MultiSelectorButtonInput(
         label: 'Categoria',
         onSelectedValuesChanged: _onSelectedCategoriesChanged,
-        values: _categoryItems,
+        values: TheoMocks.categoriesMock
+            .map((e) => SelectorItem(displayValue: e))
+            .toList(),
         uniqueSelect: false,
         bold: false,
       ),

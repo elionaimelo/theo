@@ -3,14 +3,16 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:theo/styles/colors.dart';
 
 class TextInput extends StatefulWidget {
-  const TextInput(
-      {this.hintText = '',
-      this.label,
-      this.labelStyle,
-      this.labelMargin,
-      required this.onTextChanged,
-      this.maxLength,
-      this.containerHeight});
+  const TextInput({
+    this.hintText = '',
+    this.label,
+    this.labelStyle,
+    this.labelMargin,
+    required this.onTextChanged,
+    this.maxLength,
+    this.containerHeight,
+    this.prefixWidget,
+  });
 
   final String hintText;
   final String? label;
@@ -19,6 +21,7 @@ class TextInput extends StatefulWidget {
   final int? maxLength;
   final Function(String) onTextChanged;
   final double? containerHeight;
+  final Widget? prefixWidget;
 
   @override
   _TextInputState createState() => _TextInputState();
@@ -76,10 +79,12 @@ class _TextInputState extends State<TextInput> {
         maxLines: null,
         minLines: null,
         maxLength: widget.maxLength,
-        textAlignVertical: TextAlignVertical.top,
-        expands: widget.containerHeight != null,
+        textAlignVertical:
+            _expands ? TextAlignVertical.top : TextAlignVertical.center,
+        expands: _expands,
         onChanged: _onTextChanged,
         decoration: InputDecoration(
+          prefixIcon: widget.prefixWidget,
           counterText: '',
           contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
           border: OutlineInputBorder(
@@ -107,4 +112,6 @@ class _TextInputState extends State<TextInput> {
           ),
         ),
       );
+
+  bool get _expands => widget.containerHeight != null;
 }

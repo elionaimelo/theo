@@ -6,4 +6,5 @@ class Routes {
   static const String newTell = '/new-tell';
   static const String about = '/about';
   static const String contact = '/contact';
+  static const String search = '/search';
 }

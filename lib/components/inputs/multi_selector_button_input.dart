@@ -18,6 +18,7 @@ class MultiSelectorButtonInput extends StatefulWidget {
     required this.onSelectedValuesChanged,
     this.uniqueSelect = false,
     this.bold = false,
+    this.primaryColor = TheoColors.primary,
   });
 
   @override
@@ -29,6 +30,7 @@ class MultiSelectorButtonInput extends StatefulWidget {
   final Function(List<SelectorItem>) onSelectedValuesChanged;
   final bool uniqueSelect;
   final bool bold;
+  final Color primaryColor;
 }
 
 class _MultiSelectorButtonInputState extends State<MultiSelectorButtonInput> {
@@ -98,7 +100,7 @@ class _MultiSelectorButtonInputState extends State<MultiSelectorButtonInput> {
         return Container(
           width: (constraints.maxWidth / 2) - _wrapMargin,
           decoration: BoxDecoration(
-            border: Border.all(color: TheoColors.primary, width: _borderWidth),
+            border: Border.all(color: widget.primaryColor, width: _borderWidth),
             borderRadius: BorderRadius.all(
               Radius.circular(10.0),
             ),
@@ -140,12 +142,12 @@ class _MultiSelectorButtonInputState extends State<MultiSelectorButtonInput> {
   double get _borderWidth => widget.bold ? 2 : 1;
 
   Color _textColor(bool selected) =>
-      selected ? TheoColors.secondary : TheoColors.primary;
+      selected ? TheoColors.secondary : widget.primaryColor;
 
   double get _wrapMargin => 5;
 
   Color _backgroundColor(bool selected) =>
-      selected ? TheoColors.primary : TheoColors.secondary;
+      selected ? widget.primaryColor : TheoColors.secondary;
 
   FontWeight get _fontWeight =>
       widget.bold ? FontWeight.w700 : FontWeight.normal;

@@ -48,6 +48,7 @@ class MyApp extends StatelessWidget {
             onBackPressed: () {
               _navigationStore.navigationKey.currentState!.maybePop();
             },
+            navigationStore: _navigationStore,
           ),
         ),
       );

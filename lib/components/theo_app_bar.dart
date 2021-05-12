@@ -28,7 +28,9 @@ class _TheoAppBarState extends State<TheoAppBar> {
   }
 
   void _onTapProfile() {
-    widget.navigationStore.navigator.pushNamed(Routes.profile);
+    if (widget.navigationStore.currentNamedRoute != Routes.profile) {
+      widget.navigationStore.navigator.pushNamed(Routes.profile);
+    }
   }
 
   @override

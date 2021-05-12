@@ -8,4 +8,7 @@ class AssetsPath {
   static const brSvg = 'assets/icons/br.svg';
   static const enSvg = 'assets/icons/en.svg';
   static const espSvg = 'assets/icons/esp.svg';
+  static const avatarJpg = 'assets/images/avataaars.jpg';
+  static const defaultCardSvg = 'assets/images/default.svg';
+  static const thumbsUpSvg = 'assets/icons/thumbs-up.svg';
 }

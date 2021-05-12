@@ -24,4 +24,6 @@ class TheoColors {
   static const Color twentyOne = Color(0xFF7A7A7A);
   static const Color twentyTwo = Color(0xFF686868);
   static const Color twentyThree = Color(0xFF3398B2);
+  static const Color twentyFour = Color(0xFFE8E8E8);
+  static const Color twentyFive = Color(0xFF818181);
 }

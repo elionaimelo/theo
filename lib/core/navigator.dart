@@ -7,6 +7,7 @@ import 'package:theo/pages/home_screen/home_screen_controller.dart';
 import 'package:theo/pages/login_screen/login_screen.dart';
 import 'package:theo/pages/login_screen/login_screen_controller.dart';
 import 'package:theo/pages/new_tell_screen/new_tell_screen.dart';
+import 'package:theo/pages/profile_screen/profile_screen.dart';
 import 'package:theo/pages/search_screen/search_screen.dart';
 import 'package:theo/pages/splash_screen/splash_screen.dart';
 import 'package:theo/pages/start_screen/start_screen.dart';
@@ -69,6 +70,9 @@ class _TheoNavigatorState extends State<TheoNavigator> {
             case Routes.newTell:
               builder = (BuildContext context) =>
                   NewTellScreen(args: settings.arguments as NewTellScreenArgs);
+              break;
+            case Routes.profile:
+              builder = (BuildContext context) => ProfileScreen();
               break;
             default:
               throw Exception('Invalid route: ${settings.name}');

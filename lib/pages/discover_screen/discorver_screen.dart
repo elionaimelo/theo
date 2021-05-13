@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:theo/components/bottom_button.dart';
-import 'package:theo/components/titleText.dart';
+import 'package:theo/components/title_text.dart';
 import 'package:theo/core/routes.dart';
 import 'package:theo/pages/discover_screen/components/post_card.dart';
 import 'package:theo/styles/colors.dart';
@@ -24,7 +24,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
       child: ListView(
         children: [
           Padding(
-            padding: TheoMetrics.paddingScreen,
+            padding: TheoMetrics.paddingScreen.copyWith(bottom: 0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -74,13 +74,37 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             profileName: 'Beutrano Cunha',
             cardImage: AssetsPath.defaultCardSvg,
             avatarImage: AssetsPath.avatarJpg,
-            type: 'Vídeo',
-            format: 'Ciência',
+            type: 'Ciência',
+            format: 'Vídeo',
             title:
                 'Storyteling e lorem ipsum dolor sit amet, consetetur sadipscing elitr.',
             author: 'Aureliano Figueiredo',
             likesCount: 16,
             commentsCount: 4,
+            adultRestriction: true,
+          ),
+          PostCard(
+            profileName: 'Eustáquio Dávila',
+            cardImage: AssetsPath.defaultCardSvg,
+            avatarImage: AssetsPath.avatarJpg,
+            type: 'Linguística',
+            format: 'Texto',
+            title:
+                'Storyteling e lorem ipsum dolor sit amet, consetetur sadipscing elitr.',
+            author: 'Aristotelina Marques',
+            likesCount: 16,
+            commentsCount: 5,
+          ),
+          PostCard(
+            profileName: 'Maricleia Malva',
+            cardImage: AssetsPath.defaultCardSvg,
+            avatarImage: AssetsPath.avatarJpg,
+            type: 'Meio ambiente',
+            format: 'Podcast',
+            title: 'Story lorem ipsum dolor',
+            author: 'Autoria: Maricleia Malva e Antônio Silveira',
+            likesCount: 1,
+            commentsCount: 5,
           ),
         ],
       ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:theo/components/line_text_button.dart';
 import 'package:theo/components/subTitleText.dart';
-import 'package:theo/components/titleText.dart';
+import 'package:theo/components/title_text.dart';
 import 'package:theo/pages/profile_screen/components/profile_action.dart';
 import 'package:theo/pages/profile_screen/components/profile_data_field.dart';
 import 'package:theo/styles/colors.dart';

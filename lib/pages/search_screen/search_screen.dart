@@ -4,7 +4,7 @@ import 'package:theo/components/bottom_button.dart';
 import 'package:theo/components/inputs/multi_selector_button_input.dart';
 import 'package:theo/components/inputs/text_input.dart';
 import 'package:theo/components/subTitleText.dart';
-import 'package:theo/components/titleText.dart';
+import 'package:theo/components/title_text.dart';
 
 import 'package:theo/models/theo_mocks.dart';
 import 'package:theo/styles/colors.dart';

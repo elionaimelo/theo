@@ -62,7 +62,8 @@ class _PostCardState extends State<PostCard> {
   Widget get _divider => Padding(
         padding: EdgeInsets.symmetric(horizontal: _horizontalPadding),
         child: Divider(
-          height: 2,
+          height: 1,
+          thickness: 1,
           color: TheoColors.twentyFour,
         ),
       );
@@ -131,6 +132,18 @@ class _PostCardState extends State<PostCard> {
               widget.cardImage,
               fit: BoxFit.cover,
             ),
+            if (_hasCenterPlayer)
+              Positioned(
+                left: 0,
+                right: 0,
+                bottom: 0,
+                top: 0,
+                child: Icon(
+                  FeatherIcons.playCircle,
+                  color: TheoColors.secondary,
+                  size: 35,
+                ),
+              ),
             if (widget.adultRestriction)
               Positioned(
                 bottom: 0,
@@ -170,7 +183,7 @@ class _PostCardState extends State<PostCard> {
                 ],
               ),
             ),
-            if (_hasPlayer)
+            if (_hasRightPlayer)
               Container(
                 margin: EdgeInsets.only(left: 30, right: 13),
                 child: Icon(
@@ -241,11 +254,20 @@ class _PostCardState extends State<PostCard> {
       ? widget.type + ' | ' + widget.format!
       : widget.type;
 
-  bool get _hasPlayer {
+  bool get _hasRightPlayer {
     switch (widget.format) {
       case 'Podcast':
         return true;
-      case 'Musica':
+      case 'Música':
+        return true;
+      default:
+        return false;
+    }
+  }
+
+  bool get _hasCenterPlayer {
+    switch (widget.format) {
+      case 'Vídeo':
         return true;
       default:
         return false;

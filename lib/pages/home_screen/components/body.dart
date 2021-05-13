@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:theo/components/subTitleText.dart';
 
-import 'package:theo/components/titleText.dart';
+import 'package:theo/components/title_text.dart';
 import 'package:theo/components/titleButton.dart';
 import 'package:theo/pages/home_screen/components/categoryCard.dart';
 

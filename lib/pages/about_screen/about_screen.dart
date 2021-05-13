@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:theo/components/titleText.dart';
+import 'package:theo/components/title_text.dart';
 
 class AboutScreen extends StatelessWidget {
   @override

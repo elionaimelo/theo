@@ -3,7 +3,7 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:theo/components/bottom_button.dart';
 import 'package:theo/components/inputs/file_input.dart';
 import 'package:theo/components/inputs/text_input.dart';
-import 'package:theo/components/titleText.dart';
+import 'package:theo/components/title_text.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/styles/gerenal.dart';
 

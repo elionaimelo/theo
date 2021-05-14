@@ -69,6 +69,8 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             author: 'Beutrano Cunha',
             likesCount: 16,
             commentsCount: 5,
+            onTapMore: () =>
+                Navigator.of(context).pushNamed(Routes.discoverGame),
           ),
           PostCard(
             profileName: 'Beutrano Cunha',

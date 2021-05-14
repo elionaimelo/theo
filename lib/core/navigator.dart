@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:theo/core/routes.dart';
 import 'package:theo/pages/about_screen/about_screen.dart';
 import 'package:theo/pages/contact_screen/contact_screen.dart';
+import 'package:theo/pages/discover_game_screen/discover_game_screen.dart';
 import 'package:theo/pages/home_screen/home_screen.dart';
 import 'package:theo/pages/home_screen/home_screen_controller.dart';
 import 'package:theo/pages/login_screen/login_screen.dart';
@@ -73,6 +74,9 @@ class _TheoNavigatorState extends State<TheoNavigator> {
               break;
             case Routes.profile:
               builder = (BuildContext context) => ProfileScreen();
+              break;
+            case Routes.discoverGame:
+              builder = (BuildContext context) => DiscoverGameScreen();
               break;
             default:
               throw Exception('Invalid route: ${settings.name}');

@@ -9,6 +9,7 @@ class TextIconButton extends StatelessWidget {
     required this.onTap,
     this.icon,
     this.textStyle,
+    this.innerPadding,
   });
 
   final Color foregroundColor;
@@ -17,13 +18,14 @@ class TextIconButton extends StatelessWidget {
   final Function onTap;
   final Widget? icon;
   final TextStyle? textStyle;
+  final EdgeInsets? innerPadding;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => onTap(),
       child: Container(
-        padding: EdgeInsets.all(3),
+        padding: innerPadding ?? EdgeInsets.all(3),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           textDirection: direction,

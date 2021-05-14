@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:theo/components/bottom_button.dart';
+import 'package:theo/components/profile_bar.dart';
 import 'package:theo/core/routes.dart';
 import 'package:theo/models/theo_app_bar_settings.dart';
-import 'package:theo/pages/login_screen/components/login_email_tag.dart';
 import 'package:theo/pages/login_screen/login_screen_controller.dart';
 import 'package:theo/styles/colors.dart';
 
@@ -96,8 +96,8 @@ class _LoginScreenState extends State<LoginScreen>
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          LoginEmailTag(
-            email: widget.controller.email,
+          ProfileBar(
+            name: widget.controller.email,
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,

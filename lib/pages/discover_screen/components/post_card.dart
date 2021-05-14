@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:theo/components/profile_bar.dart';
 import 'package:theo/components/text_icon_button.dart';
 import 'package:theo/pages/discover_screen/components/post_card_actions.dart';
 import 'package:theo/styles/colors.dart';
@@ -20,6 +21,7 @@ class PostCard extends StatefulWidget {
     required this.author,
     this.adultRestriction = false,
     required this.cardImage,
+    this.onTapMore,
   }) : super(key: key);
 
   @override
@@ -36,6 +38,7 @@ class PostCard extends StatefulWidget {
   final String author;
   final bool adultRestriction;
   final String cardImage;
+  final Function()? onTapMore;
 }
 
 class _PostCardState extends State<PostCard> {
@@ -73,31 +76,16 @@ class _PostCardState extends State<PostCard> {
         margin: EdgeInsets.only(bottom: 11),
         child: Row(
           children: [
-            Container(
-              margin: EdgeInsets.only(right: 8),
-              child: CircleAvatar(
-                radius: 15,
-                backgroundColor: Colors.transparent,
-                child: ClipOval(
-                  child: Image.asset(
-                    widget.avatarImage,
-                  ),
-                ),
-              ),
-            ),
-            Text(
-              widget.profileName,
-              style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                    fontSize: 16,
-                    color: TheoColors.seven,
-                    fontWeight: FontWeight.w700,
-                  ),
+            ProfileBar(
+              avatarSize: 30,
+              avatarImage: widget.avatarImage,
+              name: widget.profileName,
             ),
             Expanded(
               child: Container(
                 alignment: Alignment.centerRight,
                 child: TextIconButton(
-                  onTap: () {},
+                  onTap: () => widget.onTapMore?.call(),
                   icon: Icon(
                     FeatherIcons.plus,
                     color: TheoColors.primary,
@@ -120,7 +108,9 @@ class _PostCardState extends State<PostCard> {
       ? Container(
           margin: EdgeInsets.only(
               bottom: 7, left: _horizontalPadding, right: _horizontalPadding),
-          child: Text(widget.textBody!),
+          child: Text(
+            widget.textBody!,
+          ),
         )
       : Container();
 

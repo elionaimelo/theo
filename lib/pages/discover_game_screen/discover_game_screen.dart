@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:theo/components/profile_bar.dart';
 import 'package:theo/components/text_icon_button.dart';
 import 'package:theo/pages/discover_game_screen/components/expandable_text.dart';
+import 'package:theo/pages/discover_game_screen/components/image_carousel.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/styles/metrics.dart';
 import 'package:theo/utils/assets_path.dart';
@@ -17,7 +18,7 @@ class _DiscoverGameScreenState extends State<DiscoverGameScreen> {
   Widget build(BuildContext context) {
     return Container(
       padding: TheoMetrics.paddingScreen,
-      child: ListView(
+      child: Column(
         children: [
           ProfileBar(
             avatarImage: AssetsPath.avatarJpg,
@@ -31,15 +32,18 @@ class _DiscoverGameScreenState extends State<DiscoverGameScreen> {
             margin: EdgeInsets.only(top: 10, bottom: 10),
             child: _portugueseTag,
           ),
-          Stack(
-            children: [
-              ExpandableText(
-                text:
-                    'At vero eos et accusam et justo duo Dolores et ea rebum. Stet clita kasd gubergren, no sea. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy. At vero eos et accusam et justo duo Dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy.',
-                author: 'Beutrano Cunha',
-                adultContent: false,
-              )
-            ],
+          Expanded(
+            child: Stack(
+              children: [
+                _bottomContent,
+                ExpandableText(
+                  text:
+                      'At vero eos et accusam et justo duo Dolores et ea rebum. Stet clita kasd gubergren, no sea. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy. At vero eos et accusam et justo duo Dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy.',
+                  author: 'Beutrano Cunha',
+                  adultContent: false,
+                ),
+              ],
+            ),
           )
         ],
       ),
@@ -73,7 +77,15 @@ class _DiscoverGameScreenState extends State<DiscoverGameScreen> {
             ),
       );
 
-  Widget get _bottomContent => Column(
-        children: [],
+  Widget get _bottomContent => Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            ImageCarrossel(
+              imageAssets: [AssetsPath.criancaPng],
+              title: 'Clique na imagem para ampliar',
+            ),
+          ],
+        ),
       );
 }

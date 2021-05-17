@@ -10,5 +10,7 @@ class AssetsPath {
   static const espSvg = 'assets/icons/esp.svg';
   static const avatarJpg = 'assets/images/avataaars.jpg';
   static const defaultCardSvg = 'assets/images/default.svg';
+  static const criancaPng = 'assets/images/crianca.png';
+
   static const thumbsUpSvg = 'assets/icons/thumbs-up.svg';
 }

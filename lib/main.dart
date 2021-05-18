@@ -44,7 +44,6 @@ class MyApp extends StatelessWidget {
         preferredSize: Size.fromHeight(TheoMetrics.appBarHeight),
         child: Observer(
           builder: (_) => TheoAppBar(
-            settings: _navigationStore.appBarSettings,
             onBackPressed: () {
               _navigationStore.navigationKey.currentState!.maybePop();
             },

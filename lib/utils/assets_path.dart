@@ -11,6 +11,7 @@ class AssetsPath {
   static const avatarJpg = 'assets/images/avataaars.jpg';
   static const defaultCardSvg = 'assets/images/default.svg';
   static const criancaPng = 'assets/images/crianca.png';
+  static const hqPng = 'assets/images/hq.png';
 
   static const thumbsUpSvg = 'assets/icons/thumbs-up.svg';
 }

@@ -23,6 +23,7 @@ class _ImageCarrosselState extends State<ImageCarrossel> {
       child: Column(
         children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               _title,
               _arrowRight,
@@ -39,6 +40,7 @@ class _ImageCarrosselState extends State<ImageCarrossel> {
         style: Theme.of(context).textTheme.bodyText1!.copyWith(
               fontSize: 16,
               color: TheoColors.six,
+              fontWeight: FontWeight.w700,
             ),
       );
 
@@ -59,13 +61,14 @@ class _ImageCarrosselState extends State<ImageCarrossel> {
       );
 
   Widget _imageItem({required String asset}) => Container(
+        margin: EdgeInsets.only(right: 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
         ),
         clipBehavior: Clip.hardEdge,
         width: 260,
         child: Image(
-          image: AssetImage('assets/images/crianca.png'),
+          image: AssetImage(asset),
           fit: BoxFit.cover,
         ),
       );

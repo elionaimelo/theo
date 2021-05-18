@@ -3,7 +3,7 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:theo/components/profile_bar.dart';
 import 'package:theo/components/text_icon_button.dart';
-import 'package:theo/pages/discover_screen/components/post_card_actions.dart';
+import 'package:theo/components/post_card_actions.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/utils/assets_path.dart';
 
@@ -54,22 +54,14 @@ class _PostCardState extends State<PostCard> {
           _textBody,
           _cardImage,
           _cardBody,
-          _likeCommentsCount,
-          _divider,
-          PostCardActions(),
+          PostCardActions(
+            likesCount: widget.likesCount,
+            commentsCount: widget.commentsCount,
+          ),
         ],
       ),
     );
   }
-
-  Widget get _divider => Padding(
-        padding: EdgeInsets.symmetric(horizontal: _horizontalPadding),
-        child: Divider(
-          height: 1,
-          thickness: 1,
-          color: TheoColors.twentyFour,
-        ),
-      );
 
   Widget get _profile => Container(
         padding: EdgeInsets.symmetric(horizontal: _horizontalPadding),
@@ -185,33 +177,6 @@ class _PostCardState extends State<PostCard> {
           ],
         ),
       );
-
-  Widget get _likeCommentsCount {
-    var textStyle = Theme.of(context).textTheme.bodyText1!.copyWith(
-          color: TheoColors.seven,
-          fontSize: 14,
-        );
-
-    return Container(
-      padding:
-          EdgeInsets.symmetric(horizontal: _horizontalPadding, vertical: 5),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SvgPicture.asset(AssetsPath.thumbsUpSvg),
-          Text(
-            widget.likesCount.toString(),
-            style: textStyle,
-          ),
-          Expanded(child: Container()),
-          Text(
-            widget.commentsCount.toString() + ' comentários',
-            style: textStyle,
-          ),
-        ],
-      ),
-    );
-  }
 
   Widget get _adultTag => Container(
         margin: EdgeInsets.only(right: 18, bottom: 10),

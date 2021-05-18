@@ -21,10 +21,6 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
-      GetIt.I.get<NavigationStore>().withBottomNavigationBar = false;
-    });
   }
 
   @override

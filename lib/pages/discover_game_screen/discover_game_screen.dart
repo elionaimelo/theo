@@ -5,7 +5,6 @@ import 'package:theo/components/post_card_actions.dart';
 import 'package:theo/components/profile_bar.dart';
 import 'package:theo/components/story_app_bar.dart';
 import 'package:theo/components/text_icon_button.dart';
-import 'package:theo/models/theo_app_bar_settings.dart';
 import 'package:theo/pages/discover_game_screen/components/expandable_text.dart';
 import 'package:theo/pages/discover_game_screen/components/image_carousel.dart';
 import 'package:theo/pages/discover_game_screen/discover_game_screen_controller.dart';

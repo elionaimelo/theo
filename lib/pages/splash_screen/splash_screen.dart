@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:splashscreen/splashscreen.dart' as flutter_splash;
 import 'package:theo/core/routes.dart';
 import 'package:theo/pages/start_screen/start_screen.dart';
-import 'package:theo/states/navigation_store.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 

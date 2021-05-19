@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-import 'package:theo/models/theo_app_bar_settings.dart';
 import 'package:theo/pages/discover_screen/discorver_screen.dart';
 
 import 'package:theo/pages/home_screen/components/body.dart';

@@ -20,7 +20,7 @@ class StoryAppBar extends StatelessWidget {
             ),
           ),
           TextIconButton(
-            onTap: () => Navigator.of(context).pop(),
+            onTap: () {},
             text: 'Salvar',
             foregroundColor: TheoColors.seven,
             direction: TextDirection.rtl,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:theo/pages/discover_game_screen/components/bottom_sheet_image_carousel.dart';
 import 'package:theo/styles/colors.dart';
 
 class ImageCarrossel extends StatefulWidget {
@@ -17,6 +18,13 @@ class ImageCarrossel extends StatefulWidget {
 }
 
 class _ImageCarrosselState extends State<ImageCarrossel> {
+  void _onTapImage() {
+    BottomSheetImageCarousel.showImageCarouselBottomSheet(
+      context,
+      imageAssets: widget.imageAssets,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -67,9 +75,12 @@ class _ImageCarrosselState extends State<ImageCarrossel> {
         ),
         clipBehavior: Clip.hardEdge,
         width: 260,
-        child: Image(
-          image: AssetImage(asset),
-          fit: BoxFit.cover,
+        child: InkWell(
+          onTap: _onTapImage,
+          child: Image(
+            image: AssetImage(asset),
+            fit: BoxFit.cover,
+          ),
         ),
       );
 }

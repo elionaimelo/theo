@@ -46,10 +46,14 @@ class _TheoNavigatorState extends State<TheoNavigator> {
       case Routes.login:
       case Routes.discoverGame:
       case Routes.start:
-        widget.navigationStore.hideAppBars();
+        WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+          widget.navigationStore.hideAppBars();
+        });
         break;
       case Routes.home:
-        widget.navigationStore.showAppBars();
+        WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+          widget.navigationStore.showAppBars();
+        });
         break;
       default:
         break;

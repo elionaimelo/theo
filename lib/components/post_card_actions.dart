@@ -9,7 +9,7 @@ class PostCardActions extends StatefulWidget {
     Key? key,
     required this.likesCount,
     required this.commentsCount,
-    this.horizontalPadding = 18,
+    this.horizontalPadding = 0,
   }) : super(key: key);
 
   @override

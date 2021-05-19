@@ -54,9 +54,13 @@ class _PostCardState extends State<PostCard> {
           _textBody,
           _cardImage,
           _cardBody,
-          PostCardActions(
-            likesCount: widget.likesCount,
-            commentsCount: widget.commentsCount,
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 18),
+            child: PostCardActions(
+              likesCount: widget.likesCount,
+              commentsCount: widget.commentsCount,
+              horizontalPadding: 0,
+            ),
           ),
         ],
       ),

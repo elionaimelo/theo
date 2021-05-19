@@ -61,7 +61,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
           ),
           PostCard(
             profileName: 'Kaline Sampaio',
-            cardImage: AssetsPath.defaultCardSvg,
+            cardImage: AssetsPath.dicesJpg,
             avatarImage: AssetsPath.avatarJpg,
             type: 'Sífilis',
             format: 'Jogo',
@@ -74,7 +74,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
           ),
           PostCard(
             profileName: 'Beutrano Cunha',
-            cardImage: AssetsPath.defaultCardSvg,
+            cardImage: AssetsPath.cienciaPng,
             avatarImage: AssetsPath.avatarJpg,
             type: 'Ciência',
             format: 'Vídeo',
@@ -87,7 +87,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
           ),
           PostCard(
             profileName: 'Eustáquio Dávila',
-            cardImage: AssetsPath.defaultCardSvg,
+            cardImage: AssetsPath.lingPng,
             avatarImage: AssetsPath.avatarJpg,
             type: 'Linguística',
             format: 'Texto',
@@ -98,9 +98,19 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             commentsCount: 5,
           ),
           PostCard(
-            profileName: 'Maricleia Malva',
-            cardImage: AssetsPath.defaultCardSvg,
+            profileName: 'Rosângela Alves',
+            cardImage: AssetsPath.musicJpg,
             avatarImage: AssetsPath.avatarJpg,
+            type: 'Português',
+            format: 'Música',
+            title: 'Story lorem ipsum dolor',
+            author: 'Autoria: Rosângela Alves e Maria Coutinho',
+            likesCount: 16,
+            commentsCount: 5,
+          ),
+          PostCard(
+            profileName: 'Maricleia Malva',
+            cardImage: AssetsPath.podcastJpg,
             type: 'Meio ambiente',
             format: 'Podcast',
             title: 'Story lorem ipsum dolor',

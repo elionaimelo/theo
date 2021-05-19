@@ -123,6 +123,7 @@ class _TellScreenState extends State<TellScreen> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _title,
                 SubTitleText(

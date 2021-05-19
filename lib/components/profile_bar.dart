@@ -58,6 +58,7 @@ class ProfileBar extends StatelessWidget {
             style: GoogleFonts.muli(
               color: Colors.white,
               fontWeight: FontWeight.w600,
+              fontSize: 12,
             ),
           ),
         ),

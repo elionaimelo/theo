@@ -6,11 +6,12 @@ import 'package:theo/components/text_icon_button.dart';
 import 'package:theo/components/post_card_actions.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/utils/assets_path.dart';
+import 'package:path/path.dart' as p;
 
 class PostCard extends StatefulWidget {
   const PostCard({
     Key? key,
-    required this.avatarImage,
+    this.avatarImage,
     required this.profileName,
     this.textBody,
     required this.likesCount,
@@ -27,7 +28,7 @@ class PostCard extends StatefulWidget {
   @override
   _PostCardState createState() => _PostCardState();
 
-  final String avatarImage;
+  final String? avatarImage;
   final String profileName;
   final String? textBody;
   final int likesCount;
@@ -110,35 +111,51 @@ class _PostCardState extends State<PostCard> {
         )
       : Container();
 
-  Widget get _cardImage => Container(
-        color: Colors.red,
-        child: Stack(
-          children: [
-            SvgPicture.asset(
-              widget.cardImage,
-              fit: BoxFit.cover,
-            ),
-            if (_hasCenterPlayer)
-              Positioned(
-                left: 0,
-                right: 0,
-                bottom: 0,
-                top: 0,
-                child: Icon(
-                  FeatherIcons.playCircle,
-                  color: TheoColors.secondary,
-                  size: 35,
-                ),
-              ),
-            if (widget.adultRestriction)
-              Positioned(
-                bottom: 0,
-                right: 0,
-                child: _adultTag,
-              )
-          ],
-        ),
+  Widget get _cardImage {
+    Widget image = SvgPicture.asset(
+      AssetsPath.defaultCardSvg,
+      fit: BoxFit.cover,
+    );
+
+    if (widget.cardImage.contains('.svg')) {
+      image = SvgPicture.asset(
+        widget.cardImage,
+        fit: BoxFit.cover,
       );
+    } else if (['.jpeg', '.jpg', '.png'].contains(_cardImageFileType)) {
+      image = Image(
+        fit: BoxFit.cover,
+        image: AssetImage(widget.cardImage),
+      );
+    }
+
+    return Container(
+      color: Colors.red,
+      child: Stack(
+        children: [
+          image,
+          if (_hasCenterPlayer)
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              top: 0,
+              child: Icon(
+                FeatherIcons.playCircle,
+                color: TheoColors.secondary,
+                size: 35,
+              ),
+            ),
+          if (widget.adultRestriction)
+            Positioned(
+              bottom: 0,
+              right: 0,
+              child: _adultTag,
+            )
+        ],
+      ),
+    );
+  }
 
   Widget get _cardBody => Container(
         color: TheoColors.fiftteen,
@@ -232,4 +249,6 @@ class _PostCardState extends State<PostCard> {
         return false;
     }
   }
+
+  String get _cardImageFileType => p.extension(widget.cardImage);
 }

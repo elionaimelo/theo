@@ -12,6 +12,13 @@ class AssetsPath {
   static const defaultCardSvg = 'assets/images/default.svg';
   static const criancaPng = 'assets/images/crianca.png';
   static const hqPng = 'assets/images/hq.png';
+  static const lingPng = 'assets/images/ling.png';
 
+  static const musicJpg = 'assets/images/music.jpeg';
+
+  static const podcastJpg = 'assets/images/podcast.jpeg';
+  static const dicesJpg = 'assets/images/dices.jpeg';
+
+  static const cienciaPng = 'assets/images/ciencia.png';
   static const thumbsUpSvg = 'assets/icons/thumbs-up.svg';
 }

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:theo/core/routes.dart';
 import 'package:theo/pages/about_screen/about_screen.dart';
 import 'package:theo/pages/contact_screen/contact_screen.dart';
+import 'package:theo/pages/discover_game_screen/discover_game_screen.dart';
+import 'package:theo/pages/discover_game_screen/discover_game_screen_controller.dart';
 import 'package:theo/pages/home_screen/home_screen.dart';
 import 'package:theo/pages/home_screen/home_screen_controller.dart';
 import 'package:theo/pages/login_screen/login_screen.dart';
@@ -27,6 +29,34 @@ class _TheoNavigatorState extends State<TheoNavigator> {
   @override
   void initState() {
     super.initState();
+
+    // Event actioned when a navigation change occours
+    widget.navigationStore.navigationHistory.historyChangeStream
+        .listen((event) {
+      handleAppBarByRoute();
+    });
+  }
+
+  void handleAppBarByRoute() {
+    var route = widget.navigationStore.currentNamedRoute;
+
+    switch (route) {
+      case Routes.splash:
+      case Routes.login:
+      case Routes.discoverGame:
+      case Routes.start:
+        WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+          widget.navigationStore.hideAppBars();
+        });
+        break;
+      case Routes.home:
+        WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+          widget.navigationStore.showAppBars();
+        });
+        break;
+      default:
+        break;
+    }
   }
 
   Future<bool> _willPop() async {
@@ -74,6 +104,9 @@ class _TheoNavigatorState extends State<TheoNavigator> {
             case Routes.profile:
               builder = (BuildContext context) => ProfileScreen();
               break;
+            case Routes.discoverGame:
+              builder = (BuildContext context) => _discoverScreen;
+              break;
             default:
               throw Exception('Invalid route: ${settings.name}');
           }
@@ -86,6 +119,10 @@ class _TheoNavigatorState extends State<TheoNavigator> {
       ),
     );
   }
+
+  Widget get _discoverScreen => DiscoverGameScreen(
+      controller: DiscoverGameScreenController(
+          navigationStore: widget.navigationStore));
 
   Widget get _homeScreen => HomeScreen(
         controller: HomeScreenController(

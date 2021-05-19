@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:theo/components/profile_bar.dart';
 import 'package:theo/components/text_icon_button.dart';
-import 'package:theo/pages/discover_screen/components/post_card_actions.dart';
+import 'package:theo/components/post_card_actions.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/utils/assets_path.dart';
+import 'package:path/path.dart' as p;
 
 class PostCard extends StatefulWidget {
   const PostCard({
     Key? key,
-    required this.avatarImage,
+    this.avatarImage,
     required this.profileName,
     this.textBody,
     required this.likesCount,
@@ -20,12 +22,13 @@ class PostCard extends StatefulWidget {
     required this.author,
     this.adultRestriction = false,
     required this.cardImage,
+    this.onTapMore,
   }) : super(key: key);
 
   @override
   _PostCardState createState() => _PostCardState();
 
-  final String avatarImage;
+  final String? avatarImage;
   final String profileName;
   final String? textBody;
   final int likesCount;
@@ -36,6 +39,7 @@ class PostCard extends StatefulWidget {
   final String author;
   final bool adultRestriction;
   final String cardImage;
+  final Function()? onTapMore;
 }
 
 class _PostCardState extends State<PostCard> {
@@ -51,53 +55,34 @@ class _PostCardState extends State<PostCard> {
           _textBody,
           _cardImage,
           _cardBody,
-          _likeCommentsCount,
-          _divider,
-          PostCardActions(),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 18),
+            child: PostCardActions(
+              likesCount: widget.likesCount,
+              commentsCount: widget.commentsCount,
+              horizontalPadding: 0,
+            ),
+          ),
         ],
       ),
     );
   }
-
-  Widget get _divider => Padding(
-        padding: EdgeInsets.symmetric(horizontal: _horizontalPadding),
-        child: Divider(
-          height: 1,
-          thickness: 1,
-          color: TheoColors.twentyFour,
-        ),
-      );
 
   Widget get _profile => Container(
         padding: EdgeInsets.symmetric(horizontal: _horizontalPadding),
         margin: EdgeInsets.only(bottom: 11),
         child: Row(
           children: [
-            Container(
-              margin: EdgeInsets.only(right: 8),
-              child: CircleAvatar(
-                radius: 15,
-                backgroundColor: Colors.transparent,
-                child: ClipOval(
-                  child: Image.asset(
-                    widget.avatarImage,
-                  ),
-                ),
-              ),
-            ),
-            Text(
-              widget.profileName,
-              style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                    fontSize: 16,
-                    color: TheoColors.seven,
-                    fontWeight: FontWeight.w700,
-                  ),
+            ProfileBar(
+              avatarSize: 30,
+              avatarImage: widget.avatarImage,
+              name: widget.profileName,
             ),
             Expanded(
               child: Container(
                 alignment: Alignment.centerRight,
                 child: TextIconButton(
-                  onTap: () {},
+                  onTap: () => widget.onTapMore?.call(),
                   icon: Icon(
                     FeatherIcons.plus,
                     color: TheoColors.primary,
@@ -120,39 +105,57 @@ class _PostCardState extends State<PostCard> {
       ? Container(
           margin: EdgeInsets.only(
               bottom: 7, left: _horizontalPadding, right: _horizontalPadding),
-          child: Text(widget.textBody!),
+          child: Text(
+            widget.textBody!,
+          ),
         )
       : Container();
 
-  Widget get _cardImage => Container(
-        color: Colors.red,
-        child: Stack(
-          children: [
-            SvgPicture.asset(
-              widget.cardImage,
-              fit: BoxFit.cover,
-            ),
-            if (_hasCenterPlayer)
-              Positioned(
-                left: 0,
-                right: 0,
-                bottom: 0,
-                top: 0,
-                child: Icon(
-                  FeatherIcons.playCircle,
-                  color: TheoColors.secondary,
-                  size: 35,
-                ),
-              ),
-            if (widget.adultRestriction)
-              Positioned(
-                bottom: 0,
-                right: 0,
-                child: _adultTag,
-              )
-          ],
-        ),
+  Widget get _cardImage {
+    Widget image = SvgPicture.asset(
+      AssetsPath.defaultCardSvg,
+      fit: BoxFit.cover,
+    );
+
+    if (widget.cardImage.contains('.svg')) {
+      image = SvgPicture.asset(
+        widget.cardImage,
+        fit: BoxFit.cover,
       );
+    } else if (['.jpeg', '.jpg', '.png'].contains(_cardImageFileType)) {
+      image = Image(
+        fit: BoxFit.cover,
+        image: AssetImage(widget.cardImage),
+      );
+    }
+
+    return Container(
+      color: Colors.red,
+      child: Stack(
+        children: [
+          image,
+          if (_hasCenterPlayer)
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              top: 0,
+              child: Icon(
+                FeatherIcons.playCircle,
+                color: TheoColors.secondary,
+                size: 35,
+              ),
+            ),
+          if (widget.adultRestriction)
+            Positioned(
+              bottom: 0,
+              right: 0,
+              child: _adultTag,
+            )
+        ],
+      ),
+    );
+  }
 
   Widget get _cardBody => Container(
         color: TheoColors.fiftteen,
@@ -195,33 +198,6 @@ class _PostCardState extends State<PostCard> {
           ],
         ),
       );
-
-  Widget get _likeCommentsCount {
-    var textStyle = Theme.of(context).textTheme.bodyText1!.copyWith(
-          color: TheoColors.seven,
-          fontSize: 14,
-        );
-
-    return Container(
-      padding:
-          EdgeInsets.symmetric(horizontal: _horizontalPadding, vertical: 5),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SvgPicture.asset(AssetsPath.thumbsUpSvg),
-          Text(
-            widget.likesCount.toString(),
-            style: textStyle,
-          ),
-          Expanded(child: Container()),
-          Text(
-            widget.commentsCount.toString() + ' comentários',
-            style: textStyle,
-          ),
-        ],
-      ),
-    );
-  }
 
   Widget get _adultTag => Container(
         margin: EdgeInsets.only(right: 18, bottom: 10),
@@ -273,4 +249,6 @@ class _PostCardState extends State<PostCard> {
         return false;
     }
   }
+
+  String get _cardImageFileType => p.extension(widget.cardImage);
 }

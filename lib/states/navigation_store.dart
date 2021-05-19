@@ -25,12 +25,8 @@ abstract class _NavigationStoreBase with Store {
   TheoAppBarSettings appBarSettings = TheoAppBarSettings();
 
   @observable
-  bool withAppBar = false;
-
-  @observable
   TabPagesIndexes _currentTabPageIndex = TabPagesIndexes.HOME;
 
-  @computed
   String? get currentNamedRoute => navigationHistory.history.last.settings.name;
 
   @computed
@@ -49,5 +45,21 @@ abstract class _NavigationStoreBase with Store {
       withMenu: true,
       withProfile: true,
     );
+  }
+
+  @action
+  void showAppBars() {
+    if (!withBottomNavigationBar || !appBarSettings.visible) {
+      withBottomNavigationBar = true;
+      appBarSettings = appBarSettings.copyWith(visible: true);
+    }
+  }
+
+  @action
+  void hideAppBars() {
+    if (withBottomNavigationBar || appBarSettings.visible) {
+      withBottomNavigationBar = false;
+      appBarSettings = appBarSettings.copyWith(visible: false);
+    }
   }
 }

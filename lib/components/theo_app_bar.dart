@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:theo/components/top_sheet_menu.dart';
 import 'package:theo/core/routes.dart';
-import 'package:theo/models/theo_app_bar_settings.dart';
 import 'package:theo/states/navigation_store.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/utils/assets_path.dart';
 
 class TheoAppBar extends StatefulWidget {
   TheoAppBar({
-    required this.settings,
     this.onBackPressed,
     required this.navigationStore,
   });
 
-  final TheoAppBarSettings settings;
   final Function? onBackPressed;
   final NavigationStore navigationStore;
 
@@ -35,31 +33,36 @@ class _TheoAppBarState extends State<TheoAppBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Visibility(
-      visible: widget.settings.visible,
-      child: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            _leftAction(context),
-          ],
-        ),
-        actions: [
-          if (widget.settings.withProfile) _profile,
-          if (widget.settings.withMenu)
-            IconButton(
-              iconSize: 35,
-              icon: Icon(
-                Icons.menu,
-                color: TheoColors.primary,
-              ),
-              onPressed: () => _onMenuPressed(),
+    return Observer(
+      builder: (context) {
+        var settings = widget.navigationStore.appBarSettings;
+        return Visibility(
+          visible: settings.visible,
+          child: AppBar(
+            automaticallyImplyLeading: false,
+            backgroundColor: Colors.white,
+            elevation: 0,
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                _leftAction(context),
+              ],
             ),
-        ],
-      ),
+            actions: [
+              if (settings.withProfile) _profile,
+              if (settings.withMenu)
+                IconButton(
+                  iconSize: 35,
+                  icon: Icon(
+                    Icons.menu,
+                    color: TheoColors.primary,
+                  ),
+                  onPressed: () => _onMenuPressed(),
+                ),
+            ],
+          ),
+        );
+      },
     );
   }
 
@@ -104,7 +107,8 @@ class _TheoAppBarState extends State<TheoAppBar> {
             )),
       );
 
-  Widget _leftAction(BuildContext context) => widget.settings.withBackButton
-      ? _backButton(context)
-      : Image.asset(AssetsPath.appSymbolPng, fit: BoxFit.cover);
+  Widget _leftAction(BuildContext context) =>
+      widget.navigationStore.appBarSettings.withBackButton
+          ? _backButton(context)
+          : Image.asset(AssetsPath.appSymbolPng, fit: BoxFit.cover);
 }

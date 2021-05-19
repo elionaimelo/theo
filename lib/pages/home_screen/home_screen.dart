@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-import 'package:theo/models/theo_app_bar_settings.dart';
 import 'package:theo/pages/discover_screen/discorver_screen.dart';
 
 import 'package:theo/pages/home_screen/components/body.dart';
@@ -26,12 +25,6 @@ class _HomeScreenState extends State<HomeScreen>
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
-      widget.controller.showBottomBar();
-      widget.controller
-          .setAppBar(TheoAppBarSettings(visible: true, withBackButton: false));
-    });
-
     tabController = TabController(
       vsync: this,
       length: _tabs.length,
@@ -47,6 +40,14 @@ class _HomeScreenState extends State<HomeScreen>
     });
   }
 
+  Future<bool> _onBackPressed() async {
+    if (widget.controller.currentPageIndex != TabPagesIndexes.HOME) {
+      widget.controller.setCurrentPageIndex(TabPagesIndexes.HOME);
+    }
+
+    return Future.value(true);
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -58,14 +59,6 @@ class _HomeScreenState extends State<HomeScreen>
         ),
       ),
     );
-  }
-
-  Future<bool> _onBackPressed() async {
-    if (widget.controller.currentPageIndex != TabPagesIndexes.HOME) {
-      widget.controller.setCurrentPageIndex(TabPagesIndexes.HOME);
-    }
-
-    return Future.value(true);
   }
 
   List<Widget> get _tabs {

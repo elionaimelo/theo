@@ -8,4 +8,5 @@ class Routes {
   static const String contact = '/contact';
   static const String search = '/search';
   static const String profile = '/profile';
+  static const String discoverGame = '/discover-game';
 }

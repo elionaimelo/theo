@@ -128,24 +128,27 @@ class _GalleryImagePickerState extends State<GalleryImagePicker> {
           margin:
               EdgeInsets.fromLTRB(0, AppBar().preferredSize.height + 30, 0, 0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                margin: EdgeInsets.only(top: 10, left: 9, bottom: 25),
-                child: TextIconButton(
-                  onTap: () => Navigator.of(context).pop(),
-                  icon: Icon(
-                    FeatherIcons.x,
-                    size: 30,
-                    color: TheoColors.secondary,
-                  ),
-                ),
-              ),
+              _topButton,
               Expanded(
                   child: Container(
                 margin: EdgeInsets.all(3),
                 child: _grid,
               )),
             ],
+          ),
+        ),
+      );
+
+  Widget get _topButton => Container(
+        margin: EdgeInsets.only(top: 10, left: 9, bottom: 25),
+        child: TextIconButton(
+          onTap: () => Navigator.of(context).pop(),
+          icon: Icon(
+            FeatherIcons.x,
+            size: 30,
+            color: TheoColors.primary,
           ),
         ),
       );

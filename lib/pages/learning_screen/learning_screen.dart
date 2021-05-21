@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:theo/components/storyProgress.dart';
 import 'package:theo/components/title_text.dart';
+import 'package:theo/core/routes.dart';
 import 'package:theo/models/story.dart';
 import 'package:theo/pages/learning_screen/components/story_card.dart';
 import 'package:theo/styles/colors.dart';
@@ -50,6 +51,10 @@ class _LearningScreenState extends State<LearningScreen> {
     ),
   ];
 
+  void _presentationTap() {
+    Navigator.of(context).pushNamed(Routes.videoLearn);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -78,7 +83,7 @@ class _LearningScreenState extends State<LearningScreen> {
   }
 
   Widget get _presentation => InkWell(
-        onTap: () {},
+        onTap: _presentationTap,
         child: Container(
           child: Card(
             elevation: 2,

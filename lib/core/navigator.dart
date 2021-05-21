@@ -13,6 +13,7 @@ import 'package:theo/pages/profile_screen/profile_screen.dart';
 import 'package:theo/pages/search_screen/search_screen.dart';
 import 'package:theo/pages/splash_screen/splash_screen.dart';
 import 'package:theo/pages/start_screen/start_screen.dart';
+import 'package:theo/pages/video_learn_screen/video_learn_screen.dart';
 import 'package:theo/states/navigation_store.dart';
 
 class TheoNavigator extends StatefulWidget {
@@ -45,6 +46,7 @@ class _TheoNavigatorState extends State<TheoNavigator> {
       case Routes.login:
       case Routes.discoverGame:
       case Routes.start:
+      case Routes.videoLearn:
         WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
           widget.navigationStore.hideAppBars();
         });
@@ -106,6 +108,9 @@ class _TheoNavigatorState extends State<TheoNavigator> {
               break;
             case Routes.discoverGame:
               builder = (BuildContext context) => _discoverScreen;
+              break;
+            case Routes.videoLearn:
+              builder = (BuildContext context) => VideoLearnScreen();
               break;
             default:
               throw Exception('Invalid route: ${settings.name}');

@@ -21,4 +21,8 @@ class AssetsPath {
 
   static const cienciaPng = 'assets/images/ciencia.png';
   static const thumbsUpSvg = 'assets/icons/thumbs-up.svg';
+
+  static const rightReplay = 'assets/icons/right-replay.svg';
+  static const leftReplay = 'assets/icons/left-replay.svg';
+  static const playSvg = 'assets/icons/play.svg';
 }

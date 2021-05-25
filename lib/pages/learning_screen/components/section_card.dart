@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:theo/models/story.dart';
+import 'package:theo/models/section.dart';
+import 'package:theo/states/story_store.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
-class StoryCard extends StatelessWidget {
-  StoryCard({
-    required this.story,
+class SectionCard extends StatelessWidget {
+  SectionCard({
+    required this.section,
+    required this.onStartTap,
   });
 
-  final Story story;
+  final Section section;
+  final Function() onStartTap;
 
   @override
   Widget build(BuildContext context) {
@@ -49,29 +53,36 @@ class StoryCard extends StatelessWidget {
         ),
       );
 
-  Widget get _status => story.finished
-      ? Container(
-          child: Row(
-            children: [
-              _checkedIcon,
-              Container(
-                margin: EdgeInsets.only(left: 7),
-              ),
-              Text(
-                'Concluído',
-                style: GoogleFonts.muli(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w700,
-                  color: TheoColors.thirteen,
+  Widget get _status {
+    // normally the API would provide the finished virtual property, but in this case
+    // because its only app layout development so I create this function
+
+    var finished = GetIt.I.get<StoryStore>().isSectionFinished(section.id);
+
+    return finished
+        ? Container(
+            child: Row(
+              children: [
+                _checkedIcon,
+                Container(
+                  margin: EdgeInsets.only(left: 7),
                 ),
-              ),
-            ],
-          ),
-        )
-      : Container();
+                Text(
+                  'Concluído',
+                  style: GoogleFonts.muli(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w700,
+                    color: TheoColors.thirteen,
+                  ),
+                ),
+              ],
+            ),
+          )
+        : Container();
+  }
 
   Widget get _title => Text(
-        story.title,
+        section.title,
         style: GoogleFonts.muli(
           fontSize: 18,
           fontWeight: FontWeight.w800,
@@ -87,7 +98,7 @@ class StoryCard extends StatelessWidget {
         ),
         child: InkWell(
           borderRadius: BorderRadius.circular(15),
-          onTap: () {},
+          onTap: onStartTap,
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
             child: Row(

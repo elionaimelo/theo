@@ -9,5 +9,6 @@ class Routes {
   static const String search = '/search';
   static const String profile = '/profile';
   static const String discoverGame = '/discover-game';
-  static const String videoLearn = '/video-learn';
+  static const String videoStory = '/video-story';
+  static const String storytellingLearn = '/storytelling-learn';
 }

@@ -4,4 +4,5 @@ class TheoMetrics {
   static double appBarHeight = 46;
   static EdgeInsets paddingScreen =
       EdgeInsets.symmetric(horizontal: 16, vertical: 31);
+  static double cardElevation = 5;
 }

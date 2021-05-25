@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:theo/core/routes.dart';
 import 'package:theo/pages/about_screen/about_screen.dart';
 import 'package:theo/pages/contact_screen/contact_screen.dart';
@@ -13,7 +14,10 @@ import 'package:theo/pages/profile_screen/profile_screen.dart';
 import 'package:theo/pages/search_screen/search_screen.dart';
 import 'package:theo/pages/splash_screen/splash_screen.dart';
 import 'package:theo/pages/start_screen/start_screen.dart';
-import 'package:theo/pages/video_learn_screen/video_learn_screen.dart';
+import 'package:theo/pages/storytelling_learn_screen/storytelling_learn_screen.dart';
+import 'package:theo/pages/storytelling_learn_screen/storytelling_learn_screen_controller.dart';
+import 'package:theo/pages/video_story_screen/video_story_screen.dart';
+import 'package:theo/pages/video_story_screen/video_story_screen_controller.dart';
 import 'package:theo/states/navigation_store.dart';
 
 class TheoNavigator extends StatefulWidget {
@@ -46,12 +50,13 @@ class _TheoNavigatorState extends State<TheoNavigator> {
       case Routes.login:
       case Routes.discoverGame:
       case Routes.start:
-      case Routes.videoLearn:
+      case Routes.videoStory:
         WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
           widget.navigationStore.hideAppBars();
         });
         break;
       case Routes.home:
+      case Routes.storytellingLearn:
         WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
           widget.navigationStore.showAppBars();
         });
@@ -109,9 +114,16 @@ class _TheoNavigatorState extends State<TheoNavigator> {
             case Routes.discoverGame:
               builder = (BuildContext context) => _discoverScreen;
               break;
-            case Routes.videoLearn:
-              builder = (BuildContext context) => VideoLearnScreen();
+            case Routes.videoStory:
+              builder = (BuildContext context) => VideoStoryScreen(
+                    controller:
+                        settings.arguments as VideoStoryScreenController,
+                  );
               break;
+            case Routes.storytellingLearn:
+              builder = (BuildContext context) => _storytellingScreen;
+              break;
+
             default:
               throw Exception('Invalid route: ${settings.name}');
           }
@@ -125,9 +137,17 @@ class _TheoNavigatorState extends State<TheoNavigator> {
     );
   }
 
+  Widget get _storytellingScreen => StorytellingLearnScreen(
+        controller: StorytellingLearnScreenController(
+          storyStore: GetIt.I.get(),
+        ),
+      );
+
   Widget get _discoverScreen => DiscoverGameScreen(
-      controller: DiscoverGameScreenController(
-          navigationStore: widget.navigationStore));
+        controller: DiscoverGameScreenController(
+          navigationStore: widget.navigationStore,
+        ),
+      );
 
   Widget get _homeScreen => HomeScreen(
         controller: HomeScreenController(
@@ -136,7 +156,8 @@ class _TheoNavigatorState extends State<TheoNavigator> {
       );
 
   Widget get _loginScreen => LoginScreen(
-        controller:
-            LoginScreenController(navigationStore: widget.navigationStore),
+        controller: LoginScreenController(
+          navigationStore: widget.navigationStore,
+        ),
       );
 }

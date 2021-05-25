@@ -1,3 +1,5 @@
+import 'package:theo/models/section.dart';
+
 class TheoMocks {
   static List<String> tellFormatsMock = [
     'Vídeo',
@@ -30,5 +32,44 @@ class TheoMocks {
     'Português',
     'Español',
     'Todos',
+  ];
+
+  static List<Section> sectionsMock = [
+    Section(
+      title: 'Primeiro titulo aqui - Sobre o storytelling?',
+      id: '1',
+    ),
+    Section(
+      title: 'Direitos Autorais',
+      id: '2',
+    ),
+    Section(
+      title: 'Título aqui - lorem ipsum dolor sit amet consetetur',
+      id: '3',
+    ),
+    Section(
+      title: 'Título aqui - lorem ipsum dolor sit amet consetetur',
+      id: '4',
+    ),
+    Section(
+      title: 'Título aqui - lorem ipsum dolor sit amet consetetur',
+      id: '5',
+    ),
+    Section(
+      title: 'Título aqui - lorem ipsum dolor sit amet consetetur',
+      id: '6',
+    ),
+    Section(
+      title: 'Título aqui - lorem ipsum dolor sit amet consetetur',
+      id: '7',
+    ),
+    Section(
+      title: 'Título aqui - lorem ipsum dolor sit amet consetetur',
+      id: '8',
+    ),
+    Section(
+      title: 'Título aqui - lorem ipsum dolor sit amet consetetur',
+      id: '9',
+    ),
   ];
 }

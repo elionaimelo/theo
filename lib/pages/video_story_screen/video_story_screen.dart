@@ -1,32 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:theo/components/bottom_button.dart';
-import 'package:theo/pages/video_learn_screen/components/player_inputs.dart';
-import 'package:theo/pages/video_learn_screen/components/video_top_bar.dart';
+import 'package:theo/pages/video_story_screen/components/player_inputs.dart';
+import 'package:theo/pages/video_story_screen/components/video_top_bar.dart';
+import 'package:theo/pages/video_story_screen/video_story_screen_controller.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/styles/metrics.dart';
 import 'package:video_player/video_player.dart';
 
-class VideoLearnScreen extends StatefulWidget {
+class VideoStoryScreen extends StatefulWidget {
+  const VideoStoryScreen({Key? key, required this.controller})
+      : super(key: key);
+
   @override
-  _VideoLearnScreenState createState() => _VideoLearnScreenState();
+  _VideoStoryScreenState createState() => _VideoStoryScreenState();
+
+  final VideoStoryScreenController controller;
 }
 
-class _VideoLearnScreenState extends State<VideoLearnScreen> {
-  late VideoPlayerController _controller;
+class _VideoStoryScreenState extends State<VideoStoryScreen> {
+  late VideoPlayerController _videoController;
 
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.network(
+    _videoController = VideoPlayerController.network(
         'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4');
-    _controller.setLooping(true);
-    _controller.initialize();
+    _videoController.setLooping(true);
+    _videoController.initialize();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _videoController.dispose();
     super.dispose();
+  }
+
+  void _bottomButtonTap() {
+    widget.controller.storyStore.finishStory(widget.controller.story.id);
+    Navigator.of(context).pop();
   }
 
   @override
@@ -40,7 +51,7 @@ class _VideoLearnScreenState extends State<VideoLearnScreen> {
             child: Container(
               padding: TheoMetrics.paddingScreen.copyWith(top: 0, bottom: 0),
               child: VideoTopBar(
-                controller: _controller,
+                controller: _videoController,
               ),
             ),
           ),
@@ -88,7 +99,7 @@ class _VideoLearnScreenState extends State<VideoLearnScreen> {
         child: Center(
           child: AspectRatio(
             aspectRatio: 16 / 9,
-            child: VideoPlayer(_controller),
+            child: VideoPlayer(_videoController),
           ),
         ),
       );
@@ -104,12 +115,12 @@ class _VideoLearnScreenState extends State<VideoLearnScreen> {
       );
 
   Widget get _player => PlayerInputs(
-        videoController: _controller,
+        videoController: _videoController,
       );
 
   Widget get _bottomButton => BottomButton(
         text: 'Feito!',
-        onPressed: () => Navigator.of(context).pop(),
+        onPressed: () => _bottomButtonTap(),
         backgroundColor: Colors.transparent,
         primaryColor: TheoColors.secondary,
         borderColor: TheoColors.secondary,

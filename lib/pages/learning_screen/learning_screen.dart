@@ -3,8 +3,9 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:theo/components/storyProgress.dart';
 import 'package:theo/components/title_text.dart';
 import 'package:theo/core/routes.dart';
-import 'package:theo/models/story.dart';
-import 'package:theo/pages/learning_screen/components/story_card.dart';
+import 'package:theo/models/section.dart';
+import 'package:theo/models/theo_mocks.dart';
+import 'package:theo/pages/learning_screen/components/section_card.dart';
 import 'package:theo/styles/colors.dart';
 
 class LearningScreen extends StatefulWidget {
@@ -13,46 +14,14 @@ class LearningScreen extends StatefulWidget {
 }
 
 class _LearningScreenState extends State<LearningScreen> {
-  List<Story> stories = [
-    Story(
-      title: 'Primeiro titulo aqui - Sobre o storytelling?',
-      finished: true,
-    ),
-    Story(
-      title: 'Direitos Autorais',
-    ),
-    Story(
-      title: 'Título aqui - lorem ipsum dolor sit amet consetetur',
-      finished: false,
-    ),
-    Story(
-      title: 'Título aqui - lorem ipsum dolor sit amet consetetur',
-      finished: false,
-    ),
-    Story(
-      title: 'Título aqui - lorem ipsum dolor sit amet consetetur',
-      finished: false,
-    ),
-    Story(
-      title: 'Título aqui - lorem ipsum dolor sit amet consetetur',
-      finished: false,
-    ),
-    Story(
-      title: 'Título aqui - lorem ipsum dolor sit amet consetetur',
-      finished: false,
-    ),
-    Story(
-      title: 'Título aqui - lorem ipsum dolor sit amet consetetur',
-      finished: false,
-    ),
-    Story(
-      title: 'Título aqui - lorem ipsum dolor sit amet consetetur',
-      finished: false,
-    ),
-  ];
+  List<Section> sections = TheoMocks.sectionsMock;
+
+  void _onStoryCardTap() {
+    Navigator.of(context).pushNamed(Routes.storytellingLearn);
+  }
 
   void _presentationTap() {
-    Navigator.of(context).pushNamed(Routes.videoLearn);
+    Navigator.of(context).pushNamed(Routes.videoStory);
   }
 
   @override
@@ -114,12 +83,13 @@ class _LearningScreenState extends State<LearningScreen> {
       );
 
   Widget get _list => ListView.builder(
-      itemCount: stories.length + 1,
+      itemCount: sections.length + 1,
       itemBuilder: (_, int index) {
         if (index == 0) return _presentation;
 
-        return StoryCard(
-          story: stories[index - 1],
+        return SectionCard(
+          section: sections[index - 1],
+          onStartTap: _onStoryCardTap,
         );
       });
 

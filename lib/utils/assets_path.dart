@@ -1,4 +1,18 @@
 class AssetsPath {
+  // Images Folder
+  static const avatarJpg = 'assets/images/avataaars.jpg';
+  static const defaultCardSvg = 'assets/images/default.svg';
+  static const criancaPng = 'assets/images/crianca.png';
+  static const hqPng = 'assets/images/hq.png';
+  static const lingPng = 'assets/images/ling.png';
+  static const musicJpg = 'assets/images/music.jpeg';
+  static const podcastJpg = 'assets/images/podcast.jpeg';
+  static const dicesJpg = 'assets/images/dices.jpeg';
+  static const cienciaPng = 'assets/images/ciencia.png';
+  static const podcastPng = 'assets/images/podcast.png';
+  static const quizPng = 'assets/images/quiz.png';
+
+  // Icons Folder
   static const thunderSvg = 'assets/icons/thunder.svg';
   static const animationSvg = 'assets/icons/animation.svg';
   static const interactiveSvg = 'assets/icons/interactive.svg';
@@ -8,20 +22,7 @@ class AssetsPath {
   static const brSvg = 'assets/icons/br.svg';
   static const enSvg = 'assets/icons/en.svg';
   static const espSvg = 'assets/icons/esp.svg';
-  static const avatarJpg = 'assets/images/avataaars.jpg';
-  static const defaultCardSvg = 'assets/images/default.svg';
-  static const criancaPng = 'assets/images/crianca.png';
-  static const hqPng = 'assets/images/hq.png';
-  static const lingPng = 'assets/images/ling.png';
-
-  static const musicJpg = 'assets/images/music.jpeg';
-
-  static const podcastJpg = 'assets/images/podcast.jpeg';
-  static const dicesJpg = 'assets/images/dices.jpeg';
-
-  static const cienciaPng = 'assets/images/ciencia.png';
   static const thumbsUpSvg = 'assets/icons/thumbs-up.svg';
-
   static const rightReplay = 'assets/icons/right-replay.svg';
   static const leftReplay = 'assets/icons/left-replay.svg';
   static const playSvg = 'assets/icons/play.svg';

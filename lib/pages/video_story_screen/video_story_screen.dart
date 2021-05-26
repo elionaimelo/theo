@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:theo/components/bottom_button.dart';
+import 'package:theo/models/enums.dart';
 import 'package:theo/pages/video_story_screen/components/player_inputs.dart';
 import 'package:theo/pages/video_story_screen/components/video_top_bar.dart';
 import 'package:theo/pages/video_story_screen/video_story_screen_controller.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/styles/metrics.dart';
+import 'package:theo/utils/assets_path.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoStoryScreen extends StatefulWidget {
@@ -44,7 +46,7 @@ class _VideoStoryScreenState extends State<VideoStoryScreen> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(top: AppBar().preferredSize.height),
-      color: Colors.black,
+      color: _backgroundColor,
       child: Stack(
         children: [
           Positioned(
@@ -52,6 +54,7 @@ class _VideoStoryScreenState extends State<VideoStoryScreen> {
               padding: TheoMetrics.paddingScreen.copyWith(top: 0, bottom: 0),
               child: VideoTopBar(
                 controller: _videoController,
+                foregroundColor: _foregroundColor,
               ),
             ),
           ),
@@ -95,34 +98,59 @@ class _VideoStoryScreenState extends State<VideoStoryScreen> {
         ),
       );
 
-  Widget get _video => Container(
-        child: Center(
-          child: AspectRatio(
-            aspectRatio: 16 / 9,
-            child: VideoPlayer(_videoController),
+  Widget get _video => widget.controller.story.format == EStoryFormat.VIDEO
+      ? Container(
+          child: Center(
+            child: AspectRatio(
+              aspectRatio: 16 / 9,
+              child: VideoPlayer(_videoController),
+            ),
           ),
-        ),
-      );
+        )
+      : Container(
+          child: Image(
+            image: AssetImage(AssetsPath.podcastPng),
+          ),
+        );
 
   Widget get _videoTitle => Container(
         child: Text(
           'Storyteling e lorem ipsum dolor sit amet',
           style: Theme.of(context).textTheme.bodyText1!.copyWith(
                 fontSize: 16,
-                color: TheoColors.secondary,
+                color: _textColor,
+                fontWeight: FontWeight.w700,
               ),
         ),
       );
 
   Widget get _player => PlayerInputs(
         videoController: _videoController,
+        foregroundColor: _foregroundColor,
+        playButtonColor: _playButtonColor,
+        textColor: _textColor,
+        maximizeButton: _isVideoFormat,
       );
 
   Widget get _bottomButton => BottomButton(
         text: 'Feito!',
         onPressed: () => _bottomButtonTap(),
         backgroundColor: Colors.transparent,
-        primaryColor: TheoColors.secondary,
-        borderColor: TheoColors.secondary,
+        primaryColor: _foregroundColor,
+        borderColor: _foregroundColor,
       );
+
+  Color get _backgroundColor =>
+      _isVideoFormat ? Colors.black : TheoColors.secondary;
+
+  Color get _foregroundColor =>
+      _isVideoFormat ? TheoColors.secondary : TheoColors.primary;
+
+  Color get _textColor =>
+      _isVideoFormat ? TheoColors.secondary : TheoColors.seven;
+
+  bool get _isVideoFormat =>
+      widget.controller.story.format == EStoryFormat.VIDEO;
+
+  Color? get _playButtonColor => _isVideoFormat ? null : TheoColors.primary;
 }

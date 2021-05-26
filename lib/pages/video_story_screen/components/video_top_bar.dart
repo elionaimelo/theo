@@ -8,9 +8,12 @@ class VideoTopBar extends StatefulWidget {
   VideoTopBar({
     Key? key,
     required this.controller,
+    this.foregroundColor = TheoColors.secondary,
   }) : super(key: key);
 
   final VideoPlayerController controller;
+
+  final Color foregroundColor;
 
   @override
   _VideoTopBarState createState() => _VideoTopBarState();
@@ -34,17 +37,17 @@ class _VideoTopBarState extends State<VideoTopBar> {
         children: [
           TextIconButton(
             onTap: () => Navigator.of(context).pop(),
-            foregroundColor: TheoColors.secondary,
+            foregroundColor: widget.foregroundColor,
             icon: Icon(
               FeatherIcons.x,
-              color: TheoColors.secondary,
+              color: widget.foregroundColor,
               size: 30,
             ),
           ),
           IconButton(
             icon: Icon(
               isMuted ? FeatherIcons.volumeX : FeatherIcons.volume2,
-              color: TheoColors.secondary,
+              color: widget.foregroundColor,
               size: 30,
             ),
             onPressed: _volumeButton,

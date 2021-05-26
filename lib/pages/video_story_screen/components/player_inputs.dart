@@ -9,12 +9,20 @@ class PlayerInputs extends StatefulWidget {
   const PlayerInputs({
     Key? key,
     required this.videoController,
+    this.foregroundColor = TheoColors.secondary,
+    this.textColor = TheoColors.secondary,
+    this.playButtonColor,
+    this.maximizeButton = true,
   }) : super(key: key);
 
   @override
   _PlayerInputsState createState() => _PlayerInputsState();
 
   final VideoPlayerController videoController;
+  final Color foregroundColor;
+  final Color textColor;
+  final Color? playButtonColor;
+  final bool maximizeButton;
 }
 
 class _PlayerInputsState extends State<PlayerInputs> {
@@ -107,14 +115,19 @@ class _PlayerInputsState extends State<PlayerInputs> {
   Widget get _maximizeButton => IconButton(
         icon: Icon(
           FeatherIcons.maximize2,
-          color: TheoColors.secondary,
+          color: widget.maximizeButton
+              ? widget.foregroundColor
+              : TheoColors.twelve,
         ),
-        onPressed: _maximizeButtonTap,
+        onPressed: widget.maximizeButton ? _maximizeButtonTap : null,
         iconSize: _iconSize,
       );
 
   Widget get _leftReplayButton => IconButton(
-        icon: SvgPicture.asset(AssetsPath.leftReplay),
+        icon: SvgPicture.asset(
+          AssetsPath.leftReplay,
+          color: widget.foregroundColor,
+        ),
         onPressed: () => _replayButtonTap(-10),
         iconSize: _iconSize,
       );
@@ -128,21 +141,27 @@ class _PlayerInputsState extends State<PlayerInputs> {
           padding: EdgeInsets.all(13),
           child: Container(
             margin: EdgeInsets.only(left: 2),
-            child: SvgPicture.asset(AssetsPath.playSvg),
+            child: SvgPicture.asset(
+              AssetsPath.playSvg,
+              color: widget.playButtonColor,
+            ),
           ),
         ),
         onPressed: _playButtonTap,
         iconSize: 50,
       );
   Widget get _rightReplayButton => IconButton(
-        icon: SvgPicture.asset(AssetsPath.rightReplay),
+        icon: SvgPicture.asset(
+          AssetsPath.rightReplay,
+          color: widget.foregroundColor,
+        ),
         onPressed: () => _replayButtonTap(10),
         iconSize: _iconSize,
       );
   Widget get _repeateButton => IconButton(
         icon: Icon(
           FeatherIcons.repeat,
-          color: TheoColors.secondary,
+          color: widget.foregroundColor,
         ),
         onPressed: _repeateButtonTap,
         iconSize: _iconSize,
@@ -156,7 +175,7 @@ class _PlayerInputsState extends State<PlayerInputs> {
               allowScrubbing: true,
               colors: VideoProgressColors(
                 backgroundColor: TheoColors.twentySix,
-                playedColor: TheoColors.secondary,
+                playedColor: widget.foregroundColor,
               ),
             ),
             Row(
@@ -165,13 +184,13 @@ class _PlayerInputsState extends State<PlayerInputs> {
                 Text(
                   _passedTime,
                   style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                        color: TheoColors.secondary,
+                        color: widget.textColor,
                       ),
                 ),
                 Text(
                   _timeLeft,
                   style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                        color: TheoColors.secondary,
+                        color: widget.textColor,
                       ),
                 ),
               ],

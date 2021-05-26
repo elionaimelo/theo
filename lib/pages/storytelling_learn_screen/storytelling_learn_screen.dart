@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
-import 'package:mobx/mobx.dart';
 import 'package:theo/core/routes.dart';
 import 'package:theo/models/enums.dart';
 import 'package:theo/models/story.dart';
@@ -28,6 +27,7 @@ class _StorytellingLearnScreenState extends State<StorytellingLearnScreen> {
   void onTapCard(Story story) {
     switch (story.format) {
       case EStoryFormat.VIDEO:
+      case EStoryFormat.PODCAST:
         Navigator.of(context).pushNamed(
           Routes.videoStory,
           arguments: VideoStoryScreenController(

@@ -4,6 +4,7 @@ import 'package:theo/models/enums.dart';
 import 'package:theo/models/story.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/styles/metrics.dart';
+import 'package:theo/utils/assets_path.dart';
 
 class LearnCardItem extends StatefulWidget {
   const LearnCardItem({
@@ -135,6 +136,10 @@ class _LearnCardItemState extends State<LearnCardItem> {
       case EStoryFormat.TEXT:
         iconData = FeatherIcons.fileText;
         break;
+      case EStoryFormat.QUIZ:
+        return Image(
+          image: AssetImage(AssetsPath.quizPng),
+        );
 
       default:
         return Container();

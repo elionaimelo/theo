@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:photo_manager/photo_manager.dart';
+import 'package:theo/components/close_top_bar_button.dart';
 import 'package:theo/components/text_icon_button.dart';
 import 'package:theo/pages/confirm_image_screen/confirm_image_screen.dart';
 import 'package:theo/styles/colors.dart';
@@ -143,16 +144,10 @@ class _GalleryImagePickerState extends State<GalleryImagePicker> {
 
   Widget get _topButton => Container(
         margin: EdgeInsets.only(top: 10, left: 9, bottom: 25),
-        child: TextIconButton(
-          onTap: () => Navigator.of(context).pop(),
-          icon: Icon(
-            FeatherIcons.x,
-            size: 30,
-            color: TheoColors.primary,
-          ),
+        child: CloseTopBarButton(
+          foregroundColor: TheoColors.primary,
         ),
       );
-
   Widget get _grid => GridView.builder(
         itemCount: _mediaList.length,
         gridDelegate:

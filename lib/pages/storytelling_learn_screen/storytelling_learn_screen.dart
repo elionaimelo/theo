@@ -37,6 +37,14 @@ class _StorytellingLearnScreenState extends State<StorytellingLearnScreen> {
         );
         break;
 
+      case EStoryFormat.TEXT:
+        Navigator.of(context).pushNamed(Routes.textStory);
+        break;
+
+      case EStoryFormat.QUIZ:
+        Navigator.of(context).pushNamed(Routes.quizStory);
+        break;
+
       default:
         break;
     }

@@ -11,11 +11,13 @@ import 'package:theo/pages/login_screen/login_screen.dart';
 import 'package:theo/pages/login_screen/login_screen_controller.dart';
 import 'package:theo/pages/new_tell_screen/new_tell_screen.dart';
 import 'package:theo/pages/profile_screen/profile_screen.dart';
+import 'package:theo/pages/quiz_story_screen/quiz_story_screen.dart';
 import 'package:theo/pages/search_screen/search_screen.dart';
 import 'package:theo/pages/splash_screen/splash_screen.dart';
 import 'package:theo/pages/start_screen/start_screen.dart';
 import 'package:theo/pages/storytelling_learn_screen/storytelling_learn_screen.dart';
 import 'package:theo/pages/storytelling_learn_screen/storytelling_learn_screen_controller.dart';
+import 'package:theo/pages/text_story_screen/text_story_screen.dart';
 import 'package:theo/pages/video_story_screen/video_story_screen.dart';
 import 'package:theo/pages/video_story_screen/video_story_screen_controller.dart';
 import 'package:theo/states/navigation_store.dart';
@@ -51,6 +53,8 @@ class _TheoNavigatorState extends State<TheoNavigator> {
       case Routes.discoverGame:
       case Routes.start:
       case Routes.videoStory:
+      case Routes.textStory:
+      case Routes.quizStory:
         WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
           widget.navigationStore.hideAppBars();
         });
@@ -122,6 +126,12 @@ class _TheoNavigatorState extends State<TheoNavigator> {
               break;
             case Routes.storytellingLearn:
               builder = (BuildContext context) => _storytellingScreen;
+              break;
+            case Routes.textStory:
+              builder = (BuildContext context) => TextStoryScreen();
+              break;
+            case Routes.quizStory:
+              builder = (BuildContext context) => QuizStoryScreen();
               break;
 
             default:

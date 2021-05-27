@@ -37,6 +37,13 @@ class _PlayerInputsState extends State<PlayerInputs> {
   String _timeLeft = '- 0:00';
   final double _iconSize = 27;
 
+  @override
+  void setState(fn) {
+    if (mounted) {
+      super.setState(fn);
+    }
+  }
+
   Future<void> _handleVideoChanges() async {
     if (!widget.videoController.value.isPlaying) return;
 
@@ -86,9 +93,8 @@ class _PlayerInputsState extends State<PlayerInputs> {
 
   @override
   void dispose() {
-    super.dispose();
-
     widget.videoController.removeListener(_handleVideoChanges);
+    super.dispose();
   }
 
   @override

@@ -5,6 +5,7 @@ import 'package:theo/components/inputs/gallery_image_picker.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/styles/gerenal.dart';
 import 'package:theo/utils/formatter.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 enum EFileType {
   IMAGE,
@@ -65,17 +66,26 @@ class _FileInputState extends State<FileInput> {
   }
 
   Future<void> _onTap() async {
-    if (widget.fileType == EFileType.IMAGE) {
+    if (widget.fileType == EFileType.IMAGE && !kIsWeb) {
       await GalleryImagePicker.showGalleryBottomSheet(
           context, _onImageSelected);
 
       return;
     }
 
-    var result = await FilePicker.platform.pickFiles(
-        type: FileType.custom,
-        allowedExtensions: ['txt', 'pdf', 'doc'],
-        allowMultiple: false);
+    FilePickerResult? result;
+
+    if (widget.fileType == EFileType.IMAGE) {
+      result = await FilePicker.platform.pickFiles(
+        type: FileType.image,
+        allowMultiple: false,
+      );
+    } else {
+      result = await FilePicker.platform.pickFiles(
+          type: FileType.custom,
+          allowedExtensions: ['txt', 'pdf', 'doc'],
+          allowMultiple: false);
+    }
 
     if (result != null && result.count > 0) {
       var resultFile = result.files.single;

@@ -33,6 +33,7 @@ class _VideoStoryScreenState extends State<VideoStoryScreen> {
 
   @override
   void dispose() {
+    _videoController.pause();
     _videoController.dispose();
     super.dispose();
   }

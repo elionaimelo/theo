@@ -21,6 +21,23 @@ class PostCardActions extends StatefulWidget {
 }
 
 class _PostCardActionsState extends State<PostCardActions> {
+  _PostCardActionsState() {}
+
+  @override
+  void initState() {
+    super.initState();
+    _likesCount = widget.likesCount;
+  }
+
+  int _likesCount = 0;
+  bool _likeSelected = false;
+
+  void _likeButtonTap() {
+    setState(() {
+      _likeSelected = !_likeSelected;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -34,7 +51,8 @@ class _PostCardActionsState extends State<PostCardActions> {
               _actionButton(
                 icon: FeatherIcons.thumbsUp,
                 text: 'Gostei',
-                onTap: () {},
+                onTap: _likeButtonTap,
+                selected: _likeSelected,
               ),
               _actionButton(
                 icon: FeatherIcons.messageCircle,
@@ -81,7 +99,9 @@ class _PostCardActionsState extends State<PostCardActions> {
         children: [
           SvgPicture.asset(AssetsPath.thumbsUpSvg),
           Text(
-            widget.likesCount.toString(),
+            _likeSelected
+                ? (_likesCount + 1).toString()
+                : _likesCount.toString(),
             style: textStyle,
           ),
           Expanded(child: Container()),
@@ -97,23 +117,25 @@ class _PostCardActionsState extends State<PostCardActions> {
   Widget _actionButton({
     required IconData icon,
     required String text,
-    required Function onTap,
+    required Function() onTap,
+    bool selected = false,
   }) =>
       InkWell(
-        onTap: () {},
+        onTap: onTap,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
           child: Column(
             children: [
               Icon(
                 icon,
-                color: TheoColors.twentyFive,
+                color: selected ? TheoColors.eleven : TheoColors.twentyFive,
               ),
               Text(
                 text,
                 style: Theme.of(context).textTheme.bodyText1!.copyWith(
                       fontSize: 12,
-                      color: TheoColors.twentyFive,
+                      color:
+                          selected ? TheoColors.eleven : TheoColors.twentyFive,
                     ),
               )
             ],

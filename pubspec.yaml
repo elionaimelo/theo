@@ -41,6 +41,8 @@ dependencies:
   navigation_history_observer: ^1.1.0
   path: ^1.8.0
   video_player: ^2.1.1
+  flutter_share_me: ^0.10.0
+  share_plus: ^2.1.2
 
 dev_dependencies:
   flutter_test:

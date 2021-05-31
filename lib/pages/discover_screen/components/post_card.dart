@@ -61,6 +61,8 @@ class _PostCardState extends State<PostCard> {
               likesCount: widget.likesCount,
               commentsCount: widget.commentsCount,
               horizontalPadding: 0,
+              image: widget.cardImage,
+              title: widget.title,
             ),
           ),
         ],

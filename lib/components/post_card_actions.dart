@@ -1,8 +1,14 @@
+import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/utils/assets_path.dart';
+import 'package:flutter/services.dart';
 
 class PostCardActions extends StatefulWidget {
   const PostCardActions({
@@ -10,6 +16,8 @@ class PostCardActions extends StatefulWidget {
     required this.likesCount,
     required this.commentsCount,
     this.horizontalPadding = 0,
+    required this.image,
+    required this.title,
   }) : super(key: key);
 
   @override
@@ -18,11 +26,11 @@ class PostCardActions extends StatefulWidget {
   final int likesCount;
   final int commentsCount;
   final double horizontalPadding;
+  final String image;
+  final String title;
 }
 
 class _PostCardActionsState extends State<PostCardActions> {
-  _PostCardActionsState() {}
-
   @override
   void initState() {
     super.initState();
@@ -36,6 +44,10 @@ class _PostCardActionsState extends State<PostCardActions> {
     setState(() {
       _likeSelected = !_likeSelected;
     });
+  }
+
+  Future<void> _shareButtonTap() async {
+    await Share.share('dsfsfsd', subject: 'sdfisdjf');
   }
 
   @override
@@ -62,7 +74,7 @@ class _PostCardActionsState extends State<PostCardActions> {
               _actionButton(
                 icon: FeatherIcons.cornerUpRight,
                 text: 'Compartilhar',
-                onTap: () {},
+                onTap: _shareButtonTap,
               ),
               _actionButton(
                 icon: FeatherIcons.download,

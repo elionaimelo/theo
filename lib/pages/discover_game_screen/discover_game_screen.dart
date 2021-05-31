@@ -25,6 +25,8 @@ class DiscoverGameScreen extends StatefulWidget {
 }
 
 class _DiscoverGameScreenState extends State<DiscoverGameScreen> {
+  final String title = 'Nome do jogo lorem ipsum dolor';
+
   @override
   void initState() {
     super.initState();
@@ -90,7 +92,7 @@ class _DiscoverGameScreenState extends State<DiscoverGameScreen> {
       );
 
   Widget get _title => Text(
-        'Nome do jogo lorem ipsum dolor',
+        title,
         style: Theme.of(context).textTheme.bodyText1!.copyWith(
               fontSize: 16,
               fontWeight: FontWeight.w700,
@@ -135,6 +137,8 @@ class _DiscoverGameScreenState extends State<DiscoverGameScreen> {
               borderColor: TheoColors.primary,
             ),
             PostCardActions(
+              image: AssetsPath.criancaPng,
+              title: title,
               likesCount: 16,
               commentsCount: 4,
               horizontalPadding: 0,

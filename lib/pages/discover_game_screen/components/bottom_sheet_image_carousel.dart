@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:theo/components/close_top_bar_button.dart';
 import 'package:theo/components/text_icon_button.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/styles/metrics.dart';
@@ -70,16 +71,7 @@ class _BottomSheetImageCarouselState extends State<BottomSheetImageCarousel> {
         ),
       );
 
-  Widget get _button => TextIconButton(
-        onTap: () => Navigator.of(context).pop(),
-        text: 'Fechar',
-        foregroundColor: TheoColors.primary,
-        icon: Icon(
-          FeatherIcons.x,
-          color: TheoColors.primary,
-          size: 30,
-        ),
-      );
+  Widget get _button => CloseTopBarButton(foregroundColor: TheoColors.primary);
 
   Widget _imageItem(String asset) => Container(
         margin: EdgeInsets.only(right: 14),

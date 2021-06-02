@@ -11,14 +11,16 @@ class BottomButton extends StatelessWidget {
     this.textStyle,
     this.borderColor = Colors.transparent,
     this.textDirection = TextDirection.ltr,
+    this.borderWidth = 2,
   });
 
   final String text;
   final IconData? icon;
-  final Function? onPressed;
+  final Function()? onPressed;
   final Color backgroundColor;
   final Color primaryColor;
   final Color borderColor;
+  final double borderWidth;
   final TextStyle? textStyle;
   final TextDirection textDirection;
   @override
@@ -26,15 +28,17 @@ class BottomButton extends StatelessWidget {
     return TextButton(
       style: TextButton.styleFrom(
         shape: RoundedRectangleBorder(
-          side: BorderSide(color: borderColor, width: 2),
+          side: BorderSide(color: borderColor, width: borderWidth),
           borderRadius: BorderRadius.circular(10.0),
         ),
         primary: primaryColor,
         backgroundColor: backgroundColor,
-        textStyle:
-            textStyle ?? TextStyle(fontSize: 18, fontWeight: FontWeight.w900),
+        textStyle: textStyle ??
+            TextStyle(
+                fontSize: 18, fontWeight: FontWeight.w900, color: primaryColor),
+        onSurface: primaryColor,
       ),
-      onPressed: () => onPressed?.call(),
+      onPressed: onPressed,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(

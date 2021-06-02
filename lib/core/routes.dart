@@ -11,4 +11,6 @@ class Routes {
   static const String discoverGame = '/discover-game';
   static const String videoStory = '/video-story';
   static const String storytellingLearn = '/storytelling-learn';
+  static const String textStory = '/text-story';
+  static const String quizStory = '/quiz-story';
 }

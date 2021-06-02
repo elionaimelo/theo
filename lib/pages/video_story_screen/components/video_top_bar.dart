@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:theo/components/close_top_bar_button.dart';
 import 'package:theo/components/text_icon_button.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:video_player/video_player.dart';
@@ -35,15 +36,7 @@ class _VideoTopBarState extends State<VideoTopBar> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          TextIconButton(
-            onTap: () => Navigator.of(context).pop(),
-            foregroundColor: widget.foregroundColor,
-            icon: Icon(
-              FeatherIcons.x,
-              color: widget.foregroundColor,
-              size: 30,
-            ),
-          ),
+          CloseTopBarButton(foregroundColor: widget.foregroundColor),
           IconButton(
             icon: Icon(
               isMuted ? FeatherIcons.volumeX : FeatherIcons.volume2,

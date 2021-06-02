@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:theo/components/bottom_button.dart';
 import 'package:theo/components/checked_icon.dart';
+import 'package:theo/components/minus_icon.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/styles/metrics.dart';
 
@@ -82,7 +83,7 @@ class _AnswerInputState extends State<AnswerInput> {
           children: [
             Row(
               children: [
-                CheckedIcon(),
+                MinusIcon(),
                 Container(
                   margin: EdgeInsets.only(left: 7),
                 ),

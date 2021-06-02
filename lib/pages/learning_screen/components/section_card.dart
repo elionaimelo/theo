@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:theo/components/checked_icon.dart';
 import 'package:theo/models/section.dart';
 import 'package:theo/states/story_store.dart';
 import 'package:theo/styles/colors.dart';
@@ -41,18 +42,6 @@ class SectionCard extends StatelessWidget {
     );
   }
 
-  Widget get _checkedIcon => Container(
-        padding: EdgeInsets.all(3),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30),
-          color: TheoColors.thirteen,
-        ),
-        child: Icon(
-          FeatherIcons.check,
-          color: TheoColors.secondary,
-        ),
-      );
-
   Widget get _status {
     // normally the API would provide the finished virtual property, but in this case
     // because its only app layout development so I create this function
@@ -63,7 +52,7 @@ class SectionCard extends StatelessWidget {
         ? Container(
             child: Row(
               children: [
-                _checkedIcon,
+                CheckedIcon(),
                 Container(
                   margin: EdgeInsets.only(left: 7),
                 ),

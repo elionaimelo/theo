@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:theo/components/storyProgress.dart';
+import 'package:theo/components/story_progress.dart';
 import 'package:theo/components/title_text.dart';
 import 'package:theo/core/routes.dart';
 import 'package:theo/models/section.dart';

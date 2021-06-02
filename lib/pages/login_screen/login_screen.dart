@@ -80,12 +80,13 @@ class _LoginScreenState extends State<LoginScreen>
   }
 
   Widget get _body => Container(
-      padding: EdgeInsets.only(left: 16, right: 16, bottom: 71, top: 15),
-      child: TabBarView(
-        physics: NeverScrollableScrollPhysics(),
-        controller: _tabController,
-        children: _tabs,
-      ));
+        padding: EdgeInsets.only(left: 16, right: 16, bottom: 71, top: 15),
+        child: TabBarView(
+          physics: NeverScrollableScrollPhysics(),
+          controller: _tabController,
+          children: _tabs,
+        ),
+      );
 
   List<Widget> get _tabs => [
         _emailTab,

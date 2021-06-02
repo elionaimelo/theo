@@ -51,7 +51,7 @@ class StoryProgress extends StatelessWidget {
             // Tip: The last item doesnt have margin
             margin: i < total - 1 ? EdgeInsets.only(right: 4) : null,
             decoration: BoxDecoration(
-              color: i < progress - 1 ? TheoColors.eleven : TheoColors.twelve,
+              color: i <= progress - 1 ? TheoColors.eleven : TheoColors.twelve,
               borderRadius: BorderRadius.circular(15),
             ),
             width: 8,
@@ -81,7 +81,7 @@ class StoryProgress extends StatelessWidget {
             ),
           ),
           Text(
-            '0/' + total.toString(),
+            progress.toString() + '/' + total.toString(),
             style: GoogleFonts.muli(
               fontWeight: FontWeight.normal,
               fontSize: 16,

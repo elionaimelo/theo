@@ -18,21 +18,24 @@ class ProfileAction extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onCardTap,
-      child: Ink(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: TheoColors.seventeen,
-        ),
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 14, vertical: 16),
-          child: Row(
-            children: [
-              if (icon != null) _icon,
-              if (text != null) _text(context),
-              if (sufixButton != null) _sufixButton,
-            ],
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: TheoColors.seventeen,
+      ),
+      child: Material(
+        type: MaterialType.transparency,
+        child: InkWell(
+          onTap: onCardTap,
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 14, vertical: 16),
+            child: Row(
+              children: [
+                if (icon != null) _icon,
+                if (text != null) _text(context),
+                if (sufixButton != null) _sufixButton,
+              ],
+            ),
           ),
         ),
       ),

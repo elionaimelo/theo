@@ -1,11 +1,21 @@
 import 'package:mobx/mobx.dart';
+import 'package:theo/models/story.dart';
 import 'package:theo/pages/quiz_story_screen/components/answer_input.dart';
+import 'package:theo/states/story_store.dart';
 part 'quiz_story_screen_controller.g.dart';
 
 class QuizStoryScreenController = _QuizStoryScreenControllerBase
     with _$QuizStoryScreenController;
 
 abstract class _QuizStoryScreenControllerBase with Store {
+  _QuizStoryScreenControllerBase({
+    required this.story,
+    required this.storyStore,
+  });
+
+  final Story story;
+  final StoryStore storyStore;
+
   @observable
   int tabIndex = 0;
 

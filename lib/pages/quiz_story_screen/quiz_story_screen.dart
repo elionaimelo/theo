@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get_it/get_it.dart';
 import 'package:theo/components/close_top_bar_button.dart';
 import 'package:theo/components/story_progress.dart';
+import 'package:theo/core/routes.dart';
+import 'package:theo/pages/concluded_screen/concluded_screen_controller.dart';
 import 'package:theo/pages/quiz_story_screen/components/answer_input.dart';
-import 'package:theo/pages/quiz_story_screen/components/option_button.dart';
 import 'package:theo/pages/quiz_story_screen/components/question_tab.dart';
 import 'package:theo/pages/quiz_story_screen/quiz_story_screen_controller.dart';
+import 'package:theo/states/navigation_store.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/styles/metrics.dart';
 
@@ -46,7 +49,27 @@ class _QuizStoryScreenState extends State<QuizStoryScreen>
     }
   }
 
+  void _onConcludedTap() {
+    widget.controller.storyStore.finishStory(widget.controller.story.id);
+    GetIt.I.get<NavigationStore>().popUntil(Routes.home);
+  }
+
   void _onTapSucess() {
+    if (_tabController.index >= _tabController.length - 1) {
+      Navigator.of(context).pushNamed(
+        Routes.concluded,
+        arguments: ConcludedScreenController(
+          title: 'Parabéns, Astrogilda!',
+          message: 'Primeira parte concluída.',
+          withAvaliations: true,
+          total: 5,
+          progress: 1,
+          onNextButtonTap: _onConcludedTap,
+        ),
+      );
+      return;
+    }
+
     var nextIndex = _tabController.index + 1;
 
     if (nextIndex < _tabController.length) {

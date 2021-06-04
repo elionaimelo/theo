@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:theo/core/routes.dart';
 import 'package:theo/pages/about_screen/about_screen.dart';
+import 'package:theo/pages/concluded_screen/concluded_screen.dart';
+import 'package:theo/pages/concluded_screen/concluded_screen_controller.dart';
 import 'package:theo/pages/contact_screen/contact_screen.dart';
 import 'package:theo/pages/discover_game_screen/discover_game_screen.dart';
 import 'package:theo/pages/discover_game_screen/discover_game_screen_controller.dart';
@@ -132,7 +134,15 @@ class _TheoNavigatorState extends State<TheoNavigator> {
               builder = (BuildContext context) => TextStoryScreen();
               break;
             case Routes.quizStory:
-              builder = (BuildContext context) => _quizScreen;
+              builder = (BuildContext context) => QuizStoryScreen(
+                    controller: settings.arguments as QuizStoryScreenController,
+                  );
+
+              break;
+            case Routes.concluded:
+              builder = (BuildContext context) => ConcludedScreen(
+                    controller: settings.arguments as ConcludedScreenController,
+                  );
               break;
 
             default:
@@ -170,9 +180,5 @@ class _TheoNavigatorState extends State<TheoNavigator> {
         controller: LoginScreenController(
           navigationStore: widget.navigationStore,
         ),
-      );
-
-  Widget get _quizScreen => QuizStoryScreen(
-        controller: QuizStoryScreenController(),
       );
 }

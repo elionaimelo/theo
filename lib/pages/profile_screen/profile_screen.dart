@@ -64,27 +64,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
         padding: EdgeInsets.symmetric(horizontal: 11, vertical: 16),
         child: Column(
           children: [
-            ProfileDataField(
-              textLabel: 'Nome',
-              textValue: 'Astrogilda Nunes',
-              onTap: () {},
+            Material(
+              type: MaterialType.transparency,
+              child: ProfileDataField(
+                textLabel: 'Nome',
+                textValue: 'Astrogilda Nunes',
+                onTap: () {},
+              ),
             ),
             Container(
               margin: EdgeInsets.only(top: 11),
             ),
-            ProfileDataField(
-              textLabel: 'E-mail',
-              textValue: 'astrogilda-n@gmail.com',
-              onTap: () {},
+            Material(
+              type: MaterialType.transparency,
+              child: ProfileDataField(
+                textLabel: 'E-mail',
+                textValue: 'astrogilda-n@gmail.com',
+                onTap: () {},
+              ),
             ),
             Container(
               margin: EdgeInsets.only(top: 11),
             ),
-            ProfileDataField(
-              textLabel: 'Nome',
-              textValue: 'password',
-              onTap: () {},
-              obscureText: true,
+            Material(
+              type: MaterialType.transparency,
+              child: ProfileDataField(
+                textLabel: 'Nome',
+                textValue: 'password',
+                onTap: () {},
+                obscureText: true,
+              ),
             )
           ],
         ),

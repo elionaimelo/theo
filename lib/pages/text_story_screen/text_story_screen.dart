@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:theo/components/close_top_bar_button.dart';
-import 'package:theo/components/title_text.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/styles/metrics.dart';
 

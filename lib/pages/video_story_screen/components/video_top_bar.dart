@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:theo/components/close_top_bar_button.dart';
-import 'package:theo/components/text_icon_button.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:video_player/video_player.dart';
 

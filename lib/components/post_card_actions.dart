@@ -21,7 +21,7 @@ class PostCardActions extends StatefulWidget {
 }
 
 class _PostCardActionsState extends State<PostCardActions> {
-  _PostCardActionsState() {}
+  _PostCardActionsState();
 
   @override
   void initState() {

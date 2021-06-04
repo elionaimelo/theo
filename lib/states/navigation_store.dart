@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:navigation_history_observer/navigation_history_observer.dart';
+import 'package:theo/core/routes.dart';
 import 'package:theo/models/theo_app_bar_settings.dart';
 part 'navigation_store.g.dart';
 
@@ -45,6 +46,13 @@ abstract class _NavigationStoreBase with Store {
       withMenu: true,
       withProfile: true,
     );
+  }
+
+  @action
+  void popUntil(String routeName) {
+    navigator.popUntil((route) {
+      return currentNamedRoute == Routes.home;
+    });
   }
 
   @action

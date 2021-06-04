@@ -11,6 +11,7 @@ class AssetsPath {
   static const cienciaPng = 'assets/images/ciencia.png';
   static const podcastPng = 'assets/images/podcast.png';
   static const quizPng = 'assets/images/quiz.png';
+  static const concludedPng = 'assets/images/concluded.png';
 
   // Icons Folder
   static const thunderSvg = 'assets/icons/thunder.svg';
@@ -26,4 +27,6 @@ class AssetsPath {
   static const rightReplay = 'assets/icons/right-replay.svg';
   static const leftReplay = 'assets/icons/left-replay.svg';
   static const playSvg = 'assets/icons/play.svg';
+  static const unhappySvg = 'assets/icons/unhappy.svg';
+  static const happySvg = 'assets/icons/happy.svg';
 }

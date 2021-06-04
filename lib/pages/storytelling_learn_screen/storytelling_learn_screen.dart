@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:theo/core/routes.dart';
 import 'package:theo/models/enums.dart';
 import 'package:theo/models/story.dart';
+import 'package:theo/pages/graph_story_screen/graph_story_screen_controller.dart';
 import 'package:theo/pages/quiz_story_screen/quiz_story_screen_controller.dart';
 import 'package:theo/pages/storytelling_learn_screen/components/learn_card_item.dart';
 import 'package:theo/pages/storytelling_learn_screen/storytelling_learn_screen_controller.dart';
@@ -46,6 +47,16 @@ class _StorytellingLearnScreenState extends State<StorytellingLearnScreen> {
         Navigator.of(context).pushNamed(
           Routes.quizStory,
           arguments: QuizStoryScreenController(
+            story: story,
+            storyStore: GetIt.I.get(),
+          ),
+        );
+        break;
+
+      case EStoryFormat.INFROGRAPHIC:
+        Navigator.of(context).pushNamed(
+          Routes.graphStory,
+          arguments: GraphStoryScreenController(
             story: story,
             storyStore: GetIt.I.get(),
           ),

@@ -7,6 +7,8 @@ import 'package:theo/pages/concluded_screen/concluded_screen_controller.dart';
 import 'package:theo/pages/contact_screen/contact_screen.dart';
 import 'package:theo/pages/discover_game_screen/discover_game_screen.dart';
 import 'package:theo/pages/discover_game_screen/discover_game_screen_controller.dart';
+import 'package:theo/pages/graph_story_screen/graph_story_screen.dart';
+import 'package:theo/pages/graph_story_screen/graph_story_screen_controller.dart';
 import 'package:theo/pages/home_screen/home_screen.dart';
 import 'package:theo/pages/home_screen/home_screen_controller.dart';
 import 'package:theo/pages/login_screen/login_screen.dart';
@@ -58,6 +60,7 @@ class _TheoNavigatorState extends State<TheoNavigator> {
       case Routes.videoStory:
       case Routes.textStory:
       case Routes.quizStory:
+      case Routes.graphStory:
         WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
           widget.navigationStore.hideAppBars();
         });
@@ -137,7 +140,12 @@ class _TheoNavigatorState extends State<TheoNavigator> {
               builder = (BuildContext context) => QuizStoryScreen(
                     controller: settings.arguments as QuizStoryScreenController,
                   );
-
+              break;
+            case Routes.graphStory:
+              builder = (BuildContext context) => GraphStoryScreen(
+                    controller:
+                        settings.arguments as GraphStoryScreenController,
+                  );
               break;
             case Routes.concluded:
               builder = (BuildContext context) => ConcludedScreen(

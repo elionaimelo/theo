@@ -12,6 +12,7 @@ class AssetsPath {
   static const podcastPng = 'assets/images/podcast.png';
   static const quizPng = 'assets/images/quiz.png';
   static const concludedPng = 'assets/images/concluded.png';
+  static const graphJpeg = 'assets/images/graph.jpeg';
 
   // Icons Folder
   static const thunderSvg = 'assets/icons/thunder.svg';

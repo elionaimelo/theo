@@ -37,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen> {
           ),
           photoSize: 100.0,
           useLoader: false,
-          routeName: Routes.login,
+          routeName: Routes.start,
           loadingText: Text(
             'Carregando...',
             style: GoogleFonts.muli(

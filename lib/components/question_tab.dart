@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:theo/pages/quiz_story_screen/components/option_button.dart';
+import 'package:theo/components/option_button.dart';
 import 'package:theo/styles/colors.dart';
 
 class QuestionTab extends StatefulWidget {
-  const QuestionTab({
+  QuestionTab({
     Key? key,
     required this.question,
     required this.options,
     required this.onSelectedIndex,
+    this.crossAxisAlign = CrossAxisAlignment.center,
+    this.questionStyle,
   }) : super(key: key);
 
   @override
@@ -16,6 +18,8 @@ class QuestionTab extends StatefulWidget {
   final String question;
   final List<String> options;
   final Function(int index) onSelectedIndex;
+  final CrossAxisAlignment crossAxisAlign;
+  final TextStyle? questionStyle;
 }
 
 class _QuestionTabState extends State<QuestionTab> {
@@ -37,23 +41,22 @@ class _QuestionTabState extends State<QuestionTab> {
   Widget build(BuildContext context) {
     return Container(
       child: Column(
+        crossAxisAlignment: widget.crossAxisAlign,
         children: [
           _questionText(widget.question),
-          Expanded(
-            child: Container(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: widget.options
-                    .map(
-                      (e) => OptionButton(
-                        text: e,
-                        onTap: () => _onOptionButtonTap(e),
-                        selected: e == selectedOption,
-                      ),
-                    )
-                    .toList(),
-              ),
+          Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: widget.options
+                  .map(
+                    (e) => OptionButton(
+                      text: e,
+                      onTap: () => _onOptionButtonTap(e),
+                      selected: e == selectedOption,
+                    ),
+                  )
+                  .toList(),
             ),
           ),
         ],
@@ -63,10 +66,11 @@ class _QuestionTabState extends State<QuestionTab> {
 
   Widget _questionText(String text) => Text(
         text,
-        style: Theme.of(context).textTheme.bodyText1!.copyWith(
-              fontSize: 18,
-              fontWeight: FontWeight.w700,
-              color: TheoColors.seven,
-            ),
+        style: widget.questionStyle ??
+            Theme.of(context).textTheme.bodyText1!.copyWith(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                  color: TheoColors.seven,
+                ),
       );
 }

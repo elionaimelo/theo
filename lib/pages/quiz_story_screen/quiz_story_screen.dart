@@ -6,7 +6,7 @@ import 'package:theo/components/story_progress.dart';
 import 'package:theo/core/routes.dart';
 import 'package:theo/pages/concluded_screen/concluded_screen_controller.dart';
 import 'package:theo/pages/quiz_story_screen/components/answer_input.dart';
-import 'package:theo/pages/quiz_story_screen/components/question_tab.dart';
+import 'package:theo/components/question_tab.dart';
 import 'package:theo/pages/quiz_story_screen/quiz_story_screen_controller.dart';
 import 'package:theo/states/navigation_store.dart';
 import 'package:theo/styles/colors.dart';

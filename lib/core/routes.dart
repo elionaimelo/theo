@@ -15,4 +15,5 @@ class Routes {
   static const String quizStory = '/quiz-story';
   static const String graphStory = '/graph-story';
   static const String concluded = '/concluded';
+  static const String signup = '/signup';
 }

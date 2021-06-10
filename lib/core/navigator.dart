@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:theo/core/routes.dart';
+import 'package:theo/models/theo_app_bar_settings.dart';
 import 'package:theo/pages/about_screen/about_screen.dart';
 import 'package:theo/pages/concluded_screen/concluded_screen.dart';
 import 'package:theo/pages/concluded_screen/concluded_screen_controller.dart';
@@ -18,6 +19,7 @@ import 'package:theo/pages/profile_screen/profile_screen.dart';
 import 'package:theo/pages/quiz_story_screen/quiz_story_screen.dart';
 import 'package:theo/pages/quiz_story_screen/quiz_story_screen_controller.dart';
 import 'package:theo/pages/search_screen/search_screen.dart';
+import 'package:theo/pages/signup_screen/signup_screen.dart';
 import 'package:theo/pages/splash_screen/splash_screen.dart';
 import 'package:theo/pages/start_screen/start_screen.dart';
 import 'package:theo/pages/storytelling_learn_screen/storytelling_learn_screen.dart';
@@ -54,7 +56,6 @@ class _TheoNavigatorState extends State<TheoNavigator> {
 
     switch (route) {
       case Routes.splash:
-      case Routes.login:
       case Routes.discoverGame:
       case Routes.start:
       case Routes.videoStory:
@@ -70,6 +71,11 @@ class _TheoNavigatorState extends State<TheoNavigator> {
         WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
           widget.navigationStore.showAppBars();
         });
+        break;
+      case Routes.login:
+      case Routes.signup:
+        widget.navigationStore.appBarSettings =
+            TheoAppBarSettings(visible: true, withBackButton: true);
         break;
       default:
         break;
@@ -95,6 +101,9 @@ class _TheoNavigatorState extends State<TheoNavigator> {
           switch (settings.name) {
             case Routes.splash:
               builder = (BuildContext context) => SplashScreen();
+              break;
+            case Routes.signup:
+              builder = (BuildContext context) => SignupScreen();
               break;
             case Routes.login:
               builder = (BuildContext context) => _loginScreen;

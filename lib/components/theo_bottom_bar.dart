@@ -3,6 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:theo/core/routes.dart';
 import 'package:theo/states/navigation_store.dart';
+import 'package:theo/styles/colors.dart';
 
 class TheoBottomBar extends StatefulWidget {
   TheoBottomBar({required this.navigationStore});
@@ -51,6 +52,7 @@ class _TheoBottomBarState extends State<TheoBottomBar> {
               type: BottomNavigationBarType.fixed,
               currentIndex: widget.navigationStore.currentTabPageIndex.index,
               selectedFontSize: 15.0,
+              selectedItemColor: TheoColors.primary,
               unselectedFontSize: 15.0,
               onTap: _onBottomBarItemTap,
               items: [

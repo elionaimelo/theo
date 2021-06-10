@@ -23,6 +23,7 @@ import 'package:theo/pages/start_screen/start_screen.dart';
 import 'package:theo/pages/storytelling_learn_screen/storytelling_learn_screen.dart';
 import 'package:theo/pages/storytelling_learn_screen/storytelling_learn_screen_controller.dart';
 import 'package:theo/pages/text_story_screen/text_story_screen.dart';
+import 'package:theo/pages/text_story_screen/text_story_screen_controller.dart';
 import 'package:theo/pages/video_story_screen/video_story_screen.dart';
 import 'package:theo/pages/video_story_screen/video_story_screen_controller.dart';
 import 'package:theo/states/navigation_store.dart';
@@ -134,7 +135,9 @@ class _TheoNavigatorState extends State<TheoNavigator> {
               builder = (BuildContext context) => _storytellingScreen;
               break;
             case Routes.textStory:
-              builder = (BuildContext context) => TextStoryScreen();
+              builder = (BuildContext context) => TextStoryScreen(
+                    controller: settings.arguments as TextStoryScreenController,
+                  );
               break;
             case Routes.quizStory:
               builder = (BuildContext context) => QuizStoryScreen(

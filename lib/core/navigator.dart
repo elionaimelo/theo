@@ -56,7 +56,6 @@ class _TheoNavigatorState extends State<TheoNavigator> {
     var route = widget.navigationStore.currentNamedRoute;
 
     switch (route) {
-      case Routes.splash:
       case Routes.discoverGame:
       case Routes.start:
       case Routes.videoStory:
@@ -105,13 +104,14 @@ class _TheoNavigatorState extends State<TheoNavigator> {
       child: Navigator(
         observers: [widget.navigationStore.navigationHistory],
         key: widget.navigationStore.navigationKey,
-        initialRoute: Routes.splash,
+        initialRoute: Routes.start,
         onGenerateRoute: (RouteSettings settings) {
           WidgetBuilder builder;
 
           switch (settings.name) {
-            case Routes.splash:
-              builder = (BuildContext context) => SplashScreen();
+            case '/':
+            case Routes.start:
+              builder = (BuildContext context) => StartScreen();
               break;
             case Routes.signup:
               builder = (BuildContext context) => SignupScreen();
@@ -119,9 +119,7 @@ class _TheoNavigatorState extends State<TheoNavigator> {
             case Routes.login:
               builder = (BuildContext context) => _loginScreen;
               break;
-            case Routes.start:
-              builder = (BuildContext context) => StartScreen();
-              break;
+
             case Routes.home:
               builder = (BuildContext context) => _homeScreen;
               break;

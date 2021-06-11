@@ -105,7 +105,7 @@ class _SignupScreenState extends State<SignupScreen>
         children: [
           TextInput(
             hintText: 'Escreva seu nome aqui',
-            label: 'Qual seu nome?',
+            label: 'Qual seu nomse?',
             onTextChanged: _onNameTextChanged,
           ),
         ],

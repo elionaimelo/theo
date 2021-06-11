@@ -67,6 +67,16 @@ class _TheoNavigatorState extends State<TheoNavigator> {
         });
         break;
       case Routes.home:
+        WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+          widget.navigationStore.showAppBars();
+          widget.navigationStore.appBarSettings =
+              widget.navigationStore.appBarSettings.copyWith(
+            withBackButton: false,
+            withProfile: true,
+            withMenu: true,
+          );
+        });
+        break;
       case Routes.storytellingLearn:
         WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
           widget.navigationStore.showAppBars();

@@ -85,6 +85,7 @@ class _SignupScreenState extends State<SignupScreen>
   Widget get _body => Expanded(
         child: Container(
           child: TabBarView(
+            physics: NeverScrollableScrollPhysics(),
             controller: _tabController,
             children: _tabs,
           ),

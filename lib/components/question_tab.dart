@@ -10,6 +10,7 @@ class QuestionTab extends StatefulWidget {
     required this.onSelectedIndex,
     this.crossAxisAlign = CrossAxisAlignment.center,
     this.questionStyle,
+    this.centerOptions = false,
   }) : super(key: key);
 
   @override
@@ -20,6 +21,7 @@ class QuestionTab extends StatefulWidget {
   final Function(int index) onSelectedIndex;
   final CrossAxisAlignment crossAxisAlign;
   final TextStyle? questionStyle;
+  final bool centerOptions;
 }
 
 class _QuestionTabState extends State<QuestionTab> {
@@ -44,25 +46,31 @@ class _QuestionTabState extends State<QuestionTab> {
         crossAxisAlignment: widget.crossAxisAlign,
         children: [
           _questionText(widget.question),
-          Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: widget.options
-                  .map(
-                    (e) => OptionButton(
-                      text: e,
-                      onTap: () => _onOptionButtonTap(e),
-                      selected: e == selectedOption,
-                    ),
-                  )
-                  .toList(),
-            ),
-          ),
+          _content,
         ],
       ),
     );
   }
+
+  Widget get _content => widget.centerOptions
+      ? Expanded(
+          child: _questions,
+        )
+      : _questions;
+
+  Widget get _questions => Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: widget.options
+            .map(
+              (e) => OptionButton(
+                text: e,
+                onTap: () => _onOptionButtonTap(e),
+                selected: e == selectedOption,
+              ),
+            )
+            .toList(),
+      );
 
   Widget _questionText(String text) => Text(
         text,

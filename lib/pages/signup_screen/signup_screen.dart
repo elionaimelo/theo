@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:theo/components/bottom_button.dart';
 import 'package:theo/components/inputs/text_input.dart';
-import 'package:theo/components/option_button.dart';
 import 'package:theo/components/question_tab.dart';
 import 'package:theo/pages/signup_screen/components/term_tab.dart';
 import 'package:theo/styles/colors.dart';
@@ -186,5 +185,5 @@ class _SignupScreenState extends State<SignupScreen>
         ],
       );
 
-  _onSelectedIndex(int index) {}
+  void _onSelectedIndex(int index) {}
 }

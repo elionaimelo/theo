@@ -62,11 +62,6 @@ class _LoginScreenState extends State<LoginScreen>
     super.initState();
 
     _tabController = TabController(vsync: this, length: _tabs.length);
-
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
-      widget.controller
-          .setAppBar(TheoAppBarSettings(visible: true, withBackButton: true));
-    });
   }
 
   @override

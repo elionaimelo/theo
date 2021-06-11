@@ -13,7 +13,9 @@ class _StartScreenState extends State<StartScreen> {
     Navigator.of(context).pushNamed(Routes.login);
   }
 
-  void _onSignupButtonPress() {}
+  void _onSignupButtonPress() {
+    Navigator.of(context).pushNamed(Routes.signup);
+  }
 
   @override
   Widget build(BuildContext context) {

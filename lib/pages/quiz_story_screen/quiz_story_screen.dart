@@ -6,7 +6,7 @@ import 'package:theo/components/story_progress.dart';
 import 'package:theo/core/routes.dart';
 import 'package:theo/pages/concluded_screen/concluded_screen_controller.dart';
 import 'package:theo/pages/quiz_story_screen/components/answer_input.dart';
-import 'package:theo/pages/quiz_story_screen/components/question_tab.dart';
+import 'package:theo/components/question_tab.dart';
 import 'package:theo/pages/quiz_story_screen/quiz_story_screen_controller.dart';
 import 'package:theo/states/navigation_store.dart';
 import 'package:theo/styles/colors.dart';
@@ -138,19 +138,24 @@ class _QuizStoryScreenState extends State<QuizStoryScreen>
 
   List<Widget> get _tabs => [_tab1, _tab2, _tab3, _tab4];
 
-  Widget get _tab1 => QuestionTab(
-        question:
-            'Lorem ipsum dolor sit amet consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna?',
-        options: [
-          'Resposta 1 lorem ipsum dolore magna at vero eos rebum',
-          'Resposta 2 lorem ipsum dolore',
-          'Resposta 3 lorem ipsum dolore magna at vero eos rebum',
-          'Resposta 4 lorem ipsum dolore magna at vero',
-        ],
-        onSelectedIndex: (int index) => widget.controller.selectAnswer(index),
+  Widget get _tab1 => Container(
+        color: Colors.red,
+        child: QuestionTab(
+          centerOptions: true,
+          question:
+              'Lorem ipsum dolor sit amet consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna?',
+          options: [
+            'Resposta 1 lorem ipsum dolore magna at vero eos rebum',
+            'Resposta 2 lorem ipsum dolore',
+            'Resposta 3 lorem ipsum dolore magna at vero eos rebum',
+            'Resposta 4 lorem ipsum dolore magna at vero',
+          ],
+          onSelectedIndex: (int index) => widget.controller.selectAnswer(index),
+        ),
       );
 
   Widget get _tab2 => QuestionTab(
+        centerOptions: true,
         question:
             'Lorem ipsum dolor sit amet consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna?',
         options: [
@@ -161,6 +166,7 @@ class _QuizStoryScreenState extends State<QuizStoryScreen>
       );
 
   Widget get _tab3 => QuestionTab(
+        centerOptions: true,
         question:
             'Lorem ipsum dolor sit amet consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna?',
         options: [
@@ -173,6 +179,7 @@ class _QuizStoryScreenState extends State<QuizStoryScreen>
       );
 
   Widget get _tab4 => QuestionTab(
+        centerOptions: true,
         question:
             'Lorem ipsum dolor sit amet consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna?',
         options: [

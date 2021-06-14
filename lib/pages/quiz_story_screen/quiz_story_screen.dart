@@ -139,7 +139,6 @@ class _QuizStoryScreenState extends State<QuizStoryScreen>
   List<Widget> get _tabs => [_tab1, _tab2, _tab3, _tab4];
 
   Widget get _tab1 => Container(
-        color: Colors.red,
         child: QuestionTab(
           centerOptions: true,
           question:

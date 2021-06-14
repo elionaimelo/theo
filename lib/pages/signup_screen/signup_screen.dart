@@ -105,7 +105,7 @@ class _SignupScreenState extends State<SignupScreen>
         children: [
           TextInput(
             hintText: 'Escreva seu nome aqui',
-            label: 'Qual seu nomse?',
+            label: 'Qual seu nome?',
             onTextChanged: _onNameTextChanged,
           ),
         ],
@@ -173,6 +173,7 @@ class _SignupScreenState extends State<SignupScreen>
             hintText: 'Escreva aqui',
             label: 'Crie uma senha',
             onTextChanged: _onNameTextChanged,
+            obscureText: true,
           ),
           Container(
             margin: EdgeInsets.only(top: 80),
@@ -181,6 +182,7 @@ class _SignupScreenState extends State<SignupScreen>
             hintText: 'Escreva aqui',
             label: 'Repita a sua senha',
             onTextChanged: _onNameTextChanged,
+            obscureText: true,
           ),
         ],
       );

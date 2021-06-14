@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:theo/core/routes.dart';
-import 'package:theo/pages/start_screen/start_screen.dart';
+
 import 'package:theo/styles/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 

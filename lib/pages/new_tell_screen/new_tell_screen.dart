@@ -147,7 +147,7 @@ class _NewTellScreenState extends State<NewTellScreen> {
         children: [
           TextInput(
             onTextChanged: _onKeyword1TextChanged,
-            label: 'Inserir link do video',
+            label: 'Palavras-chave',
             hintText: 'Palavra-chave 1 aqui',
             labelStyle: TheoStyles.of(context).labelInputStyle,
             labelMargin: EdgeInsets.only(bottom: 5),

@@ -20,7 +20,6 @@ import 'package:theo/pages/quiz_story_screen/quiz_story_screen.dart';
 import 'package:theo/pages/quiz_story_screen/quiz_story_screen_controller.dart';
 import 'package:theo/pages/search_screen/search_screen.dart';
 import 'package:theo/pages/signup_screen/signup_screen.dart';
-import 'package:theo/pages/splash_screen/splash_screen.dart';
 import 'package:theo/pages/start_screen/start_screen.dart';
 import 'package:theo/pages/storytelling_learn_screen/storytelling_learn_screen.dart';
 import 'package:theo/pages/storytelling_learn_screen/storytelling_learn_screen_controller.dart';

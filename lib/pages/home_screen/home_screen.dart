@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen>
       widget.controller.setCurrentPageIndex(TabPagesIndexes.HOME);
     }
 
-    return Future.value(true);
+    return Future.value(false);
   }
 
   @override

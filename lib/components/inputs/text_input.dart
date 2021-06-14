@@ -12,6 +12,7 @@ class TextInput extends StatefulWidget {
     this.maxLength,
     this.containerHeight,
     this.prefixWidget,
+    this.obscureText = false,
   });
 
   final String hintText;
@@ -22,6 +23,7 @@ class TextInput extends StatefulWidget {
   final Function(String) onTextChanged;
   final double? containerHeight;
   final Widget? prefixWidget;
+  final bool obscureText;
 
   @override
   _TextInputState createState() => _TextInputState();
@@ -76,8 +78,11 @@ class _TextInputState extends State<TextInput> {
       );
 
   Widget get _textFormInput => TextFormField(
-        maxLines: null,
+        // Obscured fields cannot be multline
+        maxLines: widget.obscureText ? 1 : null,
         minLines: null,
+
+        obscureText: widget.obscureText,
         maxLength: widget.maxLength,
         textAlignVertical:
             _expands ? TextAlignVertical.top : TextAlignVertical.center,

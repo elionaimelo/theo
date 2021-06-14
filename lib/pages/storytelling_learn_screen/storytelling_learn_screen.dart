@@ -8,7 +8,6 @@ import 'package:theo/pages/graph_story_screen/graph_story_screen_controller.dart
 import 'package:theo/pages/quiz_story_screen/quiz_story_screen_controller.dart';
 import 'package:theo/pages/storytelling_learn_screen/components/learn_card_item.dart';
 import 'package:theo/pages/storytelling_learn_screen/storytelling_learn_screen_controller.dart';
-import 'package:theo/pages/text_story_screen/text_story_screen.dart';
 import 'package:theo/pages/text_story_screen/text_story_screen_controller.dart';
 import 'package:theo/pages/video_story_screen/video_story_screen_controller.dart';
 import 'package:theo/styles/colors.dart';

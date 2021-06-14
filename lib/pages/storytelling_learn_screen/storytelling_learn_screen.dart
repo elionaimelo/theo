@@ -122,5 +122,6 @@ class _StorytellingLearnScreenState extends State<StorytellingLearnScreen> {
   }
 
   Story get _nextSelected =>
-      widget.controller.stories.firstWhere((element) => !element.finished);
+      widget.controller.stories.firstWhere((element) => !element.finished,
+          orElse: () => Story(id: '-1', sectionId: '-1'));
 }

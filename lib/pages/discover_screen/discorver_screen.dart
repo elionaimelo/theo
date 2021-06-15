@@ -47,19 +47,6 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             ),
           ),
           PostCard(
-            profileName: 'Astrogilda Nunes',
-            cardImage: AssetsPath.defaultCardSvg,
-            avatarImage: AssetsPath.avatarJpg,
-            textBody:
-                'At vero eos et accusam et justo duo Dolores et ea rebum. Stet clita kasd gubergren, no sea',
-            type: 'Imagem',
-            title: 'Storyteling e lorem ipsum dolor sit amet.',
-            author: 'Tarcila Cabral',
-            likesCount: 16,
-            commentsCount: 5,
-            adultRestriction: true,
-          ),
-          PostCard(
             profileName: 'Kaline Sampaio',
             cardImage: AssetsPath.dicesJpg,
             avatarImage: AssetsPath.avatarJpg,
@@ -71,6 +58,19 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             commentsCount: 5,
             onTapMore: () =>
                 Navigator.of(context).pushNamed(Routes.discoverGame),
+          ),
+          PostCard(
+            profileName: 'Astrogilda Nunes',
+            cardImage: AssetsPath.defaultCardSvg,
+            avatarImage: AssetsPath.avatarJpg,
+            textBody:
+                'At vero eos et accusam et justo duo Dolores et ea rebum. Stet clita kasd gubergren, no sea',
+            type: 'Imagem',
+            title: 'Storyteling e lorem ipsum dolor sit amet.',
+            author: 'Tarcila Cabral',
+            likesCount: 16,
+            commentsCount: 5,
+            adultRestriction: true,
           ),
           PostCard(
             profileName: 'Beutrano Cunha',

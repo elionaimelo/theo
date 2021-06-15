@@ -1,13 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get_it/get_it.dart';
 import 'package:theo/components/subTitleText.dart';
 
 import 'package:theo/components/title_text.dart';
 import 'package:theo/components/titleButton.dart';
 import 'package:theo/pages/home_screen/components/categoryCard.dart';
+import 'package:theo/states/navigation_store.dart';
 
 class Body extends StatelessWidget {
   const Body({Key? key}) : super(key: key);
+
+  void _learnButtonTap() {
+    GetIt.I
+        .get<NavigationStore>()
+        .setCurrentPageIndex(TabPagesIndexes.LEARNING);
+  }
+
+  void _discoverButtonTap() {
+    GetIt.I
+        .get<NavigationStore>()
+        .setCurrentPageIndex(TabPagesIndexes.DISCOVER);
+  }
+
+  void _tellButtonTap() {
+    GetIt.I.get<NavigationStore>().setCurrentPageIndex(TabPagesIndexes.TELL);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +62,7 @@ class Body extends StatelessWidget {
               child: Row(
                 children: [
                   TextButton.icon(
-                    onPressed: () {},
+                    onPressed: _learnButtonTap,
                     icon:
                         SvgPicture.asset('assets/icons/icone-como-contar.svg'),
                     label: Padding(
@@ -86,7 +104,7 @@ class Body extends StatelessWidget {
               child: Row(
                 children: [
                   TextButton.icon(
-                    onPressed: () {},
+                    onPressed: _discoverButtonTap,
                     icon: SvgPicture.asset(
                         'assets/icons/icone-descobrir-historias.svg'),
                     label: Padding(
@@ -96,7 +114,7 @@ class Body extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           TitleButton(
-                            title: 'Descobrir histórias?',
+                            title: 'Descobrir histórias ',
                           ),
                         ],
                       ),
@@ -125,7 +143,7 @@ class Body extends StatelessWidget {
               child: Row(
                 children: [
                   TextButton.icon(
-                    onPressed: () {},
+                    onPressed: _tellButtonTap,
                     icon: SvgPicture.asset(
                         'assets/icons/icone-contar-historia.svg'),
                     label: Padding(

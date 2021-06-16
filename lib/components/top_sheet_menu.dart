@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
 import 'package:theo/components/text_icon_button.dart';
 import 'package:theo/core/routes.dart';
+import 'package:theo/pages/tutorial_screen/tutorial_screen_controller.dart';
 import 'package:theo/states/navigation_store.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/utils/assets_path.dart';
@@ -56,6 +57,19 @@ class _TopSheetMenuState extends State<TopSheetMenu> {
     } else {
       widget.navigationStore.navigator.pushNamed(route);
     }
+  }
+
+  void _tutorialTap() {
+    Navigator.of(context).pop();
+
+    widget.navigationStore.navigator.pushNamed(
+      Routes.tutorial,
+      arguments: TutorialScreenController(
+        onSkipButtonTap: () {
+          widget.navigationStore.navigator.pop();
+        },
+      ),
+    );
   }
 
   @override
@@ -131,7 +145,7 @@ class _TopSheetMenuState extends State<TopSheetMenu> {
             TextIconButton(
               foregroundColor: TheoColors.secondary,
               text: 'Tutorial de uso',
-              onTap: () {},
+              onTap: _tutorialTap,
               textStyle: _buttonTextStyle,
             ),
             Container(

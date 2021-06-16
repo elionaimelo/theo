@@ -3,6 +3,8 @@ import 'package:theo/components/option_button.dart';
 import 'package:theo/core/routes.dart';
 import 'package:theo/pages/concluded_screen/concluded_screen_controller.dart';
 import 'package:theo/pages/signup_screen/components/term_bottom_sheet.dart';
+import 'package:theo/pages/tutorial_screen/tutorial_screen.dart';
+import 'package:theo/pages/tutorial_screen/tutorial_screen_controller.dart';
 import 'package:theo/styles/colors.dart';
 
 class TermTab extends StatefulWidget {
@@ -29,14 +31,22 @@ class _TermTabState extends State<TermTab> {
       arguments: ConcludedScreenController(
         message: 'O seu perfil já está pronto.',
         title: 'Concluído, Astrogilda!',
-        onNextButtonTap: _navigateToHome,
+        onNextButtonTap: _navigateToTutoralorHome,
       ),
     );
   }
 
-  void _navigateToHome() {
+  Future<void> _navigateToTutoralorHome() async {
     Navigator.of(context).popUntil((route) => route.isFirst);
-    Navigator.of(context).pushNamed(Routes.home);
+
+    if (await TutorialScreen.isFirstShow()) {
+      await Navigator.of(context).pushNamed(
+        Routes.tutorial,
+        arguments: TutorialScreenController(),
+      );
+    } else {
+      await Navigator.of(context).pushNamed(Routes.home);
+    }
   }
 
   @override

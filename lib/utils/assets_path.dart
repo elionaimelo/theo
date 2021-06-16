@@ -13,6 +13,12 @@ class AssetsPath {
   static const quizPng = 'assets/images/quiz.png';
   static const concludedPng = 'assets/images/concluded.png';
   static const graphJpeg = 'assets/images/graph.jpeg';
+  static const tutorial1Png = 'assets/images/Tutorial-01.png';
+  static const tutorial2Png = 'assets/images/Tutorial-02.png';
+  static const tutorial3Png = 'assets/images/Tutorial-03.png';
+  static const tutorial4Png = 'assets/images/Tutorial-04.png';
+  static const tutorial5Png = 'assets/images/Tutorial-05.png';
+  static const tutorial6Png = 'assets/images/Tutorial-06.png';
 
   // Icons Folder
   static const thunderSvg = 'assets/icons/thunder.svg';

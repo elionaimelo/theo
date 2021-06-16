@@ -9,7 +9,6 @@ import 'package:theo/models/section.dart';
 import 'package:theo/models/story.dart';
 import 'package:theo/models/theo_mocks.dart';
 import 'package:theo/pages/learning_screen/components/section_card.dart';
-import 'package:theo/pages/video_story_screen/video_story_screen.dart';
 import 'package:theo/pages/video_story_screen/video_story_screen_controller.dart';
 import 'package:theo/styles/colors.dart';
 
@@ -26,11 +25,13 @@ class _LearningScreenState extends State<LearningScreen> {
   }
 
   void _presentationTap() {
-    Navigator.of(context).pushNamed(Routes.videoStory,
-        arguments: VideoStoryScreenController(
-          story: Story(id: '1', sectionId: '-1', format: EStoryFormat.VIDEO),
-          storyStore: GetIt.I.get(),
-        ));
+    Navigator.of(context).pushNamed(
+      Routes.videoStory,
+      arguments: VideoStoryScreenController(
+        story: Story(id: '1', sectionId: '-1', format: EStoryFormat.VIDEO),
+        storyStore: GetIt.I.get(),
+      ),
+    );
   }
 
   @override

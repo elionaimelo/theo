@@ -25,6 +25,8 @@ import 'package:theo/pages/storytelling_learn_screen/storytelling_learn_screen.d
 import 'package:theo/pages/storytelling_learn_screen/storytelling_learn_screen_controller.dart';
 import 'package:theo/pages/text_story_screen/text_story_screen.dart';
 import 'package:theo/pages/text_story_screen/text_story_screen_controller.dart';
+import 'package:theo/pages/tutorial_screen/tutorial_screen.dart';
+import 'package:theo/pages/tutorial_screen/tutorial_screen_controller.dart';
 import 'package:theo/pages/video_story_screen/video_story_screen.dart';
 import 'package:theo/pages/video_story_screen/video_story_screen_controller.dart';
 import 'package:theo/states/navigation_store.dart';
@@ -61,6 +63,7 @@ class _TheoNavigatorState extends State<TheoNavigator> {
       case Routes.textStory:
       case Routes.quizStory:
       case Routes.graphStory:
+      case Routes.tutorial:
         WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
           widget.navigationStore.hideAppBars();
         });
@@ -118,7 +121,11 @@ class _TheoNavigatorState extends State<TheoNavigator> {
             case Routes.login:
               builder = (BuildContext context) => _loginScreen;
               break;
-
+            case Routes.tutorial:
+              builder = (BuildContext context) => TutorialScreen(
+                    controller: settings.arguments as TutorialScreenController,
+                  );
+              break;
             case Routes.home:
               builder = (BuildContext context) => _homeScreen;
               break;

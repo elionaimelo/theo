@@ -71,7 +71,7 @@ class _DiscoverGameScreenState extends State<DiscoverGameScreen> {
           children: [
             StoryAppBar(),
             Container(
-              margin: EdgeInsets.only(top: TheoMetrics.paddingScreen.top),
+              margin: EdgeInsets.only(top: 45),
             ),
             ProfileBar(
               avatarImage: AssetsPath.avatarJpg,

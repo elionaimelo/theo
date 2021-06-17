@@ -16,4 +16,5 @@ class Routes {
   static const String concluded = '/concluded';
   static const String signup = '/signup';
   static const String tutorial = '/tutorial';
+  static const String discoverImage = '/discover-image';
 }

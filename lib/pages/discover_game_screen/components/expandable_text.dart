@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:theo/components/adult_content_tag.dart';
 import 'package:theo/components/text_icon_button.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/styles/metrics.dart';
@@ -66,25 +67,7 @@ class _ExpandableTextState extends State<ExpandableText> {
   Widget get _author =>
       expanded ? Text('Autoria: ' + widget.author) : Container();
 
-  Widget get _adultContentTag => expanded
-      ? Row(
-          children: [
-            Icon(
-              FeatherIcons.eyeOff,
-            ),
-            Container(
-              margin: EdgeInsets.only(right: 8),
-            ),
-            Text(
-              'Conteúdo para maiores de 18',
-              style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w600,
-                  ),
-            ),
-          ],
-        )
-      : Container();
+  Widget get _adultContentTag => expanded ? AdultContentTag() : Container();
 
   Widget get _button => Container(
         alignment: Alignment.centerRight,

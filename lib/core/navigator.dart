@@ -8,6 +8,7 @@ import 'package:theo/pages/concluded_screen/concluded_screen_controller.dart';
 import 'package:theo/pages/contact_screen/contact_screen.dart';
 import 'package:theo/pages/discover_game_screen/discover_game_screen.dart';
 import 'package:theo/pages/discover_game_screen/discover_game_screen_controller.dart';
+import 'package:theo/pages/discover_image_screen/discover_image_screen.dart';
 import 'package:theo/pages/graph_story_screen/graph_story_screen.dart';
 import 'package:theo/pages/graph_story_screen/graph_story_screen_controller.dart';
 import 'package:theo/pages/home_screen/home_screen.dart';
@@ -64,6 +65,7 @@ class _TheoNavigatorState extends State<TheoNavigator> {
       case Routes.quizStory:
       case Routes.graphStory:
       case Routes.tutorial:
+      case Routes.discoverImage:
         WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
           widget.navigationStore.hideAppBars();
         });
@@ -73,7 +75,8 @@ class _TheoNavigatorState extends State<TheoNavigator> {
           widget.navigationStore.showAppBars();
           widget.navigationStore.appBarSettings =
               widget.navigationStore.appBarSettings.copyWith(
-            withBackButton: false,
+            withBackButton: widget.navigationStore.currentTabPageIndex !=
+                TabPagesIndexes.HOME,
             withProfile: true,
             withMenu: true,
           );
@@ -177,6 +180,9 @@ class _TheoNavigatorState extends State<TheoNavigator> {
               builder = (BuildContext context) => ConcludedScreen(
                     controller: settings.arguments as ConcludedScreenController,
                   );
+              break;
+            case Routes.discoverImage:
+              builder = (BuildContext context) => DiscoverImageScreen();
               break;
 
             default:

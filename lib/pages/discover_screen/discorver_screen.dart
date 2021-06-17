@@ -71,6 +71,8 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             likesCount: 16,
             commentsCount: 5,
             adultRestriction: true,
+            onTapMore: () =>
+                Navigator.of(context).pushNamed(Routes.discoverImage),
           ),
           PostCard(
             profileName: 'Beutrano Cunha',

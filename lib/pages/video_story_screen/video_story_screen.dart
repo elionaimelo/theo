@@ -26,7 +26,10 @@ class _VideoStoryScreenState extends State<VideoStoryScreen> {
   void initState() {
     super.initState();
     _videoController = VideoPlayerController.network(
-        'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4');
+      _isPodcast
+          ? 'https://www.youtube.com/watch?v=QiESMn4h7-c&t=154s'
+          : 'https://www.youtube.com/watch?v=QiESMn4h7-c&t=154s',
+    );
     _videoController.setLooping(true);
     _videoController.initialize();
   }
@@ -116,7 +119,9 @@ class _VideoStoryScreenState extends State<VideoStoryScreen> {
 
   Widget get _videoTitle => Container(
         child: Text(
-          'Storyteling e lorem ipsum dolor sit amet',
+          _isPodcast
+              ? 'Aprendendo a gravar vídeos com o celular'
+              : 'Exercício de fortalecimento, fazer ou não fazer',
           style: Theme.of(context).textTheme.bodyText1!.copyWith(
                 fontSize: 16,
                 color: _textColor,
@@ -124,6 +129,8 @@ class _VideoStoryScreenState extends State<VideoStoryScreen> {
               ),
         ),
       );
+
+  bool get _isPodcast => widget.controller.story.format == EStoryFormat.PODCAST;
 
   Widget get _player => PlayerInputs(
         videoController: _videoController,

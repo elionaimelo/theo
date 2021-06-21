@@ -27,8 +27,8 @@ class _VideoStoryScreenState extends State<VideoStoryScreen> {
     super.initState();
     _videoController = VideoPlayerController.network(
       _isPodcast
-          ? 'https://www.youtube.com/watch?v=QiESMn4h7-c&t=154s'
-          : 'https://www.youtube.com/watch?v=QiESMn4h7-c&t=154s',
+          ? 'https://github.com/elionaimelo/theo/raw/pre-validacao/others/audios/revelacast.wav'
+          : 'https://github.com/elionaimelo/theo/raw/pre-validacao/others/videos/educacional_celular.mp4',
     );
     _videoController.setLooping(true);
     _videoController.initialize();
@@ -120,8 +120,8 @@ class _VideoStoryScreenState extends State<VideoStoryScreen> {
   Widget get _videoTitle => Container(
         child: Text(
           _isPodcast
-              ? 'Aprendendo a gravar vídeos com o celular'
-              : 'Exercício de fortalecimento, fazer ou não fazer',
+              ? 'Exercício de fortalecimento, fazer ou não fazer'
+              : 'Aprendendo a gravar vídeos com o celular',
           style: Theme.of(context).textTheme.bodyText1!.copyWith(
                 fontSize: 16,
                 color: _textColor,

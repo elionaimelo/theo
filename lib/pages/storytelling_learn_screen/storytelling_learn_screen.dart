@@ -80,7 +80,7 @@ class _StorytellingLearnScreenState extends State<StorytellingLearnScreen> {
       child: ListView(
         children: [
           Text(
-            'Primeiro título aqui - sobre o storytelling',
+            'Aprendendo a gravar vídeos com o celular',
             style: Theme.of(context).textTheme.headline2!.copyWith(
                   color: TheoColors.seven,
                   fontWeight: FontWeight.w900,

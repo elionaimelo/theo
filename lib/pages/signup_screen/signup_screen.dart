@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:theo/components/bottom_button.dart';
 import 'package:theo/components/inputs/text_input.dart';
 import 'package:theo/components/question_tab.dart';
+import 'package:theo/core/routes.dart';
+import 'package:theo/pages/concluded_screen/concluded_screen_controller.dart';
 import 'package:theo/pages/signup_screen/components/term_tab.dart';
+import 'package:theo/pages/tutorial_screen/tutorial_screen.dart';
+import 'package:theo/pages/tutorial_screen/tutorial_screen_controller.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/styles/metrics.dart';
 
@@ -16,13 +20,24 @@ class SignupScreen extends StatefulWidget {
 class _SignupScreenState extends State<SignupScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  bool buttonNext = true;
+
   double currentBarValue = 0;
 
   void _onNameTextChanged(String p1) {}
 
   void _onNextButtonTap() {
     var index = _tabController.index;
+    if (index + 1 >= _tabController.length /*- 1*/) {
+      Navigator.of(context).pushNamed(
+        Routes.concluded,
+        arguments: ConcludedScreenController(
+          message: 'O seu perfil já está pronto.',
+          title: 'Concluído!',
+          onNextButtonTap: _navigateToTutorialOrHome,
+        ),
+      );
+      return;
+    }
 
     _tabController.animateTo(index + 1);
 
@@ -30,11 +45,18 @@ class _SignupScreenState extends State<SignupScreen>
       currentBarValue =
           (index.toDouble() + 1) / (_tabController.length.toDouble() - 1);
     });
+  }
 
-    if (index + 1 >= _tabController.length - 1) {
-      setState(() {
-        buttonNext = false;
-      });
+  Future<void> _navigateToTutorialOrHome() async {
+    Navigator.of(context).popUntil((route) => route.isFirst);
+
+    if (await TutorialScreen.isFirstShow()) {
+      await Navigator.of(context).pushNamed(
+        Routes.tutorial,
+        arguments: TutorialScreenController(),
+      );
+    } else {
+      await Navigator.of(context).pushNamed(Routes.home);
     }
   }
 
@@ -42,7 +64,7 @@ class _SignupScreenState extends State<SignupScreen>
   void initState() {
     super.initState();
 
-    _tabController = TabController(vsync: this, length: 6);
+    _tabController = TabController(vsync: this, length: 5);
   }
 
   @override
@@ -54,12 +76,11 @@ class _SignupScreenState extends State<SignupScreen>
           children: [
             _progressBar,
             _body,
-            if (buttonNext)
-              BottomButton(
-                text: 'Continuar',
-                icon: Icons.arrow_forward,
-                onPressed: _onNextButtonTap,
-              )
+            BottomButton(
+              text: 'Continuar',
+              icon: Icons.arrow_forward,
+              onPressed: _onNextButtonTap,
+            )
           ],
         ),
       ),
@@ -97,7 +118,7 @@ class _SignupScreenState extends State<SignupScreen>
         _roleTab,
         _ageTab,
         _passwordTab,
-        TermTab(),
+        // TermTab(),
       ];
 
   Widget get _nameTab => Column(

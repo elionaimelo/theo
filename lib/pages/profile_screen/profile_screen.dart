@@ -68,7 +68,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               type: MaterialType.transparency,
               child: ProfileDataField(
                 textLabel: 'Nome',
-                textValue: 'Astrogilda Nunes',
+                textValue: 'Nome do usuário',
                 onTap: () {},
               ),
             ),
@@ -79,7 +79,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               type: MaterialType.transparency,
               child: ProfileDataField(
                 textLabel: 'E-mail',
-                textValue: 'astrogilda-n@gmail.com',
+                textValue: 'email-n@gmail.com',
                 onTap: () {},
               ),
             ),

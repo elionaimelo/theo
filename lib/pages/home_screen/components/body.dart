@@ -72,10 +72,7 @@ class Body extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           TitleButton(
-                            title: 'Como contar?',
-                          ),
-                          SubTitleText(
-                            subTitle: 'Aprenda storytelling',
+                            title: 'Aprender a contar',
                           ),
                         ],
                       ),

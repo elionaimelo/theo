@@ -28,7 +28,7 @@ class _DiscoverImageScreenState extends State<DiscoverImageScreen> {
           ),
           ProfileBar(
             avatarImage: AssetsPath.avatarJpg,
-            name: 'Astrogilda Nunes',
+            name: 'Nome do usuário',
           ),
           Container(
             margin: EdgeInsets.only(top: 12, bottom: 12),

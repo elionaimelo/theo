@@ -9,6 +9,8 @@ import 'package:theo/pages/contact_screen/contact_screen.dart';
 import 'package:theo/pages/discover_game_screen/discover_game_screen.dart';
 import 'package:theo/pages/discover_game_screen/discover_game_screen_controller.dart';
 import 'package:theo/pages/discover_image_screen/discover_image_screen.dart';
+import 'package:theo/pages/discover_sound_screen/discover_sound_screen.dart';
+import 'package:theo/pages/discover_sound_screen/discover_sound_screen_controller.dart';
 import 'package:theo/pages/graph_story_screen/graph_story_screen.dart';
 import 'package:theo/pages/graph_story_screen/graph_story_screen_controller.dart';
 import 'package:theo/pages/home_screen/home_screen.dart';
@@ -66,6 +68,7 @@ class _TheoNavigatorState extends State<TheoNavigator> {
       case Routes.graphStory:
       case Routes.tutorial:
       case Routes.discoverImage:
+      case Routes.discoverSound:
         WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
           widget.navigationStore.hideAppBars();
         });
@@ -184,7 +187,12 @@ class _TheoNavigatorState extends State<TheoNavigator> {
             case Routes.discoverImage:
               builder = (BuildContext context) => DiscoverImageScreen();
               break;
-
+            case Routes.discoverSound:
+              builder = (BuildContext context) => DiscoverSoundScreen(
+                    controller:
+                        settings.arguments as DiscoverSoundScreenController,
+                  );
+              break;
             default:
               throw Exception('Invalid route: ${settings.name}');
           }

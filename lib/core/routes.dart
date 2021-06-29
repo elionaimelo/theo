@@ -17,4 +17,5 @@ class Routes {
   static const String signup = '/signup';
   static const String tutorial = '/tutorial';
   static const String discoverImage = '/discover-image';
+  static const String discoverSound = '/discover-sound';
 }

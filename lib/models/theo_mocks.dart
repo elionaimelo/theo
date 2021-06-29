@@ -36,7 +36,7 @@ class TheoMocks {
 
   static List<Section> sectionsMock = [
     Section(
-      title: 'Primeiro titulo aqui - Sobre o storytelling?',
+      title: 'Aprendendo a gravar vídeos com o celular',
       id: '1',
     ),
     Section(

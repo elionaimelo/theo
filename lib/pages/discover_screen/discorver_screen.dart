@@ -60,7 +60,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                 Navigator.of(context).pushNamed(Routes.discoverGame),
           ),
           PostCard(
-            profileName: 'Astrogilda Nunes',
+            profileName: 'Nome do usuário',
             cardImage: AssetsPath.defaultCardSvg,
             avatarImage: AssetsPath.avatarJpg,
             textBody:

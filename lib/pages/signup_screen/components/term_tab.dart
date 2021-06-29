@@ -15,7 +15,7 @@ class TermTab extends StatefulWidget {
 }
 
 class _TermTabState extends State<TermTab> {
-  bool acceptEnabled = false;
+  bool acceptEnabled = true;
 
   Future<void> _openTerm() async {
     await TermBottomSheet.showTermBottomSheet(context);
@@ -30,13 +30,13 @@ class _TermTabState extends State<TermTab> {
       Routes.concluded,
       arguments: ConcludedScreenController(
         message: 'O seu perfil já está pronto.',
-        title: 'Concluído, Astrogilda!',
-        onNextButtonTap: _navigateToTutoralorHome,
+        title: 'Concluído!',
+        onNextButtonTap: _navigateToTutorialOrHome,
       ),
     );
   }
 
-  Future<void> _navigateToTutoralorHome() async {
+  Future<void> _navigateToTutorialOrHome() async {
     Navigator.of(context).popUntil((route) => route.isFirst);
 
     if (await TutorialScreen.isFirstShow()) {

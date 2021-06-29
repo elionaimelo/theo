@@ -1,12 +1,14 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
 import 'package:theo/components/subTitleText.dart';
 
 import 'package:theo/components/title_text.dart';
-import 'package:theo/components/titleButton.dart';
 import 'package:theo/pages/home_screen/components/categoryCard.dart';
 import 'package:theo/states/navigation_store.dart';
+import 'package:theo/styles/colors.dart';
 
 class Body extends StatelessWidget {
   const Body({Key? key}) : super(key: key);
@@ -43,125 +45,32 @@ class Body extends StatelessWidget {
               child: TitleText(title: 'O que você quer explorar hoje?'),
             ),
             Container(
-              margin: EdgeInsets.only(top: 22),
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(10.0),
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.2),
-                    spreadRadius: 6,
-                    blurRadius: 10,
-                    offset: Offset(0, 2),
-                  ),
-                ],
-              ),
-              child: Row(
-                children: [
-                  TextButton.icon(
-                    onPressed: _learnButtonTap,
-                    icon:
-                        SvgPicture.asset('assets/icons/icone-como-contar.svg'),
-                    label: Padding(
-                      padding: const EdgeInsets.only(left: 20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          TitleButton(
-                            title: 'Aprender a contar',
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+              margin: EdgeInsets.only(top: 25),
+            ),
+            _button(
+              context: context,
+              text: 'Aprender a contar',
+              icon: 'assets/icons/icone-como-contar.svg',
+              onTap: _learnButtonTap,
             ),
             Container(
-              margin: EdgeInsets.only(top: 22),
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(10.0),
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.2),
-                    spreadRadius: 6,
-                    blurRadius: 10,
-                    offset: Offset(0, 2),
-                  ),
-                ],
-              ),
-              child: Row(
-                children: [
-                  TextButton.icon(
-                    onPressed: _discoverButtonTap,
-                    icon: SvgPicture.asset(
-                        'assets/icons/icone-descobrir-historias.svg'),
-                    label: Padding(
-                      padding: const EdgeInsets.only(left: 20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          TitleButton(
-                            title: 'Descobrir histórias ',
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+              margin: EdgeInsets.only(top: 15),
+            ),
+            _button(
+              context: context,
+              text: 'Descobrir histórias',
+              icon: 'assets/icons/icone-descobrir-historias.svg',
+              onTap: _discoverButtonTap,
             ),
             Container(
-              margin: EdgeInsets.only(top: 22),
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(10.0),
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.2),
-                    spreadRadius: 6,
-                    blurRadius: 10,
-                    offset: Offset(0, 2),
-                  ),
-                ],
-              ),
-              child: Row(
-                children: [
-                  TextButton.icon(
-                    onPressed: _tellButtonTap,
-                    icon: SvgPicture.asset(
-                        'assets/icons/icone-contar-historia.svg'),
-                    label: Padding(
-                      padding: const EdgeInsets.only(left: 20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          TitleButton(
-                            title: 'Contar uma história',
-                          ),
-                          SubTitleText(
-                            subTitle: 'Compartilhe suas histórias',
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+              margin: EdgeInsets.only(top: 15),
             ),
+            _button(
+                context: context,
+                text: 'Contar uma história',
+                icon: 'assets/icons/icone-contar-historia.svg',
+                onTap: _tellButtonTap,
+                subtitle: 'Compartilhe suas histórias'),
             Container(
               margin: EdgeInsets.only(top: 37),
               child: Row(
@@ -200,4 +109,63 @@ class Body extends StatelessWidget {
       ),
     );
   }
+
+  Widget _button({
+    required BuildContext context,
+    required String text,
+    required String icon,
+    String subtitle = '',
+    required Function() onTap,
+  }) =>
+      InkWell(
+        onTap: onTap,
+        child: Ink(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: const BorderRadius.all(
+              Radius.circular(10.0),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.2),
+                spreadRadius: 6,
+                blurRadius: 10,
+                offset: Offset(0, 2),
+              ),
+            ],
+          ),
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 17, horizontal: 30),
+            child: Row(
+              children: [
+                SvgPicture.asset(icon),
+                Container(
+                  margin: EdgeInsets.only(left: 30),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      text,
+                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                            fontSize: 18,
+                            color: TheoColors.six,
+                            fontWeight: FontWeight.w900,
+                          ),
+                    ),
+                    if (subtitle != '')
+                      Text(
+                        subtitle,
+                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                              fontSize: 15,
+                              color: TheoColors.seven,
+                            ),
+                      ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
 }

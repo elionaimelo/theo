@@ -19,7 +19,8 @@ class _TheoBottomBarState extends State<TheoBottomBar> {
     widget.navigationStore.setCurrentPageIndex(TabPagesIndexes.values[index]);
 
     if (widget.navigationStore.currentNamedRoute != Routes.home) {
-      widget.navigationStore.navigator.popUntil((route) => route.isFirst);
+      widget.navigationStore.navigator
+          .popUntil((route) => route.settings.name == Routes.home);
     }
   }
 

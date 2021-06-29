@@ -4,7 +4,6 @@ import 'package:theo/components/inputs/text_input.dart';
 import 'package:theo/components/question_tab.dart';
 import 'package:theo/core/routes.dart';
 import 'package:theo/pages/concluded_screen/concluded_screen_controller.dart';
-import 'package:theo/pages/signup_screen/components/term_tab.dart';
 import 'package:theo/pages/tutorial_screen/tutorial_screen.dart';
 import 'package:theo/pages/tutorial_screen/tutorial_screen_controller.dart';
 import 'package:theo/styles/colors.dart';

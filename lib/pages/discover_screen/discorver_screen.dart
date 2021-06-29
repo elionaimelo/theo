@@ -3,7 +3,11 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:theo/components/bottom_button.dart';
 import 'package:theo/components/title_text.dart';
 import 'package:theo/core/routes.dart';
+import 'package:theo/models/enums.dart';
+import 'package:theo/models/story.dart';
+import 'package:theo/models/user.dart';
 import 'package:theo/pages/discover_screen/components/post_card.dart';
+import 'package:theo/pages/discover_sound_screen/discover_sound_screen_controller.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/styles/metrics.dart';
 import 'package:theo/utils/assets_path.dart';
@@ -109,6 +113,24 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             author: 'Autoria: Rosângela Alves e Maria Coutinho',
             likesCount: 16,
             commentsCount: 5,
+            onTapMore: () => Navigator.of(context).pushNamed(
+              Routes.discoverSound,
+              arguments: DiscoverSoundScreenController(
+                story: Story(
+                  format: EStoryFormat.MUSIC,
+                  id: '-1',
+                  sectionId: '-1',
+                  link:
+                      'https://github.com/elionaimelo/theo/raw/pre-validacao/others/audios/revelacast.wav',
+                  title: 'Story e lorem ipsum dolor sit amet',
+                  adultContent: true,
+                  author: 'Rosângela Alves e Maria Coutinho',
+                  user: User(
+                    displayName: 'Rosângela Alves',
+                  ),
+                ),
+              ),
+            ),
           ),
           PostCard(
             profileName: 'Maricleia Malva',
@@ -119,6 +141,24 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             author: 'Autoria: Maricleia Malva e Antônio Silveira',
             likesCount: 1,
             commentsCount: 5,
+            onTapMore: () => Navigator.of(context).pushNamed(
+              Routes.discoverSound,
+              arguments: DiscoverSoundScreenController(
+                story: Story(
+                  format: EStoryFormat.PODCAST,
+                  id: '-1',
+                  sectionId: '-1',
+                  link:
+                      'https://github.com/elionaimelo/theo/raw/pre-validacao/others/audios/revelacast.wav',
+                  title: 'Story e lorem ipsum dolor sit amet',
+                  adultContent: false,
+                  author: 'Maricleia Malva e Antônio Silveira',
+                  user: User(
+                    displayName: 'Maricleia Malva',
+                  ),
+                ),
+              ),
+            ),
           ),
         ],
       ),

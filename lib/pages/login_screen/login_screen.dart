@@ -39,8 +39,8 @@ class _LoginScreenState extends State<LoginScreen>
   }
 
   void _onPasswordButtonTap() {
-    Navigator.of(context).popUntil((route) => route.isFirst);
-    Navigator.of(context).pushReplacementNamed(Routes.home);
+    Navigator.of(context)
+        .pushNamedAndRemoveUntil(Routes.home, (route) => route.isFirst);
   }
 
   void _onEmailTextChanged(String value) {

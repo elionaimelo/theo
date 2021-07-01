@@ -18,6 +18,7 @@ class _DiscoverImageScreenState extends State<DiscoverImageScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: TheoColors.secondary,
       padding: TheoMetrics.paddingScreenWithTopMargin,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

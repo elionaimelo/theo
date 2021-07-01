@@ -22,6 +22,7 @@ class _ContactScreenState extends State<ContactScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: TheoColors.secondary,
       padding: EdgeInsets.symmetric(horizontal: 16),
       child: Form(
         child: ListView(

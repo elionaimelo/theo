@@ -32,6 +32,7 @@ class _DiscoverSoundScreenState extends State<DiscoverSoundScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: TheoColors.secondary,
       padding: TheoMetrics.paddingScreenWithTopMargin,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

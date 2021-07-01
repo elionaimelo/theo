@@ -81,6 +81,7 @@ class _QuizStoryScreenState extends State<QuizStoryScreen>
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: TheoColors.secondary,
       padding: EdgeInsets.only(
         top: AppBar().preferredSize.height,
       ),

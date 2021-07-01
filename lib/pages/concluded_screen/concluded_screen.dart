@@ -22,6 +22,7 @@ class _ConcludedScreenState extends State<ConcludedScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: TheoColors.secondary,
       padding: TheoMetrics.paddingScreenWithTopMargin,
       child: Column(
         children: [

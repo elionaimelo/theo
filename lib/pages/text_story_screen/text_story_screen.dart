@@ -22,6 +22,7 @@ class _TextStoryScreenState extends State<TextStoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: TheoColors.secondary,
       padding: TheoMetrics.paddingScreen
           .copyWith(top: AppBar().preferredSize.height, bottom: 0),
       child: Column(

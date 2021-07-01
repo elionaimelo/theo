@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:theo/components/title_text.dart';
+import 'package:theo/styles/colors.dart';
 
 class AboutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: TheoColors.secondary,
       margin: EdgeInsets.only(top: 30),
       padding: EdgeInsets.symmetric(horizontal: 16),
       child: Column(

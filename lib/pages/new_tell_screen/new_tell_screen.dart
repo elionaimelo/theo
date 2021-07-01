@@ -194,16 +194,20 @@ class _NewTellScreenState extends State<NewTellScreen> {
         ),
       )
     ];
+
     return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Form(
-          child: ListView.separated(
-              itemBuilder: (_, int index) => inputs[index],
-              separatorBuilder: (_, int index) => Container(
-                    margin: EdgeInsets.only(top: 20),
-                  ),
-              itemCount: inputs.length),
+      child: Container(
+        color: TheoColors.secondary,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Form(
+            child: ListView.separated(
+                itemBuilder: (_, int index) => inputs[index],
+                separatorBuilder: (_, int index) => Container(
+                      margin: EdgeInsets.only(top: 20),
+                    ),
+                itemCount: inputs.length),
+          ),
         ),
       ),
     );

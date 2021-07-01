@@ -114,95 +114,111 @@ class _TheoNavigatorState extends State<TheoNavigator> {
         key: widget.navigationStore.navigationKey,
         initialRoute: Routes.start,
         onGenerateRoute: (RouteSettings settings) {
-          WidgetBuilder builder;
+          Widget page;
 
           switch (settings.name) {
             case '/':
             case Routes.start:
-              builder = (BuildContext context) => StartScreen();
+              page = StartScreen();
               break;
             case Routes.signup:
-              builder = (BuildContext context) => SignupScreen();
+              page = SignupScreen();
               break;
             case Routes.login:
-              builder = (BuildContext context) => _loginScreen;
+              page = _loginScreen;
               break;
             case Routes.tutorial:
-              builder = (BuildContext context) => TutorialScreen(
-                    controller: settings.arguments as TutorialScreenController,
-                  );
+              page = TutorialScreen(
+                controller: settings.arguments as TutorialScreenController,
+              );
               break;
             case Routes.home:
-              builder = (BuildContext context) => _homeScreen;
+              page = _homeScreen;
               break;
             case Routes.about:
-              builder = (BuildContext context) => AboutScreen();
+              page = AboutScreen();
               break;
             case Routes.contact:
-              builder = (BuildContext context) => ContactScreen();
+              page = ContactScreen();
               break;
             case Routes.search:
-              builder = (BuildContext context) => SearchScreen();
+              page = SearchScreen();
               break;
             case Routes.newTell:
-              builder = (BuildContext context) =>
+              page =
                   NewTellScreen(args: settings.arguments as NewTellScreenArgs);
               break;
             case Routes.profile:
-              builder = (BuildContext context) => ProfileScreen();
+              page = ProfileScreen();
               break;
             case Routes.discoverGame:
-              builder = (BuildContext context) => _discoverScreen;
+              page = _discoverScreen;
               break;
             case Routes.mediaStory:
-              builder = (BuildContext context) => MediaStoryScreen(
-                    controller:
-                        settings.arguments as MediaStoryScreenController,
-                  );
+              page = MediaStoryScreen(
+                controller: settings.arguments as MediaStoryScreenController,
+              );
               break;
             case Routes.storytellingLearn:
-              builder = (BuildContext context) => _storytellingScreen;
+              page = _storytellingScreen;
               break;
             case Routes.textStory:
-              builder = (BuildContext context) => TextStoryScreen(
-                    controller: settings.arguments as TextStoryScreenController,
-                  );
+              page = TextStoryScreen(
+                controller: settings.arguments as TextStoryScreenController,
+              );
               break;
             case Routes.quizStory:
-              builder = (BuildContext context) => QuizStoryScreen(
-                    controller: settings.arguments as QuizStoryScreenController,
-                  );
+              page = QuizStoryScreen(
+                controller: settings.arguments as QuizStoryScreenController,
+              );
               break;
             case Routes.graphStory:
-              builder = (BuildContext context) => GraphStoryScreen(
-                    controller:
-                        settings.arguments as GraphStoryScreenController,
-                  );
+              page = GraphStoryScreen(
+                controller: settings.arguments as GraphStoryScreenController,
+              );
               break;
             case Routes.concluded:
-              builder = (BuildContext context) => ConcludedScreen(
-                    controller: settings.arguments as ConcludedScreenController,
-                  );
+              page = ConcludedScreen(
+                controller: settings.arguments as ConcludedScreenController,
+              );
               break;
             case Routes.discoverImage:
-              builder = (BuildContext context) => DiscoverImageScreen();
+              page = DiscoverImageScreen();
               break;
             case Routes.discoverSound:
-              builder = (BuildContext context) => DiscoverSoundScreen(
-                    controller:
-                        settings.arguments as DiscoverSoundScreenController,
-                  );
+              page = DiscoverSoundScreen(
+                controller: settings.arguments as DiscoverSoundScreenController,
+              );
               break;
             default:
               throw Exception('Invalid route: ${settings.name}');
           }
 
-          return MaterialPageRoute(
-            builder: builder,
+          var builder = (BuildContext context, Animation<double> anim1,
+                  Animation<double> anim2) =>
+              page;
+
+          return PageRouteBuilder(
+            pageBuilder: builder,
             settings: settings,
+            transitionsBuilder: _transitionBuilder,
           );
         },
       ),
+    );
+  }
+
+  SlideTransition _transitionBuilder(
+      context, animation, secondaryAnimation, child) {
+    var begin = Offset(0.0, 1.0);
+    var end = Offset.zero;
+    var curve = Curves.ease;
+
+    var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+    return SlideTransition(
+      position: animation.drive(tween),
+      child: child,
     );
   }
 

@@ -76,6 +76,7 @@ class _StorytellingLearnScreenState extends State<StorytellingLearnScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: TheoColors.secondary,
       padding: TheoMetrics.paddingScreen,
       child: ListView(
         children: [

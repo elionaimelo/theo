@@ -6,36 +6,12 @@ A new Flutter project.
 <br>
 <br>
 
-## Docs
+## Design
 
 ---
 
-https://www.notion.so/Theo-227f5559ce404a87b34fbe8f58a2cc1b
+https://xd.adobe.com/view/5ec4ffa4-2c72-4234-9f92-3ae67af2858e-0b97/grid/
 
 <br>
 <br>
 <br>
-
-## Directory Structure
-
----
-
-#### **# MODELS**
-
-Data class models
-
-#### **# PAGES**
-
-Screen pages, layout and design code
-
-#### **# SERVICES**
-
-Aplication logic, and backend requests
-
-#### **# COMPONENTS**
-
-Atomic layout, user interface components reusables
-
-#### **# ASSETS**
-
-Images, icons, files

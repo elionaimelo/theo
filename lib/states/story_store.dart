@@ -13,14 +13,18 @@ abstract class _StoryStoreBase with Store {
       sectionId: '1',
       finished: false,
       format: EStoryFormat.VIDEO,
-      title: 'Storyteling e lorem ipsum dolor sit amet',
+      title: 'Aprendendo a gravar vídeos com o celular',
+      link:
+          'https://github.com/elionaimelo/theo/raw/pre-validacao/others/videos/educacional_celular.mp4',
     ),
     Story(
       id: '2',
       sectionId: '1',
       finished: false,
       format: EStoryFormat.PODCAST,
-      title: 'Storyteling e lorem ipsum dolor sit amet',
+      title: 'Exercício de fortalecimento, fazer ou não fazer',
+      link:
+          'https://github.com/elionaimelo/theo/raw/pre-validacao/others/audios/revelacast.wav',
     ),
     Story(
       id: '3',

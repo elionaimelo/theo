@@ -17,6 +17,8 @@ import 'package:theo/pages/home_screen/home_screen.dart';
 import 'package:theo/pages/home_screen/home_screen_controller.dart';
 import 'package:theo/pages/login_screen/login_screen.dart';
 import 'package:theo/pages/login_screen/login_screen_controller.dart';
+import 'package:theo/pages/media_story_screen/media_story_screen.dart';
+import 'package:theo/pages/media_story_screen/media_story_screen_controller.dart';
 import 'package:theo/pages/new_tell_screen/new_tell_screen.dart';
 import 'package:theo/pages/profile_screen/profile_screen.dart';
 import 'package:theo/pages/quiz_story_screen/quiz_story_screen.dart';
@@ -30,8 +32,6 @@ import 'package:theo/pages/text_story_screen/text_story_screen.dart';
 import 'package:theo/pages/text_story_screen/text_story_screen_controller.dart';
 import 'package:theo/pages/tutorial_screen/tutorial_screen.dart';
 import 'package:theo/pages/tutorial_screen/tutorial_screen_controller.dart';
-import 'package:theo/pages/video_story_screen/video_story_screen.dart';
-import 'package:theo/pages/video_story_screen/video_story_screen_controller.dart';
 import 'package:theo/states/navigation_store.dart';
 
 class TheoNavigator extends StatefulWidget {
@@ -62,7 +62,7 @@ class _TheoNavigatorState extends State<TheoNavigator> {
     switch (route) {
       case Routes.discoverGame:
       case Routes.start:
-      case Routes.videoStory:
+      case Routes.mediaStory:
       case Routes.textStory:
       case Routes.quizStory:
       case Routes.graphStory:
@@ -154,10 +154,10 @@ class _TheoNavigatorState extends State<TheoNavigator> {
             case Routes.discoverGame:
               builder = (BuildContext context) => _discoverScreen;
               break;
-            case Routes.videoStory:
-              builder = (BuildContext context) => VideoStoryScreen(
+            case Routes.mediaStory:
+              builder = (BuildContext context) => MediaStoryScreen(
                     controller:
-                        settings.arguments as VideoStoryScreenController,
+                        settings.arguments as MediaStoryScreenController,
                   );
               break;
             case Routes.storytellingLearn:

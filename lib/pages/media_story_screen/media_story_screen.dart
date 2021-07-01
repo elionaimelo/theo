@@ -1,43 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:theo/components/bottom_button.dart';
 import 'package:theo/models/enums.dart';
-import 'package:theo/pages/video_story_screen/components/player_inputs.dart';
-import 'package:theo/pages/video_story_screen/components/video_top_bar.dart';
-import 'package:theo/pages/video_story_screen/video_story_screen_controller.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/styles/metrics.dart';
 import 'package:theo/utils/assets_path.dart';
 import 'package:video_player/video_player.dart';
 
-class VideoStoryScreen extends StatefulWidget {
-  const VideoStoryScreen({Key? key, required this.controller})
+import 'components/player_inputs.dart';
+import 'components/video_top_bar.dart';
+import 'media_story_screen_controller.dart';
+
+class MediaStoryScreen extends StatefulWidget {
+  const MediaStoryScreen({Key? key, required this.controller})
       : super(key: key);
 
   @override
-  _VideoStoryScreenState createState() => _VideoStoryScreenState();
+  _MediaStoryScreenState createState() => _MediaStoryScreenState();
 
-  final VideoStoryScreenController controller;
+  final MediaStoryScreenController controller;
 }
 
-class _VideoStoryScreenState extends State<VideoStoryScreen> {
-  late VideoPlayerController _videoController;
-
+class _MediaStoryScreenState extends State<MediaStoryScreen> {
   @override
   void initState() {
     super.initState();
-    _videoController = VideoPlayerController.network(
-      _isPodcast
-          ? 'https://github.com/elionaimelo/theo/raw/pre-validacao/others/audios/revelacast.wav'
-          : 'https://github.com/elionaimelo/theo/raw/pre-validacao/others/videos/educacional_celular.mp4',
-    );
-    _videoController.setLooping(true);
-    _videoController.initialize();
+
+    widget.controller.videoController.initialize();
   }
 
   @override
   void dispose() {
-    _videoController.pause();
-    _videoController.dispose();
+    widget.controller.videoController.pause();
+    widget.controller.videoController.dispose();
     super.dispose();
   }
 
@@ -57,7 +51,7 @@ class _VideoStoryScreenState extends State<VideoStoryScreen> {
             child: Container(
               padding: TheoMetrics.paddingScreen.copyWith(top: 0, bottom: 0),
               child: VideoTopBar(
-                controller: _videoController,
+                controller: widget.controller.videoController,
                 foregroundColor: _foregroundColor,
               ),
             ),
@@ -102,26 +96,24 @@ class _VideoStoryScreenState extends State<VideoStoryScreen> {
         ),
       );
 
-  Widget get _video => widget.controller.story.format == EStoryFormat.VIDEO
+  Widget get _video => _isPodcast
       ? Container(
-          child: Center(
-            child: AspectRatio(
-              aspectRatio: 16 / 9,
-              child: VideoPlayer(_videoController),
-            ),
+          child: Image(
+            image: AssetImage(AssetsPath.podcastPng),
           ),
         )
       : Container(
-          child: Image(
-            image: AssetImage(AssetsPath.podcastPng),
+          child: Center(
+            child: AspectRatio(
+              aspectRatio: 16 / 9,
+              child: VideoPlayer(widget.controller.videoController),
+            ),
           ),
         );
 
   Widget get _videoTitle => Container(
         child: Text(
-          _isPodcast
-              ? 'Exercício de fortalecimento, fazer ou não fazer'
-              : 'Aprendendo a gravar vídeos com o celular',
+          widget.controller.story.title,
           style: Theme.of(context).textTheme.bodyText1!.copyWith(
                 fontSize: 16,
                 color: _textColor,
@@ -133,7 +125,7 @@ class _VideoStoryScreenState extends State<VideoStoryScreen> {
   bool get _isPodcast => widget.controller.story.format == EStoryFormat.PODCAST;
 
   Widget get _player => PlayerInputs(
-        videoController: _videoController,
+        videoController: widget.controller.videoController,
         foregroundColor: _foregroundColor,
         playButtonColor: _playButtonColor,
         textColor: _textColor,

@@ -5,11 +5,11 @@ import 'package:theo/core/routes.dart';
 import 'package:theo/models/enums.dart';
 import 'package:theo/models/story.dart';
 import 'package:theo/pages/graph_story_screen/graph_story_screen_controller.dart';
+import 'package:theo/pages/media_story_screen/media_story_screen_controller.dart';
 import 'package:theo/pages/quiz_story_screen/quiz_story_screen_controller.dart';
 import 'package:theo/pages/storytelling_learn_screen/components/learn_card_item.dart';
 import 'package:theo/pages/storytelling_learn_screen/storytelling_learn_screen_controller.dart';
 import 'package:theo/pages/text_story_screen/text_story_screen_controller.dart';
-import 'package:theo/pages/video_story_screen/video_story_screen_controller.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/styles/metrics.dart';
 
@@ -32,8 +32,8 @@ class _StorytellingLearnScreenState extends State<StorytellingLearnScreen> {
       case EStoryFormat.VIDEO:
       case EStoryFormat.PODCAST:
         Navigator.of(context).pushNamed(
-          Routes.videoStory,
-          arguments: VideoStoryScreenController(
+          Routes.mediaStory,
+          arguments: MediaStoryScreenController(
             story: story,
             storyStore: GetIt.I.get(),
           ),

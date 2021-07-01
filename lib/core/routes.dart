@@ -8,7 +8,7 @@ class Routes {
   static const String search = '/search';
   static const String profile = '/profile';
   static const String discoverGame = '/discover-game';
-  static const String videoStory = '/video-story';
+  static const String mediaStory = '/media-story';
   static const String storytellingLearn = '/storytelling-learn';
   static const String textStory = '/text-story';
   static const String quizStory = '/quiz-story';

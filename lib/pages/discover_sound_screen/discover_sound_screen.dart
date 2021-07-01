@@ -6,7 +6,7 @@ import 'package:theo/components/profile_bar.dart';
 import 'package:theo/components/story_app_bar.dart';
 import 'package:theo/models/enums.dart';
 import 'package:theo/pages/discover_sound_screen/discover_sound_screen_controller.dart';
-import 'package:theo/pages/video_story_screen/components/player_inputs.dart';
+import 'package:theo/pages/media_story_screen/components/player_inputs.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/styles/metrics.dart';
 import 'package:theo/utils/assets_path.dart';

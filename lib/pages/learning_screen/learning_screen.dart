@@ -9,7 +9,7 @@ import 'package:theo/models/section.dart';
 import 'package:theo/models/story.dart';
 import 'package:theo/models/theo_mocks.dart';
 import 'package:theo/pages/learning_screen/components/section_card.dart';
-import 'package:theo/pages/video_story_screen/video_story_screen_controller.dart';
+import 'package:theo/pages/media_story_screen/media_story_screen_controller.dart';
 import 'package:theo/styles/colors.dart';
 
 class LearningScreen extends StatefulWidget {
@@ -26,9 +26,16 @@ class _LearningScreenState extends State<LearningScreen> {
 
   void _presentationTap() {
     Navigator.of(context).pushNamed(
-      Routes.videoStory,
-      arguments: VideoStoryScreenController(
-        story: Story(id: '1', sectionId: '-1', format: EStoryFormat.VIDEO),
+      Routes.mediaStory,
+      arguments: MediaStoryScreenController(
+        story: Story(
+          title: 'Aprendendo a gravar vídeos com o celular',
+          id: '1',
+          sectionId: '-1',
+          link:
+              'https://github.com/elionaimelo/theo/raw/pre-validacao/others/videos/educacional_celular.mp4',
+          format: EStoryFormat.VIDEO,
+        ),
         storyStore: GetIt.I.get(),
       ),
     );
@@ -93,15 +100,16 @@ class _LearningScreenState extends State<LearningScreen> {
       );
 
   Widget get _list => ListView.builder(
-      itemCount: sections.length + 1,
-      itemBuilder: (_, int index) {
-        if (index == 0) return _presentation;
+        itemCount: sections.length + 1,
+        itemBuilder: (_, int index) {
+          if (index == 0) return _presentation;
 
-        return SectionCard(
-          section: sections[index - 1],
-          onStartTap: _onStoryCardTap,
-        );
-      });
+          return SectionCard(
+            section: sections[index - 1],
+            onStartTap: _onStoryCardTap,
+          );
+        },
+      );
 
   Widget get _title => TitleText(
         title: 'Como contar?',

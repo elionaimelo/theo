@@ -4,7 +4,7 @@ import 'package:theo/components/audio_button.dart';
 import 'package:theo/components/post_card_actions.dart';
 import 'package:theo/components/profile_bar.dart';
 import 'package:theo/components/story_app_bar.dart';
-import 'package:theo/models/enums.dart';
+import 'package:theo/types/enums.dart';
 import 'package:theo/pages/discover_sound_screen/discover_sound_screen_controller.dart';
 import 'package:theo/pages/media_story_screen/components/player_inputs.dart';
 import 'package:theo/styles/colors.dart';
@@ -53,7 +53,7 @@ class _DiscoverSoundScreenState extends State<DiscoverSoundScreen> {
           ),
           ProfileBar(
             avatarImage: AssetsPath.avatarJpg,
-            name: widget.controller.story.user?.displayName ?? '',
+            name: widget.controller.story.user?.profile?.name ?? '',
           ),
           Container(
             margin: EdgeInsets.only(top: 12, bottom: 12),

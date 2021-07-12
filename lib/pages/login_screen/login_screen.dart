@@ -28,9 +28,7 @@ class _LoginScreenState extends State<LoginScreen>
     }
 
     Navigator.of(context).pop();
-    widget.controller.setAppBar(TheoAppBarSettings(
-      visible: false,
-    ));
+
     return true;
   }
 

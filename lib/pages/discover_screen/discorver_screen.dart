@@ -3,7 +3,7 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:theo/components/bottom_button.dart';
 import 'package:theo/components/title_text.dart';
 import 'package:theo/core/routes.dart';
-import 'package:theo/models/enums.dart';
+import 'package:theo/types/enums.dart';
 import 'package:theo/models/story.dart';
 import 'package:theo/models/user.dart';
 import 'package:theo/pages/discover_screen/components/post_card.dart';
@@ -126,7 +126,12 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                   adultContent: true,
                   author: 'Rosângela Alves e Maria Coutinho',
                   user: User(
-                    displayName: 'Rosângela Alves',
+                    canceled: false,
+                    email: '',
+                    id: '1',
+                    profileId: '1',
+                    roleId: '1',
+                    termAccepted: false,
                   ),
                 ),
               ),
@@ -154,7 +159,12 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                   adultContent: false,
                   author: 'Maricleia Malva e Antônio Silveira',
                   user: User(
-                    displayName: 'Maricleia Malva',
+                    canceled: false,
+                    email: '',
+                    id: '1',
+                    profileId: '1',
+                    roleId: '1',
+                    termAccepted: false,
                   ),
                 ),
               ),

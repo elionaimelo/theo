@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:theo/core/routes.dart';
-import 'package:theo/models/enums.dart';
+import 'package:theo/types/enums.dart';
 import 'package:theo/models/story.dart';
 import 'package:theo/pages/graph_story_screen/graph_story_screen_controller.dart';
 import 'package:theo/pages/media_story_screen/media_story_screen_controller.dart';

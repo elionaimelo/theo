@@ -25,6 +25,7 @@ import 'package:theo/pages/quiz_story_screen/quiz_story_screen.dart';
 import 'package:theo/pages/quiz_story_screen/quiz_story_screen_controller.dart';
 import 'package:theo/pages/search_screen/search_screen.dart';
 import 'package:theo/pages/signup_screen/signup_screen.dart';
+import 'package:theo/pages/signup_screen/signup_screen_controller.dart';
 import 'package:theo/pages/start_screen/start_screen.dart';
 import 'package:theo/pages/storytelling_learn_screen/storytelling_learn_screen.dart';
 import 'package:theo/pages/storytelling_learn_screen/storytelling_learn_screen_controller.dart';
@@ -122,7 +123,7 @@ class _TheoNavigatorState extends State<TheoNavigator> {
               page = StartScreen();
               break;
             case Routes.signup:
-              page = SignupScreen();
+              page = _signupScreen;
               break;
             case Routes.login:
               page = _loginScreen;
@@ -243,6 +244,14 @@ class _TheoNavigatorState extends State<TheoNavigator> {
   Widget get _loginScreen => LoginScreen(
         controller: LoginScreenController(
           navigationStore: widget.navigationStore,
+        ),
+      );
+
+  Widget get _signupScreen => SignupScreen(
+        controller: SignupScreenController(
+          languageStore: GetIt.I.get(),
+          roleStore: GetIt.I.get(),
+          authStore: GetIt.I.get(),
         ),
       );
 }

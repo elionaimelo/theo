@@ -7,9 +7,11 @@ import 'package:theo/components/theo_bottom_bar.dart';
 import 'package:theo/core/navigator.dart';
 import 'package:theo/core/services_locator.dart';
 import 'package:theo/pages/splash_screen/splash_screen.dart';
+import 'package:theo/states/auth_store.dart';
 import 'package:theo/states/navigation_store.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/styles/metrics.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'components/theo_app_bar.dart';
 
@@ -20,29 +22,30 @@ void main() {
 // ignore: must_be_immutable
 class MyApp extends StatelessWidget {
   MyApp() {
-    _initialization = _initServices();
-    _navigationStore = GetIt.I.get();
+    _initialization = _initServices().then((value) {
+      _navigationStore = GetIt.I.get();
+    });
   }
 
   late Future<void> _initialization;
   late NavigationStore _navigationStore;
 
   Future<void> _initServices() async {
+    await dotenv.load();
+
     ServicesLocator().setup();
-    await Future.delayed(Duration(seconds: 3), () {});
+
+    return;
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      // Replace the 3 second delay with your initialization code:
       future: _initialization,
       builder: (context, AsyncSnapshot snapshot) {
-        // Show splash screen while waiting for app resources to load:
         if (snapshot.connectionState == ConnectionState.waiting) {
           return SplashScreen();
         } else {
-          // Loading is done, return the app:
           return _buildApp(context);
         }
       },

@@ -27,5 +27,5 @@ enum ResultStatus {
   LOADING,
   DONE,
   NO_RESULT,
-  ERROR,
+  REQUEST_ERROR,
 }

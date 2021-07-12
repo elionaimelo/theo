@@ -35,13 +35,11 @@ abstract class _RoleStoreBase with Store {
 
       roles = listResult.map((e) => Role.fromJson(e)!).toList();
 
-      // roles =
-      //     response.data.map((e) => Role.fromJson(e)!).toList() as List<Role>;
-
       resultStatus = ResultStatus.DONE;
     } catch (err) {
       print('RoleStore.fetchRoles - $err');
-      resultStatus = ResultStatus.ERROR;
+      resultStatus = ResultStatus.REQUEST_ERROR;
+      rethrow;
     }
   }
 }

@@ -9,16 +9,12 @@ class RoleService {
   final APIClient client;
 
   Future<sup.PostgrestResponse?> fetchRoles() async {
-    try {
-      var response = await client.supabase.from('roles').select().execute();
+    var response = await client.supabase.from('roles').select().execute();
 
-      if (response.error != null) {
-        throw Exception(response.error!.message);
-      }
-
-      return response;
-    } catch (err) {
-      print('RoleService.fetchRoles - $err');
+    if (response.error != null) {
+      throw Exception(response.error!.message);
     }
+
+    return response;
   }
 }

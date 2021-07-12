@@ -40,7 +40,8 @@ abstract class _LanguageStoreBase with Store {
       resultStatus = ResultStatus.DONE;
     } catch (err) {
       print('LanguageStore.fetchLanguages - $err');
-      resultStatus = ResultStatus.ERROR;
+      resultStatus = ResultStatus.REQUEST_ERROR;
+      rethrow;
     }
   }
 }

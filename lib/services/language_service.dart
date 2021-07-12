@@ -9,16 +9,12 @@ class LanguageService {
   final APIClient client;
 
   Future<sup.PostgrestResponse?> fetchLanguages() async {
-    try {
-      var response = await client.supabase.from('languages').select().execute();
+    var response = await client.supabase.from('languages').select().execute();
 
-      if (response.error != null) {
-        throw Exception(response.error!.message);
-      }
-
-      return response;
-    } catch (err) {
-      print('LanguageService.fetchLanguages - $err');
+    if (response.error != null) {
+      throw Exception(response.error!.message);
     }
+
+    return response;
   }
 }

@@ -1,4 +1,5 @@
 import 'package:mobx/mobx.dart';
+import 'package:theo/components/error_alert_dialog.dart';
 import 'package:theo/models/language.dart';
 import 'package:theo/models/profile.dart';
 import 'package:theo/models/role.dart';
@@ -39,16 +40,22 @@ abstract class _SignupScreenControllerBase with Store {
   int? age = 21;
 
   @observable
-  String? name = "sdfsdf5";
+  String? name = "";
 
   @observable
-  String? email = "marlon_secundo@outlook.com";
+  String? email = "";
 
   @observable
-  String? country = 'sdfsdofsdfdsof';
+  String? country = '';
 
   @observable
-  String? password = "fsdfsdf5451w";
+  String? password = "";
+
+  @observable
+  String? passwordCheck = '';
+
+  @observable
+  String? errorMessage = '';
 
   @action
   void onEmailTextChanged(String value) {
@@ -63,6 +70,11 @@ abstract class _SignupScreenControllerBase with Store {
   @action
   void onPasswordTextChanged(String value) {
     password = value;
+  }
+
+  @action
+  void onPasswordCheckTextChanged(String value) {
+    passwordCheck = value;
   }
 
   @action
@@ -99,18 +111,29 @@ abstract class _SignupScreenControllerBase with Store {
 
   @action
   Future<void> fetchData() async {
-    resultStatus = ResultStatus.LOADING;
+    try {
+      resultStatus = ResultStatus.LOADING;
 
-    await languageStore.fetchLanguages();
+      await languageStore.fetchLanguages();
 
-    await roleStore.fetchRoles();
+      await roleStore.fetchRoles();
 
-    resultStatus = ResultStatus.DONE;
+      resultStatus = ResultStatus.DONE;
+    } catch (err) {
+      errorMessage = err.toString();
+      resultStatus = ResultStatus.REQUEST_ERROR;
+    }
   }
 
   @action
   Future<bool> signUpUser() async {
-    await authStore.signUp(
+    try {
+      if (password != passwordCheck) {
+        ErrorAlertDialog.showAlertDialog(content: 'As senhas não conferem!');
+        return false;
+      }
+
+      await authStore.signUp(
         newUser: User(
           canceled: false,
           email: email,
@@ -125,7 +148,14 @@ abstract class _SignupScreenControllerBase with Store {
           roleId: selectedRole!.id,
           termAccepted: true,
         ),
-        password: password!);
-    return true;
+        password: password!,
+      );
+
+      return authStore.authenticated;
+    } catch (err) {
+      errorMessage = err.toString();
+      resultStatus = ResultStatus.REQUEST_ERROR;
+      return false;
+    }
   }
 }

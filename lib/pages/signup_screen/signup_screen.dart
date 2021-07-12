@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:theo/components/bottom_button.dart';
+import 'package:theo/components/error_alert_dialog.dart';
 import 'package:theo/components/inputs/text_input.dart';
 import 'package:theo/components/question_tab.dart';
 import 'package:theo/components/result_status/loading_status.dart';
@@ -107,6 +108,9 @@ class _SignupScreenState extends State<SignupScreen>
       builder: (context) {
         if (widget.controller.resultStatus == ResultStatus.LOADING) {
           return LoadingStatus();
+        } else if (widget.controller.resultStatus ==
+            ResultStatus.REQUEST_ERROR) {
+          return ErrorAlertDialog(content: widget.controller.errorMessage!);
         }
 
         return Column(
@@ -252,7 +256,7 @@ class _SignupScreenState extends State<SignupScreen>
           TextInput(
             hintText: 'Escreva aqui',
             label: 'Repita a sua senha',
-            onTextChanged: widget.controller.onPasswordTextChanged,
+            onTextChanged: widget.controller.onPasswordCheckTextChanged,
             obscureText: true,
           ),
         ],

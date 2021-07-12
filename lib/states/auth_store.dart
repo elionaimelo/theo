@@ -42,12 +42,15 @@ abstract class _AuthStoreBase with Store {
         throw Exception('Response Null');
       }
 
-      await signIn(email: newUser.email!, password: password);
+      session = response[0];
+      user = response[1];
 
       resultStatus = ResultStatus.DONE;
     } catch (err) {
+      resultStatus = ResultStatus.REQUEST_ERROR;
+
       print('AuthStore.signUp - $err');
-      resultStatus = ResultStatus.ERROR;
+      rethrow;
     }
   }
 
@@ -68,8 +71,10 @@ abstract class _AuthStoreBase with Store {
 
       resultStatus = ResultStatus.DONE;
     } catch (err) {
-      print('AuthStore.signUp - $err');
-      resultStatus = ResultStatus.ERROR;
+      resultStatus = ResultStatus.REQUEST_ERROR;
+
+      print('AuthStore.signIn - $err');
+      rethrow;
     }
   }
 }

@@ -128,8 +128,11 @@ abstract class _SignupScreenControllerBase with Store {
   @action
   Future<bool> signUpUser() async {
     try {
+      resultStatus = ResultStatus.LOADING;
+
       if (password != passwordCheck) {
         ErrorAlertDialog.showAlertDialog(content: 'As senhas não conferem!');
+        resultStatus = ResultStatus.DONE;
         return false;
       }
 

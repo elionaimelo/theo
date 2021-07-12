@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:theo/components/bottom_button.dart';
+import 'package:theo/components/error_alert_dialog.dart';
 import 'package:theo/components/profile_bar.dart';
+import 'package:theo/components/result_status/loading_status.dart';
 import 'package:theo/core/routes.dart';
 import 'package:theo/models/theo_app_bar_settings.dart';
 import 'package:theo/pages/login_screen/login_screen_controller.dart';
 import 'package:theo/styles/colors.dart';
+import 'package:theo/types/enums.dart';
 
 import '../../components/inputs/text_input.dart';
 
@@ -36,23 +40,13 @@ class _LoginScreenState extends State<LoginScreen>
     _tabController.animateTo(1);
   }
 
-  void _onPasswordButtonTap() {
-    Navigator.of(context)
-        .pushNamedAndRemoveUntil(Routes.home, (route) => route.isFirst);
-  }
+  Future<void> _onLoginTap() async {
+    var result = await widget.controller.signInUser();
 
-  void _onEmailTextChanged(String value) {
-    setState(() {
-      widget.controller.email = value;
-    });
-  }
-
-  void _onPasswordTextChanged(String value) {
-    setState(() {
-      widget.controller.password = value;
-    });
-
-    Navigator.of(context).pushNamed(Routes.home);
+    if (result) {
+      await Navigator.of(context)
+          .pushNamedAndRemoveUntil(Routes.home, (route) => route.isFirst);
+    }
   }
 
   @override
@@ -72,14 +66,24 @@ class _LoginScreenState extends State<LoginScreen>
     );
   }
 
-  Widget get _body => Container(
-        padding: EdgeInsets.only(left: 16, right: 16, bottom: 71, top: 15),
-        child: TabBarView(
-          physics: NeverScrollableScrollPhysics(),
-          controller: _tabController,
-          children: _tabs,
-        ),
-      );
+  Widget get _body {
+    return Observer(
+      builder: (context) {
+        if (widget.controller.resultStatus == ResultStatus.LOADING) {
+          return LoadingStatus();
+        }
+
+        return Container(
+          padding: EdgeInsets.only(left: 16, right: 16, bottom: 71, top: 15),
+          child: TabBarView(
+            physics: NeverScrollableScrollPhysics(),
+            controller: _tabController,
+            children: _tabs,
+          ),
+        );
+      },
+    );
+  }
 
   List<Widget> get _tabs => [
         _emailTab,
@@ -99,7 +103,8 @@ class _LoginScreenState extends State<LoginScreen>
               TextInput(
                 hintText: 'Escreva sua senha aqui',
                 label: 'Insira sua senha',
-                onTextChanged: _onPasswordTextChanged,
+                onTextChanged: widget.controller.onPasswordTextChanged,
+                obscureText: true,
               ),
               Container(
                 margin: EdgeInsets.only(top: 30),
@@ -122,7 +127,7 @@ class _LoginScreenState extends State<LoginScreen>
           BottomButton(
             text: 'Entrar',
             icon: Icons.arrow_forward,
-            onPressed: _onPasswordButtonTap,
+            onPressed: _onLoginTap,
           ),
         ],
       );
@@ -135,7 +140,7 @@ class _LoginScreenState extends State<LoginScreen>
           TextInput(
             hintText: 'Escreva seu email aqui',
             label: 'Endereço de email',
-            onTextChanged: _onEmailTextChanged,
+            onTextChanged: widget.controller.onEmailTextChanged,
           ),
           BottomButton(
             text: 'Continuar',

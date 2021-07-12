@@ -244,6 +244,7 @@ class _TheoNavigatorState extends State<TheoNavigator> {
   Widget get _loginScreen => LoginScreen(
         controller: LoginScreenController(
           navigationStore: widget.navigationStore,
+          authStore: GetIt.I.get(),
         ),
       );
 

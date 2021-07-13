@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:theo/models/enums.dart';
+import 'package:theo/types/enums.dart';
 import 'package:theo/models/story.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/styles/metrics.dart';

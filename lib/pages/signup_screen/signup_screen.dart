@@ -1,19 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:theo/components/bottom_button.dart';
+import 'package:theo/components/error_alert_dialog.dart';
 import 'package:theo/components/inputs/text_input.dart';
 import 'package:theo/components/question_tab.dart';
+import 'package:theo/components/result_status/loading_status.dart';
 import 'package:theo/core/routes.dart';
 import 'package:theo/pages/concluded_screen/concluded_screen_controller.dart';
+import 'package:theo/pages/signup_screen/signup_screen_controller.dart';
 import 'package:theo/pages/tutorial_screen/tutorial_screen.dart';
 import 'package:theo/pages/tutorial_screen/tutorial_screen_controller.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/styles/metrics.dart';
+import 'package:theo/types/enums.dart';
 
 class SignupScreen extends StatefulWidget {
-  const SignupScreen({Key? key}) : super(key: key);
+  const SignupScreen({Key? key, required this.controller}) : super(key: key);
 
   @override
   _SignupScreenState createState() => _SignupScreenState();
+
+  final SignupScreenController controller;
 }
 
 class _SignupScreenState extends State<SignupScreen>
@@ -22,19 +29,42 @@ class _SignupScreenState extends State<SignupScreen>
 
   double currentBarValue = 0;
 
-  void _onNameTextChanged(String p1) {}
+  Future<bool> _onBackPressed() async {
+    if (_tabController.index > 0) {
+      _tabController.animateTo(_tabController.index - 1);
+      return false;
+    }
 
-  void _onNextButtonTap() {
+    Navigator.of(context).pop();
+
+    return true;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _tabController = TabController(vsync: this, length: 6);
+
+    widget.controller.fetchData();
+  }
+
+  Future<void> _onNextButtonTap() async {
     var index = _tabController.index;
     if (index + 1 >= _tabController.length /*- 1*/) {
-      Navigator.of(context).pushNamed(
-        Routes.concluded,
-        arguments: ConcludedScreenController(
-          message: 'O seu perfil já está pronto.',
-          title: 'Concluído!',
-          onNextButtonTap: _navigateToTutorialOrHome,
-        ),
-      );
+      var succeeded = await widget.controller.signUpUser();
+
+      if (succeeded) {
+        await Navigator.of(context).pushNamed(
+          Routes.concluded,
+          arguments: ConcludedScreenController(
+            message: 'O seu perfil já está pronto.',
+            title: 'Concluído!',
+            onNextButtonTap: _navigateToTutorialOrHome,
+          ),
+        );
+      }
+
       return;
     }
 
@@ -60,18 +90,30 @@ class _SignupScreenState extends State<SignupScreen>
   }
 
   @override
-  void initState() {
-    super.initState();
-
-    _tabController = TabController(vsync: this, length: 5);
+  Widget build(BuildContext context) {
+    return WillPopScope(
+      onWillPop: _onBackPressed,
+      child: Container(
+        color: TheoColors.secondary,
+        padding: TheoMetrics.paddingScreen,
+        child: SafeArea(
+          child: _content,
+        ),
+      ),
+    );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: TheoMetrics.paddingScreen,
-      child: SafeArea(
-        child: Column(
+  Widget get _content {
+    return Observer(
+      builder: (context) {
+        if (widget.controller.resultStatus == ResultStatus.LOADING) {
+          return LoadingStatus();
+        } else if (widget.controller.resultStatus ==
+            ResultStatus.REQUEST_ERROR) {
+          return ErrorAlertDialog(content: widget.controller.errorMessage!);
+        }
+
+        return Column(
           children: [
             _progressBar,
             _body,
@@ -81,8 +123,8 @@ class _SignupScreenState extends State<SignupScreen>
               onPressed: _onNextButtonTap,
             )
           ],
-        ),
-      ),
+        );
+      },
     );
   }
 
@@ -113,6 +155,7 @@ class _SignupScreenState extends State<SignupScreen>
 
   List<Widget> get _tabs => [
         _nameTab,
+        _emailTab,
         _countryTab,
         _roleTab,
         _ageTab,
@@ -126,7 +169,18 @@ class _SignupScreenState extends State<SignupScreen>
           TextInput(
             hintText: 'Escreva seu nome aqui',
             label: 'Qual seu nome?',
-            onTextChanged: _onNameTextChanged,
+            onTextChanged: widget.controller.onNameTextChanged,
+          ),
+        ],
+      );
+
+  Widget get _emailTab => Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          TextInput(
+            hintText: 'Escreva seu email aqui',
+            label: 'Qual seu e-mail?',
+            onTextChanged: widget.controller.onEmailTextChanged,
           ),
         ],
       );
@@ -137,7 +191,7 @@ class _SignupScreenState extends State<SignupScreen>
           TextInput(
             hintText: 'Escreva o nome do país aqui',
             label: 'Qual o seu país?',
-            onTextChanged: _onNameTextChanged,
+            onTextChanged: widget.controller.onCountryTextChanged,
           ),
         ],
       );
@@ -147,8 +201,9 @@ class _SignupScreenState extends State<SignupScreen>
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             QuestionTab(
-              options: ['Professor', 'Aluno', 'Outro'],
-              onSelectedIndex: _onSelectedIndex,
+              options:
+                  widget.controller.roles.map((e) => e.displayName!).toList(),
+              onSelectedIndex: widget.controller.onRoleSelected,
               question: 'Você é...',
               crossAxisAlign: CrossAxisAlignment.start,
               questionStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
@@ -173,7 +228,7 @@ class _SignupScreenState extends State<SignupScreen>
                 '40 a 49 anos',
                 '50 anos ou mais'
               ],
-              onSelectedIndex: _onSelectedIndex,
+              onSelectedIndex: widget.controller.onAgeSelected,
               question: 'Qual a sua faixa etária?',
               crossAxisAlign: CrossAxisAlignment.start,
               questionStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
@@ -192,7 +247,7 @@ class _SignupScreenState extends State<SignupScreen>
           TextInput(
             hintText: 'Escreva aqui',
             label: 'Crie uma senha',
-            onTextChanged: _onNameTextChanged,
+            onTextChanged: widget.controller.onPasswordTextChanged,
             obscureText: true,
           ),
           Container(
@@ -201,11 +256,9 @@ class _SignupScreenState extends State<SignupScreen>
           TextInput(
             hintText: 'Escreva aqui',
             label: 'Repita a sua senha',
-            onTextChanged: _onNameTextChanged,
+            onTextChanged: widget.controller.onPasswordCheckTextChanged,
             obscureText: true,
           ),
         ],
       );
-
-  void _onSelectedIndex(int index) {}
 }

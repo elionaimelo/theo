@@ -1,4 +1,4 @@
-import 'package:theo/models/enums.dart';
+import 'package:theo/types/enums.dart';
 import 'package:theo/models/user.dart';
 
 class Story {

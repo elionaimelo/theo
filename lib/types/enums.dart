@@ -21,3 +21,11 @@ extension EStoryFormatExtension on EStoryFormat {
     }
   }
 }
+
+enum ResultStatus {
+  NONE,
+  LOADING,
+  DONE,
+  NO_RESULT,
+  REQUEST_ERROR,
+}

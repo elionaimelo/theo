@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:theo/components/bottom_button.dart';
-import 'package:theo/models/enums.dart';
+import 'package:theo/types/enums.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/styles/metrics.dart';
 import 'package:theo/utils/assets_path.dart';

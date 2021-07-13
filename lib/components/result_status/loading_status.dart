@@ -6,11 +6,9 @@ class LoadingStatus extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        child: Image(
-          image: AssetImage(AssetsPath.spinnerGif),
-        ),
+    return Container(
+      child: Image(
+        image: AssetImage(AssetsPath.spinnerGif),
       ),
     );
   }

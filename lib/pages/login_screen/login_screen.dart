@@ -70,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen>
     return Observer(
       builder: (context) {
         if (widget.controller.resultStatus == ResultStatus.LOADING) {
-          return LoadingStatus();
+          return Center(child: LoadingStatus());
         }
 
         return Container(

@@ -7,7 +7,6 @@ import 'package:theo/components/theo_bottom_bar.dart';
 import 'package:theo/core/navigator.dart';
 import 'package:theo/core/services_locator.dart';
 import 'package:theo/pages/splash_screen/splash_screen.dart';
-import 'package:theo/states/auth_store.dart';
 import 'package:theo/states/navigation_store.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/styles/metrics.dart';

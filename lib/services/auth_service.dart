@@ -1,6 +1,3 @@
-import 'package:supabase/supabase.dart' as sup;
-import 'package:theo/core/dot_env.dart';
-import 'package:theo/models/language.dart';
 import 'package:theo/models/profile.dart';
 import 'package:theo/models/user.dart';
 import 'package:theo/services/api_client.dart';

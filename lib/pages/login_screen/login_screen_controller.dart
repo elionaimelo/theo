@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:theo/components/error_alert_dialog.dart';
 import 'package:theo/models/theo_app_bar_settings.dart';

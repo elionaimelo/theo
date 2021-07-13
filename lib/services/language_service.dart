@@ -1,4 +1,3 @@
-import 'package:theo/models/role.dart';
 import 'package:supabase/supabase.dart' as sup;
 
 import 'api_client.dart';

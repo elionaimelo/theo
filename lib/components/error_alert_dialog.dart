@@ -3,7 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:theo/states/navigation_store.dart';
 
 class ErrorAlertDialog extends StatefulWidget {
-  ErrorAlertDialog({Key? key, this.title = "Erro!", required this.content})
+  ErrorAlertDialog({Key? key, this.title = 'Erro!', required this.content})
       : super(key: key);
 
   @override
@@ -13,7 +13,7 @@ class ErrorAlertDialog extends StatefulWidget {
   final String content;
 
   static void showAlertDialog({
-    String title = "Erro!",
+    String title = 'Erro!',
     required String content,
   }) {
     showDialog(

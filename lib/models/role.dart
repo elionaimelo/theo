@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class Role {
   Role({this.id, this.name, this.displayName});
 

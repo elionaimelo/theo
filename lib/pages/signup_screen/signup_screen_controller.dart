@@ -40,16 +40,16 @@ abstract class _SignupScreenControllerBase with Store {
   int? age = 21;
 
   @observable
-  String? name = "";
+  String? name = '';
 
   @observable
-  String? email = "";
+  String? email = '';
 
   @observable
   String? country = '';
 
   @observable
-  String? password = "";
+  String? password = '';
 
   @observable
   String? passwordCheck = '';

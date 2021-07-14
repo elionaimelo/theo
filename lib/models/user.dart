@@ -40,6 +40,8 @@ class User {
         termAccepted: json['term_accepted'],
         roleId: json['role_id'],
         profileId: json['profile_id'],
+        profile: Profile.fromJson(json['profile']),
+        role: Role.fromJson(json['role']),
       );
     } catch (err) {
       print('User.fromJson - $err');

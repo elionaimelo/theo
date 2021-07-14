@@ -3,6 +3,8 @@ import 'package:theo/core/dot_env.dart';
 import 'package:theo/services/auth_service.dart';
 import 'package:theo/services/language_service.dart';
 import 'package:theo/services/role_service.dart';
+import 'package:theo/services/story_category_service.dart';
+import 'package:theo/services/user_service.dart';
 
 class APIClient {
   late sup.SupabaseClient _supabaseClient;
@@ -27,4 +29,8 @@ class APIClient {
   RoleService get roleService => RoleService(this);
 
   LanguageService get languageService => LanguageService(this);
+
+  UserService get userService => UserService(this);
+
+  StoryCategoryService get storyCategoryService => StoryCategoryService(this);
 }

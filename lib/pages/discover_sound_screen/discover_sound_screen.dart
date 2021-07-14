@@ -53,13 +53,13 @@ class _DiscoverSoundScreenState extends State<DiscoverSoundScreen> {
           ),
           ProfileBar(
             avatarImage: AssetsPath.avatarJpg,
-            name: widget.controller.story.user?.profile?.name ?? '',
+            name: '',
           ),
           Container(
             margin: EdgeInsets.only(top: 12, bottom: 12),
             child: _author,
           ),
-          if (widget.controller.story.adultContent) AdultContentTag(),
+          if (widget.controller.story.adultContent!) AdultContentTag(),
           Container(
             margin: EdgeInsets.only(top: 45),
           ),
@@ -88,7 +88,7 @@ class _DiscoverSoundScreenState extends State<DiscoverSoundScreen> {
 
   Widget get _audioTitle => Container(
         child: Text(
-          widget.controller.story.title,
+          widget.controller.story.title!,
           style: Theme.of(context).textTheme.bodyText1!.copyWith(
                 fontSize: 16,
                 color: TheoColors.six,
@@ -98,12 +98,13 @@ class _DiscoverSoundScreenState extends State<DiscoverSoundScreen> {
       );
 
   Widget get _author => Text(
-        widget.controller.story.author,
+        widget.controller.story.author!,
         style: Theme.of(context).textTheme.bodyText1!.copyWith(
               fontSize: 14,
               color: TheoColors.seven,
             ),
       );
 
-  bool get _isPodcast => widget.controller.story.format == EStoryFormat.PODCAST;
+  bool get _isPodcast =>
+      widget.controller.story.format!.name == EStoryFormat.PODCAST.getString();
 }

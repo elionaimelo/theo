@@ -25,6 +25,8 @@ class _HomeScreenState extends State<HomeScreen>
   void initState() {
     super.initState();
 
+    widget.controller.fetchData();
+
     tabController = TabController(
       vsync: this,
       length: _tabs.length,
@@ -63,7 +65,9 @@ class _HomeScreenState extends State<HomeScreen>
 
   List<Widget> get _tabs {
     return [
-      Body(),
+      Body(
+        controller: widget.controller,
+      ),
       LearningScreen(),
       DiscoverScreen(),
       TellScreen(),

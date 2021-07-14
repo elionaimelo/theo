@@ -8,7 +8,7 @@ class DiscoverSoundScreenController = _DiscoverSoundScreenControllerBase
 
 abstract class _DiscoverSoundScreenControllerBase with Store {
   _DiscoverSoundScreenControllerBase({required this.story}) {
-    videoController = VideoPlayerController.network(story.link);
+    videoController = VideoPlayerController.network(story.url!);
   }
 
   late VideoPlayerController videoController;

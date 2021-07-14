@@ -37,7 +37,9 @@ class AuthService {
       throw Exception(result.error!.message);
     }
 
-    return [result.data, user];
+    var newUser = await client.userService.getUser(email: user.email!);
+
+    return [result.data, newUser];
   }
 
   Future<List?> signIn(
@@ -49,29 +51,7 @@ class AuthService {
       throw Exception(result.error!.message);
     }
 
-    var query = await client.supabase
-        .from('users')
-        .select()
-        .eq('email', email)
-        .execute();
-
-    if (query.error != null) {
-      throw Exception(query.error!.message);
-    }
-
-    var user = User.fromJson(query.data.first);
-
-    query = await client.supabase
-        .from('profiles')
-        .select()
-        .eq('id', user!.profileId)
-        .execute();
-
-    if (query.error != null) {
-      throw Exception(query.error!.message);
-    }
-
-    user.profile = Profile.fromJson(query.data.first);
+    var user = await client.userService.getUser(email: email);
 
     return [result.data, user];
   }

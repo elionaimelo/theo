@@ -15,7 +15,7 @@ class TextStoryScreen extends StatefulWidget {
 
 class _TextStoryScreenState extends State<TextStoryScreen> {
   void _onButtonTap() {
-    widget.controller.storyStore.finishStory(widget.controller.story.id);
+    widget.controller.storyStore.finishStory(widget.controller.story.id!);
     Navigator.of(context).pop();
   }
 

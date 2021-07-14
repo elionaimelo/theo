@@ -6,6 +6,7 @@ import 'package:theo/states/auth_store.dart';
 import 'package:theo/states/language_store.dart';
 import 'package:theo/states/navigation_store.dart';
 import 'package:theo/states/role_store.dart';
+import 'package:theo/states/story_category_store.dart';
 import 'package:theo/states/story_store.dart';
 
 class ServicesLocator {
@@ -30,5 +31,8 @@ class ServicesLocator {
     GetIt.I.registerSingleton<LanguageStore>(LanguageStore(apiClient));
 
     GetIt.I.registerSingleton<RoleStore>(RoleStore(apiClient));
+
+    GetIt.I
+        .registerSingleton<StoryCategoryStore>(StoryCategoryStore(apiClient));
   }
 }

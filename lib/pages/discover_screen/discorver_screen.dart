@@ -3,9 +3,9 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:theo/components/bottom_button.dart';
 import 'package:theo/components/title_text.dart';
 import 'package:theo/core/routes.dart';
+import 'package:theo/models/story_format.dart';
 import 'package:theo/types/enums.dart';
 import 'package:theo/models/story.dart';
-import 'package:theo/models/user.dart';
 import 'package:theo/pages/discover_screen/components/post_card.dart';
 import 'package:theo/pages/discover_sound_screen/discover_sound_screen_controller.dart';
 import 'package:theo/styles/colors.dart';
@@ -117,22 +117,14 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
               Routes.discoverSound,
               arguments: DiscoverSoundScreenController(
                 story: Story(
-                  format: EStoryFormat.MUSIC,
+                  format: StoryFormat(name: EStoryFormat.MUSIC.getString()),
                   id: '-1',
                   sectionId: '-1',
-                  link:
+                  url:
                       'https://github.com/elionaimelo/theo/raw/pre-validacao/others/audios/revelacast.wav',
                   title: 'Story e lorem ipsum dolor sit amet',
                   adultContent: true,
                   author: 'Rosângela Alves e Maria Coutinho',
-                  user: User(
-                    canceled: false,
-                    email: '',
-                    id: '1',
-                    profileId: '1',
-                    roleId: '1',
-                    termAccepted: false,
-                  ),
                 ),
               ),
             ),
@@ -150,22 +142,14 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
               Routes.discoverSound,
               arguments: DiscoverSoundScreenController(
                 story: Story(
-                  format: EStoryFormat.PODCAST,
+                  format: StoryFormat(name: EStoryFormat.PODCAST.getString()),
                   id: '-1',
                   sectionId: '-1',
-                  link:
+                  url:
                       'https://github.com/elionaimelo/theo/raw/pre-validacao/others/audios/revelacast.wav',
                   title: 'Story e lorem ipsum dolor sit amet',
                   adultContent: false,
                   author: 'Maricleia Malva e Antônio Silveira',
-                  user: User(
-                    canceled: false,
-                    email: '',
-                    id: '1',
-                    profileId: '1',
-                    roleId: '1',
-                    termAccepted: false,
-                  ),
                 ),
               ),
             ),

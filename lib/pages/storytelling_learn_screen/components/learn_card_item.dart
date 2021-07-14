@@ -98,14 +98,14 @@ class _LearnCardItemState extends State<LearnCardItem> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.story.format.displayName,
+                      widget.story.format!.displayName,
                       style: Theme.of(context).textTheme.bodyText1!.copyWith(
                             fontSize: 14,
                             color: TheoColors.fourteen,
                           ),
                     ),
                     Text(
-                      widget.story.title,
+                      widget.story.title!,
                       style: Theme.of(context).textTheme.bodyText1!.copyWith(
                             fontSize: 16,
                             color: TheoColors.seven,
@@ -123,26 +123,20 @@ class _LearnCardItemState extends State<LearnCardItem> {
   Widget get _icon {
     var iconData;
 
-    switch (widget.story.format) {
-      case EStoryFormat.VIDEO:
-        iconData = FeatherIcons.video;
-        break;
-      case EStoryFormat.PODCAST:
-        iconData = FeatherIcons.radio;
-        break;
-      case EStoryFormat.INFROGRAPHIC:
-        iconData = FeatherIcons.pieChart;
-        break;
-      case EStoryFormat.TEXT:
-        iconData = FeatherIcons.fileText;
-        break;
-      case EStoryFormat.QUIZ:
-        return Image(
-          image: AssetImage(AssetsPath.quizPng),
-        );
+    var name = widget.story.format!.name!;
 
-      default:
-        return Container();
+    if (name == EStoryFormat.VIDEO.getString()) {
+      iconData = FeatherIcons.video;
+    } else if (name == EStoryFormat.PODCAST.getString()) {
+      iconData = FeatherIcons.radio;
+    } else if (name == EStoryFormat.INFROGRAPHIC.getString()) {
+      iconData = FeatherIcons.pieChart;
+    } else if (name == EStoryFormat.TEXT.getString()) {
+      iconData = FeatherIcons.fileText;
+    } else if (name == EStoryFormat.QUIZ.getString()) {
+      return Image(
+        image: AssetImage(AssetsPath.quizPng),
+      );
     }
 
     return Icon(

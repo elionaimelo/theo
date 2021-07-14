@@ -28,48 +28,39 @@ class StorytellingLearnScreen extends StatefulWidget {
 
 class _StorytellingLearnScreenState extends State<StorytellingLearnScreen> {
   void onTapCard(Story story) {
-    switch (story.format) {
-      case EStoryFormat.VIDEO:
-      case EStoryFormat.PODCAST:
-        Navigator.of(context).pushNamed(
-          Routes.mediaStory,
-          arguments: MediaStoryScreenController(
+    var name = story.format!.name;
+
+    if (name == EStoryFormat.VIDEO.getString() ||
+        name == EStoryFormat.PODCAST.getString()) {
+      Navigator.of(context).pushNamed(
+        Routes.mediaStory,
+        arguments: MediaStoryScreenController(
+          story: story,
+          storyStore: GetIt.I.get(),
+        ),
+      );
+    } else if (name == EStoryFormat.INFROGRAPHIC.getString()) {
+      Navigator.of(context).pushNamed(
+        Routes.graphStory,
+        arguments: GraphStoryScreenController(
+          story: story,
+          storyStore: GetIt.I.get(),
+        ),
+      );
+    } else if (name == EStoryFormat.TEXT.getString()) {
+      Navigator.of(context).pushNamed(Routes.textStory,
+          arguments: TextStoryScreenController(
             story: story,
             storyStore: GetIt.I.get(),
-          ),
-        );
-        break;
-
-      case EStoryFormat.TEXT:
-        Navigator.of(context).pushNamed(Routes.textStory,
-            arguments: TextStoryScreenController(
-              story: story,
-              storyStore: GetIt.I.get(),
-            ));
-        break;
-
-      case EStoryFormat.QUIZ:
-        Navigator.of(context).pushNamed(
-          Routes.quizStory,
-          arguments: QuizStoryScreenController(
-            story: story,
-            storyStore: GetIt.I.get(),
-          ),
-        );
-        break;
-
-      case EStoryFormat.INFROGRAPHIC:
-        Navigator.of(context).pushNamed(
-          Routes.graphStory,
-          arguments: GraphStoryScreenController(
-            story: story,
-            storyStore: GetIt.I.get(),
-          ),
-        );
-        break;
-
-      default:
-        break;
+          ));
+    } else if (name == EStoryFormat.QUIZ.getString()) {
+      Navigator.of(context).pushNamed(
+        Routes.quizStory,
+        arguments: QuizStoryScreenController(
+          story: story,
+          storyStore: GetIt.I.get(),
+        ),
+      );
     }
   }
 

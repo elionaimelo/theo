@@ -1,4 +1,5 @@
 import 'package:mobx/mobx.dart';
+import 'package:theo/models/story_format.dart';
 import 'package:theo/types/enums.dart';
 import 'package:theo/models/story.dart';
 part 'story_store.g.dart';
@@ -12,39 +13,39 @@ abstract class _StoryStoreBase with Store {
       id: '1',
       sectionId: '1',
       finished: false,
-      format: EStoryFormat.VIDEO,
+      format: StoryFormat(name: EStoryFormat.VIDEO.getString()),
       title: 'Aprendendo a gravar vídeos com o celular',
-      link:
+      url:
           'https://github.com/elionaimelo/theo/raw/pre-validacao/others/videos/educacional_celular.mp4',
     ),
     Story(
       id: '2',
       sectionId: '1',
       finished: false,
-      format: EStoryFormat.PODCAST,
+      format: StoryFormat(name: EStoryFormat.PODCAST.getString()),
       title: 'Exercício de fortalecimento, fazer ou não fazer',
-      link:
+      url:
           'https://github.com/elionaimelo/theo/raw/pre-validacao/others/audios/revelacast.wav',
     ),
     Story(
       id: '3',
       sectionId: '1',
       finished: false,
-      format: EStoryFormat.INFROGRAPHIC,
+      format: StoryFormat(name: EStoryFormat.INFROGRAPHIC.getString()),
       title: 'Storyteling e lorem ipsum dolor sit amet',
     ),
     Story(
       id: '4',
       sectionId: '1',
       finished: false,
-      format: EStoryFormat.TEXT,
+      format: StoryFormat(name: EStoryFormat.TEXT.getString()),
       title: 'Storyteling e lorem ipsum dolor sit amet',
     ),
     Story(
       id: '5',
       sectionId: '1',
       finished: false,
-      format: EStoryFormat.QUIZ,
+      format: StoryFormat(name: EStoryFormat.QUIZ.getString()),
       title: 'Storyteling e lorem ipsum dolor sit amet',
     ),
   ];
@@ -52,7 +53,11 @@ abstract class _StoryStoreBase with Store {
   @action
   void finishStory(String id) {
     stories = stories.map((e) {
-      if (e.id == id) return e.copyWith(finished: true);
+      if (e.id == id) {
+        e.finished = true;
+
+        return e;
+      }
       return e;
     }).toList();
   }

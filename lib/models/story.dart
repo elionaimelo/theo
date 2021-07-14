@@ -1,54 +1,80 @@
-import 'package:theo/types/enums.dart';
-import 'package:theo/models/user.dart';
+import 'package:theo/models/story_category.dart';
+import 'package:theo/models/file.dart';
+import 'package:theo/models/story_format.dart';
+import 'package:theo/models/language.dart';
 
 class Story {
   Story({
-    required this.id,
-    required this.sectionId,
-    this.title = '',
+    this.id,
+    this.title,
+    this.description,
+    this.author,
+    this.tags,
+    this.languageId,
+    this.categoryId,
+    this.formatId,
+    this.fileId,
+    this.adultContent,
+    this.url,
+    this.sectionId,
     this.finished = false,
-    this.format = EStoryFormat.NONE,
-    this.type = EStoryType.NONE,
-    this.link = '',
-    this.adultContent = false,
-    this.author = '',
-    this.user,
+    this.language,
+    this.category,
+    this.format,
+    this.file,
   });
 
-  String id;
-  String sectionId;
-  String title;
+  String? id;
+  String? title;
+  String? description;
+  String? author;
+  String? url;
+  List<String>? tags;
+  bool? adultContent;
+
+  String? languageId;
+  String? categoryId;
+  String? formatId;
+  String? fileId;
+
+  Language? language;
+  StoryCategory? category;
+  StoryFormat? format;
+  File? file;
+
+  String? sectionId;
   bool finished;
-  String link;
-  bool adultContent;
-  EStoryFormat format;
-  EStoryType type;
-  String author;
-  User? user;
 
-  Story copyWith({
-    String? id,
-    String? sectionId,
-    String? title,
-    bool? finished,
-    EStoryFormat? format,
-    EStoryType? type,
-    String? link,
-    bool? adultContent,
-    String? author,
-    User? user,
-  }) {
-    this.id = id ?? this.id;
-    this.sectionId = sectionId ?? this.sectionId;
-    this.title = title ?? this.title;
-    this.finished = finished ?? this.finished;
-    this.format = format ?? this.format;
-    this.type = type ?? this.type;
-    this.link = link ?? this.link;
-    this.adultContent = adultContent ?? this.adultContent;
-    this.author = author ?? this.author;
-    this.user = user ?? this.user;
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'title': title,
+        'description': description,
+        'author': author,
+        'url': url,
+        'tags': tags,
+        'language_id': languageId,
+        'category_id': categoryId,
+        'format_id': formatId,
+        'file_id': formatId,
+        'adult_content': adultContent,
+      };
 
-    return this;
+  static Story? fromJson(Map<String, dynamic> json) {
+    try {
+      return Story(
+        id: json['id'],
+        title: json['title'],
+        description: json['description'],
+        author: json['author'],
+        tags: json['tags'],
+        languageId: json['language_id'],
+        categoryId: json['category_id'],
+        formatId: json['format_id'],
+        fileId: json['file_id'],
+        adultContent: json['adult_content'],
+      );
+    } catch (err) {
+      print('Story.fromJson - $err');
+    }
   }
 }

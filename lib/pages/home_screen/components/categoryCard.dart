@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:theo/models/story_category.dart';
 
 class CategoryCard extends StatelessWidget {
   const CategoryCard({
     Key? key,
+    required this.storyCategory,
   }) : super(key: key);
+
+  final StoryCategory storyCategory;
 
   @override
   Widget build(BuildContext context) {
@@ -18,15 +22,18 @@ class CategoryCard extends StatelessWidget {
             child: Stack(
               children: [
                 Container(
+                  width: double.infinity,
                   margin: EdgeInsets.only(top: 20),
                   decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/img-siflis.png'),
-                      fit: BoxFit.cover,
-                    ),
+                    color: Colors.red,
                     borderRadius: const BorderRadius.all(
                       Radius.circular(10.0),
                     ),
+                  ),
+                  clipBehavior: Clip.hardEdge,
+                  child: Image.network(
+                    storyCategory.image!.url!,
+                    fit: BoxFit.cover,
                   ),
                 ),
                 Positioned.fill(
@@ -37,7 +44,7 @@ class CategoryCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          'Sifilis',
+                          storyCategory.name!,
                           style:
                               Theme.of(context).textTheme.headline2!.copyWith(
                                     color: Colors.white,

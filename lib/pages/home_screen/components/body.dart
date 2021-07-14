@@ -1,18 +1,30 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
+import 'package:theo/components/error_alert_dialog.dart';
+import 'package:theo/components/result_status/loading_status.dart';
 import 'package:theo/components/subTitleText.dart';
 
 import 'package:theo/components/title_text.dart';
 import 'package:theo/pages/home_screen/components/categoryCard.dart';
+import 'package:theo/pages/home_screen/home_screen_controller.dart';
 import 'package:theo/states/navigation_store.dart';
 import 'package:theo/styles/colors.dart';
+import 'package:theo/types/enums.dart';
 
-class Body extends StatelessWidget {
-  const Body({Key? key}) : super(key: key);
+class Body extends StatefulWidget {
+  const Body({Key? key, required this.controller}) : super(key: key);
 
+  final HomeScreenController controller;
+
+  @override
+  _BodyState createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
   void _learnButtonTap() {
     GetIt.I
         .get<NavigationStore>()
@@ -31,84 +43,92 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                top: 30,
-              ),
-              child: TitleText(title: 'O que você quer explorar hoje?'),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 25),
-            ),
-            _button(
-              context: context,
-              text: 'Aprender a contar',
-              icon: 'assets/icons/icone-como-contar.svg',
-              onTap: _learnButtonTap,
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 15),
-            ),
-            _button(
-              context: context,
-              text: 'Descobrir histórias',
-              icon: 'assets/icons/icone-descobrir-historias.svg',
-              onTap: _discoverButtonTap,
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 15),
-            ),
-            _button(
-                context: context,
-                text: 'Contar uma história',
-                icon: 'assets/icons/icone-contar-historia.svg',
-                onTap: _tellButtonTap,
-                subtitle: 'Compartilhe suas histórias'),
-            Container(
-              margin: EdgeInsets.only(top: 37),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      TitleText(title: 'Categorias'),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 5),
-                        child: SubTitleText(
-                          subTitle: 'O que você não pode perder',
-                        ),
-                      )
-                    ],
-                  ),
-                  SvgPicture.asset(
-                      'assets/icons/icone-feather-arrow-right.svg'),
-                ],
-              ),
-            ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  CategoryCard(),
-                  CategoryCard(),
-                  CategoryCard(),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+    return Observer(builder: (context) {
+      if (widget.controller.resultStatus == ResultStatus.LOADING) {
+        return LoadingStatus();
+      } else if (widget.controller.resultStatus == ResultStatus.REQUEST_ERROR) {
+        return ErrorAlertDialog(content: widget.controller.errorMessage!);
+      }
+
+      return _content;
+    });
   }
+
+  Widget get _content => SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                  top: 30,
+                ),
+                child: TitleText(title: 'O que você quer explorar hoje?'),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 25),
+              ),
+              _button(
+                context: context,
+                text: 'Aprender a contar',
+                icon: 'assets/icons/icone-como-contar.svg',
+                onTap: _learnButtonTap,
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 15),
+              ),
+              _button(
+                context: context,
+                text: 'Descobrir histórias',
+                icon: 'assets/icons/icone-descobrir-historias.svg',
+                onTap: _discoverButtonTap,
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 15),
+              ),
+              _button(
+                  context: context,
+                  text: 'Contar uma história',
+                  icon: 'assets/icons/icone-contar-historia.svg',
+                  onTap: _tellButtonTap,
+                  subtitle: 'Compartilhe suas histórias'),
+              Container(
+                margin: EdgeInsets.only(top: 37),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        TitleText(title: 'Categorias'),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5),
+                          child: SubTitleText(
+                            subTitle: 'O que você não pode perder',
+                          ),
+                        )
+                      ],
+                    ),
+                    SvgPicture.asset(
+                        'assets/icons/icone-feather-arrow-right.svg'),
+                  ],
+                ),
+              ),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: widget.controller.storyCategories
+                      .map((e) => CategoryCard(storyCategory: e))
+                      .toList(),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
 
   Widget _button({
     required BuildContext context,

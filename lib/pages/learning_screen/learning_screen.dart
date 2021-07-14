@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:theo/components/story_progress.dart';
 import 'package:theo/components/title_text.dart';
 import 'package:theo/core/routes.dart';
+import 'package:theo/models/story_format.dart';
 import 'package:theo/types/enums.dart';
 import 'package:theo/models/section.dart';
 import 'package:theo/models/story.dart';
@@ -32,9 +33,9 @@ class _LearningScreenState extends State<LearningScreen> {
           title: 'Aprendendo a gravar vídeos com o celular',
           id: '1',
           sectionId: '-1',
-          link:
+          url:
               'https://github.com/elionaimelo/theo/raw/pre-validacao/others/videos/educacional_celular.mp4',
-          format: EStoryFormat.VIDEO,
+          format: StoryFormat(name: EStoryFormat.VIDEO.getString()),
         ),
         storyStore: GetIt.I.get(),
       ),

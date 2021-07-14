@@ -12,7 +12,7 @@ abstract class _MediaStoryScreenControllerBase with Store {
     required this.storyStore,
     required this.story,
   }) {
-    videoController = VideoPlayerController.network(story.link);
+    videoController = VideoPlayerController.network(story.url!);
   }
 
   late VideoPlayerController videoController;

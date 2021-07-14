@@ -238,6 +238,7 @@ class _TheoNavigatorState extends State<TheoNavigator> {
   Widget get _homeScreen => HomeScreen(
         controller: HomeScreenController(
           navigationStore: widget.navigationStore,
+          storyCategoryStore: GetIt.I.get(),
         ),
       );
 

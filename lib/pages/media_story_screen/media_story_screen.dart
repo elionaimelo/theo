@@ -36,7 +36,7 @@ class _MediaStoryScreenState extends State<MediaStoryScreen> {
   }
 
   void _bottomButtonTap() {
-    widget.controller.storyStore.finishStory(widget.controller.story.id);
+    widget.controller.storyStore.finishStory(widget.controller.story.id!);
     Navigator.of(context).pop();
   }
 
@@ -113,7 +113,7 @@ class _MediaStoryScreenState extends State<MediaStoryScreen> {
 
   Widget get _videoTitle => Container(
         child: Text(
-          widget.controller.story.title,
+          widget.controller.story.title!,
           style: Theme.of(context).textTheme.bodyText1!.copyWith(
                 fontSize: 16,
                 color: _textColor,
@@ -122,7 +122,8 @@ class _MediaStoryScreenState extends State<MediaStoryScreen> {
         ),
       );
 
-  bool get _isPodcast => widget.controller.story.format == EStoryFormat.PODCAST;
+  bool get _isPodcast =>
+      widget.controller.story.format!.name == EStoryFormat.PODCAST.getString();
 
   Widget get _player => PlayerInputs(
         videoController: widget.controller.videoController,
@@ -150,7 +151,7 @@ class _MediaStoryScreenState extends State<MediaStoryScreen> {
       _isVideoFormat ? TheoColors.secondary : TheoColors.seven;
 
   bool get _isVideoFormat =>
-      widget.controller.story.format == EStoryFormat.VIDEO;
+      widget.controller.story.format!.name == EStoryFormat.VIDEO.getString();
 
   Color? get _playButtonColor => _isVideoFormat ? null : TheoColors.primary;
 }

@@ -50,7 +50,7 @@ class _QuizStoryScreenState extends State<QuizStoryScreen>
   }
 
   void _onConcludedTap() {
-    widget.controller.storyStore.finishStory(widget.controller.story.id);
+    widget.controller.storyStore.finishStory(widget.controller.story.id!);
     GetIt.I.get<NavigationStore>().popUntil(Routes.home);
   }
 

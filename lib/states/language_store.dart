@@ -18,11 +18,11 @@ abstract class _LanguageStoreBase with Store {
   List<Language> languages = [];
 
   @observable
-  ResultStatus resultStatus = ResultStatus.NONE;
+  EResultStatus eResultStatus = EResultStatus.NONE;
 
   @action
   Future<void> fetchLanguages() async {
-    resultStatus = ResultStatus.LOADING;
+    eResultStatus = EResultStatus.LOADING;
 
     try {
       var response = await _languageService.fetchLanguages();
@@ -35,10 +35,10 @@ abstract class _LanguageStoreBase with Store {
 
       languages = listResult.map((e) => Language.fromJson(e)!).toList();
 
-      resultStatus = ResultStatus.DONE;
+      eResultStatus = EResultStatus.DONE;
     } catch (err) {
       print('LanguageStore.fetchLanguages - $err');
-      resultStatus = ResultStatus.REQUEST_ERROR;
+      eResultStatus = EResultStatus.REQUEST_ERROR;
       rethrow;
     }
   }

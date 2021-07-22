@@ -3,10 +3,13 @@ import 'package:get_it/get_it.dart';
 import 'package:navigation_history_observer/navigation_history_observer.dart';
 import 'package:theo/services/api_client.dart';
 import 'package:theo/states/auth_store.dart';
+import 'package:theo/states/file_store.dart';
 import 'package:theo/states/language_store.dart';
 import 'package:theo/states/navigation_store.dart';
+import 'package:theo/states/post_store.dart';
 import 'package:theo/states/role_store.dart';
 import 'package:theo/states/story_category_store.dart';
+import 'package:theo/states/story_format_store.dart';
 import 'package:theo/states/story_store.dart';
 
 class ServicesLocator {
@@ -24,7 +27,7 @@ class ServicesLocator {
       ),
     );
 
-    GetIt.I.registerSingleton<StoryStore>(StoryStore());
+    GetIt.I.registerSingleton<StoryStore>(StoryStore(apiClient));
 
     GetIt.I.registerSingleton<AuthStore>(AuthStore(apiClient));
 
@@ -34,5 +37,11 @@ class ServicesLocator {
 
     GetIt.I
         .registerSingleton<StoryCategoryStore>(StoryCategoryStore(apiClient));
+
+    GetIt.I.registerSingleton<PostStore>(PostStore(apiClient));
+
+    GetIt.I.registerSingleton<FileStore>(FileStore(apiClient));
+
+    GetIt.I.registerSingleton<StoryFormatStore>(StoryFormatStore(apiClient));
   }
 }

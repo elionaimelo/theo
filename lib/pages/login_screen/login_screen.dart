@@ -67,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen>
   Widget get _body {
     return Observer(
       builder: (context) {
-        if (widget.controller.resultStatus == ResultStatus.LOADING) {
+        if (widget.controller.eResultStatus == EResultStatus.LOADING) {
           return Center(child: LoadingStatus());
         }
 

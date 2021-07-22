@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:theo/components/bottom_button.dart';
-import 'package:theo/types/enums.dart';
+import 'package:theo/core/constants/story_format_consts.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/styles/metrics.dart';
 import 'package:theo/utils/assets_path.dart';
@@ -36,7 +36,8 @@ class _MediaStoryScreenState extends State<MediaStoryScreen> {
   }
 
   void _bottomButtonTap() {
-    widget.controller.storyStore.finishStory(widget.controller.story.id!);
+    widget.controller.storyStore
+        .finishLearningStory(widget.controller.story.id!);
     Navigator.of(context).pop();
   }
 
@@ -123,7 +124,7 @@ class _MediaStoryScreenState extends State<MediaStoryScreen> {
       );
 
   bool get _isPodcast =>
-      widget.controller.story.format!.name == EStoryFormat.PODCAST.getString();
+      widget.controller.story.format!.name == StoryFormatConsts.PODCAST;
 
   Widget get _player => PlayerInputs(
         videoController: widget.controller.videoController,
@@ -151,7 +152,7 @@ class _MediaStoryScreenState extends State<MediaStoryScreen> {
       _isVideoFormat ? TheoColors.secondary : TheoColors.seven;
 
   bool get _isVideoFormat =>
-      widget.controller.story.format!.name == EStoryFormat.VIDEO.getString();
+      widget.controller.story.format!.name == StoryFormatConsts.VIDEO;
 
   Color? get _playButtonColor => _isVideoFormat ? null : TheoColors.primary;
 }

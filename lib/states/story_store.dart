@@ -1,58 +1,52 @@
 import 'package:mobx/mobx.dart';
+import 'package:theo/core/constants/story_format_consts.dart';
+import 'package:theo/mocks/theo_mocks.dart';
 import 'package:theo/models/story_format.dart';
-import 'package:theo/types/enums.dart';
 import 'package:theo/models/story.dart';
+import 'package:theo/services/api_client.dart';
+import 'package:theo/services/story_service.dart';
+import 'package:theo/types/enums.dart';
 part 'story_store.g.dart';
 
 class StoryStore = _StoryStoreBase with _$StoryStore;
 
 abstract class _StoryStoreBase with Store {
+  _StoryStoreBase(this.client);
+
+  final APIClient client;
+
+  StoryService get _storyService => client.storyService;
+
   @observable
-  List<Story> stories = [
-    Story(
-      id: '1',
-      sectionId: '1',
-      finished: false,
-      format: StoryFormat(name: EStoryFormat.VIDEO.getString()),
-      title: 'Aprendendo a gravar vídeos com o celular',
-      url:
-          'https://github.com/elionaimelo/theo/raw/pre-validacao/others/videos/educacional_celular.mp4',
-    ),
-    Story(
-      id: '2',
-      sectionId: '1',
-      finished: false,
-      format: StoryFormat(name: EStoryFormat.PODCAST.getString()),
-      title: 'Exercício de fortalecimento, fazer ou não fazer',
-      url:
-          'https://github.com/elionaimelo/theo/raw/pre-validacao/others/audios/revelacast.wav',
-    ),
-    Story(
-      id: '3',
-      sectionId: '1',
-      finished: false,
-      format: StoryFormat(name: EStoryFormat.INFROGRAPHIC.getString()),
-      title: 'Storyteling e lorem ipsum dolor sit amet',
-    ),
-    Story(
-      id: '4',
-      sectionId: '1',
-      finished: false,
-      format: StoryFormat(name: EStoryFormat.TEXT.getString()),
-      title: 'Storyteling e lorem ipsum dolor sit amet',
-    ),
-    Story(
-      id: '5',
-      sectionId: '1',
-      finished: false,
-      format: StoryFormat(name: EStoryFormat.QUIZ.getString()),
-      title: 'Storyteling e lorem ipsum dolor sit amet',
-    ),
-  ];
+  List<Story> stories = [];
+
+  @observable
+  EResultStatus eResultStatus = EResultStatus.NONE;
 
   @action
-  void finishStory(String id) {
-    stories = stories.map((e) {
+  Future<void> createUploadStory(
+      {required Story story, required List<String> filesPath}) async {
+    try {
+      eResultStatus = EResultStatus.LOADING;
+
+      var response =
+          await _storyService.createStory(story: story, filesPath: filesPath);
+
+      if (response == null) {
+        throw Exception('Response Null');
+      }
+
+      eResultStatus = EResultStatus.DONE;
+    } catch (err) {
+      print('StoryStore.createUploadStory - $err');
+      eResultStatus = EResultStatus.REQUEST_ERROR;
+      rethrow;
+    }
+  }
+
+  @action
+  void finishLearningStory(String id) {
+    learningStories = learningStories.map((e) {
       if (e.id == id) {
         e.finished = true;
 
@@ -63,11 +57,14 @@ abstract class _StoryStoreBase with Store {
   }
 
   bool isSectionFinished(String sectionId) {
-    return stories.every((element) {
+    return learningStories.every((element) {
       // Ignore the stories from another sections
       if (element.sectionId != sectionId) return true;
 
       return element.finished;
     });
   }
+
+  @observable
+  List<Story> learningStories = TheoMocks.learningStories;
 }

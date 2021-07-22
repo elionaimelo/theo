@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-import 'package:theo/models/story.dart';
 import 'package:theo/models/story_category.dart';
 import 'package:theo/models/theo_app_bar_settings.dart';
+import 'package:theo/services/file_service.dart';
 import 'package:theo/states/navigation_store.dart';
 import 'package:theo/states/story_category_store.dart';
 import 'package:theo/types/enums.dart';
@@ -20,8 +20,10 @@ abstract class _HomeScreenControllerBase with Store {
   final NavigationStore navigationStore;
   final StoryCategoryStore storyCategoryStore;
 
+  FileService get fileService => storyCategoryStore.client.fileService;
+
   @observable
-  ResultStatus resultStatus = ResultStatus.NONE;
+  EResultStatus eResultStatus = EResultStatus.NONE;
 
   @observable
   String? errorMessage = '';
@@ -32,14 +34,14 @@ abstract class _HomeScreenControllerBase with Store {
   @action
   Future<void> fetchData() async {
     try {
-      resultStatus = ResultStatus.LOADING;
+      eResultStatus = EResultStatus.LOADING;
 
       await storyCategoryStore.fetchStoryCategories();
 
-      resultStatus = ResultStatus.DONE;
+      eResultStatus = EResultStatus.DONE;
     } catch (err) {
       errorMessage = err.toString();
-      resultStatus = ResultStatus.REQUEST_ERROR;
+      eResultStatus = EResultStatus.REQUEST_ERROR;
     }
   }
 

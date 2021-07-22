@@ -106,10 +106,10 @@ class _SignupScreenState extends State<SignupScreen>
   Widget get _content {
     return Observer(
       builder: (context) {
-        if (widget.controller.resultStatus == ResultStatus.LOADING) {
+        if (widget.controller.eResultStatus == EResultStatus.LOADING) {
           return LoadingStatus();
-        } else if (widget.controller.resultStatus ==
-            ResultStatus.REQUEST_ERROR) {
+        } else if (widget.controller.eResultStatus ==
+            EResultStatus.REQUEST_ERROR) {
           return ErrorAlertDialog(content: widget.controller.errorMessage!);
         }
 

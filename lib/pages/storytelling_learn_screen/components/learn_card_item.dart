@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:theo/types/enums.dart';
+import 'package:theo/core/constants/story_format_consts.dart';
 import 'package:theo/models/story.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/styles/metrics.dart';
@@ -125,18 +125,25 @@ class _LearnCardItemState extends State<LearnCardItem> {
 
     var name = widget.story.format!.name!;
 
-    if (name == EStoryFormat.VIDEO.getString()) {
-      iconData = FeatherIcons.video;
-    } else if (name == EStoryFormat.PODCAST.getString()) {
-      iconData = FeatherIcons.radio;
-    } else if (name == EStoryFormat.INFROGRAPHIC.getString()) {
-      iconData = FeatherIcons.pieChart;
-    } else if (name == EStoryFormat.TEXT.getString()) {
-      iconData = FeatherIcons.fileText;
-    } else if (name == EStoryFormat.QUIZ.getString()) {
-      return Image(
-        image: AssetImage(AssetsPath.quizPng),
-      );
+    switch (name) {
+      case StoryFormatConsts.VIDEO:
+        iconData = FeatherIcons.video;
+        break;
+
+      case StoryFormatConsts.PODCAST:
+      case StoryFormatConsts.MUSIC:
+        iconData = FeatherIcons.radio;
+        break;
+      case StoryFormatConsts.INFROGRAPHIC:
+        iconData = FeatherIcons.pieChart;
+        break;
+      case StoryFormatConsts.TEXT:
+        iconData = FeatherIcons.fileText;
+        break;
+      case StoryFormatConsts.QUIZ:
+        return Image(
+          image: AssetImage(AssetsPath.quizPng),
+        );
     }
 
     return Icon(

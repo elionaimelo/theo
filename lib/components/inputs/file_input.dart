@@ -1,43 +1,37 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_manager/photo_manager.dart';
-import 'package:theo/components/inputs/gallery_image_picker.dart';
+import 'package:theo/components/error_alert_dialog.dart';
+import 'package:theo/components/inputs/gallery_media_picker.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/styles/gerenal.dart';
 import 'package:theo/utils/formatter.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
-
-enum EFileType {
-  IMAGE,
-  OTHER,
-}
 
 class SelectedFile {
-  SelectedFile({required this.title, required this.size});
+  SelectedFile({required this.title, required this.size, required this.path});
 
   final String title;
-  final String size;
+  final String? size;
+  final String path;
 }
 
 class FileInput extends StatefulWidget {
   FileInput({
     required this.label,
     required this.minFileLength,
-    this.onImageSelected,
-    this.onFileSelected,
+    required this.onFileSelected,
     required this.buttonText,
     required this.buttonIcon,
-    required this.fileType,
+    required this.assetType,
   });
 
   final String label;
   final String minFileLength;
   final String buttonText;
   final IconData buttonIcon;
-  final Function(AssetEntity image)? onImageSelected;
-  final Function(PlatformFile image)? onFileSelected;
+  final Function(String filePath) onFileSelected;
 
-  final EFileType fileType;
+  final AssetType assetType;
 
   @override
   _FileInputState createState() => _FileInputState();
@@ -52,40 +46,52 @@ class _FileInputState extends State<FileInput> {
     });
   }
 
-  Future<void> _onImageSelected(AssetEntity assetImage) async {
-    var originBytes = (await assetImage.originBytes)!;
+  Future<void> _onImageSelected(AssetEntity mediaAsset) async {
+    try {
+      var selectedFile;
 
-    setState(() {
-      file = SelectedFile(
-        title: assetImage.title!,
-        size: Formatter.formatBytes(originBytes.lengthInBytes, 0),
-      );
-    });
+      var inputFile = await mediaAsset.file;
 
-    widget.onImageSelected?.call(assetImage);
+      if (mediaAsset.type == AssetType.image ||
+          mediaAsset.type == AssetType.other) {
+        var originBytes = await mediaAsset.originBytes;
+
+        selectedFile = SelectedFile(
+          title: mediaAsset.title!,
+          path: inputFile!.absolute.path,
+          size: Formatter.formatBytes(originBytes!.lengthInBytes, 0),
+        );
+      } else {
+        selectedFile = SelectedFile(
+          title: mediaAsset.title!,
+          path: inputFile!.absolute.path,
+          size: null,
+        );
+      }
+
+      setState(() {
+        file = selectedFile;
+      });
+
+      widget.onFileSelected(file!.path);
+    } catch (err) {
+      ErrorAlertDialog.showAlertDialog(content: err.toString());
+    }
   }
 
   Future<void> _onTap() async {
-    if (widget.fileType == EFileType.IMAGE && !kIsWeb) {
-      await GalleryImagePicker.showGalleryBottomSheet(
-          context, _onImageSelected);
+    if (widget.assetType == AssetType.video ||
+        widget.assetType == AssetType.image) {
+      await GalleryMediaPicker.showGalleryBottomSheet(
+          context, _onImageSelected, widget.assetType);
 
       return;
     }
 
-    FilePickerResult? result;
-
-    if (widget.fileType == EFileType.IMAGE) {
-      result = await FilePicker.platform.pickFiles(
-        type: FileType.image,
-        allowMultiple: false,
-      );
-    } else {
-      result = await FilePicker.platform.pickFiles(
-          type: FileType.custom,
-          allowedExtensions: ['txt', 'pdf', 'doc'],
-          allowMultiple: false);
-    }
+    var result = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['txt', 'pdf', 'doc'],
+        allowMultiple: false);
 
     if (result != null && result.count > 0) {
       var resultFile = result.files.single;
@@ -93,11 +99,12 @@ class _FileInputState extends State<FileInput> {
       setState(() {
         file = SelectedFile(
           title: resultFile.name!,
+          path: resultFile.path!,
           size: Formatter.formatBytes(resultFile.size!, 0),
         );
       });
 
-      widget.onFileSelected?.call(resultFile);
+      widget.onFileSelected(file!.path);
     }
   }
 
@@ -131,6 +138,9 @@ class _FileInputState extends State<FileInput> {
                 widget.buttonIcon,
                 color: TheoColors.eleven,
               ),
+              Container(
+                margin: EdgeInsets.only(right: 5),
+              ),
               Flexible(
                 flex: 1,
                 fit: FlexFit.tight,
@@ -146,13 +156,14 @@ class _FileInputState extends State<FileInput> {
                   ),
                 ),
               ),
-              Text(
-                '(${file!.size})',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText1!
-                    .copyWith(fontSize: 14),
-              ),
+              if (file!.size != null)
+                Text(
+                  '(${file!.size})',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText1!
+                      .copyWith(fontSize: 14),
+                ),
               Container(
                 alignment: Alignment.centerRight,
                 margin: EdgeInsets.only(left: 10),
@@ -196,7 +207,7 @@ class _FileInputState extends State<FileInput> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                margin: EdgeInsets.only(left: 9, top: 10, bottom: 10),
+                margin: EdgeInsets.only(left: 9, top: 10, bottom: 10, right: 5),
                 child: _icon,
               ),
               _text,

@@ -48,6 +48,9 @@ class _MultiSelectorButtonInputState extends State<MultiSelectorButtonInput> {
       setState(() {
         selectedItems = [item];
       });
+
+      widget.onSelectedValuesChanged(selectedItems);
+
       return;
     }
 

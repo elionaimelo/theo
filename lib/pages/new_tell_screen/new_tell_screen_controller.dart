@@ -1,0 +1,212 @@
+import 'package:file_picker/file_picker.dart';
+import 'package:mobx/mobx.dart';
+import 'package:photo_manager/photo_manager.dart';
+import 'package:theo/components/error_alert_dialog.dart';
+import 'package:theo/components/inputs/multi_selector_button_input.dart';
+import 'package:theo/models/language.dart';
+import 'package:theo/models/story.dart';
+import 'package:theo/models/story_category.dart';
+import 'package:theo/models/story_format.dart';
+import 'package:theo/states/language_store.dart';
+import 'package:theo/states/navigation_store.dart';
+import 'package:theo/states/story_category_store.dart';
+import 'package:theo/states/story_store.dart';
+import 'package:theo/types/enums.dart';
+part 'new_tell_screen_controller.g.dart';
+
+class NewTellScreenController = _NewTellScreenControllerBase
+    with _$NewTellScreenController;
+
+abstract class _NewTellScreenControllerBase with Store {
+  _NewTellScreenControllerBase({
+    required this.format,
+    required this.withLink,
+    required this.withArchive,
+    required this.navigationStore,
+    required this.languageStore,
+    required this.storyCategoryStore,
+    required this.storyStore,
+  });
+
+  final bool withLink;
+  final bool withArchive;
+  final StoryFormat format;
+
+  final NavigationStore navigationStore;
+  final LanguageStore languageStore;
+  final StoryCategoryStore storyCategoryStore;
+  final StoryStore storyStore;
+
+  @computed
+  List<Language> get languages => languageStore.languages;
+
+  @computed
+  List<StoryCategory> get storyCategories => storyCategoryStore.storyCategories;
+
+  @observable
+  Language? selectedLanguage;
+
+  @observable
+  StoryCategory? selectedCategory;
+
+  @observable
+  String? title;
+
+  @observable
+  String? description;
+
+  @observable
+  String? author;
+
+  @observable
+  String? url;
+
+  @observable
+  String? tag1;
+
+  @observable
+  String? tag2;
+
+  @observable
+  String? tag3;
+
+  @observable
+  bool? adultContent;
+
+  @observable
+  List<String> imagesPaths = [];
+
+  @observable
+  String? videoFilePath;
+
+  @observable
+  String? archivePath;
+
+  @observable
+  EResultStatus eResultStatus = EResultStatus.NONE;
+
+  @observable
+  String? errorMessage = '';
+
+  @action
+  void onTitleTextChanged(String value) {
+    title = value;
+  }
+
+  @action
+  void onDescTextChanged(String value) {
+    description = value;
+  }
+
+  @action
+  void onAuthorTextChanged(String value) {
+    author = value;
+  }
+
+  @action
+  void onLinkTextChanged(String value) {
+    url = value;
+  }
+
+  @action
+  void onLangSelectionChanged(String? displayName) {
+    selectedLanguage =
+        languages.firstWhere((element) => element.displayName == displayName);
+  }
+
+  @action
+  void onContentAgeChanged(SelectorItem item) {
+    adultContent = item.value;
+  }
+
+  @action
+  void onSelectedCategoriesChanged(List<SelectorItem> items) {
+    selectedCategory = items.first.value;
+  }
+
+  @action
+  void onKeyword1TextChanged(String value) {
+    tag1 = value;
+  }
+
+  @action
+  void onKeyword2TextChanged(String value) {
+    tag2 = value;
+  }
+
+  @action
+  void onKeyword3TextChanged(String value) {
+    tag3 = value;
+  }
+
+  @action
+  void onImagesPathsSelected(String value) {
+    imagesPaths = [value];
+  }
+
+  @action
+  void onVideoFilePathSelected(String value) {
+    videoFilePath = value;
+  }
+
+  @action
+  void onArchivePathSelected(String value) {
+    archivePath = value;
+  }
+
+  @action
+  Future<void> fetchData() async {
+    try {
+      eResultStatus = EResultStatus.LOADING;
+
+      await languageStore.fetchLanguages();
+
+      await storyCategoryStore.fetchStoryCategories();
+
+      eResultStatus = EResultStatus.DONE;
+    } catch (err) {
+      eResultStatus = EResultStatus.REQUEST_ERROR;
+      errorMessage = err.toString();
+    }
+  }
+
+  @action
+  Future<void> onPublishButtonTap() async {
+    try {
+      eResultStatus = EResultStatus.LOADING;
+
+      var newStory = Story(
+        adultContent: adultContent,
+        author: author,
+        description: description,
+        tags: [tag1!, tag2!, tag3!],
+        title: title,
+        url: url,
+
+        //-----//
+        languageId: selectedLanguage!.id,
+        language: selectedLanguage,
+        formatId: format.id,
+        format: format,
+        category: selectedCategory,
+        categoryId: selectedCategory!.id,
+      );
+
+      var filesPath = [
+        ...imagesPaths,
+        if (archivePath != null) archivePath!,
+        if (videoFilePath != null) videoFilePath!
+      ];
+
+      await storyStore.createUploadStory(story: newStory, filesPath: filesPath);
+
+      ErrorAlertDialog.showAlertDialog(
+          content: 'Estória publicada com sucesso!');
+
+      eResultStatus = EResultStatus.DONE;
+    } catch (err) {
+      ErrorAlertDialog.showAlertDialog(content: err.toString());
+      eResultStatus = EResultStatus.DONE;
+    }
+  }
+}

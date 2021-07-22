@@ -18,11 +18,11 @@ abstract class _StoryCategoryStoreBase with Store {
   List<StoryCategory> storyCategories = [];
 
   @observable
-  ResultStatus resultStatus = ResultStatus.NONE;
+  EResultStatus eResultStatus = EResultStatus.NONE;
 
   @action
   Future<void> fetchStoryCategories() async {
-    resultStatus = ResultStatus.LOADING;
+    eResultStatus = EResultStatus.LOADING;
 
     try {
       var response = await _storyCategoryService.fetchStoryCategories();
@@ -36,10 +36,10 @@ abstract class _StoryCategoryStoreBase with Store {
       storyCategories =
           listResult.map((e) => StoryCategory.fromJson(e)!).toList();
 
-      resultStatus = ResultStatus.DONE;
+      eResultStatus = EResultStatus.DONE;
     } catch (err) {
       print('StoryCategoryStore.fetchStoryCategories - $err');
-      resultStatus = ResultStatus.REQUEST_ERROR;
+      eResultStatus = EResultStatus.REQUEST_ERROR;
       rethrow;
     }
   }

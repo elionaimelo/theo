@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:theo/components/bottom_button.dart';
 import 'package:theo/components/title_text.dart';
+import 'package:theo/core/constants/story_format_consts.dart';
 import 'package:theo/core/routes.dart';
 import 'package:theo/models/story_format.dart';
-import 'package:theo/types/enums.dart';
 import 'package:theo/models/story.dart';
 import 'package:theo/pages/discover_screen/components/post_card.dart';
 import 'package:theo/pages/discover_sound_screen/discover_sound_screen_controller.dart';
@@ -117,7 +117,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
               Routes.discoverSound,
               arguments: DiscoverSoundScreenController(
                 story: Story(
-                  format: StoryFormat(name: EStoryFormat.MUSIC.getString()),
+                  format: StoryFormat(name: StoryFormatConsts.MUSIC),
                   id: '-1',
                   sectionId: '-1',
                   url:
@@ -142,7 +142,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
               Routes.discoverSound,
               arguments: DiscoverSoundScreenController(
                 story: Story(
-                  format: StoryFormat(name: EStoryFormat.PODCAST.getString()),
+                  format: StoryFormat(name: StoryFormatConsts.PODCAST),
                   id: '-1',
                   sectionId: '-1',
                   url:

@@ -6,23 +6,28 @@ import 'package:theo/components/close_top_bar_button.dart';
 import 'package:theo/pages/confirm_image_screen/confirm_image_screen.dart';
 import 'package:theo/styles/colors.dart';
 
-class GalleryImagePicker extends StatefulWidget {
-  GalleryImagePicker({
-    required this.onSelectedImage,
+class GalleryMediaPicker extends StatefulWidget {
+  GalleryMediaPicker({
+    required this.onSelectedMedia,
+    required this.assetType,
   });
 
   @override
-  _GalleryImagePickerState createState() => _GalleryImagePickerState();
+  _GalleryMediaPickerState createState() => _GalleryMediaPickerState();
 
-  final Function(AssetEntity assetImage) onSelectedImage;
+  final Function(AssetEntity mediaAsset) onSelectedMedia;
+  final AssetType assetType;
 
-  static Future<void> showGalleryBottomSheet(BuildContext context,
-      Function(AssetEntity assetImage) onSelectedImage) async {
+  static Future<void> showGalleryBottomSheet(
+      BuildContext context,
+      Function(AssetEntity mediaAsset) onSelectedMedia,
+      AssetType assetType) async {
     return showModalBottomSheet<void>(
       context: context,
       builder: (BuildContext context) {
-        return GalleryImagePicker(
-          onSelectedImage: onSelectedImage,
+        return GalleryMediaPicker(
+          onSelectedMedia: onSelectedMedia,
+          assetType: assetType,
         );
       },
       isScrollControlled: true,
@@ -32,7 +37,7 @@ class GalleryImagePicker extends StatefulWidget {
   }
 }
 
-class _GalleryImagePickerState extends State<GalleryImagePicker> {
+class _GalleryMediaPickerState extends State<GalleryMediaPicker> {
   final List<Widget> _mediaList = [];
   int currentPage = 0;
   late int lastPage;
@@ -51,14 +56,14 @@ class _GalleryImagePickerState extends State<GalleryImagePicker> {
     }
   }
 
-  void _onImageTap(AssetEntity assetImage) {
+  void _onImageTap(AssetEntity mediaAsset) {
     Navigator.of(context).push(
       PageRouteBuilder(
         opaque: false,
         pageBuilder: (BuildContext context, _, __) => CorfirmImageScreen(
-          assetImage: assetImage,
+          mediaAsset: mediaAsset,
           onConfirmImage: (AssetEntity image) {
-            widget.onSelectedImage(image);
+            widget.onSelectedMedia(image);
             Navigator.of(context).pop();
           },
         ),
@@ -73,7 +78,7 @@ class _GalleryImagePickerState extends State<GalleryImagePicker> {
     var temp = <Widget>[];
 
     for (var asset in media) {
-      if (asset.type != AssetType.image) {
+      if (asset.type != widget.assetType) {
         continue;
       }
 

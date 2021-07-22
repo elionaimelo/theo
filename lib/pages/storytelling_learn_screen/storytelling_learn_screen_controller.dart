@@ -12,5 +12,5 @@ abstract class _StorytellingLearnScreenControllerBase with Store {
   final StoryStore storyStore;
 
   @computed
-  List<Story> get stories => storyStore.stories;
+  List<Story> get stories => storyStore.learningStories;
 }

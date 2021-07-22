@@ -5,14 +5,14 @@ import 'package:photo_manager/photo_manager.dart';
 import 'package:theo/styles/colors.dart';
 
 class CorfirmImageScreen extends StatefulWidget {
-  CorfirmImageScreen({required this.assetImage, required this.onConfirmImage});
+  CorfirmImageScreen({required this.mediaAsset, required this.onConfirmImage});
 
   @override
   _CorfirmImageScreenState createState() => _CorfirmImageScreenState();
 
-  final AssetEntity assetImage;
+  final AssetEntity mediaAsset;
 
-  final Function(AssetEntity assetImage) onConfirmImage;
+  final Function(AssetEntity mediaAsset) onConfirmImage;
 }
 
 class _CorfirmImageScreenState extends State<CorfirmImageScreen> {
@@ -21,7 +21,7 @@ class _CorfirmImageScreenState extends State<CorfirmImageScreen> {
   }
 
   void _onConfirmTap() {
-    widget.onConfirmImage(widget.assetImage);
+    widget.onConfirmImage(widget.mediaAsset);
     Navigator.of(context).pop();
   }
 
@@ -29,7 +29,7 @@ class _CorfirmImageScreenState extends State<CorfirmImageScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder(
-        future: widget.assetImage.thumbDataWithSize(200, 200),
+        future: widget.mediaAsset.thumbDataWithSize(200, 200),
         builder: (BuildContext context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             return Stack(

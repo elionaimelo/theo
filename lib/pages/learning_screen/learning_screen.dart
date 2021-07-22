@@ -3,9 +3,9 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:get_it/get_it.dart';
 import 'package:theo/components/story_progress.dart';
 import 'package:theo/components/title_text.dart';
+import 'package:theo/core/constants/story_format_consts.dart';
 import 'package:theo/core/routes.dart';
 import 'package:theo/models/story_format.dart';
-import 'package:theo/types/enums.dart';
 import 'package:theo/models/section.dart';
 import 'package:theo/models/story.dart';
 import 'package:theo/mocks/theo_mocks.dart';
@@ -35,7 +35,7 @@ class _LearningScreenState extends State<LearningScreen> {
           sectionId: '-1',
           url:
               'https://github.com/elionaimelo/theo/raw/pre-validacao/others/videos/educacional_celular.mp4',
-          format: StoryFormat(name: EStoryFormat.VIDEO.getString()),
+          format: StoryFormat(name: StoryFormatConsts.VIDEO),
         ),
         storyStore: GetIt.I.get(),
       ),

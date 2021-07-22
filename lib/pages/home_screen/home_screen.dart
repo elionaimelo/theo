@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
 import 'package:theo/pages/discover_screen/discorver_screen.dart';
 
@@ -6,6 +7,7 @@ import 'package:theo/pages/home_screen/components/body.dart';
 import 'package:theo/pages/home_screen/home_screen_controller.dart';
 import 'package:theo/pages/learning_screen/learning_screen.dart';
 import 'package:theo/pages/tell_screen/tell_screen.dart';
+import 'package:theo/pages/tell_screen/tell_screen_controller.dart';
 import 'package:theo/states/navigation_store.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -70,7 +72,11 @@ class _HomeScreenState extends State<HomeScreen>
       ),
       LearningScreen(),
       DiscoverScreen(),
-      TellScreen(),
+      TellScreen(
+        controller: TellScreenController(
+          storyFormatStore: GetIt.I.get(),
+        ),
+      ),
     ];
   }
 }

@@ -4,7 +4,7 @@ import 'package:theo/components/audio_button.dart';
 import 'package:theo/components/post_card_actions.dart';
 import 'package:theo/components/profile_bar.dart';
 import 'package:theo/components/story_app_bar.dart';
-import 'package:theo/types/enums.dart';
+import 'package:theo/core/constants/story_format_consts.dart';
 import 'package:theo/pages/discover_sound_screen/discover_sound_screen_controller.dart';
 import 'package:theo/pages/media_story_screen/components/player_inputs.dart';
 import 'package:theo/styles/colors.dart';
@@ -106,5 +106,5 @@ class _DiscoverSoundScreenState extends State<DiscoverSoundScreen> {
       );
 
   bool get _isPodcast =>
-      widget.controller.story.format!.name == EStoryFormat.PODCAST.getString();
+      widget.controller.story.format!.name == StoryFormatConsts.PODCAST;
 }

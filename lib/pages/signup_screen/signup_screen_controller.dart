@@ -31,7 +31,7 @@ abstract class _SignupScreenControllerBase with Store {
   List<Language> get languages => languageStore.languages;
 
   @observable
-  ResultStatus resultStatus = ResultStatus.LOADING;
+  EResultStatus eResultStatus = EResultStatus.LOADING;
 
   @observable
   Role? selectedRole;
@@ -112,27 +112,27 @@ abstract class _SignupScreenControllerBase with Store {
   @action
   Future<void> fetchData() async {
     try {
-      resultStatus = ResultStatus.LOADING;
+      eResultStatus = EResultStatus.LOADING;
 
       await languageStore.fetchLanguages();
 
       await roleStore.fetchRoles();
 
-      resultStatus = ResultStatus.DONE;
+      eResultStatus = EResultStatus.DONE;
     } catch (err) {
       errorMessage = err.toString();
-      resultStatus = ResultStatus.REQUEST_ERROR;
+      eResultStatus = EResultStatus.REQUEST_ERROR;
     }
   }
 
   @action
   Future<bool> signUpUser() async {
     try {
-      resultStatus = ResultStatus.LOADING;
+      eResultStatus = EResultStatus.LOADING;
 
       if (password != passwordCheck) {
         ErrorAlertDialog.showAlertDialog(content: 'As senhas não conferem!');
-        resultStatus = ResultStatus.DONE;
+        eResultStatus = EResultStatus.DONE;
         return false;
       }
 
@@ -157,7 +157,10 @@ abstract class _SignupScreenControllerBase with Store {
       return authStore.authenticated;
     } catch (err) {
       errorMessage = err.toString();
-      resultStatus = ResultStatus.REQUEST_ERROR;
+
+      ErrorAlertDialog.showAlertDialog(content: errorMessage!);
+
+      eResultStatus = EResultStatus.DONE;
       return false;
     }
   }

@@ -20,6 +20,7 @@ import 'package:theo/pages/login_screen/login_screen_controller.dart';
 import 'package:theo/pages/media_story_screen/media_story_screen.dart';
 import 'package:theo/pages/media_story_screen/media_story_screen_controller.dart';
 import 'package:theo/pages/new_tell_screen/new_tell_screen.dart';
+import 'package:theo/pages/new_tell_screen/new_tell_screen_controller.dart';
 import 'package:theo/pages/profile_screen/profile_screen.dart';
 import 'package:theo/pages/quiz_story_screen/quiz_story_screen.dart';
 import 'package:theo/pages/quiz_story_screen/quiz_story_screen_controller.dart';
@@ -146,8 +147,8 @@ class _TheoNavigatorState extends State<TheoNavigator> {
               page = SearchScreen();
               break;
             case Routes.newTell:
-              page =
-                  NewTellScreen(args: settings.arguments as NewTellScreenArgs);
+              page = NewTellScreen(
+                  controller: settings.arguments as NewTellScreenController);
               break;
             case Routes.profile:
               page = ProfileScreen();

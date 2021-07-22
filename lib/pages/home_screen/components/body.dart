@@ -44,9 +44,10 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (context) {
-      if (widget.controller.resultStatus == ResultStatus.LOADING) {
+      if (widget.controller.eResultStatus == EResultStatus.LOADING) {
         return LoadingStatus();
-      } else if (widget.controller.resultStatus == ResultStatus.REQUEST_ERROR) {
+      } else if (widget.controller.eResultStatus ==
+          EResultStatus.REQUEST_ERROR) {
         return ErrorAlertDialog(content: widget.controller.errorMessage!);
       }
 
@@ -121,7 +122,12 @@ class _BodyState extends State<Body> {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: widget.controller.storyCategories
-                      .map((e) => CategoryCard(storyCategory: e))
+                      .map(
+                        (e) => CategoryCard(
+                          storyCategory: e,
+                          fileService: widget.controller.fileService,
+                        ),
+                      )
                       .toList(),
                 ),
               ),

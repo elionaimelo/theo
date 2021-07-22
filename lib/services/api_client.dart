@@ -1,9 +1,13 @@
 import 'package:supabase/supabase.dart' as sup;
 import 'package:theo/core/dot_env.dart';
 import 'package:theo/services/auth_service.dart';
+import 'package:theo/services/file_service.dart';
 import 'package:theo/services/language_service.dart';
+import 'package:theo/services/post_service.dart';
 import 'package:theo/services/role_service.dart';
 import 'package:theo/services/story_category_service.dart';
+import 'package:theo/services/story_format_service.dart';
+import 'package:theo/services/story_service.dart';
 import 'package:theo/services/user_service.dart';
 
 class APIClient {
@@ -33,4 +37,12 @@ class APIClient {
   UserService get userService => UserService(this);
 
   StoryCategoryService get storyCategoryService => StoryCategoryService(this);
+
+  PostService get postService => PostService(this);
+
+  StoryFormatService get storyFormatService => StoryFormatService(this);
+
+  FileService get fileService => FileService(this);
+
+  StoryService get storyService => StoryService(this);
 }

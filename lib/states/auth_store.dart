@@ -16,7 +16,7 @@ abstract class _AuthStoreBase with Store {
   AuthService get _authService => client.authService;
 
   @observable
-  ResultStatus resultStatus = ResultStatus.NONE;
+  EResultStatus eResultStatus = EResultStatus.NONE;
 
   @observable
   User? user;
@@ -32,7 +32,7 @@ abstract class _AuthStoreBase with Store {
 
   @action
   Future<void> signUp({required User newUser, required String password}) async {
-    resultStatus = ResultStatus.LOADING;
+    eResultStatus = EResultStatus.LOADING;
 
     try {
       var response =
@@ -45,9 +45,9 @@ abstract class _AuthStoreBase with Store {
       session = response[0];
       user = response[1];
 
-      resultStatus = ResultStatus.DONE;
+      eResultStatus = EResultStatus.DONE;
     } catch (err) {
-      resultStatus = ResultStatus.REQUEST_ERROR;
+      eResultStatus = EResultStatus.REQUEST_ERROR;
 
       print('AuthStore.signUp - $err');
       rethrow;
@@ -56,7 +56,7 @@ abstract class _AuthStoreBase with Store {
 
   @action
   Future<void> signIn({required String email, required String password}) async {
-    resultStatus = ResultStatus.LOADING;
+    eResultStatus = EResultStatus.LOADING;
 
     try {
       var response =
@@ -69,9 +69,9 @@ abstract class _AuthStoreBase with Store {
       session = response[0];
       user = response[1];
 
-      resultStatus = ResultStatus.DONE;
+      eResultStatus = EResultStatus.DONE;
     } catch (err) {
-      resultStatus = ResultStatus.REQUEST_ERROR;
+      eResultStatus = EResultStatus.REQUEST_ERROR;
 
       print('AuthStore.signIn - $err');
       rethrow;

@@ -1,18 +1,18 @@
-import 'package:theo/models/image.dart';
+import 'package:theo/models/file.dart';
 
 class StoryCategory {
-  StoryCategory({this.id, this.name, this.imageId, this.image});
+  StoryCategory({this.id, this.name, this.imageId, this.imageFile});
 
   String? id;
   String? name;
   String? imageId;
 
-  Image? image;
+  File? imageFile;
 
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': name,
-        'image_id': imageId,
+        'image_file_id': imageId,
       };
 
   static StoryCategory? fromJson(Map<String, dynamic> json) {
@@ -21,7 +21,7 @@ class StoryCategory {
         id: json['id'],
         name: json['name'],
         imageId: json['image_id'],
-        image: Image.fromJson(json['image']),
+        imageFile: File.fromJson(json['image_file']),
       );
     } catch (err) {
       print('StoryCategory.fromJson - $err');

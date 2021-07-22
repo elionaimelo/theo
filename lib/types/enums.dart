@@ -1,13 +1,10 @@
-enum EStoryFormat { VIDEO, PODCAST, INFROGRAPHIC, TEXT, QUIZ, NONE, MUSIC }
-enum EStoryType { LEARNING, POST, NONE }
-
-extension EStoryFormatExtension on EStoryFormat {
-  String getString() {
-    return toString().split('.').last;
-  }
+enum EStoryType {
+  LEARNING,
+  POST,
+  NONE,
 }
 
-enum ResultStatus {
+enum EResultStatus {
   NONE,
   LOADING,
   DONE,

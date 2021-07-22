@@ -25,7 +25,7 @@ abstract class _LoginScreenControllerBase with Store {
   String password = '';
 
   @observable
-  ResultStatus resultStatus = ResultStatus.NONE;
+  EResultStatus eResultStatus = EResultStatus.NONE;
 
   @observable
   String errorMessage = '';
@@ -47,16 +47,16 @@ abstract class _LoginScreenControllerBase with Store {
   @action
   Future<bool> signInUser() async {
     try {
-      resultStatus = ResultStatus.LOADING;
+      eResultStatus = EResultStatus.LOADING;
 
       await authStore.signIn(email: email, password: password);
 
-      resultStatus = ResultStatus.DONE;
+      eResultStatus = EResultStatus.DONE;
 
       return authStore.authenticated;
     } catch (err) {
       ErrorAlertDialog.showAlertDialog(content: err.toString());
-      resultStatus = ResultStatus.DONE;
+      eResultStatus = EResultStatus.DONE;
       return false;
     }
   }

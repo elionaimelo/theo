@@ -2,16 +2,15 @@ import 'package:supabase/supabase.dart' as sup;
 
 import 'api_client.dart';
 
-class StoryCategoryService {
-  StoryCategoryService(this.client);
+class StoryFormatService {
+  StoryFormatService(this.client);
 
   final APIClient client;
 
-  Future<sup.PostgrestResponse?> fetchStoryCategories() async {
+  Future<sup.PostgrestResponse?> fetchStoryFormats() async {
     // ignore: prefer_single_quotes
-    var response = await client.supabase.from('story_categories').select("""
-        *, 
-        image_file: image_file_id (*)
+    var response = await client.supabase.from('story_formats').select("""
+        *
         """).execute();
 
     if (response.error != null) {

@@ -13,7 +13,7 @@ class AuthService {
   }) async {
     var profileResponse = await client.supabase
         .from('profiles')
-        .insert([user.profile!.toJson(withId: false)]).execute();
+        .insert([user.profile!.toJson(withId: false)]).execute(); 
 
     if (profileResponse.error != null) {
       throw Exception(profileResponse.error!.message);

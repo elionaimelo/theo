@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:photo_manager/photo_manager.dart';
 import 'package:theo/components/bottom_button.dart';
 import 'package:theo/components/inputs/file_input.dart';
 import 'package:theo/components/inputs/text_input.dart';
@@ -68,9 +69,10 @@ class _ContactScreenState extends State<ContactScreen> {
             FileInput(
               label: '',
               minFileLength: '0',
+              onFileSelected: (String value) {},
               buttonText: 'Inserir Arquivo',
               buttonIcon: FeatherIcons.file,
-              fileType: EFileType.OTHER,
+              assetType: AssetType.other,
             ),
             Container(
               margin: EdgeInsets.only(top: 36),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
+import 'package:theo/core/constants/story_format_consts.dart';
 import 'package:theo/core/routes.dart';
-import 'package:theo/types/enums.dart';
 import 'package:theo/models/story.dart';
 import 'package:theo/pages/graph_story_screen/graph_story_screen_controller.dart';
 import 'package:theo/pages/media_story_screen/media_story_screen_controller.dart';
@@ -30,37 +30,45 @@ class _StorytellingLearnScreenState extends State<StorytellingLearnScreen> {
   void onTapCard(Story story) {
     var name = story.format!.name;
 
-    if (name == EStoryFormat.VIDEO.getString() ||
-        name == EStoryFormat.PODCAST.getString()) {
-      Navigator.of(context).pushNamed(
-        Routes.mediaStory,
-        arguments: MediaStoryScreenController(
-          story: story,
-          storyStore: GetIt.I.get(),
-        ),
-      );
-    } else if (name == EStoryFormat.INFROGRAPHIC.getString()) {
-      Navigator.of(context).pushNamed(
-        Routes.graphStory,
-        arguments: GraphStoryScreenController(
-          story: story,
-          storyStore: GetIt.I.get(),
-        ),
-      );
-    } else if (name == EStoryFormat.TEXT.getString()) {
-      Navigator.of(context).pushNamed(Routes.textStory,
-          arguments: TextStoryScreenController(
+    switch (name) {
+      case StoryFormatConsts.VIDEO:
+      case StoryFormatConsts.PODCAST:
+        Navigator.of(context).pushNamed(
+          Routes.mediaStory,
+          arguments: MediaStoryScreenController(
             story: story,
             storyStore: GetIt.I.get(),
-          ));
-    } else if (name == EStoryFormat.QUIZ.getString()) {
-      Navigator.of(context).pushNamed(
-        Routes.quizStory,
-        arguments: QuizStoryScreenController(
-          story: story,
-          storyStore: GetIt.I.get(),
-        ),
-      );
+          ),
+        );
+        break;
+
+      case StoryFormatConsts.INFROGRAPHIC:
+        Navigator.of(context).pushNamed(
+          Routes.graphStory,
+          arguments: GraphStoryScreenController(
+            story: story,
+            storyStore: GetIt.I.get(),
+          ),
+        );
+        break;
+
+      case StoryFormatConsts.TEXT:
+        Navigator.of(context).pushNamed(Routes.textStory,
+            arguments: TextStoryScreenController(
+              story: story,
+              storyStore: GetIt.I.get(),
+            ));
+        break;
+
+      case StoryFormatConsts.QUIZ:
+        Navigator.of(context).pushNamed(
+          Routes.quizStory,
+          arguments: QuizStoryScreenController(
+            story: story,
+            storyStore: GetIt.I.get(),
+          ),
+        );
+        break;
     }
   }
 

@@ -59,7 +59,9 @@ class File {
         'story_id': storyId,
       };
 
-  static File? fromJson(Map<String, dynamic> json) {
+  static File? fromJson(Map<String, dynamic>? json) {
+    if (json == null) return null;
+
     try {
       return File(
         id: json['id'],

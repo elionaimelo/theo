@@ -1,16 +1,15 @@
-import 'package:file_picker/file_picker.dart';
 import 'package:mobx/mobx.dart';
-import 'package:photo_manager/photo_manager.dart';
 import 'package:theo/components/error_alert_dialog.dart';
 import 'package:theo/components/inputs/multi_selector_button_input.dart';
 import 'package:theo/models/language.dart';
 import 'package:theo/models/story.dart';
 import 'package:theo/models/story_category.dart';
 import 'package:theo/models/story_format.dart';
+import 'package:theo/states/auth_store.dart';
 import 'package:theo/states/language_store.dart';
 import 'package:theo/states/navigation_store.dart';
+import 'package:theo/states/post_store.dart';
 import 'package:theo/states/story_category_store.dart';
-import 'package:theo/states/story_store.dart';
 import 'package:theo/types/enums.dart';
 part 'new_tell_screen_controller.g.dart';
 
@@ -25,7 +24,8 @@ abstract class _NewTellScreenControllerBase with Store {
     required this.navigationStore,
     required this.languageStore,
     required this.storyCategoryStore,
-    required this.storyStore,
+    required this.postStore,
+    required this.authStore,
   });
 
   final bool withLink;
@@ -35,7 +35,8 @@ abstract class _NewTellScreenControllerBase with Store {
   final NavigationStore navigationStore;
   final LanguageStore languageStore;
   final StoryCategoryStore storyCategoryStore;
-  final StoryStore storyStore;
+  final PostStore postStore;
+  final AuthStore authStore;
 
   @computed
   List<Language> get languages => languageStore.languages;
@@ -198,10 +199,14 @@ abstract class _NewTellScreenControllerBase with Store {
         if (videoFilePath != null) videoFilePath!
       ];
 
-      await storyStore.createUploadStory(story: newStory, filesPath: filesPath);
+      await postStore.createPost(
+        story: newStory,
+        filesPath: filesPath,
+        user: authStore.user!,
+      );
 
       ErrorAlertDialog.showAlertDialog(
-          content: 'Estória publicada com sucesso!');
+          title: 'Sucesso!', content: 'Estória publicada com sucesso!');
 
       eResultStatus = EResultStatus.DONE;
     } catch (err) {

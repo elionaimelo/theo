@@ -31,7 +31,9 @@ class User {
         'profile_id': profileId
       };
 
-  static User? fromJson(Map<String, dynamic> json) {
+  static User? fromJson(Map<String, dynamic>? json) {
+    if (json == null) return null;
+
     try {
       return User(
         id: json['id'],
@@ -45,6 +47,7 @@ class User {
       );
     } catch (err) {
       print('User.fromJson - $err');
+      rethrow;
     }
   }
 }

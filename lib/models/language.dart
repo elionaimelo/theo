@@ -11,7 +11,9 @@ class Language {
         'display_name': displayName,
       };
 
-  static Language? fromJson(Map<String, dynamic> json) {
+  static Language? fromJson(Map<String, dynamic>? json) {
+    if (json == null) return null;
+
     try {
       return Language(
         id: json['id'],
@@ -20,6 +22,7 @@ class Language {
       );
     } catch (err) {
       print('Language.fromJson - $err');
+      rethrow;
     }
   }
 }

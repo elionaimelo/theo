@@ -1,45 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:theo/components/lazy_image.dart';
 import 'package:theo/components/profile_bar.dart';
 import 'package:theo/components/text_icon_button.dart';
 import 'package:theo/components/post_card_actions.dart';
+import 'package:theo/core/constants/story_format_consts.dart';
+import 'package:theo/models/post.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/utils/assets_path.dart';
-import 'package:path/path.dart' as p;
 
 class PostCard extends StatefulWidget {
   const PostCard({
     Key? key,
-    this.avatarImage,
-    required this.profileName,
-    this.textBody,
-    required this.likesCount,
-    required this.commentsCount,
-    required this.title,
-    required this.type,
-    this.format,
-    required this.author,
-    this.adultRestriction = false,
-    required this.cardImage,
+    required this.post,
     this.onTapMore,
   }) : super(key: key);
 
   @override
   _PostCardState createState() => _PostCardState();
 
-  final String? avatarImage;
-  final String profileName;
-  final String? textBody;
-  final int likesCount;
-  final int commentsCount;
-  final String title;
-  final String type;
-  final String? format;
-  final String author;
-  final bool adultRestriction;
-  final String cardImage;
   final Function()? onTapMore;
+  final Post post;
 }
 
 class _PostCardState extends State<PostCard> {
@@ -58,8 +40,8 @@ class _PostCardState extends State<PostCard> {
           Container(
             padding: EdgeInsets.symmetric(horizontal: 18),
             child: PostCardActions(
-              likesCount: widget.likesCount,
-              commentsCount: widget.commentsCount,
+              likesCount: widget.post.likes.length,
+              commentsCount: widget.post.comments.length,
               horizontalPadding: 0,
             ),
           ),
@@ -75,8 +57,8 @@ class _PostCardState extends State<PostCard> {
           children: [
             ProfileBar(
               avatarSize: 30,
-              avatarImage: widget.avatarImage,
-              name: widget.profileName,
+              avatarImage: AssetsPath.avatarJpg,
+              name: widget.post.user?.profile?.name ?? '-',
             ),
             Expanded(
               child: Container(
@@ -101,12 +83,13 @@ class _PostCardState extends State<PostCard> {
         ),
       );
 
-  Widget get _textBody => widget.textBody != null
+  Widget get _textBody => widget.post.story?.description != null
       ? Container(
+          alignment: Alignment.centerLeft,
           margin: EdgeInsets.only(
               bottom: 7, left: _horizontalPadding, right: _horizontalPadding),
           child: Text(
-            widget.textBody!,
+            widget.post.story?.description ?? '-',
           ),
         )
       : Container();
@@ -117,16 +100,8 @@ class _PostCardState extends State<PostCard> {
       fit: BoxFit.cover,
     );
 
-    if (widget.cardImage.contains('.svg')) {
-      image = SvgPicture.asset(
-        widget.cardImage,
-        fit: BoxFit.cover,
-      );
-    } else if (['.jpeg', '.jpg', '.png'].contains(_cardImageFileType)) {
-      image = Image(
-        fit: BoxFit.cover,
-        image: AssetImage(widget.cardImage),
-      );
+    if (widget.post.thumbnailImage != null) {
+      image = LazyImage(file: widget.post.thumbnailImage!);
     }
 
     return Container(
@@ -146,7 +121,7 @@ class _PostCardState extends State<PostCard> {
                 size: 35,
               ),
             ),
-          if (widget.adultRestriction)
+          if (widget.post.story?.adultContent ?? false)
             Positioned(
               bottom: 0,
               right: 0,
@@ -168,21 +143,21 @@ class _PostCardState extends State<PostCard> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    _text,
+                    _typeDescription,
                     style: Theme.of(context).textTheme.bodyText1!.copyWith(
                           color: TheoColors.twenty,
                           fontSize: 14,
                         ),
                   ),
                   Text(
-                    widget.title,
+                    widget.post.story?.title ?? '-',
                     style: Theme.of(context).textTheme.bodyText1!.copyWith(
                           color: TheoColors.seven,
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                         ),
                   ),
-                  Text('Autoria: ' + widget.author),
+                  Text('Autoria: ' + (widget.post.story?.author ?? '-')),
                 ],
               ),
             ),
@@ -226,15 +201,15 @@ class _PostCardState extends State<PostCard> {
         ),
       );
 
-  String get _text => widget.format != null
-      ? widget.type + ' | ' + widget.format!
-      : widget.type;
+  String get _typeDescription =>
+      (widget.post.story?.category?.name ?? '-') +
+      ' | ' +
+      (widget.post.story?.format?.displayName ?? '-');
 
   bool get _hasRightPlayer {
-    switch (widget.format) {
-      case 'Podcast':
-        return true;
-      case 'Música':
+    switch (widget.post.story?.format?.name) {
+      case StoryFormatConsts.PODCAST:
+      case StoryFormatConsts.MUSIC:
         return true;
       default:
         return false;
@@ -242,13 +217,11 @@ class _PostCardState extends State<PostCard> {
   }
 
   bool get _hasCenterPlayer {
-    switch (widget.format) {
-      case 'Vídeo':
+    switch (widget.post.story?.format?.name) {
+      case StoryFormatConsts.VIDEO:
         return true;
       default:
         return false;
     }
   }
-
-  String get _cardImageFileType => p.extension(widget.cardImage);
 }

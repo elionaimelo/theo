@@ -11,7 +11,9 @@ class Role {
         'display_name': displayName,
       };
 
-  static Role? fromJson(Map<String, dynamic> json) {
+  static Role? fromJson(Map<String, dynamic>? json) {
+    if (json == null) return null;
+
     try {
       return Role(
         id: json['id'],
@@ -20,6 +22,7 @@ class Role {
       );
     } catch (err) {
       print('Role.fromJson - $err');
+      rethrow;
     }
   }
 }

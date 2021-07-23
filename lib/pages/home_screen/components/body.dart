@@ -125,7 +125,6 @@ class _BodyState extends State<Body> {
                       .map(
                         (e) => CategoryCard(
                           storyCategory: e,
-                          fileService: widget.controller.fileService,
                         ),
                       )
                       .toList(),

@@ -10,7 +10,7 @@ class Story {
     this.title,
     this.description,
     this.author,
-    this.tags,
+    this.tags = const [],
     this.languageId,
     this.categoryId,
     this.formatId,
@@ -21,7 +21,7 @@ class Story {
     this.language,
     this.category,
     this.format,
-    this.files,
+    this.files = const [],
   });
 
   String? id;
@@ -29,7 +29,7 @@ class Story {
   String? description;
   String? author;
   String? url;
-  List<String>? tags;
+  List<String> tags;
   bool? adultContent;
 
   String? languageId;
@@ -40,12 +40,10 @@ class Story {
   StoryCategory? category;
   StoryFormat? format;
 
-  List<File>? files;
+  List<File> files;
 
-  List<File>? get imageFiles {
-    if (files == null) return null;
-
-    return files!
+  List<File> get imageFiles {
+    return files
         .where((element) => element.type == FileConsts.IMG_TYPE)
         .toList();
   }
@@ -66,7 +64,9 @@ class Story {
         'adult_content': adultContent,
       };
 
-  static Story? fromJson(Map<String, dynamic> json) {
+  static Story? fromJson(Map<String, dynamic>? json) {
+    if (json == null) return null;
+
     try {
       return Story(
         id: json['id'],
@@ -74,14 +74,21 @@ class Story {
         description: json['description'],
         author: json['author'],
         url: json['url'],
-        tags: (json['tags'] as List<dynamic>).map((e) => e.toString()).toList(),
+        tags: (json['tags'] as List<dynamic>?)
+                ?.map((e) => e.toString())
+                .toList() ??
+            [],
         languageId: json['language_id'],
         categoryId: json['category_id'],
         formatId: json['format_id'],
         adultContent: json['adult_content'],
         files: (json['files'] as List<dynamic>?)
-            ?.map((e) => File.fromJson(e)!)
-            .toList(),
+                ?.map((e) => File.fromJson(e)!)
+                .toList() ??
+            [],
+        format: StoryFormat.fromJson(json['format']),
+        category: StoryCategory.fromJson(json['category']),
+        language: Language.fromJson(json['language']),
       );
     } catch (err) {
       print('Story.fromJson - $err');

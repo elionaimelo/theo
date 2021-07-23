@@ -42,7 +42,8 @@ class _TellScreenState extends State<TellScreen> {
         navigationStore: GetIt.I.get(),
         languageStore: GetIt.I.get(),
         storyCategoryStore: GetIt.I.get(),
-        storyStore: GetIt.I.get(),
+        authStore: GetIt.I.get(),
+        postStore: GetIt.I.get(),
       ),
     );
   }

@@ -1,48 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:theo/components/result_status/loading_status.dart';
+import 'package:theo/components/lazy_image.dart';
 import 'package:theo/models/story_category.dart';
-import 'package:theo/services/file_service.dart';
 
 class CategoryCard extends StatefulWidget {
   const CategoryCard({
     Key? key,
     required this.storyCategory,
-    required this.fileService,
   }) : super(key: key);
 
   final StoryCategory storyCategory;
-  final FileService fileService;
 
   @override
   _CategoryCardState createState() => _CategoryCardState();
 }
 
 class _CategoryCardState extends State<CategoryCard> {
-  String _imageUrl = '';
-
-  late Future<void> _lazyImageUrl;
-
-  Future<void> setImageUrl() async {
-    var url = await widget.storyCategory.imageFile!.getUrl(widget.fileService);
-
-    setState(() {
-      _imageUrl = url!;
-    });
-  }
-
-  @override
-  void setState(fn) {
-    if (mounted) {
-      super.setState(fn);
-    }
-  }
-
   @override
   void initState() {
     super.initState();
-
-    _lazyImageUrl = setImageUrl();
   }
 
   @override
@@ -65,7 +41,9 @@ class _CategoryCardState extends State<CategoryCard> {
                     ),
                   ),
                   clipBehavior: Clip.hardEdge,
-                  child: _imageBuilder,
+                  child: LazyImage(
+                    file: widget.storyCategory.imageFile!,
+                  ),
                 ),
                 Positioned.fill(
                   child: TextButton(
@@ -133,18 +111,4 @@ class _CategoryCardState extends State<CategoryCard> {
       ),
     );
   }
-
-  Widget get _imageBuilder => FutureBuilder(
-        future: _lazyImageUrl,
-        builder: (ctx, snap) {
-          if (snap.connectionState == ConnectionState.waiting) {
-            return LoadingStatus();
-          }
-
-          return Image.network(
-            _imageUrl,
-            fit: BoxFit.cover,
-          );
-        },
-      );
 }

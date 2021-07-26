@@ -105,21 +105,12 @@ class _PostCardState extends State<PostCard> {
     }
 
     return Container(
+      width: double.infinity,
+      constraints: BoxConstraints(maxHeight: 300),
       child: Stack(
         children: [
-          image,
-          if (_hasCenterPlayer)
-            Positioned(
-              left: 0,
-              right: 0,
-              bottom: 0,
-              top: 0,
-              child: Icon(
-                FeatherIcons.playCircle,
-                color: TheoColors.secondary,
-                size: 35,
-              ),
-            ),
+          Center(child: image),
+          if (_hasCenterPlayer) _centerPlayer,
           if (widget.post.story?.adultContent ?? false)
             Positioned(
               bottom: 0,
@@ -130,6 +121,21 @@ class _PostCardState extends State<PostCard> {
       ),
     );
   }
+
+  Widget get _centerPlayer => Positioned(
+        left: 0,
+        right: 0,
+        bottom: 0,
+        top: 0,
+        child: InkWell(
+          onTap: widget.onTapMore,
+          child: Icon(
+            FeatherIcons.playCircle,
+            color: TheoColors.secondary,
+            size: 35,
+          ),
+        ),
+      );
 
   Widget get _cardBody => Container(
         color: TheoColors.fiftteen,

@@ -26,7 +26,11 @@ class DiscoverScreen extends StatefulWidget {
   final DiscoverScreenController controller;
 }
 
-class _DiscoverScreenState extends State<DiscoverScreen> {
+class _DiscoverScreenState extends State<DiscoverScreen>
+    with AutomaticKeepAliveClientMixin<DiscoverScreen> {
+  @override
+  bool get wantKeepAlive => true;
+
   void _onSearchTap() {
     Navigator.of(context).pushNamed(Routes.search);
   }
@@ -34,8 +38,6 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   @override
   void initState() {
     super.initState();
-
-    widget.controller.fetchData();
   }
 
   @override

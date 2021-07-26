@@ -36,6 +36,13 @@ class _DiscoverMediaScreenState extends State<DiscoverMediaScreen> {
   }
 
   @override
+  void deactivate() {
+    super.deactivate();
+
+    widget.controller.videoController.pause();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       color: TheoColors.secondary,
@@ -59,7 +66,7 @@ class _DiscoverMediaScreenState extends State<DiscoverMediaScreen> {
           ),
           ProfileBar(
             avatarImage: AssetsPath.avatarJpg,
-            name: '',
+            name: widget.controller.post.user?.profile?.name ?? '-',
           ),
           Container(
             margin: EdgeInsets.only(top: 12, bottom: 12),

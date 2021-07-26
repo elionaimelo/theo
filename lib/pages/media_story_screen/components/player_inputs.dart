@@ -34,7 +34,7 @@ class _PlayerInputsState extends State<PlayerInputs> {
   }
 
   String _passedTime = '0:00';
-  String _timeLeft = '- 0:00';
+  String _textTimeLeft = '- 0:00';
   final double _iconSize = 27;
 
   @override
@@ -47,19 +47,18 @@ class _PlayerInputsState extends State<PlayerInputs> {
   Future<void> _handleVideoChanges() async {
     if (!widget.videoController.value.isPlaying) return;
 
-    var position = await widget.videoController.position;
-    var totalDuration = widget.videoController.value.duration;
+    var position = widget.videoController.value.position;
+    var timeLeft = _formatVideoTime(_getTimeLeft());
+
+    var passedTime = _formatVideoTime(position);
 
     setState(() {
-      _passedTime = _getVideoTime(position);
-
-      if (position != null) {
-        _timeLeft = '- ${_getVideoTime(totalDuration - position)}';
-      }
+      _passedTime = passedTime;
+      _textTimeLeft = timeLeft;
     });
   }
 
-  String _getVideoTime(Duration? time) {
+  String _formatVideoTime(Duration? time) {
     if (time != null) {
       var minutes = time.inSeconds ~/ 60;
 
@@ -83,12 +82,23 @@ class _PlayerInputsState extends State<PlayerInputs> {
     widget.videoController.setLooping(!widget.videoController.value.isLooping);
   }
 
-  void _playButtonTap() {
-    if (widget.videoController.value.isPlaying) {
-      widget.videoController.pause();
+  Future<void> _playButtonTap() async {
+    var timeLeft = _getTimeLeft();
+    if (widget.videoController.value.isPlaying && timeLeft > Duration.zero) {
+      await widget.videoController.pause();
     } else {
-      widget.videoController.play();
+      if (timeLeft <= Duration.zero) {
+        await widget.videoController.seekTo(Duration.zero);
+      }
+      await widget.videoController.play();
     }
+  }
+
+  Duration _getTimeLeft() {
+    var position = widget.videoController.value.position;
+    var totalDuration = widget.videoController.value.duration;
+
+    return totalDuration - position;
   }
 
   @override
@@ -194,7 +204,7 @@ class _PlayerInputsState extends State<PlayerInputs> {
                       ),
                 ),
                 Text(
-                  _timeLeft,
+                  _textTimeLeft,
                   style: Theme.of(context).textTheme.bodyText1!.copyWith(
                         color: widget.textColor,
                       ),

@@ -24,7 +24,10 @@ class Body extends StatefulWidget {
   _BodyState createState() => _BodyState();
 }
 
-class _BodyState extends State<Body> {
+class _BodyState extends State<Body> with AutomaticKeepAliveClientMixin<Body> {
+  @override
+  bool get wantKeepAlive => true;
+
   void _learnButtonTap() {
     GetIt.I
         .get<NavigationStore>()

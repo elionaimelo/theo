@@ -26,7 +26,11 @@ class TellScreen extends StatefulWidget {
   _TellScreenState createState() => _TellScreenState();
 }
 
-class _TellScreenState extends State<TellScreen> {
+class _TellScreenState extends State<TellScreen>
+    with AutomaticKeepAliveClientMixin<TellScreen> {
+  @override
+  bool get wantKeepAlive => true;
+
   void _onMenuItemTap({
     required StoryFormat format,
     bool withLink = false,

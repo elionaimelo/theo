@@ -15,7 +15,9 @@ class StoryCategory {
         'image_file_id': imageId,
       };
 
-  static StoryCategory? fromJson(Map<String, dynamic> json) {
+  static StoryCategory? fromJson(Map<String, dynamic>? json) {
+    if (json == null) return null;
+
     try {
       return StoryCategory(
         id: json['id'],
@@ -25,6 +27,7 @@ class StoryCategory {
       );
     } catch (err) {
       print('StoryCategory.fromJson - $err');
+      rethrow;
     }
   }
 }

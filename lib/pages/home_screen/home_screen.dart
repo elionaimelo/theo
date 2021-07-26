@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
-import 'package:theo/pages/discover_screen/discorver_screen.dart';
+import 'package:theo/pages/discover_screen/discover_screen.dart';
+import 'package:theo/pages/discover_screen/discover_screen_controller.dart';
 
 import 'package:theo/pages/home_screen/components/body.dart';
 import 'package:theo/pages/home_screen/home_screen_controller.dart';
@@ -71,7 +72,11 @@ class _HomeScreenState extends State<HomeScreen>
         controller: widget.controller,
       ),
       LearningScreen(),
-      DiscoverScreen(),
+      DiscoverScreen(
+        controller: DiscoverScreenController(
+          postStore: GetIt.I.get(),
+        ),
+      ),
       TellScreen(
         controller: TellScreenController(
           storyFormatStore: GetIt.I.get(),

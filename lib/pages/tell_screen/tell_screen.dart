@@ -26,7 +26,11 @@ class TellScreen extends StatefulWidget {
   _TellScreenState createState() => _TellScreenState();
 }
 
-class _TellScreenState extends State<TellScreen> {
+class _TellScreenState extends State<TellScreen>
+    with AutomaticKeepAliveClientMixin<TellScreen> {
+  @override
+  bool get wantKeepAlive => true;
+
   void _onMenuItemTap({
     required StoryFormat format,
     bool withLink = false,
@@ -42,7 +46,8 @@ class _TellScreenState extends State<TellScreen> {
         navigationStore: GetIt.I.get(),
         languageStore: GetIt.I.get(),
         storyCategoryStore: GetIt.I.get(),
-        storyStore: GetIt.I.get(),
+        authStore: GetIt.I.get(),
+        postStore: GetIt.I.get(),
       ),
     );
   }

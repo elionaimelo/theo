@@ -15,8 +15,8 @@ class PostCardActions extends StatefulWidget {
   @override
   _PostCardActionsState createState() => _PostCardActionsState();
 
-  final int likesCount;
-  final int commentsCount;
+  final int? likesCount;
+  final int? commentsCount;
   final double horizontalPadding;
 }
 
@@ -29,7 +29,7 @@ class _PostCardActionsState extends State<PostCardActions> {
     _likesCount = widget.likesCount;
   }
 
-  int _likesCount = 0;
+  int? _likesCount = 0;
   bool _likeSelected = false;
 
   void _likeButtonTap() {
@@ -86,11 +86,6 @@ class _PostCardActionsState extends State<PostCardActions> {
       );
 
   Widget get _likeCommentsCount {
-    var textStyle = Theme.of(context).textTheme.bodyText1!.copyWith(
-          color: TheoColors.seven,
-          fontSize: 14,
-        );
-
     return Container(
       padding: EdgeInsets.symmetric(
           horizontal: widget.horizontalPadding, vertical: 5),
@@ -98,20 +93,32 @@ class _PostCardActionsState extends State<PostCardActions> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SvgPicture.asset(AssetsPath.thumbsUpSvg),
-          Text(
-            _likeSelected
-                ? (_likesCount + 1).toString()
-                : _likesCount.toString(),
-            style: textStyle,
-          ),
+          _likeText,
           Expanded(child: Container()),
           Text(
-            widget.commentsCount.toString() + ' comentários',
-            style: textStyle,
+            (widget.commentsCount?.toString() ?? '0') + ' comentários',
+            style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                  color: TheoColors.seven,
+                  fontSize: 14,
+                ),
           ),
         ],
       ),
     );
+  }
+
+  Widget get _likeText {
+    if (widget.likesCount != null) {
+      return Text(
+        _likeSelected ? (_likesCount! + 1).toString() : _likesCount.toString(),
+        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+              color: TheoColors.seven,
+              fontSize: 14,
+            ),
+      );
+    }
+
+    return Container();
   }
 
   Widget _actionButton({

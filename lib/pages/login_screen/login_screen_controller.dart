@@ -36,7 +36,7 @@ abstract class _LoginScreenControllerBase with Store {
 
   @action
   void onEmailTextChanged(String value) {
-    email = value;
+    email = value.split(' ').join('').toLowerCase();
   }
 
   @action

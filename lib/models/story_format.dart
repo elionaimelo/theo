@@ -40,7 +40,9 @@ class StoryFormat {
         'name': name,
       };
 
-  static StoryFormat? fromJson(Map<String, dynamic> json) {
+  static StoryFormat? fromJson(Map<String, dynamic>? json) {
+    if (json == null) return null;
+
     try {
       return StoryFormat(
         id: json['id'],
@@ -48,6 +50,7 @@ class StoryFormat {
       );
     } catch (err) {
       print('StoryFormat.fromJson - $err');
+      rethrow;
     }
   }
 }

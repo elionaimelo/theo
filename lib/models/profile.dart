@@ -25,7 +25,9 @@ class Profile {
         'language_id': languageId,
       };
 
-  static Profile? fromJson(Map<String, dynamic> json) {
+  static Profile? fromJson(Map<String, dynamic>? json) {
+    if (json == null) return null;
+
     try {
       return Profile(
         id: json['id'],
@@ -36,6 +38,7 @@ class Profile {
       );
     } catch (err) {
       print('Profile.fromJson - $err');
+      rethrow;
     }
   }
 }

@@ -1,11 +1,4 @@
-import 'dart:io' as io;
-import 'dart:typed_data';
-
-import 'package:photo_manager/photo_manager.dart';
-import 'package:storage_client/src/fetch.dart';
 import 'package:supabase/supabase.dart' as sup;
-import 'package:theo/core/dot_env.dart';
-import 'package:theo/models/file.dart';
 import 'package:theo/models/story.dart';
 
 import 'api_client.dart';
@@ -14,8 +7,6 @@ class StoryService {
   StoryService(this.client);
 
   final APIClient client;
-
-  Future<sup.PostgrestResponse?> fetchStories() async {}
 
   Future<sup.PostgrestResponse?> createStory(
       {required Story story, required List<String> filesPath}) async {

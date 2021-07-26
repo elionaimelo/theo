@@ -1,7 +1,5 @@
 import 'package:mobx/mobx.dart';
-import 'package:theo/components/error_alert_dialog.dart';
 import 'package:theo/models/story_format.dart';
-import 'package:theo/states/navigation_store.dart';
 import 'package:theo/states/story_format_store.dart';
 import 'package:theo/types/enums.dart';
 part 'tell_screen_controller.g.dart';

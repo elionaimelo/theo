@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:storage_client/src/fetch.dart';
 import 'package:supabase/supabase.dart' as sup;
+import 'package:theo/core/constants/file_consts.dart';
 import 'package:theo/core/dot_env.dart';
 import 'package:theo/models/file.dart';
 
@@ -66,7 +67,10 @@ class FileService {
     return fileResponse;
   }
 
-  Future<String?> getFileSignedUrl(File file, {int secondsActive = 60}) async {
+  Future<String?> getFileSignedUrl(
+    File file, {
+    int secondsActive = FileConsts.ONE_DAY_IN_SECONDS,
+  }) async {
     var response = await client.supabase.storage
         .from(DotEnv.SUPABASE_BUCKET_NAME!)
         .createSignedUrl(file.bucketPath!, secondsActive);

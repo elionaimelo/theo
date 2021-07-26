@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:theo/models/story_category.dart';
 import 'package:theo/models/theo_app_bar_settings.dart';
-import 'package:theo/services/file_service.dart';
 import 'package:theo/states/navigation_store.dart';
 import 'package:theo/states/story_category_store.dart';
 import 'package:theo/types/enums.dart';
@@ -19,8 +18,6 @@ abstract class _HomeScreenControllerBase with Store {
 
   final NavigationStore navigationStore;
   final StoryCategoryStore storyCategoryStore;
-
-  FileService get fileService => storyCategoryStore.client.fileService;
 
   @observable
   EResultStatus eResultStatus = EResultStatus.NONE;

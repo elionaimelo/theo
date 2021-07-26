@@ -6,12 +6,18 @@ import 'package:theo/services/api_client.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class LazyImage extends StatefulWidget {
-  const LazyImage({Key? key, required this.file}) : super(key: key);
+  const LazyImage({
+    Key? key,
+    required this.file,
+    this.defaultImage,
+  }) : super(key: key);
 
   @override
   _LazyImageState createState() => _LazyImageState();
 
-  final File file;
+  final File? file;
+
+  final AssetImage? defaultImage;
 }
 
 class _LazyImageState extends State<LazyImage> {
@@ -25,20 +31,24 @@ class _LazyImageState extends State<LazyImage> {
   }
 
   Future<String> getImageUrl() async {
-    var url = await widget.file.getUrl(GetIt.I.get<APIClient>().fileService);
+    var url = await widget.file?.getUrl(GetIt.I.get<APIClient>().fileService);
 
     return url ?? 'UNKNOW_IMAGE_URL';
   }
 
   @override
   Widget build(BuildContext context) {
+    if (widget.file == null) {
+      return _errorImage;
+    }
+
     return FutureBuilder(
       future: _imageUrlPromisse,
       builder: (ctx, snap) {
         if (snap.connectionState == ConnectionState.waiting) {
           return LoadingStatus();
         } else if (snap.hasError) {
-          return Icon(Icons.error);
+          return _errorImage;
         }
 
         var url = snap.data.toString();
@@ -46,6 +56,16 @@ class _LazyImageState extends State<LazyImage> {
         return _cachedNetworkImage(url);
       },
     );
+  }
+
+  Widget get _errorImage {
+    if (widget.defaultImage != null) {
+      return Image(
+        image: widget.defaultImage!,
+      );
+    }
+
+    return Icon(Icons.error);
   }
 
   Widget _cachedNetworkImage(String imageUrl) => CachedNetworkImage(

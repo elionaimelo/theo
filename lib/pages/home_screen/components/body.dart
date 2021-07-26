@@ -48,7 +48,10 @@ class _BodyState extends State<Body> {
         return LoadingStatus();
       } else if (widget.controller.eResultStatus ==
           EResultStatus.REQUEST_ERROR) {
-        return ErrorAlertDialog(content: widget.controller.errorMessage!);
+        return ErrorAlertDialog(
+          content: widget.controller.errorMessage!,
+          withButton: false,
+        );
       }
 
       return _content;

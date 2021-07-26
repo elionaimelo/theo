@@ -1,8 +1,10 @@
+import 'package:theo/core/constants/file_consts.dart';
 import 'package:theo/models/file.dart';
 import 'package:theo/models/post_commnet.dart';
 import 'package:theo/models/post_likes.dart';
 import 'package:theo/models/story.dart';
 import 'package:theo/models/user.dart';
+import 'package:theo/utils/json_utils.dart';
 
 class Post {
   Post({
@@ -13,6 +15,8 @@ class Post {
     this.story,
     this.comments = const [],
     this.likes = const [],
+    this.commentsCount,
+    this.likesCount,
   });
 
   String? id;
@@ -25,12 +29,26 @@ class Post {
   List<PostComment> comments;
   List<PostLike> likes;
 
-  File? get thumbnailImage {
-    if (story == null) return null;
+  int? likesCount;
+  int? commentsCount;
 
-    if (story!.imageFiles.isEmpty) return null;
+  File? get thumbnailImage {
+    if (story == null || story?.imageFiles.isEmpty == true) return null;
 
     return story!.imageFiles.first;
+  }
+
+  File? get mediaFile {
+    if (story == null || story?.files.isEmpty == true) return null;
+
+    try {
+      return story!.files.firstWhere(
+        (element) => FileConsts.MEDIA_EXTS.contains(element.ext),
+      );
+    } catch (err) {
+      print('Post.mediaFile - $err');
+      rethrow;
+    }
   }
 
   Map<String, dynamic> toJson({bool withId = true}) => {
@@ -39,7 +57,9 @@ class Post {
         'story_id': storyId,
       };
 
-  static Post? fromJson(Map<String, dynamic> json) {
+  static Post? fromJson(Map<String, dynamic>? json) {
+    if (json == null) return null;
+
     try {
       return Post(
         id: json['id'],
@@ -55,6 +75,8 @@ class Post {
                 ?.map((e) => PostLike.fromJson(e)!)
                 .toList() ??
             [],
+        commentsCount: JsonUtils.getCountInput(json['comments_count']),
+        likesCount: JsonUtils.getCountInput(json['likes_count']),
       );
     } catch (err) {
       print('Post.fromJson - $err');

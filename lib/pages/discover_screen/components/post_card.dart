@@ -105,7 +105,6 @@ class _PostCardState extends State<PostCard> {
     }
 
     return Container(
-      color: Colors.red,
       child: Stack(
         children: [
           image,

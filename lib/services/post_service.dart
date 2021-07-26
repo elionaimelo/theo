@@ -23,6 +23,12 @@ class PostService {
       category: category_id (*),
       format: format_id (*),
       files (*)
+    ),
+    likes_count: post_likes (
+      count
+    ),
+    comments_count: post_comments (
+      count
     )
     ''').execute();
 

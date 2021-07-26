@@ -38,24 +38,36 @@ class _DiscoverScreenState extends State<DiscoverScreen>
   @override
   void initState() {
     super.initState();
+
+    widget.controller.fetchData();
+  }
+
+  Future<void> onRefresh() {
+    widget.controller.fetchData();
+    return Future.value();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Observer(
-      builder: (_) {
-        if (widget.controller.eResultStatus == EResultStatus.LOADING) {
-          return LoadingStatus();
-        } else if (widget.controller.eResultStatus ==
-            EResultStatus.REQUEST_ERROR) {
-          return ErrorAlertDialog(
-            content: widget.controller.errorMessage,
-            withButton: false,
-          );
-        }
+    super.build(context);
 
-        return _content;
-      },
+    return RefreshIndicator(
+      onRefresh: onRefresh,
+      child: Observer(
+        builder: (_) {
+          if (widget.controller.eResultStatus == EResultStatus.LOADING) {
+            return Center(child: LoadingStatus());
+          } else if (widget.controller.eResultStatus ==
+              EResultStatus.REQUEST_ERROR) {
+            return ErrorAlertDialog(
+              content: widget.controller.errorMessage,
+              withButton: false,
+            );
+          }
+
+          return _content;
+        },
+      ),
     );
   }
 

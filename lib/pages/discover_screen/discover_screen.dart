@@ -8,6 +8,7 @@ import 'package:theo/components/title_text.dart';
 import 'package:theo/core/constants/story_format_consts.dart';
 import 'package:theo/core/routes.dart';
 import 'package:theo/models/post.dart';
+import 'package:theo/pages/discover_image_screen/discover_image_screen.dart';
 import 'package:theo/pages/discover_screen/components/post_card.dart';
 import 'package:theo/pages/discover_screen/discover_screen_controller.dart';
 import 'package:theo/pages/discover_sound_screen/discover_media_screen.dart';
@@ -114,9 +115,17 @@ class _DiscoverScreenState extends State<DiscoverScreen>
 
     switch (format!.name) {
       case StoryFormatConsts.VIDEO:
+      case StoryFormatConsts.MUSIC:
+      case StoryFormatConsts.PODCAST:
         Navigator.of(context).pushNamed(
           Routes.discoverMedia,
           arguments: DiscoverMediaScreenController(post: p),
+        );
+        break;
+      case StoryFormatConsts.IMAGE:
+        Navigator.of(context).pushNamed(
+          Routes.discoverImage,
+          arguments: DiscoverImageScreen(),
         );
         break;
       default:

@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:theo/components/adult_content_tag.dart';
+import 'package:theo/components/lazy_image.dart';
 import 'package:theo/components/post_card_actions.dart';
 import 'package:theo/components/profile_bar.dart';
 import 'package:theo/components/story_app_bar.dart';
+import 'package:theo/pages/discover_image_screen/discover_image_screen_controller.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/styles/metrics.dart';
 import 'package:theo/utils/assets_path.dart';
 
 class DiscoverImageScreen extends StatefulWidget {
-  const DiscoverImageScreen({Key? key}) : super(key: key);
+  const DiscoverImageScreen({Key? key, required this.controller})
+      : super(key: key);
 
   @override
   _DiscoverImageScreenState createState() => _DiscoverImageScreenState();
+  final DiscoverImageScreenController controller;
 }
 
 class _DiscoverImageScreenState extends State<DiscoverImageScreen> {
@@ -29,7 +33,7 @@ class _DiscoverImageScreenState extends State<DiscoverImageScreen> {
           ),
           ProfileBar(
             avatarImage: AssetsPath.avatarJpg,
-            name: 'Nome do usuário',
+            name: widget.controller.post.user?.profile?.name ?? "-",
           ),
           Container(
             margin: EdgeInsets.only(top: 12, bottom: 12),
@@ -40,20 +44,21 @@ class _DiscoverImageScreenState extends State<DiscoverImageScreen> {
             margin: EdgeInsets.only(top: 45),
           ),
           Expanded(
-            child: FadeInImage.assetNetwork(
-              placeholder: AssetsPath.spinnerGif,
-              image:
-                  'https://www.lookandlearn.com/history-images/preview/XR/XR442/XR442726_Punch-cartoon-Victorian-womens-fashion-the-wide-hoop-skirt.jpg',
+              child: Center(
+            child: LazyImage(
+              file: widget.controller.post.thumbnailImage,
             ),
-          ),
-          PostCardActions(likesCount: 16, commentsCount: 4),
+          )),
+          PostCardActions(
+              likesCount: widget.controller.post.likesCount,
+              commentsCount: widget.controller.post.commentsCount),
         ],
       ),
     );
   }
 
   Widget get _author => Text(
-        'Autoria: Tarcila Cabral',
+        'Autoria:' + (widget.controller.post.story?.author ?? '-'),
         style: Theme.of(context).textTheme.bodyText1!.copyWith(
               fontSize: 14,
               color: TheoColors.seven,

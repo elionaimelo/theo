@@ -9,6 +9,7 @@ import 'package:theo/core/constants/story_format_consts.dart';
 import 'package:theo/core/routes.dart';
 import 'package:theo/models/post.dart';
 import 'package:theo/pages/discover_image_screen/discover_image_screen.dart';
+import 'package:theo/pages/discover_image_screen/discover_image_screen_controller.dart';
 import 'package:theo/pages/discover_screen/components/post_card.dart';
 import 'package:theo/pages/discover_screen/discover_screen_controller.dart';
 import 'package:theo/pages/discover_sound_screen/discover_media_screen.dart';
@@ -125,7 +126,9 @@ class _DiscoverScreenState extends State<DiscoverScreen>
       case StoryFormatConsts.IMAGE:
         Navigator.of(context).pushNamed(
           Routes.discoverImage,
-          arguments: DiscoverImageScreen(),
+          arguments: DiscoverImageScreenController(
+            post: p,
+          ),
         );
         break;
       default:

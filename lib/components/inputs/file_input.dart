@@ -23,13 +23,15 @@ class FileInput extends StatefulWidget {
     required this.buttonText,
     required this.buttonIcon,
     required this.assetType,
+    this.multipleFiles = false,
   });
 
   final String label;
   final String minFileLength;
   final String buttonText;
   final IconData buttonIcon;
-  final Function(String filePath) onFileSelected;
+  final Function(List<String> filePaths) onFileSelected;
+  final bool multipleFiles;
 
   final AssetType assetType;
 
@@ -38,11 +40,11 @@ class FileInput extends StatefulWidget {
 }
 
 class _FileInputState extends State<FileInput> {
-  SelectedFile? file;
+  List<SelectedFile> files = [];
 
-  void _onTapRemoveFile() {
+  void _onTapRemoveFile(SelectedFile f) {
     setState(() {
-      file = null;
+      files = files.where((element) => element.title != f.title).toList();
     });
   }
 
@@ -69,15 +71,23 @@ class _FileInputState extends State<FileInput> {
         );
       }
 
-      setState(() {
-        file = selectedFile;
-      });
+      if (widget.multipleFiles) {
+        setState(() {
+          files.add(selectedFile);
+        });
+      } else {
+        setState(() {
+          files = [selectedFile];
+        });
+      }
 
-      widget.onFileSelected(file!.path);
+      widget.onFileSelected(filesPath);
     } catch (err) {
       ErrorAlertDialog.showAlertDialog(content: err.toString());
     }
   }
+
+  List<String> get filesPath => files.map((f) => f.path).toList();
 
   Future<void> _onTap() async {
     if (widget.assetType == AssetType.video ||
@@ -96,15 +106,20 @@ class _FileInputState extends State<FileInput> {
     if (result != null && result.count > 0) {
       var resultFile = result.files.single;
 
-      setState(() {
-        file = SelectedFile(
-          title: resultFile.name!,
-          path: resultFile.path!,
-          size: Formatter.formatBytes(resultFile.size!, 0),
-        );
-      });
+      var selectedFile = SelectedFile(
+        title: resultFile.name!,
+        path: resultFile.path!,
+        size: Formatter.formatBytes(resultFile.size!, 0),
+      );
+      if (widget.multipleFiles) {
+        setState(() {
+          files.add(selectedFile);
+        });
+      } else {
+        files = [selectedFile];
+      }
 
-      widget.onFileSelected(file!.path);
+      widget.onFileSelected(filesPath);
     }
   }
 
@@ -117,13 +132,17 @@ class _FileInputState extends State<FileInput> {
           _label,
           _input,
           _minLengthText,
-          if (file != null) _selectedFile
+          if (files.isNotEmpty)
+            ...files.map(
+              (e) => _selectedFile(e),
+            ),
         ],
       ),
     );
   }
 
-  Widget get _selectedFile => Container(
+  Widget _selectedFile(SelectedFile sf) => Container(
+        margin: EdgeInsets.only(bottom: 5),
         decoration: BoxDecoration(
           border: Border.all(color: TheoColors.primary, width: 1),
           borderRadius: BorderRadius.all(
@@ -152,13 +171,13 @@ class _FileInputState extends State<FileInput> {
                         .textTheme
                         .bodyText1!
                         .copyWith(fontSize: 14),
-                    text: file!.title.toString() + ' ',
+                    text: sf.title.toString() + ' ',
                   ),
                 ),
               ),
-              if (file!.size != null)
+              if (sf.size != null)
                 Text(
-                  '(${file!.size})',
+                  '(${sf.size})',
                   style: Theme.of(context)
                       .textTheme
                       .bodyText1!
@@ -168,7 +187,7 @@ class _FileInputState extends State<FileInput> {
                 alignment: Alignment.centerRight,
                 margin: EdgeInsets.only(left: 10),
                 child: InkWell(
-                  onTap: _onTapRemoveFile,
+                  onTap: () => _onTapRemoveFile(sf),
                   child: Container(
                     margin: EdgeInsets.all(5),
                     child: Text(

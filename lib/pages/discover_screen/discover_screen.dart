@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get_it/get_it.dart';
 import 'package:theo/components/bottom_button.dart';
 import 'package:theo/components/error_alert_dialog.dart';
 import 'package:theo/components/result_status/loading_status.dart';
@@ -8,6 +9,7 @@ import 'package:theo/components/title_text.dart';
 import 'package:theo/core/constants/story_format_consts.dart';
 import 'package:theo/core/routes.dart';
 import 'package:theo/models/post.dart';
+import 'package:theo/pages/discover_game_screen/discover_game_screen_controller.dart';
 import 'package:theo/pages/discover_image_screen/discover_image_screen.dart';
 import 'package:theo/pages/discover_image_screen/discover_image_screen_controller.dart';
 import 'package:theo/pages/discover_screen/components/post_card.dart';
@@ -127,6 +129,15 @@ class _DiscoverScreenState extends State<DiscoverScreen>
         Navigator.of(context).pushNamed(
           Routes.discoverImage,
           arguments: DiscoverImageScreenController(
+            post: p,
+          ),
+        );
+        break;
+      case StoryFormatConsts.GAME:
+        Navigator.of(context).pushNamed(
+          Routes.discoverGame,
+          arguments: DiscoverGameScreenController(
+            navigationStore: GetIt.I.get(),
             post: p,
           ),
         );

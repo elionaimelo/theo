@@ -1,27 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:theo/components/close_top_bar_button.dart';
+import 'package:theo/components/lazy_image.dart';
+import 'package:theo/models/file.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/styles/metrics.dart';
 
 class BottomSheetImageCarousel extends StatefulWidget {
-  const BottomSheetImageCarousel({Key? key, required this.imageAssets})
+  const BottomSheetImageCarousel({Key? key, required this.imageFiles})
       : super(key: key);
 
   @override
   _BottomSheetImageCarouselState createState() =>
       _BottomSheetImageCarouselState();
 
-  final List<String> imageAssets;
+  final List<File> imageFiles;
 
   static Future<void> showImageCarouselBottomSheet(
     BuildContext context, {
-    required List<String> imageAssets,
+    required List<File> imageFiles,
   }) async {
     return showModalBottomSheet<void>(
       context: context,
       builder: (BuildContext context) {
         return BottomSheetImageCarousel(
-          imageAssets: imageAssets,
+          imageFiles: imageFiles,
         );
       },
       isScrollControlled: true,
@@ -58,27 +60,30 @@ class _BottomSheetImageCarouselState extends State<BottomSheetImageCarousel> {
             top: 50,
             bottom: 100,
           ),
-          child: ListView(
+          child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
-            children: [
-              ...widget.imageAssets.map(
-                (e) => _imageItem(e),
-              ),
-            ],
+            child: Row(
+              children: widget.imageFiles
+                  .map(
+                    (e) => _imageItem(e),
+                  )
+                  .toList(),
+            ),
           ),
         ),
       );
 
   Widget get _button => CloseTopBarButton(foregroundColor: TheoColors.primary);
 
-  Widget _imageItem(String asset) => Container(
+  Widget _imageItem(File image) => Container(
         margin: EdgeInsets.only(right: 14),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
         ),
-        child: Image(
-          image: AssetImage(asset),
-          fit: BoxFit.cover,
+        child: Center(
+          child: LazyImage(
+            file: image,
+          ),
         ),
       );
 }

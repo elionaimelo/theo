@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:theo/components/lazy_image.dart';
+import 'package:theo/models/file.dart';
 import 'package:theo/pages/discover_game_screen/components/bottom_sheet_image_carousel.dart';
 import 'package:theo/styles/colors.dart';
 
 class ImageCarrossel extends StatefulWidget {
   const ImageCarrossel({
     Key? key,
-    required this.imageAssets,
+    required this.imageFiles,
     required this.title,
   }) : super(key: key);
 
-  final List<String> imageAssets;
+  final List<File> imageFiles;
   final String title;
 
   @override
@@ -21,7 +23,7 @@ class _ImageCarrosselState extends State<ImageCarrossel> {
   void _onTapImage() {
     BottomSheetImageCarousel.showImageCarouselBottomSheet(
       context,
-      imageAssets: widget.imageAssets,
+      imageFiles: widget.imageFiles,
     );
   }
 
@@ -64,11 +66,11 @@ class _ImageCarrosselState extends State<ImageCarrossel> {
         height: 140,
         child: ListView(
           scrollDirection: Axis.horizontal,
-          children: [...widget.imageAssets.map((e) => _imageItem(asset: e))],
+          children: [...widget.imageFiles.map((e) => _imageItem(image: e))],
         ),
       );
 
-  Widget _imageItem({required String asset}) => Container(
+  Widget _imageItem({required File image}) => Container(
         margin: EdgeInsets.only(right: 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
@@ -77,9 +79,8 @@ class _ImageCarrosselState extends State<ImageCarrossel> {
         width: 260,
         child: InkWell(
           onTap: _onTapImage,
-          child: Image(
-            image: AssetImage(asset),
-            fit: BoxFit.cover,
+          child: LazyImage(
+            file: image,
           ),
         ),
       );

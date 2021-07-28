@@ -69,7 +69,7 @@ class _ContactScreenState extends State<ContactScreen> {
             FileInput(
               label: '',
               minFileLength: '0',
-              onFileSelected: (String value) {},
+              onFileSelected: (List<String> value) {},
               buttonText: 'Inserir Arquivo',
               buttonIcon: FeatherIcons.file,
               assetType: AssetType.other,

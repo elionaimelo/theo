@@ -9,6 +9,7 @@ import 'package:theo/pages/contact_screen/contact_screen.dart';
 import 'package:theo/pages/discover_game_screen/discover_game_screen.dart';
 import 'package:theo/pages/discover_game_screen/discover_game_screen_controller.dart';
 import 'package:theo/pages/discover_image_screen/discover_image_screen.dart';
+import 'package:theo/pages/discover_image_screen/discover_image_screen_controller.dart';
 import 'package:theo/pages/discover_sound_screen/discover_media_screen.dart';
 import 'package:theo/pages/discover_sound_screen/discover_media_screen_controller.dart';
 import 'package:theo/pages/graph_story_screen/graph_story_screen.dart';
@@ -185,7 +186,9 @@ class _TheoNavigatorState extends State<TheoNavigator> {
               );
               break;
             case Routes.discoverImage:
-              page = DiscoverImageScreen();
+              page = DiscoverImageScreen(
+                controller: settings.arguments as DiscoverImageScreenController,
+              );
               break;
             case Routes.discoverMedia:
               page = DiscoverMediaScreen(

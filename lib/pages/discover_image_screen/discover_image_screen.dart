@@ -33,7 +33,7 @@ class _DiscoverImageScreenState extends State<DiscoverImageScreen> {
           ),
           ProfileBar(
             avatarImage: AssetsPath.avatarJpg,
-            name: widget.controller.post.user?.profile?.name ?? "-",
+            name: widget.controller.post.user?.profile?.name ?? '-',
           ),
           Container(
             margin: EdgeInsets.only(top: 12, bottom: 12),
@@ -58,7 +58,7 @@ class _DiscoverImageScreenState extends State<DiscoverImageScreen> {
   }
 
   Widget get _author => Text(
-        'Autoria:' + (widget.controller.post.story?.author ?? '-'),
+        'Autoria: ' + (widget.controller.post.story?.author ?? '-'),
         style: Theme.of(context).textTheme.bodyText1!.copyWith(
               fontSize: 14,
               color: TheoColors.seven,

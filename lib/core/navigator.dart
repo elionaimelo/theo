@@ -155,7 +155,9 @@ class _TheoNavigatorState extends State<TheoNavigator> {
               page = ProfileScreen();
               break;
             case Routes.discoverGame:
-              page = _discoverScreen;
+              page = DiscoverGameScreen(
+                controller: settings.arguments as DiscoverGameScreenController,
+              );
               break;
             case Routes.mediaStory:
               page = MediaStoryScreen(
@@ -230,12 +232,6 @@ class _TheoNavigatorState extends State<TheoNavigator> {
   Widget get _storytellingScreen => StorytellingLearnScreen(
         controller: StorytellingLearnScreenController(
           storyStore: GetIt.I.get(),
-        ),
-      );
-
-  Widget get _discoverScreen => DiscoverGameScreen(
-        controller: DiscoverGameScreenController(
-          navigationStore: widget.navigationStore,
         ),
       );
 

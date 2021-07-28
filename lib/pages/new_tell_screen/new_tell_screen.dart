@@ -62,6 +62,7 @@ class _NewTellScreenState extends State<NewTellScreen> {
             child: Form(
                 child: SingleChildScrollView(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: _inputs,
               ),
             )),
@@ -129,7 +130,8 @@ class _NewTellScreenState extends State<NewTellScreen> {
             child: FileInput(
               label: 'Arquivo',
               minFileLength: '0',
-              onFileSelected: widget.controller.onArchivePathSelected,
+              onFileSelected: (List<String> paths) =>
+                  widget.controller.onArchivePathSelected(paths.first),
               buttonIcon: FeatherIcons.file,
               buttonText: 'Inserir Arquivo',
               assetType: AssetType.other,
@@ -141,21 +143,15 @@ class _NewTellScreenState extends State<NewTellScreen> {
             child: FileInput(
               label: 'Arquivo de Vídeo',
               minFileLength: '0',
-              onFileSelected: widget.controller.onVideoFilePathSelected,
+              onFileSelected: (List<String> paths) =>
+                  widget.controller.onVideoFilePathSelected(paths.first),
               buttonIcon: FeatherIcons.video,
               buttonText: 'Inserir Vídeo',
               assetType: AssetType.video,
             ),
           ),
         _separator,
-        FileInput(
-          label: 'Imagem de Capa (Opcional)',
-          minFileLength: '0',
-          onFileSelected: widget.controller.onImagesPathsSelected,
-          buttonIcon: FeatherIcons.image,
-          buttonText: 'Inserir Imagem',
-          assetType: AssetType.image,
-        ),
+        _imagesInput,
         _separator,
         MultiSelectorButtonInput(
           label: 'Conteúdo restrito a maiores de 18 anos?',
@@ -233,4 +229,33 @@ class _NewTellScreenState extends State<NewTellScreen> {
           ),
         )
       ];
+
+  Widget get _imagesInput => _multiplesImages
+      ? FileInput(
+          label: 'Disponibilize algumas imagens',
+          minFileLength: '0',
+          onFileSelected: widget.controller.onImagesPathsSelected,
+          buttonIcon: FeatherIcons.image,
+          buttonText: 'Inserir Imagem',
+          assetType: AssetType.image,
+          multipleFiles: _multiplesImages,
+        )
+      : FileInput(
+          label: 'Imagem de Capa (Opcional)',
+          minFileLength: '0',
+          onFileSelected: widget.controller.onImagesPathsSelected,
+          buttonIcon: FeatherIcons.image,
+          buttonText: 'Inserir Imagem',
+          assetType: AssetType.image,
+          multipleFiles: _multiplesImages,
+        );
+
+  bool get _multiplesImages {
+    switch (widget.controller.format.name) {
+      case StoryFormatConsts.GAME:
+        return true;
+      default:
+        return false;
+    }
+  }
 }

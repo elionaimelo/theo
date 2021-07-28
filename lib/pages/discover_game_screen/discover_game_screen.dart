@@ -5,6 +5,7 @@ import 'package:theo/components/post_card_actions.dart';
 import 'package:theo/components/profile_bar.dart';
 import 'package:theo/components/story_app_bar.dart';
 import 'package:theo/components/text_icon_button.dart';
+import 'package:theo/core/constants/language_consts.dart';
 import 'package:theo/pages/discover_game_screen/components/expandable_text.dart';
 import 'package:theo/pages/discover_game_screen/components/image_carousel.dart';
 import 'package:theo/pages/discover_game_screen/discover_game_screen_controller.dart';
@@ -47,10 +48,10 @@ class _DiscoverGameScreenState extends State<DiscoverGameScreen> {
                   children: [
                     _bottomContent,
                     ExpandableText(
-                      text:
-                          'At vero eos et accusam et justo duo Dolores et ea rebum. Stet clita kasd gubergren, no sea. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy. At vero eos et accusam et justo duo Dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy.',
-                      author: 'Beutrano Cunha',
-                      adultContent: false,
+                      text: widget.controller.post.story?.description ?? '-',
+                      author: widget.controller.post.story?.author ?? '-',
+                      adultContent:
+                          widget.controller.post.story?.adultContent ?? false,
                     ),
                   ],
                 ),
@@ -75,7 +76,7 @@ class _DiscoverGameScreenState extends State<DiscoverGameScreen> {
             ),
             ProfileBar(
               avatarImage: AssetsPath.avatarJpg,
-              name: 'Kaline Sampaio',
+              name: widget.controller.post.user?.profile?.name ?? '-',
             ),
             Container(
               margin: EdgeInsets.only(top: 15),
@@ -90,7 +91,7 @@ class _DiscoverGameScreenState extends State<DiscoverGameScreen> {
       );
 
   Widget get _title => Text(
-        'Nome do jogo lorem ipsum dolor',
+        widget.controller.post.story?.title ?? '-',
         style: Theme.of(context).textTheme.bodyText1!.copyWith(
               fontSize: 16,
               fontWeight: FontWeight.w700,
@@ -100,13 +101,13 @@ class _DiscoverGameScreenState extends State<DiscoverGameScreen> {
   Widget get _portugueseTag => TextIconButton(
         innerPadding: EdgeInsets.zero,
         foregroundColor: TheoColors.secondary,
-        text: 'Português',
+        text: widget.controller.post.story?.language?.displayName ?? '-',
         onTap: () {},
         direction: TextDirection.ltr,
         icon: Container(
           margin: EdgeInsets.only(right: 10),
           child: SvgPicture.asset(
-            AssetsPath.brSvg,
+            _assetIcon,
             height: 28,
           ),
         ),
@@ -116,13 +117,26 @@ class _DiscoverGameScreenState extends State<DiscoverGameScreen> {
             ),
       );
 
+  String get _assetIcon {
+    switch (widget.controller.post.story?.language?.name) {
+      case LanguageConsts.PT_BR:
+        return AssetsPath.brSvg;
+      case LanguageConsts.ES_ES:
+        return AssetsPath.espSvg;
+      case LanguageConsts.EN_US:
+        return AssetsPath.enSvg;
+      default:
+        return AssetsPath.brSvg;
+    }
+  }
+
   Widget get _bottomContent => Container(
         padding: TheoMetrics.paddingScreen.copyWith(top: 0, bottom: 0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             ImageCarrossel(
-              imageAssets: [AssetsPath.criancaPng, AssetsPath.hqPng],
+              imageFiles: widget.controller.post.story?.imageFiles ?? [],
               title: 'Clique na imagem para ampliar',
             ),
             Container(
@@ -133,10 +147,12 @@ class _DiscoverGameScreenState extends State<DiscoverGameScreen> {
               backgroundColor: Colors.transparent,
               primaryColor: TheoColors.primary,
               borderColor: TheoColors.primary,
+              onPressed: () => widget.controller
+                  .openGameButtonTap(widget.controller.post.story?.url ?? '-'),
             ),
             PostCardActions(
-              likesCount: 16,
-              commentsCount: 4,
+              likesCount: widget.controller.post.likesCount,
+              commentsCount: widget.controller.post.commentsCount,
               horizontalPadding: 0,
             ),
           ],

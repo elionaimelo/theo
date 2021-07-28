@@ -141,8 +141,8 @@ abstract class _NewTellScreenControllerBase with Store {
   }
 
   @action
-  void onImagesPathsSelected(String value) {
-    imagesPaths = [value];
+  void onImagesPathsSelected(List<String> paths) {
+    imagesPaths = paths;
   }
 
   @action
@@ -180,7 +180,7 @@ abstract class _NewTellScreenControllerBase with Store {
         adultContent: adultContent,
         author: author,
         description: description,
-        tags: [tag1!, tag2!, tag3!],
+        tags: [tag1 ?? '', tag2 ?? '', tag3 ?? ''],
         title: title,
         url: url,
 

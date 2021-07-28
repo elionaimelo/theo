@@ -28,9 +28,9 @@ class PostService {
       count
     ),
     comments_count: post_comments (
-      count
+       count
     )
-    ''').execute();
+    ''').order('created_at', ascending: false).execute();
 
     if (response.error != null) {
       throw Exception(response.error!.message);

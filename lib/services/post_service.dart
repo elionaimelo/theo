@@ -1,4 +1,5 @@
 import 'package:supabase/supabase.dart' as sup;
+import 'package:theo/core/constants/posts_consts.dart';
 import 'package:theo/models/post.dart';
 import 'package:theo/models/story.dart';
 import 'package:theo/models/user.dart';
@@ -10,8 +11,18 @@ class PostService {
 
   final APIClient client;
 
-  Future<sup.PostgrestResponse?> fetchPosts() async {
-    var response = await client.supabase.from('posts').select('''
+  Future<sup.PostgrestResponse?> fetchPosts(int page) async {
+    var supabasePage = 0;
+
+    if (page - 1 <= 0) {
+      supabasePage = 0;
+    } else {
+      supabasePage = (page - 1) * PostsConsts.POST_PAGE_SIZE;
+    }
+
+    var response = await client.supabase
+        .from('posts')
+        .select('''
     *,
     user: user_id (
       *,
@@ -30,7 +41,10 @@ class PostService {
     comments_count: post_comments (
        count
     )
-    ''').order('created_at', ascending: false).execute();
+    ''')
+        .order('created_at', ascending: false)
+        .range(supabasePage, supabasePage + PostsConsts.POST_PAGE_SIZE - 1)
+        .execute(count: sup.CountOption.exact);
 
     if (response.error != null) {
       throw Exception(response.error!.message);

@@ -1,3 +1,4 @@
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:mobx/mobx.dart';
 import 'package:theo/models/post.dart';
 import 'package:theo/states/post_store.dart';
@@ -21,14 +22,14 @@ abstract class _DiscoverScreenControllerBase with Store {
   String errorMessage = '';
 
   @computed
-  List<Post> get posts => postStore.posts;
+  List<Post> get posts => postStore.fetchedPosts;
 
   @action
-  Future<void> fetchData() async {
+  Future<void> fetchPosts({int? page}) async {
     try {
       eResultStatus = EResultStatus.LOADING;
 
-      await postStore.fetchPosts();
+      await postStore.fetchPosts(page: page);
 
       eResultStatus = EResultStatus.DONE;
     } catch (err) {

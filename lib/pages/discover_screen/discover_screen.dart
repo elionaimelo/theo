@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:theo/components/bottom_button.dart';
 import 'package:theo/components/error_alert_dialog.dart';
 import 'package:theo/components/result_status/loading_status.dart';
@@ -32,6 +33,8 @@ class DiscoverScreen extends StatefulWidget {
 
 class _DiscoverScreenState extends State<DiscoverScreen>
     with AutomaticKeepAliveClientMixin<DiscoverScreen> {
+  DiscoverScreenController get controller => widget.controller;
+
   @override
   bool get wantKeepAlive => true;
 
@@ -43,11 +46,11 @@ class _DiscoverScreenState extends State<DiscoverScreen>
   void initState() {
     super.initState();
 
-    widget.controller.fetchData();
+    controller.fetchPosts();
   }
 
   Future<void> onRefresh() {
-    widget.controller.fetchData();
+    controller.fetchPosts(page: 1);
     return Future.value();
   }
 
@@ -59,12 +62,11 @@ class _DiscoverScreenState extends State<DiscoverScreen>
       onRefresh: onRefresh,
       child: Observer(
         builder: (_) {
-          if (widget.controller.eResultStatus == EResultStatus.LOADING) {
+          if (controller.eResultStatus == EResultStatus.LOADING) {
             return Center(child: LoadingStatus());
-          } else if (widget.controller.eResultStatus ==
-              EResultStatus.REQUEST_ERROR) {
+          } else if (controller.eResultStatus == EResultStatus.REQUEST_ERROR) {
             return ErrorAlertDialog(
-              content: widget.controller.errorMessage,
+              content: controller.errorMessage,
               withButton: false,
             );
           }
@@ -76,39 +78,63 @@ class _DiscoverScreenState extends State<DiscoverScreen>
   }
 
   Widget get _content => Container(
-        child: ListView(
+        child: _list,
+      );
+
+  Widget get _topContent => Padding(
+        padding: TheoMetrics.paddingScreen.copyWith(bottom: 0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: TheoMetrics.paddingScreen.copyWith(bottom: 0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  BottomButton(
-                    text: 'Pesquisar',
-                    borderColor: TheoColors.primary,
-                    backgroundColor: TheoColors.secondary,
-                    primaryColor: TheoColors.primary,
-                    icon: FeatherIcons.filter,
-                    textDirection: TextDirection.rtl,
-                    onPressed: _onSearchTap,
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 28),
-                    child: TitleText(
-                      title: 'Descobrir histórias',
-                    ),
-                  ),
-                ],
-              ),
+            BottomButton(
+              text: 'Pesquisar',
+              borderColor: TheoColors.primary,
+              backgroundColor: TheoColors.secondary,
+              primaryColor: TheoColors.primary,
+              icon: FeatherIcons.filter,
+              textDirection: TextDirection.rtl,
+              onPressed: _onSearchTap,
             ),
-            ...widget.controller.posts.map(
-              (e) => PostCard(
-                post: e,
-                onTapMore: () => _onTapCard(e),
+            Container(
+              margin: EdgeInsets.only(top: 28),
+              child: TitleText(
+                title: 'Descobrir histórias',
               ),
             ),
           ],
         ),
+      );
+
+  Widget get _list => PagedListView.separated(
+        pagingController: controller.postStore.pagingController,
+        builderDelegate: _builderDelegate,
+        separatorBuilder: (p1, p2) => Container(),
+      );
+
+  Widget _itemBuilder(context, post, index) {
+    var postWidget = PostCard(
+      post: post,
+      onTapMore: () => _onTapCard(post),
+    );
+
+    var isFirstElement = index == 0;
+
+    if (isFirstElement) {
+      return Column(
+        children: [_topContent, postWidget],
+      );
+    }
+
+    return postWidget;
+  }
+
+  PagedChildBuilderDelegate<Post> get _builderDelegate =>
+      PagedChildBuilderDelegate<Post>(
+        itemBuilder: _itemBuilder,
+        firstPageErrorIndicatorBuilder: (context) =>
+            ErrorAlertDialog(content: controller.errorMessage),
+        noItemsFoundIndicatorBuilder: (context) =>
+            ErrorAlertDialog(content: 'Nenhum post encontrado!'),
       );
 
   void _onTapCard(Post p) {

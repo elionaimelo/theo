@@ -61,6 +61,7 @@ class _TellScreenState extends State<TellScreen>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Observer(builder: (_) {
       if (widget.controller.eResultStatus == EResultStatus.LOADING) {
         return LoadingStatus();

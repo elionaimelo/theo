@@ -46,6 +46,7 @@ class _BodyState extends State<Body> with AutomaticKeepAliveClientMixin<Body> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Observer(builder: (context) {
       if (widget.controller.eResultStatus == EResultStatus.LOADING) {
         return LoadingStatus();
@@ -148,53 +149,57 @@ class _BodyState extends State<Body> with AutomaticKeepAliveClientMixin<Body> {
     String subtitle = '',
     required Function() onTap,
   }) =>
-      InkWell(
-        onTap: onTap,
-        child: Ink(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: const BorderRadius.all(
-              Radius.circular(10.0),
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.2),
-                spreadRadius: 6,
-                blurRadius: 10,
-                offset: Offset(0, 2),
-              ),
-            ],
+      Container(
+        clipBehavior: Clip.hardEdge,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: const BorderRadius.all(
+            Radius.circular(10.0),
           ),
-          child: Container(
-            padding: EdgeInsets.symmetric(vertical: 17, horizontal: 30),
-            child: Row(
-              children: [
-                SvgPicture.asset(icon),
-                Container(
-                  margin: EdgeInsets.only(left: 30),
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      text,
-                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                            fontSize: 18,
-                            color: TheoColors.six,
-                            fontWeight: FontWeight.w900,
-                          ),
-                    ),
-                    if (subtitle != '')
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.2),
+              spreadRadius: 6,
+              blurRadius: 10,
+              offset: Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Material(
+          child: InkWell(
+            onTap: () {},
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 17, horizontal: 30),
+              child: Row(
+                children: [
+                  SvgPicture.asset(icon),
+                  Container(
+                    margin: EdgeInsets.only(left: 30),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
                       Text(
-                        subtitle,
+                        text,
                         style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                              fontSize: 15,
-                              color: TheoColors.seven,
+                              fontSize: 18,
+                              color: TheoColors.six,
+                              fontWeight: FontWeight.w900,
                             ),
                       ),
-                  ],
-                ),
-              ],
+                      if (subtitle != '')
+                        Text(
+                          subtitle,
+                          style:
+                              Theme.of(context).textTheme.bodyText1!.copyWith(
+                                    fontSize: 15,
+                                    color: TheoColors.seven,
+                                  ),
+                        ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),

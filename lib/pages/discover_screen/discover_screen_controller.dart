@@ -1,4 +1,3 @@
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:mobx/mobx.dart';
 import 'package:theo/models/post.dart';
 import 'package:theo/states/post_store.dart';

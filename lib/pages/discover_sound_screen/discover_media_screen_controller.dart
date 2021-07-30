@@ -1,7 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
 import 'package:theo/models/post.dart';
-import 'package:theo/models/story.dart';
 import 'package:theo/services/file_service.dart';
 import 'package:theo/types/enums.dart';
 import 'package:video_player/video_player.dart';

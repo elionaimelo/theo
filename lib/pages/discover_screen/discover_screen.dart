@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:theo/components/bottom_button.dart';
 import 'package:theo/components/error_alert_dialog.dart';
 import 'package:theo/components/result_status/loading_status.dart';
+import 'package:theo/components/result_status/not_found_status.dart';
 import 'package:theo/components/title_text.dart';
 import 'package:theo/core/constants/story_format_consts.dart';
 import 'package:theo/core/routes.dart';
@@ -17,7 +17,6 @@ import 'package:theo/pages/discover_screen/discover_screen_controller.dart';
 import 'package:theo/pages/discover_sound_screen/discover_media_screen_controller.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/styles/metrics.dart';
-import 'package:theo/types/enums.dart';
 
 class DiscoverScreen extends StatefulWidget {
   const DiscoverScreen({Key? key, required this.controller}) : super(key: key);
@@ -57,20 +56,7 @@ class _DiscoverScreenState extends State<DiscoverScreen>
 
     return RefreshIndicator(
       onRefresh: onRefresh,
-      child: Observer(
-        builder: (_) {
-          if (controller.eResultStatus == EResultStatus.LOADING) {
-            return Center(child: LoadingStatus());
-          } else if (controller.eResultStatus == EResultStatus.REQUEST_ERROR) {
-            return ErrorAlertDialog(
-              content: controller.errorMessage,
-              withButton: false,
-            );
-          }
-
-          return _content;
-        },
-      ),
+      child: _content,
     );
   }
 
@@ -125,13 +111,45 @@ class _DiscoverScreenState extends State<DiscoverScreen>
     return postWidget;
   }
 
+  Widget withTopContent(Widget item) => Column(
+        children: [
+          _topContent,
+          Expanded(
+            child: Container(
+              child: item,
+            ),
+          )
+        ],
+      );
+
   PagedChildBuilderDelegate<Post> get _builderDelegate =>
       PagedChildBuilderDelegate<Post>(
         itemBuilder: _itemBuilder,
-        firstPageErrorIndicatorBuilder: (context) =>
-            ErrorAlertDialog(content: controller.errorMessage),
-        noItemsFoundIndicatorBuilder: (context) =>
-            ErrorAlertDialog(content: 'Nenhum post encontrado!'),
+        firstPageProgressIndicatorBuilder: (_) => withTopContent(
+          LoadingStatus(),
+        ),
+        newPageErrorIndicatorBuilder: (context) => ErrorAlertDialog(
+          content: 'Erro ao carregar os posts seguintes!',
+          withButton: false,
+        ),
+        newPageProgressIndicatorBuilder: (context) => LoadingStatus(),
+        noMoreItemsIndicatorBuilder: (context) => Container(
+          margin: EdgeInsets.symmetric(vertical: 30),
+          child: NotFoundStatus(
+            title: 'Você chegou até o fim!',
+          ),
+        ),
+        firstPageErrorIndicatorBuilder: (context) => withTopContent(
+          ErrorAlertDialog(
+            content: controller.postStore.pagingController.error,
+            withButton: false,
+          ),
+        ),
+        noItemsFoundIndicatorBuilder: (context) => withTopContent(
+          NotFoundStatus(
+            title: 'Nenhum post encontrado!',
+          ),
+        ),
       );
 
   void _onTapCard(Post p) {

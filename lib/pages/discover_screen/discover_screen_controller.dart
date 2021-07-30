@@ -1,5 +1,4 @@
 import 'package:mobx/mobx.dart';
-import 'package:theo/models/post.dart';
 import 'package:theo/states/post_store.dart';
 import 'package:theo/types/enums.dart';
 part 'discover_screen_controller.g.dart';
@@ -17,12 +16,6 @@ abstract class _DiscoverScreenControllerBase with Store {
   @observable
   EResultStatus eResultStatus = EResultStatus.NONE;
 
-  @observable
-  String errorMessage = '';
-
-  @computed
-  List<Post> get posts => postStore.fetchedPosts;
-
   @action
   Future<void> fetchPosts({int? page}) async {
     try {
@@ -32,7 +25,6 @@ abstract class _DiscoverScreenControllerBase with Store {
 
       eResultStatus = EResultStatus.DONE;
     } catch (err) {
-      errorMessage = err.toString();
       eResultStatus = EResultStatus.REQUEST_ERROR;
     }
   }

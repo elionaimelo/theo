@@ -36,6 +36,8 @@ class _PlayerInputsState extends State<PlayerInputs> {
   String _passedTime = '0:00';
   String _textTimeLeft = '- 0:00';
   final double _iconSize = 27;
+  bool isLooping = false;
+  bool isCompleteOrPaused = false;
 
   @override
   void setState(fn) {
@@ -80,17 +82,29 @@ class _PlayerInputsState extends State<PlayerInputs> {
 
   void _repeateButtonTap() {
     widget.videoController.setLooping(!widget.videoController.value.isLooping);
+
+    setState(() {
+      isLooping = widget.videoController.value.isLooping;
+    });
   }
 
   Future<void> _playButtonTap() async {
     var timeLeft = _getTimeLeft();
     if (widget.videoController.value.isPlaying && timeLeft > Duration.zero) {
       await widget.videoController.pause();
+
+      setState(() {
+        isCompleteOrPaused = true;
+      });
     } else {
       if (timeLeft <= Duration.zero) {
         await widget.videoController.seekTo(Duration.zero);
       }
       await widget.videoController.play();
+
+      setState(() {
+        isCompleteOrPaused = false;
+      });
     }
   }
 
@@ -155,17 +169,30 @@ class _PlayerInputsState extends State<PlayerInputs> {
             shape: BoxShape.circle,
           ),
           padding: EdgeInsets.all(13),
-          child: Container(
-            margin: EdgeInsets.only(left: 2),
-            child: SvgPicture.asset(
-              AssetsPath.playSvg,
-              color: widget.playButtonColor,
-            ),
-          ),
+          child: _playButtonIcon,
         ),
         onPressed: _playButtonTap,
-        iconSize: 50,
+        iconSize: 60,
       );
+
+  Widget get _playButtonIcon => isCompleteOrPaused
+      ? Container(
+          margin: EdgeInsets.only(left: 2),
+          child: SvgPicture.asset(
+            AssetsPath.playSvg,
+            color: widget.playButtonColor,
+          ),
+        )
+      : Container(
+          child: Center(
+            child: Icon(
+              FeatherIcons.pause,
+              color: widget.playButtonColor,
+              size: 35,
+            ),
+          ),
+        );
+
   Widget get _rightReplayButton => IconButton(
         icon: SvgPicture.asset(
           AssetsPath.rightReplay,
@@ -174,13 +201,22 @@ class _PlayerInputsState extends State<PlayerInputs> {
         onPressed: () => _replayButtonTap(10),
         iconSize: _iconSize,
       );
-  Widget get _repeateButton => IconButton(
-        icon: Icon(
-          FeatherIcons.repeat,
-          color: widget.foregroundColor,
+
+  Widget get _repeateButton => Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30),
+          color: isLooping
+              ? widget.foregroundColor.withAlpha(70)
+              : Colors.transparent,
         ),
-        onPressed: _repeateButtonTap,
-        iconSize: _iconSize,
+        child: IconButton(
+          icon: Icon(
+            FeatherIcons.repeat,
+            color: widget.foregroundColor,
+          ),
+          onPressed: _repeateButtonTap,
+          iconSize: _iconSize,
+        ),
       );
 
   Widget get _bar => Container(

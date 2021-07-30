@@ -40,12 +40,19 @@ abstract class _PostStoreBase with Store {
   bool isLastPage(int page) =>
       page * PostsConsts.POST_PAGE_SIZE >= totalPostsCount;
 
+  bool isFirstPage(int page) => page == pagingController.firstPageKey;
+
   @action
   Future<void> fetchPosts({int? page}) async {
     eResultStatus = EResultStatus.LOADING;
-    var nextPage = page ?? pagingController.firstPageKey;
 
     try {
+      var nextPage = page ?? pagingController.firstPageKey;
+
+      if (isFirstPage(nextPage)) {
+        pagingController.itemList = null;
+      }
+
       var response = await _postService.fetchPosts(nextPage);
 
       if (response == null) {
@@ -53,7 +60,6 @@ abstract class _PostStoreBase with Store {
       }
 
       totalPostsCount = response.count ?? 0;
-      var futurePage = nextPage + 1;
 
       var listResult = (response.data as List<dynamic>)
           .map((e) => Post.fromJson(e) ?? Post())
@@ -62,6 +68,7 @@ abstract class _PostStoreBase with Store {
       if (isLastPage(nextPage)) {
         pagingController.appendLastPage(listResult);
       } else {
+        var futurePage = nextPage + 1;
         pagingController.appendPage(listResult, futurePage);
         fetchedPosts = pagingController.itemList ?? [];
       }
@@ -69,6 +76,7 @@ abstract class _PostStoreBase with Store {
       eResultStatus = EResultStatus.DONE;
     } catch (err) {
       print('PostStore.fetchPosts - $err');
+      pagingController.error = err;
       eResultStatus = EResultStatus.REQUEST_ERROR;
       rethrow;
     }

@@ -21,6 +21,7 @@ class AssetsPath {
   static const tutorial6Png = 'assets/images/Tutorial-06.png';
   static const spinnerGif = 'assets/spinner.gif';
   static const discoverMusic = 'assets/images/discover-music.png';
+  static const notfound = 'assets/images/notfound.png';
 
   // Icons Folder
   static const thunderSvg = 'assets/icons/thunder.svg';

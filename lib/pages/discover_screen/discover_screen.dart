@@ -15,6 +15,7 @@ import 'package:theo/pages/discover_image_screen/discover_image_screen_controlle
 import 'package:theo/pages/discover_screen/components/post_card.dart';
 import 'package:theo/pages/discover_screen/discover_screen_controller.dart';
 import 'package:theo/pages/discover_sound_screen/discover_media_screen_controller.dart';
+import 'package:theo/pages/graph_story_screen/graph_story_screen_controller.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/styles/metrics.dart';
 
@@ -181,6 +182,13 @@ class _DiscoverScreenState extends State<DiscoverScreen>
             navigationStore: GetIt.I.get(),
             post: p,
           ),
+        );
+        break;
+      case StoryFormatConsts.INFROGRAPHIC:
+        Navigator.of(context).pushNamed(
+          Routes.graphStory,
+          arguments:
+              GraphStoryScreenController(storyStore: GetIt.I.get(), post: p),
         );
         break;
       default:

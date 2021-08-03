@@ -19,7 +19,7 @@ class GraphStoryScreen extends StatefulWidget {
 class _GraphStoryScreenState extends State<GraphStoryScreen> {
   void _onButtonTap() {
     widget.controller.storyStore
-        .finishLearningStory(widget.controller.story.id!);
+        .finishLearningStory(widget.controller.post.id!);
     Navigator.of(context).pop();
   }
 

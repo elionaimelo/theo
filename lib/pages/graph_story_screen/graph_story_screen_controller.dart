@@ -15,7 +15,6 @@ abstract class _GraphStoryScreenControllerBase with Store {
   @observable
   EResultStatus eResultStatus = EResultStatus.NONE;
 
-  @observable
   final Post post;
   final StoryStore storyStore;
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:theo/styles/colors.dart';
 
@@ -13,6 +14,7 @@ class TextInput extends StatefulWidget {
     this.containerHeight,
     this.prefixWidget,
     this.obscureText = false,
+    this.validators = const [],
   });
 
   final String hintText;
@@ -24,6 +26,7 @@ class TextInput extends StatefulWidget {
   final double? containerHeight;
   final Widget? prefixWidget;
   final bool obscureText;
+  final List<TextFieldValidator> validators;
 
   @override
   _TextInputState createState() => _TextInputState();
@@ -79,6 +82,8 @@ class _TextInputState extends State<TextInput> {
 
   Widget get _textFormInput => TextFormField(
         // Obscured fields cannot be multline
+        validator: MultiValidator(widget.validators),
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         maxLines: widget.obscureText ? 1 : null,
         minLines: null,
 

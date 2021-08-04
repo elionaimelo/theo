@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:theo/components/error_alert_dialog.dart';
 import 'package:theo/components/inputs/multi_selector_button_input.dart';
@@ -11,6 +12,7 @@ import 'package:theo/states/navigation_store.dart';
 import 'package:theo/states/post_store.dart';
 import 'package:theo/states/story_category_store.dart';
 import 'package:theo/types/enums.dart';
+import 'package:theo/values/error_messages.dart';
 part 'new_tell_screen_controller.g.dart';
 
 class NewTellScreenController = _NewTellScreenControllerBase
@@ -172,9 +174,15 @@ abstract class _NewTellScreenControllerBase with Store {
   }
 
   @action
-  Future<void> onPublishButtonTap() async {
+  Future<void> onPublishButtonTap(FormState formState) async {
     try {
       eResultStatus = EResultStatus.LOADING;
+
+      var isValid = formState.validate();
+
+      if (!isValid) {
+        throw ErrorMessages.VALIDATION_ERROR;
+      }
 
       var newStory = Story(
         adultContent: adultContent,
@@ -210,7 +218,7 @@ abstract class _NewTellScreenControllerBase with Store {
 
       eResultStatus = EResultStatus.DONE;
     } catch (err) {
-      ErrorAlertDialog.showAlertDialog(content: err.toString());
+      // ErrorAlertDialog.showAlertDialog(content: err.toString());
       eResultStatus = EResultStatus.DONE;
     }
   }

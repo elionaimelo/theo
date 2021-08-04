@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:theo/styles/colors.dart';
+import 'package:theo/validators/text_selector_validator.dart';
 
 class TextSelectorInput extends StatefulWidget {
   TextSelectorInput({
     required this.items,
     required this.onSelectionChanged,
     required this.label,
+    this.validators = const [],
   });
 
   final List<String> items;
   final Function(String?) onSelectionChanged;
   final String label;
+  final List<TextSelectorValidator> validators;
 
   @override
   _TextSelectorInputState createState() => _TextSelectorInputState();
@@ -38,6 +42,7 @@ class _TextSelectorInputState extends State<TextSelectorInput> {
           child: _label,
         ),
         DropdownButtonFormField(
+          validator: MultiValidator(widget.validators),
           isExpanded: true,
           decoration: const InputDecoration(
             contentPadding: EdgeInsets.symmetric(horizontal: 16),

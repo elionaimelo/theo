@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:theo/components/alert_message.dart';
 import 'package:theo/components/bottom_button.dart';
@@ -16,6 +17,8 @@ import 'package:theo/pages/new_tell_screen/new_tell_screen_controller.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/styles/gerenal.dart';
 import 'package:theo/types/enums.dart';
+import 'package:theo/validators/text_selector_validator.dart';
+import 'package:theo/values/error_messages.dart';
 
 class NewTellScreen extends StatefulWidget {
   NewTellScreen({required this.controller});
@@ -31,6 +34,8 @@ class NewTellScreen extends StatefulWidget {
 }
 
 class _NewTellScreenState extends State<NewTellScreen> {
+  final _formKey = GlobalKey<FormState>();
+
   @override
   void initState() {
     super.initState();
@@ -60,12 +65,14 @@ class _NewTellScreenState extends State<NewTellScreen> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Form(
-                child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: _inputs,
+              key: _formKey,
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: _inputs,
+                ),
               ),
-            )),
+            ),
           ),
         ),
       );
@@ -86,6 +93,9 @@ class _NewTellScreenState extends State<NewTellScreen> {
               widget.controller.languages.map((e) => e.displayName!).toList(),
           onSelectionChanged: widget.controller.onLangSelectionChanged,
           label: 'Idioma padrão',
+          validators: [
+            TextSelectorValidator(errorText: ErrorMessages.REQUIRED),
+          ],
         ),
         _separator,
         TextInput(
@@ -94,6 +104,9 @@ class _NewTellScreenState extends State<NewTellScreen> {
           hintText: 'Escreva aqui',
           labelStyle: TheoStyles.of(context).labelInputStyle,
           labelMargin: EdgeInsets.only(bottom: 5),
+          validators: [
+            RequiredValidator(errorText: ErrorMessages.REQUIRED),
+          ],
         ),
         _separator,
         TextInput(
@@ -217,7 +230,8 @@ class _NewTellScreenState extends State<NewTellScreen> {
         Container(
           margin: EdgeInsets.only(top: 50, bottom: 10),
           child: BottomButton(
-            onPressed: widget.controller.onPublishButtonTap,
+            onPressed: () =>
+                widget.controller.onPublishButtonTap(_formKey.currentState!),
             backgroundColor: TheoColors.secondary,
             primaryColor: TheoColors.primary,
             text: 'Publicar',

@@ -1,5 +1,8 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:theo/components/error_alert_dialog.dart';
+import 'package:theo/core/routes.dart';
 import 'package:theo/models/theo_app_bar_settings.dart';
 import 'package:theo/states/auth_store.dart';
 import 'package:theo/states/navigation_store.dart';
@@ -17,6 +20,8 @@ abstract class _LoginScreenControllerBase with Store {
 
   final NavigationStore navigationStore;
   final AuthStore authStore;
+
+  GlobalKey<FormState> formState = GlobalKey();
 
   @observable
   String email = '';
@@ -44,14 +49,29 @@ abstract class _LoginScreenControllerBase with Store {
     password = value;
   }
 
+  void onEmailButtonTap(TabController tabController) {
+    if (formState.currentState!.validate()) {
+      tabController.animateTo(1);
+    }
+  }
+
   @action
   Future<bool> signInUser() async {
+    if (!formState.currentState!.validate()) {
+      return false;
+    }
+
     try {
       eResultStatus = EResultStatus.LOADING;
 
       await authStore.signIn(email: email, password: password);
 
       eResultStatus = EResultStatus.DONE;
+
+      if (authStore.authenticated) {
+        await navigationStore.navigator
+            .pushNamedAndRemoveUntil(Routes.home, (route) => route.isFirst);
+      }
 
       return authStore.authenticated;
     } catch (err) {

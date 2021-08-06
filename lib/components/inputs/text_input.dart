@@ -6,6 +6,7 @@ import 'package:theo/validators/validator.dart';
 
 class TextInput extends StatefulWidget {
   const TextInput({
+    this.inputKey,
     this.hintText = '',
     this.label,
     this.labelStyle,
@@ -30,6 +31,7 @@ class TextInput extends StatefulWidget {
   final bool obscureText;
   final List<Validator> validators;
   final bool autoFocus;
+  final Key? inputKey;
 
   @override
   _TextInputState createState() => _TextInputState();
@@ -85,6 +87,7 @@ class _TextInputState extends State<TextInput> {
       );
 
   Widget get _textFormInput => TextFormField(
+        key: widget.inputKey,
         autofocus: widget.autoFocus,
         focusNode: focusNode,
         validator: FocusMultiValidator(

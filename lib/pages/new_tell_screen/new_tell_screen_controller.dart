@@ -121,14 +121,18 @@ abstract class _NewTellScreenControllerBase with Store {
   void onContentAgeChanged(List<SelectorItem> items) {
     try {
       adultContent = items.first.value;
-    } catch (err) {}
+    } catch (err) {
+      print('NewTellScreenController.onContentAgeChanged - $err');
+    }
   }
 
   @action
   void onSelectedCategoriesChanged(List<SelectorItem> items) {
     try {
       selectedCategory = items.first.value;
-    } catch (err) {}
+    } catch (err) {
+      print('NewTellScreenController.onSelectedCategoriesChanged - $err');
+    }
   }
 
   @action

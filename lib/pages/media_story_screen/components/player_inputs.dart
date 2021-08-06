@@ -13,6 +13,7 @@ class PlayerInputs extends StatefulWidget {
     this.textColor = TheoColors.secondary,
     this.playButtonColor,
     this.maximizeButton = true,
+    this.autoPlay = true,
   }) : super(key: key);
 
   @override
@@ -23,6 +24,7 @@ class PlayerInputs extends StatefulWidget {
   final Color textColor;
   final Color? playButtonColor;
   final bool maximizeButton;
+  final bool autoPlay;
 }
 
 class _PlayerInputsState extends State<PlayerInputs> {
@@ -31,6 +33,12 @@ class _PlayerInputsState extends State<PlayerInputs> {
     super.initState();
 
     widget.videoController.addListener(_handleVideoChanges);
+
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+      if (widget.autoPlay) {
+        widget.videoController.play();
+      }
+    });
   }
 
   String _passedTime = '0:00';

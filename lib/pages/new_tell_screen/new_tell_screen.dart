@@ -16,6 +16,7 @@ import 'package:theo/pages/new_tell_screen/new_tell_screen_controller.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/styles/gerenal.dart';
 import 'package:theo/types/enums.dart';
+import 'package:theo/validators/file_required_validator.dart';
 import 'package:theo/validators/multi_selector_required_validator.dart';
 import 'package:theo/validators/text_required_validator.dart';
 
@@ -146,27 +147,39 @@ class _NewTellScreenState extends State<NewTellScreen> {
         if (widget.withArchive)
           Container(
             margin: marginLength,
-            child: FileInput(
-              label: 'Arquivo',
-              minFileLength: '0',
-              onFileSelected: (List<String> paths) =>
-                  widget.controller.onArchivePathSelected(paths.first),
-              buttonIcon: FeatherIcons.file,
-              buttonText: 'Inserir Arquivo',
-              assetType: AssetType.other,
+            child: FileInputFormField(
+              FileInputFormFieldProps(
+                label: 'Arquivo',
+                minFileLength: '0',
+                onFileSelected: (List<String> paths) =>
+                    widget.controller.onArchivePathSelected(paths.first),
+                buttonIcon: FeatherIcons.file,
+                buttonText: 'Inserir Arquivo',
+                assetType: AssetType.other,
+                focusNode: FocusNode(),
+                validators: [
+                  FileRequiredValidator(),
+                ],
+              ),
             ),
           ),
         if (widget.controller.format.name == StoryFormatConsts.VIDEO)
           Container(
             margin: marginLength,
-            child: FileInput(
-              label: 'Arquivo de Vídeo',
-              minFileLength: '0',
-              onFileSelected: (List<String> paths) =>
-                  widget.controller.onVideoFilePathSelected(paths.first),
-              buttonIcon: FeatherIcons.video,
-              buttonText: 'Inserir Vídeo',
-              assetType: AssetType.video,
+            child: FileInputFormField(
+              FileInputFormFieldProps(
+                label: 'Arquivo de Vídeo',
+                minFileLength: '0',
+                onFileSelected: (List<String> paths) =>
+                    widget.controller.onVideoFilePathSelected(paths.first),
+                buttonIcon: FeatherIcons.video,
+                buttonText: 'Inserir Vídeo',
+                assetType: AssetType.video,
+                focusNode: FocusNode(),
+                validators: [
+                  FileRequiredValidator(),
+                ],
+              ),
             ),
           ),
         _separator,
@@ -266,7 +279,7 @@ class _NewTellScreenState extends State<NewTellScreen> {
       ];
 
   Widget get _imagesInput => _multiplesImages
-      ? FileInput(
+      ? FileInputFormField(FileInputFormFieldProps(
           label: 'Disponibilize algumas imagens',
           minFileLength: '0',
           onFileSelected: widget.controller.onImagesPathsSelected,
@@ -274,8 +287,12 @@ class _NewTellScreenState extends State<NewTellScreen> {
           buttonText: 'Inserir Imagem',
           assetType: AssetType.image,
           multipleFiles: _multiplesImages,
-        )
-      : FileInput(
+          focusNode: FocusNode(),
+          validators: [
+            FileRequiredValidator(),
+          ],
+        ))
+      : FileInputFormField(FileInputFormFieldProps(
           label: 'Imagem de Capa (Opcional)',
           minFileLength: '0',
           onFileSelected: widget.controller.onImagesPathsSelected,
@@ -283,7 +300,11 @@ class _NewTellScreenState extends State<NewTellScreen> {
           buttonText: 'Inserir Imagem',
           assetType: AssetType.image,
           multipleFiles: _multiplesImages,
-        );
+          focusNode: FocusNode(),
+          validators: [
+            FileRequiredValidator(),
+          ],
+        ));
 
   bool get _multiplesImages {
     switch (widget.controller.format.name) {

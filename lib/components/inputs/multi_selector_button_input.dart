@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:theo/components/inputs/validation_error_text.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/validators/focus_multi_validator.dart';
 import 'package:theo/validators/validator.dart';
@@ -120,7 +121,10 @@ class _MultiSelectorButtonInputState extends State<_MultiSelectorButtonView> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _label,
-            _errorText,
+            ValidationErrorText(
+              errorText: widget.formState.errorText,
+              hasError: widget.formState.hasError,
+            ),
             Container(
               width: double.infinity,
               child: Wrap(
@@ -136,16 +140,6 @@ class _MultiSelectorButtonInputState extends State<_MultiSelectorButtonView> {
       ),
     );
   }
-
-  Widget get _errorText => widget.formState.hasError
-      ? Container(
-          margin: EdgeInsets.only(bottom: 10),
-          child: Text(
-            widget.formState.errorText ?? '-',
-            style: TextStyle(color: Colors.red),
-          ),
-        )
-      : Container();
 
   List<Widget> get _list => widget.values
       .map(

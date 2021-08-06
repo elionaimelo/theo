@@ -1,24 +1,61 @@
 import 'package:flutter/material.dart';
 import 'package:theo/styles/colors.dart';
+import 'package:theo/validators/focus_multi_validator.dart';
+import 'package:theo/validators/validator.dart';
 
 class SelectorItem {
   SelectorItem({
+    required this.key,
     required this.displayValue,
     this.value,
   });
 
+  final ObjectKey key;
   final String displayValue;
   final dynamic value;
 }
 
-class MultiSelectorButtonInput extends StatefulWidget {
-  MultiSelectorButtonInput({
+class MultiSelectorButtonFormField extends FormField<List<SelectorItem>> {
+  MultiSelectorButtonFormField({
+    required String label,
+    required List<SelectorItem> values,
+    required Function(List<SelectorItem>) onSelectedValuesChanged,
+    bool uniqueSelect = false,
+    bool bold = false,
+    Color primaryColor = TheoColors.primary,
+    List<Validator> validators = const [],
+    required FocusNode focusNode,
+  }) : super(
+          initialValue: [],
+          validator: FocusMultiValidator(
+            validators: validators,
+            focusNode: focusNode,
+          ),
+          builder: (state) {
+            return _MultiSelectorButtonView(
+              state,
+              uniqueSelect: uniqueSelect,
+              bold: bold,
+              primaryColor: primaryColor,
+              label: label,
+              onSelectedValuesChanged: onSelectedValuesChanged,
+              values: values,
+              focusNode: focusNode,
+            );
+          },
+        );
+}
+
+class _MultiSelectorButtonView extends StatefulWidget {
+  _MultiSelectorButtonView(
+    this.formState, {
     required this.label,
     required this.values,
     required this.onSelectedValuesChanged,
     this.uniqueSelect = false,
     this.bold = false,
     this.primaryColor = TheoColors.primary,
+    required this.focusNode,
   });
 
   @override
@@ -31,48 +68,59 @@ class MultiSelectorButtonInput extends StatefulWidget {
   final bool uniqueSelect;
   final bool bold;
   final Color primaryColor;
+  final FormFieldState<List<SelectorItem>> formState;
+  final FocusNode focusNode;
 }
 
-class _MultiSelectorButtonInputState extends State<MultiSelectorButtonInput> {
-  List<SelectorItem> selectedItems = [];
-
+class _MultiSelectorButtonInputState extends State<_MultiSelectorButtonView> {
   @override
   void initState() {
     super.initState();
-
-    selectedItems = [];
   }
+
+  List<SelectorItem> get selectedItems => widget.formState.value ?? [];
 
   void _onButtonItemTap(SelectorItem item) {
     if (widget.uniqueSelect) {
-      setState(() {
-        selectedItems = [item];
-      });
-
-      widget.onSelectedValuesChanged(selectedItems);
+      if (_selectedItemsContains(item)) {
+        _invokeStateChangeEvent([]);
+      } else {
+        _invokeStateChangeEvent([item]);
+      }
 
       return;
     }
 
-    setState(() {
-      if (selectedItems.contains(item)) {
-        selectedItems.remove(item);
-      } else {
-        selectedItems.add(item);
-      }
-    });
+    var items = <SelectorItem>[];
 
-    widget.onSelectedValuesChanged(selectedItems);
+    if (_selectedItemsContains(item)) {
+      items =
+          selectedItems.where((element) => element.key != item.key).toList();
+    } else {
+      items = [...selectedItems, item];
+    }
+
+    _invokeStateChangeEvent(items);
+  }
+
+  bool _selectedItemsContains(SelectorItem item) =>
+      selectedItems.any((element) => element.key == item.key);
+
+  void _invokeStateChangeEvent(List<SelectorItem> items) {
+    widget.formState.didChange(items);
+    widget.onSelectedValuesChanged(items);
   }
 
   @override
   Widget build(BuildContext context) {
-    return FormField(builder: (_) {
-      return Container(
+    return Focus(
+      focusNode: widget.focusNode,
+      child: Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _label,
+            _errorText,
             Container(
               width: double.infinity,
               child: Wrap(
@@ -85,9 +133,19 @@ class _MultiSelectorButtonInputState extends State<MultiSelectorButtonInput> {
             ),
           ],
         ),
-      );
-    });
+      ),
+    );
   }
+
+  Widget get _errorText => widget.formState.hasError
+      ? Container(
+          margin: EdgeInsets.only(bottom: 10),
+          child: Text(
+            widget.formState.errorText ?? '-',
+            style: TextStyle(color: Colors.red),
+          ),
+        )
+      : Container();
 
   List<Widget> get _list => widget.values
       .map(
@@ -96,7 +154,7 @@ class _MultiSelectorButtonInputState extends State<MultiSelectorButtonInput> {
       .toList();
 
   Widget _buttonItem({required SelectorItem item}) {
-    var selected = selectedItems.contains(item);
+    var selected = _selectedItemsContains(item);
 
     return LayoutBuilder(
       builder: (_, constraints) {

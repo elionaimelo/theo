@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:form_field_validator/form_field_validator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:theo/styles/colors.dart';
+import 'package:theo/validators/focus_multi_validator.dart';
+import 'package:theo/validators/validator.dart';
 
 class TextInput extends StatefulWidget {
   const TextInput({
@@ -15,6 +16,7 @@ class TextInput extends StatefulWidget {
     this.prefixWidget,
     this.obscureText = false,
     this.validators = const [],
+    this.autoFocus = false,
   });
 
   final String hintText;
@@ -26,7 +28,8 @@ class TextInput extends StatefulWidget {
   final double? containerHeight;
   final Widget? prefixWidget;
   final bool obscureText;
-  final List<TextFieldValidator> validators;
+  final List<Validator> validators;
+  final bool autoFocus;
 
   @override
   _TextInputState createState() => _TextInputState();
@@ -34,6 +37,7 @@ class TextInput extends StatefulWidget {
 
 class _TextInputState extends State<TextInput> {
   String currentText = '';
+  final FocusNode focusNode = FocusNode();
 
   void _onTextChanged(String value) {
     setState(() {
@@ -81,12 +85,14 @@ class _TextInputState extends State<TextInput> {
       );
 
   Widget get _textFormInput => TextFormField(
-        // Obscured fields cannot be multline
-        validator: MultiValidator(widget.validators),
-        autovalidateMode: AutovalidateMode.onUserInteraction,
+        autofocus: widget.autoFocus,
+        focusNode: focusNode,
+        validator: FocusMultiValidator(
+          validators: widget.validators,
+          focusNode: focusNode,
+        ),
         maxLines: widget.obscureText ? 1 : null,
         minLines: null,
-
         obscureText: widget.obscureText,
         maxLength: widget.maxLength,
         textAlignVertical:

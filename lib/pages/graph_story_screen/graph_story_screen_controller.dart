@@ -1,6 +1,5 @@
 import 'package:mobx/mobx.dart';
 import 'package:theo/models/post.dart';
-import 'package:theo/models/story.dart';
 import 'package:theo/states/story_store.dart';
 import 'package:theo/types/enums.dart';
 part 'graph_story_screen_controller.g.dart';

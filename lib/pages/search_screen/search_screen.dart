@@ -48,34 +48,37 @@ class _SearchScreenState extends State<SearchScreen> {
           Container(
             margin: EdgeInsets.only(top: 23),
           ),
-          MultiSelectorButtonInput(
+          MultiSelectorButtonFormField(
             label: 'Categorias',
             values: TheoMocks.categoriesMock
-                .map((e) => SelectorItem(displayValue: e))
+                .map((e) => SelectorItem(key: ObjectKey(e), displayValue: e))
                 .toList(),
             onSelectedValuesChanged: (_) {},
+            focusNode: FocusNode(),
           ),
           Container(
             margin: EdgeInsets.only(top: 34),
           ),
-          MultiSelectorButtonInput(
+          MultiSelectorButtonFormField(
             label: 'Formatos',
             values: TheoMocks.tellFormatsMock
-                .map((e) => SelectorItem(displayValue: e))
+                .map((e) => SelectorItem(key: ObjectKey(e), displayValue: e))
                 .toList(),
             onSelectedValuesChanged: (_) {},
             primaryColor: TheoColors.nineteen,
+            focusNode: FocusNode(),
           ),
           Container(
             margin: EdgeInsets.only(top: 34),
           ),
-          MultiSelectorButtonInput(
+          MultiSelectorButtonFormField(
             label: 'Idiomas',
             values: TheoMocks.languagesMock
-                .map((e) => SelectorItem(displayValue: e))
+                .map((e) => SelectorItem(key: ObjectKey(e), displayValue: e))
                 .toList(),
             onSelectedValuesChanged: (_) {},
             primaryColor: TheoColors.twenty,
+            focusNode: FocusNode(),
           ),
           Container(
             margin: EdgeInsets.only(top: 34),

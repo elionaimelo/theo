@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:form_field_validator/form_field_validator.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:theo/components/alert_message.dart';
 import 'package:theo/components/bottom_button.dart';
@@ -17,8 +16,8 @@ import 'package:theo/pages/new_tell_screen/new_tell_screen_controller.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/styles/gerenal.dart';
 import 'package:theo/types/enums.dart';
-import 'package:theo/validators/text_selector_validator.dart';
-import 'package:theo/values/error_messages.dart';
+import 'package:theo/validators/multi_selector_required_validator.dart';
+import 'package:theo/validators/text_required_validator.dart';
 
 class NewTellScreen extends StatefulWidget {
   NewTellScreen({required this.controller});
@@ -94,8 +93,9 @@ class _NewTellScreenState extends State<NewTellScreen> {
           onSelectionChanged: widget.controller.onLangSelectionChanged,
           label: 'Idioma padrão',
           validators: [
-            TextSelectorValidator(errorText: ErrorMessages.REQUIRED),
+            TextRequiredValidator(),
           ],
+          autoFocus: true,
         ),
         _separator,
         TextInput(
@@ -105,7 +105,7 @@ class _NewTellScreenState extends State<NewTellScreen> {
           labelStyle: TheoStyles.of(context).labelInputStyle,
           labelMargin: EdgeInsets.only(bottom: 5),
           validators: [
-            RequiredValidator(errorText: ErrorMessages.REQUIRED),
+            TextRequiredValidator(),
           ],
         ),
         _separator,
@@ -125,6 +125,9 @@ class _NewTellScreenState extends State<NewTellScreen> {
           hintText: 'Escreva aqui',
           labelStyle: TheoStyles.of(context).labelInputStyle,
           labelMargin: EdgeInsets.only(bottom: 5),
+          validators: [
+            TextRequiredValidator(),
+          ],
         ),
         if (widget.withLink)
           Container(
@@ -135,6 +138,9 @@ class _NewTellScreenState extends State<NewTellScreen> {
               hintText: 'Escreva aqui',
               labelStyle: TheoStyles.of(context).labelInputStyle,
               labelMargin: EdgeInsets.only(bottom: 5),
+              validators: [
+                TextRequiredValidator(),
+              ],
             ),
           ),
         if (widget.withArchive)
@@ -166,27 +172,40 @@ class _NewTellScreenState extends State<NewTellScreen> {
         _separator,
         _imagesInput,
         _separator,
-        MultiSelectorButtonInput(
+        MultiSelectorButtonFormField(
           label: 'Conteúdo restrito a maiores de 18 anos?',
           onSelectedValuesChanged: (List<SelectorItem> values) =>
-              widget.controller.onContentAgeChanged(values.single),
+              widget.controller.onContentAgeChanged(values),
           values: [
-            SelectorItem(displayValue: 'Sim', value: true),
-            SelectorItem(displayValue: 'Não', value: false),
+            SelectorItem(
+                key: ObjectKey(true), displayValue: 'Sim', value: true),
+            SelectorItem(
+                key: ObjectKey(false), displayValue: 'Não', value: false),
           ],
           uniqueSelect: true,
           bold: true,
+          focusNode: FocusNode(),
+          validators: [
+            MultiSelectorRequiredValidator(),
+          ],
         ),
         _separator,
-        MultiSelectorButtonInput(
+        MultiSelectorButtonFormField(
           label: 'Categoria',
           onSelectedValuesChanged:
               widget.controller.onSelectedCategoriesChanged,
           values: widget.controller.storyCategories
-              .map((e) => SelectorItem(displayValue: e.name!, value: e))
+              .map(
+                (e) => SelectorItem(
+                    key: ObjectKey(e), displayValue: e.name!, value: e),
+              )
               .toList(),
           uniqueSelect: true,
           bold: false,
+          focusNode: FocusNode(),
+          validators: [
+            MultiSelectorRequiredValidator(),
+          ],
         ),
         _separator,
         Column(
@@ -230,8 +249,10 @@ class _NewTellScreenState extends State<NewTellScreen> {
         Container(
           margin: EdgeInsets.only(top: 50, bottom: 10),
           child: BottomButton(
-            onPressed: () =>
-                widget.controller.onPublishButtonTap(_formKey.currentState!),
+            onPressed: () {
+              FocusScope.of(context).unfocus();
+              widget.controller.onPublishButtonTap(_formKey.currentState!);
+            },
             backgroundColor: TheoColors.secondary,
             primaryColor: TheoColors.primary,
             text: 'Publicar',

@@ -118,13 +118,17 @@ abstract class _NewTellScreenControllerBase with Store {
   }
 
   @action
-  void onContentAgeChanged(SelectorItem item) {
-    adultContent = item.value;
+  void onContentAgeChanged(List<SelectorItem> items) {
+    try {
+      adultContent = items.first.value;
+    } catch (err) {}
   }
 
   @action
   void onSelectedCategoriesChanged(List<SelectorItem> items) {
-    selectedCategory = items.first.value;
+    try {
+      selectedCategory = items.first.value;
+    } catch (err) {}
   }
 
   @action
@@ -177,7 +181,6 @@ abstract class _NewTellScreenControllerBase with Store {
   Future<void> onPublishButtonTap(FormState formState) async {
     try {
       eResultStatus = EResultStatus.LOADING;
-
       var isValid = formState.validate();
 
       if (!isValid) {
@@ -218,7 +221,7 @@ abstract class _NewTellScreenControllerBase with Store {
 
       eResultStatus = EResultStatus.DONE;
     } catch (err) {
-      // ErrorAlertDialog.showAlertDialog(content: err.toString());
+      ErrorAlertDialog.showAlertDialog(content: err.toString());
       eResultStatus = EResultStatus.DONE;
     }
   }

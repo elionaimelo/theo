@@ -66,13 +66,16 @@ class _ContactScreenState extends State<ContactScreen> {
             Container(
               margin: EdgeInsets.only(top: 20),
             ),
-            FileInput(
-              label: '',
-              minFileLength: '0',
-              onFileSelected: (List<String> value) {},
-              buttonText: 'Inserir Arquivo',
-              buttonIcon: FeatherIcons.file,
-              assetType: AssetType.other,
+            FileInputFormField(
+              FileInputFormFieldProps(
+                label: '',
+                minFileLength: '0',
+                onFileSelected: (List<String> value) {},
+                buttonText: 'Inserir Arquivo',
+                buttonIcon: FeatherIcons.file,
+                assetType: AssetType.other,
+                focusNode: FocusNode(),
+              ),
             ),
             Container(
               margin: EdgeInsets.only(top: 36),

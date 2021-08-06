@@ -3,6 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:theo/core/constants/story_format_consts.dart';
 import 'package:theo/core/routes.dart';
+import 'package:theo/models/post.dart';
 import 'package:theo/models/story.dart';
 import 'package:theo/pages/graph_story_screen/graph_story_screen_controller.dart';
 import 'package:theo/pages/media_story_screen/media_story_screen_controller.dart';
@@ -46,7 +47,7 @@ class _StorytellingLearnScreenState extends State<StorytellingLearnScreen> {
         Navigator.of(context).pushNamed(
           Routes.graphStory,
           arguments: GraphStoryScreenController(
-            story: story,
+            post: Post(story: story),
             storyStore: GetIt.I.get(),
           ),
         );

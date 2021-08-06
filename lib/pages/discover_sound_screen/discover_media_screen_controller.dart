@@ -36,7 +36,9 @@ abstract class _DiscoverMediaScreenControllerBase with Store {
         ),
       ))!;
 
-      videoController = VideoPlayerController.network(mediaUrl);
+      videoController = VideoPlayerController.network(
+        mediaUrl,
+      );
 
       await videoController.initialize();
 

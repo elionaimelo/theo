@@ -16,6 +16,9 @@ import 'package:theo/pages/new_tell_screen/new_tell_screen_controller.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/styles/gerenal.dart';
 import 'package:theo/types/enums.dart';
+import 'package:theo/validators/file_required_validator.dart';
+import 'package:theo/validators/multi_selector_required_validator.dart';
+import 'package:theo/validators/text_required_validator.dart';
 
 class NewTellScreen extends StatefulWidget {
   NewTellScreen({required this.controller});
@@ -31,6 +34,8 @@ class NewTellScreen extends StatefulWidget {
 }
 
 class _NewTellScreenState extends State<NewTellScreen> {
+  final _formKey = GlobalKey<FormState>();
+
   @override
   void initState() {
     super.initState();
@@ -60,12 +65,14 @@ class _NewTellScreenState extends State<NewTellScreen> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Form(
-                child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: _inputs,
+              key: _formKey,
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: _inputs,
+                ),
               ),
-            )),
+            ),
           ),
         ),
       );
@@ -86,6 +93,10 @@ class _NewTellScreenState extends State<NewTellScreen> {
               widget.controller.languages.map((e) => e.displayName!).toList(),
           onSelectionChanged: widget.controller.onLangSelectionChanged,
           label: 'Idioma padrão',
+          validators: [
+            TextRequiredValidator(),
+          ],
+          autoFocus: true,
         ),
         _separator,
         TextInput(
@@ -94,6 +105,9 @@ class _NewTellScreenState extends State<NewTellScreen> {
           hintText: 'Escreva aqui',
           labelStyle: TheoStyles.of(context).labelInputStyle,
           labelMargin: EdgeInsets.only(bottom: 5),
+          validators: [
+            TextRequiredValidator(),
+          ],
         ),
         _separator,
         TextInput(
@@ -112,6 +126,9 @@ class _NewTellScreenState extends State<NewTellScreen> {
           hintText: 'Escreva aqui',
           labelStyle: TheoStyles.of(context).labelInputStyle,
           labelMargin: EdgeInsets.only(bottom: 5),
+          validators: [
+            TextRequiredValidator(),
+          ],
         ),
         if (widget.withLink)
           Container(
@@ -122,58 +139,86 @@ class _NewTellScreenState extends State<NewTellScreen> {
               hintText: 'Escreva aqui',
               labelStyle: TheoStyles.of(context).labelInputStyle,
               labelMargin: EdgeInsets.only(bottom: 5),
+              validators: [
+                TextRequiredValidator(),
+              ],
             ),
           ),
         if (widget.withArchive)
           Container(
             margin: marginLength,
-            child: FileInput(
-              label: 'Arquivo',
-              minFileLength: '0',
-              onFileSelected: (List<String> paths) =>
-                  widget.controller.onArchivePathSelected(paths.first),
-              buttonIcon: FeatherIcons.file,
-              buttonText: 'Inserir Arquivo',
-              assetType: AssetType.other,
+            child: FileInputFormField(
+              FileInputFormFieldProps(
+                label: 'Arquivo',
+                minFileLength: '0',
+                onFileSelected: (List<String> paths) =>
+                    widget.controller.onArchivePathSelected(paths.first),
+                buttonIcon: FeatherIcons.file,
+                buttonText: 'Inserir Arquivo',
+                assetType: AssetType.other,
+                focusNode: FocusNode(),
+                validators: [
+                  FileRequiredValidator(),
+                ],
+              ),
             ),
           ),
         if (widget.controller.format.name == StoryFormatConsts.VIDEO)
           Container(
             margin: marginLength,
-            child: FileInput(
-              label: 'Arquivo de Vídeo',
-              minFileLength: '0',
-              onFileSelected: (List<String> paths) =>
-                  widget.controller.onVideoFilePathSelected(paths.first),
-              buttonIcon: FeatherIcons.video,
-              buttonText: 'Inserir Vídeo',
-              assetType: AssetType.video,
+            child: FileInputFormField(
+              FileInputFormFieldProps(
+                label: 'Arquivo de Vídeo',
+                minFileLength: '0',
+                onFileSelected: (List<String> paths) =>
+                    widget.controller.onVideoFilePathSelected(paths.first),
+                buttonIcon: FeatherIcons.video,
+                buttonText: 'Inserir Vídeo',
+                assetType: AssetType.video,
+                focusNode: FocusNode(),
+                validators: [
+                  FileRequiredValidator(),
+                ],
+              ),
             ),
           ),
         _separator,
         _imagesInput,
         _separator,
-        MultiSelectorButtonInput(
+        MultiSelectorButtonFormField(
           label: 'Conteúdo restrito a maiores de 18 anos?',
           onSelectedValuesChanged: (List<SelectorItem> values) =>
-              widget.controller.onContentAgeChanged(values.single),
+              widget.controller.onContentAgeChanged(values),
           values: [
-            SelectorItem(displayValue: 'Sim', value: true),
-            SelectorItem(displayValue: 'Não', value: false),
+            SelectorItem(
+                key: ObjectKey(true), displayValue: 'Sim', value: true),
+            SelectorItem(
+                key: ObjectKey(false), displayValue: 'Não', value: false),
           ],
           uniqueSelect: true,
           bold: true,
+          focusNode: FocusNode(),
+          validators: [
+            MultiSelectorRequiredValidator(),
+          ],
         ),
         _separator,
-        MultiSelectorButtonInput(
+        MultiSelectorButtonFormField(
           label: 'Categoria',
           onSelectedValuesChanged:
               widget.controller.onSelectedCategoriesChanged,
           values: widget.controller.storyCategories
-              .map((e) => SelectorItem(displayValue: e.name!, value: e))
+              .map(
+                (e) => SelectorItem(
+                    key: ObjectKey(e), displayValue: e.name!, value: e),
+              )
               .toList(),
           uniqueSelect: true,
           bold: false,
+          focusNode: FocusNode(),
+          validators: [
+            MultiSelectorRequiredValidator(),
+          ],
         ),
         _separator,
         Column(
@@ -217,7 +262,10 @@ class _NewTellScreenState extends State<NewTellScreen> {
         Container(
           margin: EdgeInsets.only(top: 50, bottom: 10),
           child: BottomButton(
-            onPressed: widget.controller.onPublishButtonTap,
+            onPressed: () {
+              FocusScope.of(context).unfocus();
+              widget.controller.onPublishButtonTap(_formKey.currentState!);
+            },
             backgroundColor: TheoColors.secondary,
             primaryColor: TheoColors.primary,
             text: 'Publicar',
@@ -231,7 +279,7 @@ class _NewTellScreenState extends State<NewTellScreen> {
       ];
 
   Widget get _imagesInput => _multiplesImages
-      ? FileInput(
+      ? FileInputFormField(FileInputFormFieldProps(
           label: 'Disponibilize algumas imagens',
           minFileLength: '0',
           onFileSelected: widget.controller.onImagesPathsSelected,
@@ -239,8 +287,12 @@ class _NewTellScreenState extends State<NewTellScreen> {
           buttonText: 'Inserir Imagem',
           assetType: AssetType.image,
           multipleFiles: _multiplesImages,
-        )
-      : FileInput(
+          focusNode: FocusNode(),
+          validators: [
+            FileRequiredValidator(),
+          ],
+        ))
+      : FileInputFormField(FileInputFormFieldProps(
           label: 'Imagem de Capa (Opcional)',
           minFileLength: '0',
           onFileSelected: widget.controller.onImagesPathsSelected,
@@ -248,7 +300,11 @@ class _NewTellScreenState extends State<NewTellScreen> {
           buttonText: 'Inserir Imagem',
           assetType: AssetType.image,
           multipleFiles: _multiplesImages,
-        );
+          focusNode: FocusNode(),
+          validators: [
+            FileRequiredValidator(),
+          ],
+        ));
 
   bool get _multiplesImages {
     switch (widget.controller.format.name) {

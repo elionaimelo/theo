@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:theo/styles/colors.dart';
+import 'package:theo/validators/focus_multi_validator.dart';
+import 'package:theo/validators/validator.dart';
 
 class TextSelectorInput extends StatefulWidget {
   TextSelectorInput({
     required this.items,
     required this.onSelectionChanged,
     required this.label,
+    this.validators = const [],
+    this.autoFocus = false,
   });
 
   final List<String> items;
   final Function(String?) onSelectionChanged;
   final String label;
+  final List<Validator> validators;
+  final bool autoFocus;
 
   @override
   _TextSelectorInputState createState() => _TextSelectorInputState();
@@ -19,7 +25,7 @@ class TextSelectorInput extends StatefulWidget {
 
 class _TextSelectorInputState extends State<TextSelectorInput> {
   String? currentValue;
-
+  final FocusNode focusNode = FocusNode();
   void _onSelectionChanged(String? value) {
     setState(() {
       currentValue = value;
@@ -38,6 +44,12 @@ class _TextSelectorInputState extends State<TextSelectorInput> {
           child: _label,
         ),
         DropdownButtonFormField(
+          autofocus: widget.autoFocus,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          validator: FocusMultiValidator(
+            validators: widget.validators,
+            focusNode: focusNode,
+          ),
           isExpanded: true,
           decoration: const InputDecoration(
             contentPadding: EdgeInsets.symmetric(horizontal: 16),

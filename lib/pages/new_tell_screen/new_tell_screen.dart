@@ -101,7 +101,7 @@ class _NewTellScreenState extends State<NewTellScreen> {
         _separator,
         TextInput(
           onTextChanged: widget.controller.onTitleTextChanged,
-          label: 'Título',
+          label: 'Título (*)',
           hintText: 'Escreva aqui',
           labelStyle: TheoStyles.of(context).labelInputStyle,
           labelMargin: EdgeInsets.only(bottom: 5),
@@ -122,7 +122,7 @@ class _NewTellScreenState extends State<NewTellScreen> {
         _separator,
         TextInput(
           onTextChanged: widget.controller.onAuthorTextChanged,
-          label: 'Autor',
+          label: 'Autor (*)',
           hintText: 'Escreva aqui',
           labelStyle: TheoStyles.of(context).labelInputStyle,
           labelMargin: EdgeInsets.only(bottom: 5),
@@ -135,7 +135,7 @@ class _NewTellScreenState extends State<NewTellScreen> {
             margin: marginLength,
             child: TextInput(
               onTextChanged: widget.controller.onLinkTextChanged,
-              label: 'Inserir link',
+              label: 'Inserir link (*)',
               hintText: 'Escreva aqui',
               labelStyle: TheoStyles.of(context).labelInputStyle,
               labelMargin: EdgeInsets.only(bottom: 5),
@@ -149,7 +149,7 @@ class _NewTellScreenState extends State<NewTellScreen> {
             margin: marginLength,
             child: FileInputFormField(
               FileInputFormFieldProps(
-                label: 'Arquivo',
+                label: 'Arquivo (*)',
                 minFileLength: '0',
                 onFileSelected: (List<String> paths) =>
                     widget.controller.onArchivePathSelected(paths.first),
@@ -168,7 +168,7 @@ class _NewTellScreenState extends State<NewTellScreen> {
             margin: marginLength,
             child: FileInputFormField(
               FileInputFormFieldProps(
-                label: 'Arquivo de Vídeo',
+                label: 'Arquivo de Vídeo (*)',
                 minFileLength: '0',
                 onFileSelected: (List<String> paths) =>
                     widget.controller.onVideoFilePathSelected(paths.first),
@@ -186,7 +186,7 @@ class _NewTellScreenState extends State<NewTellScreen> {
         _imagesInput,
         _separator,
         MultiSelectorButtonFormField(
-          label: 'Conteúdo restrito a maiores de 18 anos?',
+          label: 'Conteúdo restrito a maiores de 18 anos? (*)',
           onSelectedValuesChanged: (List<SelectorItem> values) =>
               widget.controller.onContentAgeChanged(values),
           values: [
@@ -204,7 +204,7 @@ class _NewTellScreenState extends State<NewTellScreen> {
         ),
         _separator,
         MultiSelectorButtonFormField(
-          label: 'Categoria',
+          label: 'Categoria (*)',
           onSelectedValuesChanged:
               widget.controller.onSelectedCategoriesChanged,
           values: widget.controller.storyCategories
@@ -280,7 +280,7 @@ class _NewTellScreenState extends State<NewTellScreen> {
 
   Widget get _imagesInput => _multiplesImages
       ? FileInputFormField(FileInputFormFieldProps(
-          label: 'Disponibilize algumas imagens',
+          label: 'Disponibilize algumas imagens (*)',
           minFileLength: '0',
           onFileSelected: widget.controller.onImagesPathsSelected,
           buttonIcon: FeatherIcons.image,
@@ -293,7 +293,7 @@ class _NewTellScreenState extends State<NewTellScreen> {
           ],
         ))
       : FileInputFormField(FileInputFormFieldProps(
-          label: 'Imagem de Capa (Opcional)',
+          label: 'Imagem de Capa (*)',
           minFileLength: '0',
           onFileSelected: widget.controller.onImagesPathsSelected,
           buttonIcon: FeatherIcons.image,

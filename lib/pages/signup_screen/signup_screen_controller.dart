@@ -1,11 +1,18 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:theo/components/error_alert_dialog.dart';
+import 'package:theo/core/routes.dart';
 import 'package:theo/models/language.dart';
 import 'package:theo/models/profile.dart';
 import 'package:theo/models/role.dart';
 import 'package:theo/models/user.dart';
+import 'package:theo/pages/concluded_screen/concluded_screen_controller.dart';
+import 'package:theo/pages/tutorial_screen/tutorial_screen.dart';
+import 'package:theo/pages/tutorial_screen/tutorial_screen_controller.dart';
 import 'package:theo/states/auth_store.dart';
 import 'package:theo/states/language_store.dart';
+import 'package:theo/states/navigation_store.dart';
 import 'package:theo/states/role_store.dart';
 import 'package:theo/types/enums.dart';
 part 'signup_screen_controller.g.dart';
@@ -18,17 +25,24 @@ abstract class _SignupScreenControllerBase with Store {
     required this.languageStore,
     required this.roleStore,
     required this.authStore,
+    required this.navigationStore,
   });
 
   final LanguageStore languageStore;
   final RoleStore roleStore;
   final AuthStore authStore;
+  final NavigationStore navigationStore;
+
+  GlobalKey<FormState> formState = GlobalKey();
 
   @computed
   List<Role> get roles => roleStore.roles;
 
   @computed
   List<Language> get languages => languageStore.languages;
+
+  @observable
+  double currentBarValue = 0;
 
   @observable
   EResultStatus eResultStatus = EResultStatus.LOADING;
@@ -107,6 +121,66 @@ abstract class _SignupScreenControllerBase with Store {
   @action
   void onRoleSelected(int index) {
     selectedRole = roles[index];
+  }
+
+  @action
+  Future<bool> onBackPressed(TabController tabController) async {
+    if (tabController.index > 0) {
+      tabController.animateTo(tabController.index - 1);
+      currentBarValue -= 1;
+      return false;
+    }
+
+    navigationStore.navigator.pop();
+
+    return true;
+  }
+
+  @action
+  Future<void> onNextButtonTap(
+      TabController tabController, BuildContext context) async {
+    if (!formState.currentState!.validate()) {
+      return;
+    }
+
+    FocusScope.of(context).unfocus();
+
+    var index = tabController.index;
+    if (index + 1 >= tabController.length /*- 1*/) {
+      var succeeded = await signUpUser();
+
+      if (succeeded) {
+        await navigationStore.navigator.pushNamed(
+          Routes.concluded,
+          arguments: ConcludedScreenController(
+            message: 'O seu perfil já está pronto.',
+            title: 'Concluído!',
+            onNextButtonTap: _navigateToTutorialOrHome,
+          ),
+        );
+      }
+
+      return;
+    }
+
+    tabController.animateTo(index + 1);
+
+    currentBarValue =
+        (index.toDouble() + 1) / (tabController.length.toDouble() - 1);
+  }
+
+  @action
+  Future<void> _navigateToTutorialOrHome() async {
+    navigationStore.navigator.popUntil((route) => route.isFirst);
+
+    if (await TutorialScreen.isFirstShow()) {
+      await navigationStore.navigator.pushNamed(
+        Routes.tutorial,
+        arguments: TutorialScreenController(),
+      );
+    } else {
+      await navigationStore.navigator.pushNamed(Routes.home);
+    }
   }
 
   @action

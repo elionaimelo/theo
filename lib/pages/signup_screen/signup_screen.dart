@@ -5,14 +5,14 @@ import 'package:theo/components/error_alert_dialog.dart';
 import 'package:theo/components/inputs/text_input.dart';
 import 'package:theo/components/question_tab.dart';
 import 'package:theo/components/result_status/loading_status.dart';
-import 'package:theo/core/routes.dart';
-import 'package:theo/pages/concluded_screen/concluded_screen_controller.dart';
 import 'package:theo/pages/signup_screen/signup_screen_controller.dart';
-import 'package:theo/pages/tutorial_screen/tutorial_screen.dart';
-import 'package:theo/pages/tutorial_screen/tutorial_screen_controller.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/styles/metrics.dart';
 import 'package:theo/types/enums.dart';
+import 'package:theo/validators/email_validator.dart';
+import 'package:theo/validators/match_password_validator.dart';
+import 'package:theo/validators/password_validator.dart';
+import 'package:theo/validators/text_required_validator.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key, required this.controller}) : super(key: key);
@@ -27,18 +27,7 @@ class _SignupScreenState extends State<SignupScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
-  double currentBarValue = 0;
-
-  Future<bool> _onBackPressed() async {
-    if (_tabController.index > 0) {
-      _tabController.animateTo(_tabController.index - 1);
-      return false;
-    }
-
-    Navigator.of(context).pop();
-
-    return true;
-  }
+  SignupScreenController get controller => widget.controller;
 
   @override
   void initState() {
@@ -49,55 +38,18 @@ class _SignupScreenState extends State<SignupScreen>
     widget.controller.fetchData();
   }
 
-  Future<void> _onNextButtonTap() async {
-    var index = _tabController.index;
-    if (index + 1 >= _tabController.length /*- 1*/) {
-      var succeeded = await widget.controller.signUpUser();
-
-      if (succeeded) {
-        await Navigator.of(context).pushNamed(
-          Routes.concluded,
-          arguments: ConcludedScreenController(
-            message: 'O seu perfil já está pronto.',
-            title: 'Concluído!',
-            onNextButtonTap: _navigateToTutorialOrHome,
-          ),
-        );
-      }
-
-      return;
-    }
-
-    _tabController.animateTo(index + 1);
-
-    setState(() {
-      currentBarValue =
-          (index.toDouble() + 1) / (_tabController.length.toDouble() - 1);
-    });
-  }
-
-  Future<void> _navigateToTutorialOrHome() async {
-    Navigator.of(context).popUntil((route) => route.isFirst);
-
-    if (await TutorialScreen.isFirstShow()) {
-      await Navigator.of(context).pushNamed(
-        Routes.tutorial,
-        arguments: TutorialScreenController(),
-      );
-    } else {
-      await Navigator.of(context).pushNamed(Routes.home);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: _onBackPressed,
+      onWillPop: () => controller.onBackPressed(_tabController),
       child: Container(
         color: TheoColors.secondary,
         padding: TheoMetrics.paddingScreen,
         child: SafeArea(
-          child: _content,
+          child: Form(
+            key: controller.formState,
+            child: _content,
+          ),
         ),
       ),
     );
@@ -120,7 +72,8 @@ class _SignupScreenState extends State<SignupScreen>
             BottomButton(
               text: 'Continuar',
               icon: Icons.arrow_forward,
-              onPressed: _onNextButtonTap,
+              onPressed: () =>
+                  controller.onNextButtonTap(_tabController, context),
             )
           ],
         );
@@ -137,7 +90,7 @@ class _SignupScreenState extends State<SignupScreen>
         ),
         child: LinearProgressIndicator(
           minHeight: 15,
-          value: currentBarValue,
+          value: controller.currentBarValue,
           backgroundColor: TheoColors.twelve,
           valueColor: AlwaysStoppedAnimation<Color>(TheoColors.eleven),
         ),
@@ -167,6 +120,9 @@ class _SignupScreenState extends State<SignupScreen>
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           TextInput(
+            validators: [
+              TextRequiredValidator(),
+            ],
             hintText: 'Escreva seu nome aqui',
             label: 'Qual seu nome?',
             onTextChanged: widget.controller.onNameTextChanged,
@@ -181,6 +137,9 @@ class _SignupScreenState extends State<SignupScreen>
             hintText: 'Escreva seu email aqui',
             label: 'Qual seu e-mail?',
             onTextChanged: widget.controller.onEmailTextChanged,
+            validators: [
+              EmailValidator(),
+            ],
           ),
         ],
       );
@@ -192,6 +151,9 @@ class _SignupScreenState extends State<SignupScreen>
             hintText: 'Escreva o nome do país aqui',
             label: 'Qual o seu país?',
             onTextChanged: widget.controller.onCountryTextChanged,
+            validators: [
+              TextRequiredValidator(),
+            ],
           ),
         ],
       );
@@ -200,17 +162,23 @@ class _SignupScreenState extends State<SignupScreen>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            QuestionTab(
-              options:
-                  widget.controller.roles.map((e) => e.displayName!).toList(),
-              onSelectedIndex: widget.controller.onRoleSelected,
-              question: 'Você é...',
-              crossAxisAlign: CrossAxisAlignment.start,
-              questionStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w900,
-                    color: TheoColors.primary,
-                  ),
+            QuestionTabFormField(
+              QuestionTabFormFieldProps(
+                options:
+                    widget.controller.roles.map((e) => e.displayName!).toList(),
+                onSelectedIndex: widget.controller.onRoleSelected,
+                question: 'Você é...',
+                crossAxisAlign: CrossAxisAlignment.start,
+                questionStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w900,
+                      color: TheoColors.primary,
+                    ),
+                focusNode: FocusNode(),
+                validators: [
+                  TextRequiredValidator(),
+                ],
+              ),
             ),
           ],
         ),
@@ -220,22 +188,28 @@ class _SignupScreenState extends State<SignupScreen>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            QuestionTab(
-              options: [
-                'Até 19 anos',
-                '20 a 29 anos',
-                '30 a 39 anos',
-                '40 a 49 anos',
-                '50 anos ou mais'
-              ],
-              onSelectedIndex: widget.controller.onAgeSelected,
-              question: 'Qual a sua faixa etária?',
-              crossAxisAlign: CrossAxisAlignment.start,
-              questionStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w900,
-                    color: TheoColors.primary,
-                  ),
+            QuestionTabFormField(
+              QuestionTabFormFieldProps(
+                options: [
+                  'Até 19 anos',
+                  '20 a 29 anos',
+                  '30 a 39 anos',
+                  '40 a 49 anos',
+                  '50 anos ou mais'
+                ],
+                onSelectedIndex: widget.controller.onAgeSelected,
+                question: 'Qual a sua faixa etária?',
+                crossAxisAlign: CrossAxisAlignment.start,
+                questionStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w900,
+                      color: TheoColors.primary,
+                    ),
+                focusNode: FocusNode(),
+                validators: [
+                  TextRequiredValidator(),
+                ],
+              ),
             ),
           ],
         ),
@@ -249,6 +223,9 @@ class _SignupScreenState extends State<SignupScreen>
             label: 'Crie uma senha',
             onTextChanged: widget.controller.onPasswordTextChanged,
             obscureText: true,
+            validators: [
+              PasswordValidator(),
+            ],
           ),
           Container(
             margin: EdgeInsets.only(top: 80),
@@ -258,6 +235,12 @@ class _SignupScreenState extends State<SignupScreen>
             label: 'Repita a sua senha',
             onTextChanged: widget.controller.onPasswordCheckTextChanged,
             obscureText: true,
+            validators: [
+              PasswordValidator(),
+              MatchPasswordValidator(
+                matchValue: widget.controller.password ?? '',
+              )
+            ],
           ),
         ],
       );

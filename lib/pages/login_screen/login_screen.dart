@@ -4,10 +4,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:theo/components/bottom_button.dart';
 import 'package:theo/components/profile_bar.dart';
 import 'package:theo/components/result_status/loading_status.dart';
-import 'package:theo/core/routes.dart';
 import 'package:theo/pages/login_screen/login_screen_controller.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/types/enums.dart';
+import 'package:theo/validators/email_validator.dart';
+import 'package:theo/validators/password_validator.dart';
+import 'package:theo/validators/text_required_validator.dart';
 
 import '../../components/inputs/text_input.dart';
 
@@ -32,19 +34,6 @@ class _LoginScreenState extends State<LoginScreen>
     Navigator.of(context).pop();
 
     return true;
-  }
-
-  void _onEmailButtonTap() {
-    _tabController.animateTo(1);
-  }
-
-  Future<void> _onLoginTap() async {
-    var result = await widget.controller.signInUser();
-
-    if (result) {
-      await Navigator.of(context)
-          .pushNamedAndRemoveUntil(Routes.home, (route) => route.isFirst);
-    }
   }
 
   @override
@@ -73,10 +62,13 @@ class _LoginScreenState extends State<LoginScreen>
 
         return Container(
           padding: EdgeInsets.only(left: 16, right: 16, bottom: 71, top: 15),
-          child: TabBarView(
-            physics: NeverScrollableScrollPhysics(),
-            controller: _tabController,
-            children: _tabs,
+          child: Form(
+            key: widget.controller.formState,
+            child: TabBarView(
+              physics: NeverScrollableScrollPhysics(),
+              controller: _tabController,
+              children: _tabs,
+            ),
           ),
         );
       },
@@ -103,6 +95,10 @@ class _LoginScreenState extends State<LoginScreen>
                 label: 'Insira sua senha',
                 onTextChanged: widget.controller.onPasswordTextChanged,
                 obscureText: true,
+                validators: [
+                  TextRequiredValidator(),
+                  PasswordValidator(),
+                ],
               ),
               Container(
                 margin: EdgeInsets.only(top: 30),
@@ -125,7 +121,7 @@ class _LoginScreenState extends State<LoginScreen>
           BottomButton(
             text: 'Entrar',
             icon: Icons.arrow_forward,
-            onPressed: _onLoginTap,
+            onPressed: widget.controller.signInUser,
           ),
         ],
       );
@@ -139,11 +135,16 @@ class _LoginScreenState extends State<LoginScreen>
             hintText: 'Escreva seu email aqui',
             label: 'Endereço de email',
             onTextChanged: widget.controller.onEmailTextChanged,
+            autoFocus: true,
+            validators: [
+              TextRequiredValidator(),
+              EmailValidator(),
+            ],
           ),
           BottomButton(
             text: 'Continuar',
             icon: Icons.arrow_forward,
-            onPressed: _onEmailButtonTap,
+            onPressed: () => widget.controller.onEmailButtonTap(_tabController),
           )
         ],
       );

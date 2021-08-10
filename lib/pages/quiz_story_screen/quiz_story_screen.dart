@@ -141,7 +141,40 @@ class _QuizStoryScreenState extends State<QuizStoryScreen>
   List<Widget> get _tabs => [_tab1, _tab2, _tab3, _tab4];
 
   Widget get _tab1 => Container(
-        child: QuestionTab(
+        child: QuestionTabFormField(
+          QuestionTabFormFieldProps(
+            centerOptions: true,
+            question:
+                'Lorem ipsum dolor sit amet consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna?',
+            options: [
+              'Resposta 1 lorem ipsum dolore magna at vero eos rebum',
+              'Resposta 2 lorem ipsum dolore',
+              'Resposta 3 lorem ipsum dolore magna at vero eos rebum',
+              'Resposta 4 lorem ipsum dolore magna at vero',
+            ],
+            onSelectedIndex: (int index) =>
+                widget.controller.selectAnswer(index),
+            focusNode: FocusNode(),
+          ),
+        ),
+      );
+
+  Widget get _tab2 => QuestionTabFormField(
+        QuestionTabFormFieldProps(
+          centerOptions: true,
+          question:
+              'Lorem ipsum dolor sit amet consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna?',
+          options: [
+            'Verdadeiro',
+            'Falso',
+          ],
+          onSelectedIndex: (int index) => widget.controller.selectAnswer(index),
+          focusNode: FocusNode(),
+        ),
+      );
+
+  Widget get _tab3 => QuestionTabFormField(
+        QuestionTabFormFieldProps(
           centerOptions: true,
           question:
               'Lorem ipsum dolor sit amet consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna?',
@@ -152,43 +185,23 @@ class _QuizStoryScreenState extends State<QuizStoryScreen>
             'Resposta 4 lorem ipsum dolore magna at vero',
           ],
           onSelectedIndex: (int index) => widget.controller.selectAnswer(index),
+          focusNode: FocusNode(),
         ),
       );
 
-  Widget get _tab2 => QuestionTab(
-        centerOptions: true,
-        question:
-            'Lorem ipsum dolor sit amet consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna?',
-        options: [
-          'Verdadeiro',
-          'Falso',
-        ],
-        onSelectedIndex: (int index) => widget.controller.selectAnswer(index),
-      );
-
-  Widget get _tab3 => QuestionTab(
-        centerOptions: true,
-        question:
-            'Lorem ipsum dolor sit amet consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna?',
-        options: [
-          'Resposta 1 lorem ipsum dolore magna at vero eos rebum',
-          'Resposta 2 lorem ipsum dolore',
-          'Resposta 3 lorem ipsum dolore magna at vero eos rebum',
-          'Resposta 4 lorem ipsum dolore magna at vero',
-        ],
-        onSelectedIndex: (int index) => widget.controller.selectAnswer(index),
-      );
-
-  Widget get _tab4 => QuestionTab(
-        centerOptions: true,
-        question:
-            'Lorem ipsum dolor sit amet consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna?',
-        options: [
-          'Resposta 1 lorem ipsum dolore magna at vero eos rebum',
-          'Resposta 2 lorem ipsum dolore',
-          'Resposta 3 lorem ipsum dolore magna at vero eos rebum',
-          'Resposta 4 lorem ipsum dolore magna at vero',
-        ],
-        onSelectedIndex: (int index) => widget.controller.selectAnswer(index),
+  Widget get _tab4 => QuestionTabFormField(
+        QuestionTabFormFieldProps(
+          centerOptions: true,
+          question:
+              'Lorem ipsum dolor sit amet consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna?',
+          options: [
+            'Resposta 1 lorem ipsum dolore magna at vero eos rebum',
+            'Resposta 2 lorem ipsum dolore',
+            'Resposta 3 lorem ipsum dolore magna at vero eos rebum',
+            'Resposta 4 lorem ipsum dolore magna at vero',
+          ],
+          onSelectedIndex: (int index) => widget.controller.selectAnswer(index),
+          focusNode: FocusNode(),
+        ),
       );
 }

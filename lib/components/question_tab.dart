@@ -1,58 +1,89 @@
 import 'package:flutter/material.dart';
+import 'package:theo/components/inputs/validation_error_text.dart';
 import 'package:theo/components/option_button.dart';
 import 'package:theo/styles/colors.dart';
+import 'package:theo/validators/focus_multi_validator.dart';
+import 'package:theo/validators/validator.dart';
 
-class QuestionTab extends StatefulWidget {
-  QuestionTab({
-    Key? key,
-    required this.question,
-    required this.options,
-    required this.onSelectedIndex,
-    this.crossAxisAlign = CrossAxisAlignment.center,
-    this.questionStyle,
-    this.centerOptions = false,
-  }) : super(key: key);
-
-  @override
-  _QuestionTabState createState() => _QuestionTabState();
-
+class QuestionTabFormFieldProps {
   final String question;
   final List<String> options;
   final Function(int index) onSelectedIndex;
   final CrossAxisAlignment crossAxisAlign;
   final TextStyle? questionStyle;
   final bool centerOptions;
+  final List<Validator> validators;
+  final FocusNode focusNode;
+
+  QuestionTabFormFieldProps({
+    required this.question,
+    required this.options,
+    required this.onSelectedIndex,
+    this.crossAxisAlign = CrossAxisAlignment.center,
+    this.questionStyle,
+    this.centerOptions = false,
+    this.validators = const [],
+    required this.focusNode,
+  });
 }
 
-class _QuestionTabState extends State<QuestionTab> {
-  String selectedOption = '';
+class QuestionTabFormField extends FormField<String?> {
+  QuestionTabFormField(QuestionTabFormFieldProps props)
+      : super(
+          initialValue: '',
+          validator: FocusMultiValidator(
+            validators: props.validators,
+            focusNode: props.focusNode,
+          ),
+          builder: (state) {
+            return QuestionTabView(
+              props: props,
+              formState: state,
+            );
+          },
+        );
+}
+
+class QuestionTabView extends StatelessWidget {
+  const QuestionTabView({
+    Key? key,
+    required this.props,
+    required this.formState,
+  }) : super(key: key);
+
+  final QuestionTabFormFieldProps props;
+  final FormFieldState<String?> formState;
+
+  String get selectedOption => formState.value ?? '';
 
   void _onOptionButtonTap(String text) {
     if (text == selectedOption) {
       text = '';
     }
 
-    widget.onSelectedIndex(widget.options.indexOf(text));
+    props.onSelectedIndex(props.options.indexOf(text));
 
-    setState(() {
-      selectedOption = text;
-    });
+    formState.didChange(text);
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Column(
-        crossAxisAlignment: widget.crossAxisAlign,
+        crossAxisAlignment: props.crossAxisAlign,
         children: [
-          _questionText(widget.question),
+          ValidationErrorText(
+            errorText: formState.errorText,
+            hasError: formState.hasError,
+          ),
+          _questionText(props.question, context),
           _content,
         ],
       ),
     );
   }
 
-  Widget get _content => widget.centerOptions
+  Widget get _content => props.centerOptions
       ? Expanded(
           child: _questions,
         )
@@ -61,7 +92,7 @@ class _QuestionTabState extends State<QuestionTab> {
   Widget get _questions => Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: widget.options
+        children: props.options
             .map(
               (e) => OptionButton(
                 text: e,
@@ -72,9 +103,9 @@ class _QuestionTabState extends State<QuestionTab> {
             .toList(),
       );
 
-  Widget _questionText(String text) => Text(
+  Widget _questionText(String text, BuildContext context) => Text(
         text,
-        style: widget.questionStyle ??
+        style: props.questionStyle ??
             Theme.of(context).textTheme.bodyText1!.copyWith(
                   fontSize: 18,
                   fontWeight: FontWeight.w700,

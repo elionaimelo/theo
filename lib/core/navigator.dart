@@ -254,6 +254,7 @@ class _TheoNavigatorState extends State<TheoNavigator> {
           languageStore: GetIt.I.get(),
           roleStore: GetIt.I.get(),
           authStore: GetIt.I.get(),
+          navigationStore: GetIt.I.get(),
         ),
       );
 }

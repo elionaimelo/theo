@@ -14,6 +14,8 @@ import 'package:theo/validators/match_password_validator.dart';
 import 'package:theo/validators/password_validator.dart';
 import 'package:theo/validators/text_required_validator.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key, required this.controller}) : super(key: key);
 
@@ -70,7 +72,7 @@ class _SignupScreenState extends State<SignupScreen>
             _progressBar,
             _body,
             BottomButton(
-              text: 'Continuar',
+              text: AppLocalizations.of(context)!.nextButton,
               icon: Icons.arrow_forward,
               onPressed: () =>
                   controller.onNextButtonTap(_tabController, context),
@@ -123,8 +125,8 @@ class _SignupScreenState extends State<SignupScreen>
             validators: [
               TextRequiredValidator(),
             ],
-            hintText: 'Escreva seu nome aqui',
-            label: 'Qual seu nome?',
+            hintText: AppLocalizations.of(context)!.nameInputHint,
+            label: AppLocalizations.of(context)!.nameInputLabel,
             onTextChanged: widget.controller.onNameTextChanged,
           ),
         ],
@@ -134,8 +136,8 @@ class _SignupScreenState extends State<SignupScreen>
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           TextInput(
-            hintText: 'Escreva seu email aqui',
-            label: 'Qual seu e-mail?',
+            hintText: AppLocalizations.of(context)!.emailInputHint,
+            label: AppLocalizations.of(context)!.emailInputLabel,
             onTextChanged: widget.controller.onEmailTextChanged,
             validators: [
               EmailValidator(),
@@ -148,8 +150,8 @@ class _SignupScreenState extends State<SignupScreen>
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           TextInput(
-            hintText: 'Escreva o nome do país aqui',
-            label: 'Qual o seu país?',
+            hintText: AppLocalizations.of(context)!.countryInputHint,
+            label: AppLocalizations.of(context)!.countryInputLabel,
             onTextChanged: widget.controller.onCountryTextChanged,
             validators: [
               TextRequiredValidator(),
@@ -167,7 +169,7 @@ class _SignupScreenState extends State<SignupScreen>
                 options:
                     widget.controller.roles.map((e) => e.displayName!).toList(),
                 onSelectedIndex: widget.controller.onRoleSelected,
-                question: 'Você é...',
+                question: AppLocalizations.of(context)!.roleInputQuestion,
                 crossAxisAlign: CrossAxisAlignment.start,
                 questionStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
                       fontSize: 20,
@@ -191,11 +193,11 @@ class _SignupScreenState extends State<SignupScreen>
             QuestionTabFormField(
               QuestionTabFormFieldProps(
                 options: [
-                  'Até 19 anos',
-                  '20 a 29 anos',
-                  '30 a 39 anos',
-                  '40 a 49 anos',
-                  '50 anos ou mais'
+                  AppLocalizations.of(context)!.age1Input,
+                  AppLocalizations.of(context)!.age2Input,
+                  AppLocalizations.of(context)!.age3Input,
+                  AppLocalizations.of(context)!.age4Input,
+                  AppLocalizations.of(context)!.age5Input,
                 ],
                 onSelectedIndex: widget.controller.onAgeSelected,
                 question: 'Qual a sua faixa etária?',
@@ -219,8 +221,8 @@ class _SignupScreenState extends State<SignupScreen>
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           TextInput(
-            hintText: 'Escreva aqui',
-            label: 'Crie uma senha',
+            hintText: AppLocalizations.of(context)!.defaultInputHint,
+            label: AppLocalizations.of(context)!.passwordInputLabel,
             onTextChanged: widget.controller.onPasswordTextChanged,
             obscureText: true,
             validators: [
@@ -231,8 +233,8 @@ class _SignupScreenState extends State<SignupScreen>
             margin: EdgeInsets.only(top: 80),
           ),
           TextInput(
-            hintText: 'Escreva aqui',
-            label: 'Repita a sua senha',
+            hintText: AppLocalizations.of(context)!.defaultInputHint,
+            label: AppLocalizations.of(context)!.matchPasswordInputLabel,
             onTextChanged: widget.controller.onPasswordCheckTextChanged,
             obscureText: true,
             validators: [

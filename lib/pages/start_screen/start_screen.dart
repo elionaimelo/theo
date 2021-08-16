@@ -3,6 +3,8 @@ import 'package:theo/components/bottom_button.dart';
 import 'package:theo/core/routes.dart';
 import 'package:theo/styles/colors.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class StartScreen extends StatefulWidget {
   @override
   _StartScreenState createState() => _StartScreenState();
@@ -23,61 +25,68 @@ class _StartScreenState extends State<StartScreen> {
       body: Column(
         children: [
           Expanded(
-              flex: 1,
-              child: Container(
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage('assets/images/bg1.png'),
-                        fit: BoxFit.cover)),
-              )),
-          Expanded(
-              child: Column(
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.only(top: 30),
-                child: FittedBox(
-                  fit: BoxFit.contain,
-                  child: Image.asset('assets/images/logo-theo.png'),
-                ),
+            flex: 1,
+            child: Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage('assets/images/bg1.png'),
+                    fit: BoxFit.cover),
               ),
-              Container(
-                width: 262,
-                height: 80,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 24.0),
-                  child: RichText(
-                    textAlign: TextAlign.center,
-                    text: TextSpan(
-                        text:
-                            'Veja histórias em qualquer\n lugar e compartilhe com facilidade!',
-                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                            color: TheoColors.primary,
-                            fontWeight: FontWeight.w600)),
+            ),
+          ),
+          Expanded(
+            child: Column(
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.only(top: 30),
+                  child: FittedBox(
+                    fit: BoxFit.contain,
+                    child: Image.asset('assets/images/logo-theo.png'),
                   ),
                 ),
-              ),
-              Container(
-                  margin: const EdgeInsets.only(top: 30, right: 10, left: 10),
-                  child: Column(
-                    children: [
-                      BottomButton(
-                        onPressed: _onSignupButtonPress,
-                        text: 'Criar perfil',
-                      ),
-                      Container(
-                          margin: const EdgeInsets.only(top: 20),
-                          child: BottomButton(
-                            onPressed: _onLoginButtonPress,
-                            text: 'Já tenho uma conta',
-                            primaryColor: TheoColors.primary,
-                            backgroundColor: TheoColors.five,
-                          )),
-                    ],
-                  ))
-            ],
-          ))
+                _subtitle,
+                _bottomButtons,
+              ],
+            ),
+          )
         ],
       ),
     );
   }
+
+  Widget get _subtitle => Container(
+        width: 262,
+        height: 80,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 24.0),
+          child: RichText(
+            textAlign: TextAlign.center,
+            text: TextSpan(
+                text: AppLocalizations.of(context)!.appDescription,
+                style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                    color: TheoColors.primary, fontWeight: FontWeight.w600)),
+          ),
+        ),
+      );
+
+  Widget get _bottomButtons => Container(
+        margin: const EdgeInsets.only(top: 30, right: 10, left: 10),
+        child: Column(
+          children: [
+            BottomButton(
+              onPressed: _onSignupButtonPress,
+              text: AppLocalizations.of(context)!.signupPageButton,
+            ),
+            Container(
+              margin: const EdgeInsets.only(top: 20),
+              child: BottomButton(
+                onPressed: _onLoginButtonPress,
+                text: AppLocalizations.of(context)!.loginPageButton,
+                primaryColor: TheoColors.primary,
+                backgroundColor: TheoColors.five,
+              ),
+            ),
+          ],
+        ),
+      );
 }

@@ -5,6 +5,7 @@ import 'package:theo/services/api_client.dart';
 import 'package:theo/states/auth_store.dart';
 import 'package:theo/states/file_store.dart';
 import 'package:theo/states/language_store.dart';
+import 'package:theo/states/locale_store.dart';
 import 'package:theo/states/navigation_store.dart';
 import 'package:theo/states/post_store.dart';
 import 'package:theo/states/role_store.dart';
@@ -13,12 +14,14 @@ import 'package:theo/states/story_format_store.dart';
 import 'package:theo/states/story_store.dart';
 
 class ServicesLocator {
-  void setup() {
+  Future<void> setup() async {
     final navigatorKey = GlobalKey<NavigatorState>();
 
     var apiClient = APIClient();
 
-    GetIt.I.registerSingleton<APIClient>(apiClient);
+    var localeStore = LocaleStore();
+
+    GetIt.I.registerSingleton<LocaleStore>(localeStore);
 
     GetIt.I.registerSingleton<NavigationStore>(
       NavigationStore(

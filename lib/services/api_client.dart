@@ -9,6 +9,7 @@ import 'package:theo/services/story_category_service.dart';
 import 'package:theo/services/story_format_service.dart';
 import 'package:theo/services/story_service.dart';
 import 'package:theo/services/user_service.dart';
+import 'package:theo/values/error_messages.dart';
 
 class APIClient {
   late sup.SupabaseClient _supabaseClient;
@@ -34,8 +35,6 @@ class APIClient {
 
   LanguageService get languageService => LanguageService(this);
 
-  UserService get userService => UserService(this);
-
   StoryCategoryService get storyCategoryService => StoryCategoryService(this);
 
   PostService get postService => PostService(this);
@@ -45,4 +44,6 @@ class APIClient {
   FileService get fileService => FileService(this);
 
   StoryService get storyService => StoryService(this);
+
+  UserService get userService => UserService(this);
 }

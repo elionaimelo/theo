@@ -200,7 +200,7 @@ class _SignupScreenState extends State<SignupScreen>
                   AppLocalizations.of(context)!.age5Input,
                 ],
                 onSelectedIndex: widget.controller.onAgeSelected,
-                question: 'Qual a sua faixa etária?',
+                question: AppLocalizations.of(context)!.ageInputQuestion,
                 crossAxisAlign: CrossAxisAlignment.start,
                 questionStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
                       fontSize: 20,

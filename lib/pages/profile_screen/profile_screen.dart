@@ -8,6 +8,8 @@ import 'package:theo/pages/profile_screen/components/profile_data_field.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/styles/metrics.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class ProfileScreen extends StatefulWidget {
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
@@ -16,6 +18,8 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   bool notification = false;
 
+  AppLocalizations get _locale => AppLocalizations.of(context)!;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,10 +27,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
       child: ListView(
         children: [
           TitleText(
-            title: 'Meu perfil',
+            title: _locale.profilePageTitle,
           ),
           SubTitleText(
-            subTitle: 'Aqui você pode alterar as configurações da sua conta',
+            subTitle: _locale.profilePageSubtitle,
           ),
           _profileImage,
           Container(
@@ -51,7 +55,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
             ),
-            LineTextButton(text: 'Alterar foto do perfil', onTap: () {}),
+            LineTextButton(
+              text: _locale.profileInputImage,
+              onTap: () {},
+            ),
           ],
         ),
       );
@@ -67,7 +74,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Material(
               type: MaterialType.transparency,
               child: ProfileDataField(
-                textLabel: 'Nome',
+                textLabel: _locale.profileNameLabel,
                 textValue: 'Nome do usuário',
                 onTap: () {},
               ),
@@ -78,7 +85,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Material(
               type: MaterialType.transparency,
               child: ProfileDataField(
-                textLabel: 'E-mail',
+                textLabel: _locale.profileEmailLabel,
                 textValue: 'email-n@gmail.com',
                 onTap: () {},
               ),
@@ -89,7 +96,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Material(
               type: MaterialType.transparency,
               child: ProfileDataField(
-                textLabel: 'Nome',
+                textLabel: _locale.profilePasswordLabel,
                 textValue: 'password',
                 onTap: () {},
                 obscureText: true,
@@ -107,7 +114,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             ProfileAction(
               icon: FeatherIcons.bell,
-              text: 'Notificações',
+              text: _locale.profileNotification,
               sufixButton: notification ? desactiveButton : activateButton,
             ),
             Container(
@@ -115,7 +122,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             ProfileAction(
               icon: FeatherIcons.xCircle,
-              text: 'Cancelar conta',
+              text: _locale.accountManager,
               sufixButton: LineTextButton(
                 text: 'selecionar',
                 onTap: () {},
@@ -126,7 +133,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             ProfileAction(
               icon: FeatherIcons.bookmark,
-              text: 'Histórias salvas',
+              text: _locale.savedStories,
               sufixButton: LineTextButton(
                 text: 'ver mais',
                 onTap: () {},
@@ -137,9 +144,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             ProfileAction(
               icon: FeatherIcons.clock,
-              text: 'Histórico de publicações',
+              text: _locale.postHistory,
               sufixButton: LineTextButton(
-                text: 'ver mais',
+                text: _locale.seeMore,
                 onTap: () {},
               ),
             ),
@@ -148,9 +155,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             ProfileAction(
               icon: FeatherIcons.messageSquare,
-              text: 'Compartilhar história',
+              text: _locale.shareStory,
               sufixButton: LineTextButton(
-                text: 'ver mais',
+                text: _locale.seeMore,
                 onTap: () {},
               ),
             ),
@@ -159,7 +166,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             ProfileAction(
               icon: FeatherIcons.logOut,
-              text: 'Sair',
+              text: _locale.exitButton,
               onCardTap: () {},
             ),
           ],
@@ -167,7 +174,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       );
 
   LineTextButton get activateButton => LineTextButton(
-        text: 'ativar',
+        text: _locale.activate,
         onTap: () {
           setState(() {
             notification = true;
@@ -176,7 +183,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       );
 
   LineTextButton get desactiveButton => LineTextButton(
-        text: 'Ativado!',
+        text: _locale.activated + '!',
         onTap: () {
           setState(() {
             notification = false;

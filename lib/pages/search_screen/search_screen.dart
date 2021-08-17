@@ -10,12 +10,16 @@ import 'package:theo/mocks/theo_mocks.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/styles/metrics.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class SearchScreen extends StatefulWidget {
   @override
   _SearchScreenState createState() => _SearchScreenState();
 }
 
 class _SearchScreenState extends State<SearchScreen> {
+  AppLocalizations get _locale => AppLocalizations.of(context)!;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,14 +27,14 @@ class _SearchScreenState extends State<SearchScreen> {
       child: ListView(
         children: [
           TitleText(
-            title: 'Pesquisar',
+            title: _locale.searchPageTitle,
           ),
           Container(
             margin: EdgeInsets.only(top: 30),
           ),
           TextInput(
             onTextChanged: (String value) {},
-            hintText: 'Busque aqui',
+            hintText: _locale.searchInputHint,
             prefixWidget: Icon(
               FeatherIcons.search,
               color: TheoColors.eighteen,
@@ -40,16 +44,16 @@ class _SearchScreenState extends State<SearchScreen> {
             margin: EdgeInsets.only(top: 50),
           ),
           TitleText(
-            title: 'Explorar',
+            title: _locale.explore,
           ),
           SubTitleText(
-            subTitle: 'Selecione os tópicos que deseja encontrar',
+            subTitle: _locale.exploreSubtitle,
           ),
           Container(
             margin: EdgeInsets.only(top: 23),
           ),
           MultiSelectorButtonFormField(
-            label: 'Categorias',
+            label: _locale.categories,
             values: TheoMocks.categoriesMock
                 .map((e) => SelectorItem(key: ObjectKey(e), displayValue: e))
                 .toList(),
@@ -60,7 +64,7 @@ class _SearchScreenState extends State<SearchScreen> {
             margin: EdgeInsets.only(top: 34),
           ),
           MultiSelectorButtonFormField(
-            label: 'Formatos',
+            label: _locale.formats,
             values: TheoMocks.tellFormatsMock
                 .map((e) => SelectorItem(key: ObjectKey(e), displayValue: e))
                 .toList(),
@@ -72,7 +76,7 @@ class _SearchScreenState extends State<SearchScreen> {
             margin: EdgeInsets.only(top: 34),
           ),
           MultiSelectorButtonFormField(
-            label: 'Idiomas',
+            label: _locale.languages,
             values: TheoMocks.languagesMock
                 .map((e) => SelectorItem(key: ObjectKey(e), displayValue: e))
                 .toList(),
@@ -87,7 +91,7 @@ class _SearchScreenState extends State<SearchScreen> {
             onPressed: () {},
             backgroundColor: TheoColors.secondary,
             primaryColor: TheoColors.primary,
-            text: 'Buscar',
+            text: _locale.search,
             textStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
                   fontSize: 16,
                   fontWeight: FontWeight.w700,

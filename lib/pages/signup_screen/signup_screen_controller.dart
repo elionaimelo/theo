@@ -15,6 +15,9 @@ import 'package:theo/states/language_store.dart';
 import 'package:theo/states/navigation_store.dart';
 import 'package:theo/states/role_store.dart';
 import 'package:theo/types/enums.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:theo/values/error_messages.dart';
+
 part 'signup_screen_controller.g.dart';
 
 class SignupScreenController = _SignupScreenControllerBase
@@ -153,8 +156,8 @@ abstract class _SignupScreenControllerBase with Store {
         await navigationStore.navigator.pushNamed(
           Routes.concluded,
           arguments: ConcludedScreenController(
-            message: 'O seu perfil já está pronto.',
-            title: 'Concluído!',
+            message: AppLocalizations.of(context)!.concludedMessage,
+            title: AppLocalizations.of(context)!.concluded + '!',
             onNextButtonTap: _navigateToTutorialOrHome,
           ),
         );
@@ -205,7 +208,9 @@ abstract class _SignupScreenControllerBase with Store {
       eResultStatus = EResultStatus.LOADING;
 
       if (password != passwordCheck) {
-        ErrorAlertDialog.showAlertDialog(content: 'As senhas não conferem!');
+        ErrorAlertDialog.showAlertDialog(
+          content: ErrorMessages.INVALID_MATCH_PASSWORD,
+        );
         eResultStatus = EResultStatus.DONE;
         return false;
       }

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();
@@ -38,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen> {
             child: Container(
               margin: EdgeInsets.only(bottom: 90),
               child: Text(
-                'Carregando...',
+                AppLocalizations.of(context)!.loadingSplash,
                 style: GoogleFonts.muli().copyWith(
                   fontSize: 18,
                   color: TheoColors.secondary,

@@ -17,6 +17,8 @@ import 'package:theo/styles/colors.dart';
 import 'package:theo/types/enums.dart';
 import 'package:theo/utils/assets_path.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class TellScreen extends StatefulWidget {
   const TellScreen({Key? key, required this.controller}) : super(key: key);
 
@@ -28,6 +30,8 @@ class TellScreen extends StatefulWidget {
 
 class _TellScreenState extends State<TellScreen>
     with AutomaticKeepAliveClientMixin<TellScreen> {
+  AppLocalizations get _locale => AppLocalizations.of(context)!;
+
   @override
   bool get wantKeepAlive => true;
 
@@ -86,7 +90,7 @@ class _TellScreenState extends State<TellScreen>
                 children: [
                   _title,
                   SubTitleText(
-                    subTitle: 'Selecione a opção que deseja compartilhar',
+                    subTitle: _locale.tellSubtitle,
                   )
                 ],
               ),
@@ -124,7 +128,7 @@ class _TellScreenState extends State<TellScreen>
   }
 
   Widget get _title => TitleText(
-        title: 'Contar uma história',
+        title: _locale.tellTitle,
       );
 
   Widget? getMenuItem(StoryFormat storyFormat) {

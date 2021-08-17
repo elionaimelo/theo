@@ -13,6 +13,8 @@ import 'package:theo/validators/text_required_validator.dart';
 
 import '../../components/inputs/text_input.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class LoginScreen extends StatefulWidget {
   LoginScreen({required this.controller});
   @override
@@ -24,6 +26,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+
+  AppLocalizations get _locale => AppLocalizations.of(context)!;
 
   Future<bool> _onBackPressed() async {
     if (_tabController.index > 0) {
@@ -91,8 +95,8 @@ class _LoginScreenState extends State<LoginScreen>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextInput(
-                hintText: 'Escreva sua senha aqui',
-                label: 'Insira sua senha',
+                hintText: _locale.loginPasswordHint,
+                label: _locale.loginPasswordLabel,
                 onTextChanged: widget.controller.onPasswordTextChanged,
                 obscureText: true,
                 validators: [
@@ -109,7 +113,7 @@ class _LoginScreenState extends State<LoginScreen>
               TextButton(
                 onPressed: () {},
                 child: Text(
-                  'Esqueceu a senha? Redefina aqui',
+                  _locale.forgotPassword,
                   style: GoogleFonts.muli(
                     color: TheoColors.primary,
                     fontWeight: FontWeight.w600,
@@ -132,8 +136,8 @@ class _LoginScreenState extends State<LoginScreen>
         children: [
           _title,
           TextInput(
-            hintText: 'Escreva seu email aqui',
-            label: 'Endereço de email',
+            hintText: _locale.emailInputHint,
+            label: _locale.emailInputLabel,
             onTextChanged: widget.controller.onEmailTextChanged,
             autoFocus: true,
             validators: [
@@ -142,7 +146,7 @@ class _LoginScreenState extends State<LoginScreen>
             ],
           ),
           BottomButton(
-            text: 'Continuar',
+            text: _locale.nextButton,
             icon: Icons.arrow_forward,
             onPressed: () => widget.controller.onEmailButtonTap(_tabController),
           )
@@ -150,7 +154,7 @@ class _LoginScreenState extends State<LoginScreen>
       );
 
   Widget get _title => Text(
-        'Bem-vindo de volta!',
+        _locale.welcomeBack,
         style: GoogleFonts.muli(
           fontSize: 24,
           fontWeight: FontWeight.w900,

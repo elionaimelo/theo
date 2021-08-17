@@ -11,6 +11,7 @@ import 'package:theo/styles/metrics.dart';
 import 'package:theo/utils/assets_path.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TutorialScreen extends StatefulWidget {
   const TutorialScreen({
@@ -43,6 +44,7 @@ class _TutorialScreenState extends State<TutorialScreen>
   late TabController _tabController;
 
   double currentTabIndex = 0;
+  AppLocalizations get _locale => AppLocalizations.of(context)!;
 
   @override
   void initState() {
@@ -115,7 +117,8 @@ class _TutorialScreenState extends State<TutorialScreen>
     );
   }
 
-  String get _bottomButtonText => _isLastIndex ? 'Concluído' : 'Próximo';
+  String get _bottomButtonText =>
+      _isLastIndex ? _locale.concluded : _locale.nextTutorial;
 
   IconData? get _bottomButtonIcon =>
       _isLastIndex ? null : FeatherIcons.arrowRight;
@@ -130,7 +133,7 @@ class _TutorialScreenState extends State<TutorialScreen>
                 fontSize: 16,
                 color: TheoColors.primary,
               ),
-          text: 'Pular tutorial',
+          text: _locale.jumpTutorial,
           direction: TextDirection.rtl,
           icon: Icon(
             FeatherIcons.chevronRight,
@@ -148,7 +151,7 @@ class _TutorialScreenState extends State<TutorialScreen>
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                'Tela de início do Theo',
+                _locale.tutorial1Title,
                 style: Theme.of(context).textTheme.bodyText1!.copyWith(
                       fontSize: 20,
                       fontWeight: FontWeight.w900,
@@ -158,7 +161,7 @@ class _TutorialScreenState extends State<TutorialScreen>
             ),
             _image(AssetsPath.tutorial1Png),
             Text(
-              'Aprenda a contar histórias, descobrir o que as pessoas estão publicando e contar histórias compartilhando arquivos. Você pode escolher clicando nos botões em destaque ou na barra inferior da sua tela.',
+              _locale.tutorial1Description,
               style: _textStyle,
             )
           ],
@@ -167,7 +170,7 @@ class _TutorialScreenState extends State<TutorialScreen>
           children: [
             _image(AssetsPath.tutorial2Png),
             Text(
-              'Na seção \'Como contar?\' você aprenderá sobre storytelling... deslize para cima e selecione um tema para explorar os assuntos relacionados!',
+              _locale.tutorial2Description,
               style: _textStyle,
             )
           ],
@@ -176,7 +179,7 @@ class _TutorialScreenState extends State<TutorialScreen>
           children: [
             _image(AssetsPath.tutorial3Png),
             Text(
-              'Ao clicar em \'Descobrir histórias\', você pode encontrar o que as pessoas estão publicando e comentando sobre diversos assuntos.... Para realizar uma pesquisa refinada, selecione o botão \'Pesquisar\' no topo da tela.',
+              _locale.tutorial3Description,
               style: _textStyle,
             )
           ],
@@ -185,7 +188,7 @@ class _TutorialScreenState extends State<TutorialScreen>
           children: [
             _image(AssetsPath.tutorial4Png),
             Text(
-              'Após criar um conteúdo educativo, você pode compartilhar em \'Contar uma história\'. Selecione o tipo de arquivo para poder prosseguir...',
+              _locale.tutorial4Description,
               style: _textStyle,
             )
           ],
@@ -194,7 +197,7 @@ class _TutorialScreenState extends State<TutorialScreen>
           children: [
             _image(AssetsPath.tutorial5Png),
             Text(
-              'Na parte superior da tela, clicando no círculo com as iniciais do seu nome, você terá acesso ao \'Meu perfil\'. Aqui você pode alterar dados da sua conta, ver histórias salvas, o histórico das suas publicações e publicar uma nova.',
+              _locale.tutorial5Description,
               style: _textStyle,
             )
           ],
@@ -203,7 +206,7 @@ class _TutorialScreenState extends State<TutorialScreen>
           children: [
             _image(AssetsPath.tutorial6Png),
             Text(
-              'Se houver alguma dúvida, clique no menu (três traços) na part  e superior da tela, e selecione \'Tutorial de uso\'. Lá você terá mais detalhes de como usar o Theo!',
+              _locale.tutorial6Description,
               style: _textStyle,
             )
           ],

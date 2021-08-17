@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:theo/components/title_text.dart';
 import 'package:theo/styles/colors.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AboutScreen extends StatelessWidget {
   @override
@@ -13,7 +14,7 @@ class AboutScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TitleText(
-            title: 'Sobre',
+            title: AppLocalizations.of(context)!.about,
           ),
           Container(
             margin: EdgeInsets.only(top: 7),

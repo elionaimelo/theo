@@ -13,6 +13,8 @@ import 'package:theo/states/post_store.dart';
 import 'package:theo/states/story_category_store.dart';
 import 'package:theo/types/enums.dart';
 import 'package:theo/values/error_messages.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 part 'new_tell_screen_controller.g.dart';
 
 class NewTellScreenController = _NewTellScreenControllerBase
@@ -39,6 +41,9 @@ abstract class _NewTellScreenControllerBase with Store {
   final StoryCategoryStore storyCategoryStore;
   final PostStore postStore;
   final AuthStore authStore;
+
+  AppLocalizations get _locale =>
+      AppLocalizations.of(navigationStore.currentContext)!;
 
   @computed
   List<Language> get languages => languageStore.languages;
@@ -221,7 +226,9 @@ abstract class _NewTellScreenControllerBase with Store {
       );
 
       ErrorAlertDialog.showAlertDialog(
-          title: 'Sucesso!', content: 'Estória publicada com sucesso!');
+        title: _locale.succeed,
+        content: _locale.storyPublished,
+      );
 
       eResultStatus = EResultStatus.DONE;
     } catch (err) {

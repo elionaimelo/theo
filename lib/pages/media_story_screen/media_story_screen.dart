@@ -10,6 +10,8 @@ import 'components/player_inputs.dart';
 import 'components/video_top_bar.dart';
 import 'media_story_screen_controller.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class MediaStoryScreen extends StatefulWidget {
   const MediaStoryScreen({Key? key, required this.controller})
       : super(key: key);
@@ -21,6 +23,8 @@ class MediaStoryScreen extends StatefulWidget {
 }
 
 class _MediaStoryScreenState extends State<MediaStoryScreen> {
+  AppLocalizations get _locale => AppLocalizations.of(context)!;
+
   @override
   void initState() {
     super.initState();
@@ -135,7 +139,7 @@ class _MediaStoryScreenState extends State<MediaStoryScreen> {
       );
 
   Widget get _bottomButton => BottomButton(
-        text: 'Feito!',
+        text: _locale.done,
         onPressed: () => _bottomButtonTap(),
         backgroundColor: Colors.transparent,
         primaryColor: _foregroundColor,

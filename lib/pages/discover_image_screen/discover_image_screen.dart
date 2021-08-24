@@ -8,6 +8,7 @@ import 'package:theo/pages/discover_image_screen/discover_image_screen_controlle
 import 'package:theo/styles/colors.dart';
 import 'package:theo/styles/metrics.dart';
 import 'package:theo/utils/assets_path.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DiscoverImageScreen extends StatefulWidget {
   const DiscoverImageScreen({Key? key, required this.controller})
@@ -19,6 +20,8 @@ class DiscoverImageScreen extends StatefulWidget {
 }
 
 class _DiscoverImageScreenState extends State<DiscoverImageScreen> {
+  AppLocalizations get _locale => AppLocalizations.of(context)!;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -58,7 +61,9 @@ class _DiscoverImageScreenState extends State<DiscoverImageScreen> {
   }
 
   Widget get _author => Text(
-        'Autoria: ' + (widget.controller.post.story?.author ?? '-'),
+        _locale.authorship +
+            ': ' +
+            (widget.controller.post.story?.author ?? '-'),
         style: Theme.of(context).textTheme.bodyText1!.copyWith(
               fontSize: 14,
               color: TheoColors.seven,

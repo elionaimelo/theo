@@ -8,6 +8,7 @@ import 'package:theo/pages/concluded_screen/concluded_screen_controller.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/styles/metrics.dart';
 import 'package:theo/utils/assets_path.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ConcludedScreen extends StatefulWidget {
   const ConcludedScreen({Key? key, required this.controller}) : super(key: key);
@@ -19,6 +20,8 @@ class ConcludedScreen extends StatefulWidget {
 }
 
 class _ConcludedScreenState extends State<ConcludedScreen> {
+  AppLocalizations get _locale => AppLocalizations.of(context)!;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -76,7 +79,7 @@ class _ConcludedScreenState extends State<ConcludedScreen> {
           BottomButton(
             backgroundColor: TheoColors.primary,
             primaryColor: TheoColors.secondary,
-            text: 'Continuar',
+            text: _locale.nextButton,
             onPressed: widget.controller.onNextButtonTap,
             icon: FeatherIcons.arrowRight,
           )
@@ -96,7 +99,7 @@ class _ConcludedScreenState extends State<ConcludedScreen> {
               margin: EdgeInsets.only(top: 15),
             ),
             Text(
-              'Gostou desse conteúdo?',
+              _locale.concludedReview,
               style: Theme.of(context).textTheme.bodyText1!.copyWith(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
@@ -114,7 +117,7 @@ class _ConcludedScreenState extends State<ConcludedScreen> {
                     AssetsPath.unhappySvg,
                     color: TheoColors.twentyThree,
                   ),
-                  'Não',
+                  _locale.review1,
                 ),
                 _avaliationButton(
                   Icon(
@@ -122,7 +125,7 @@ class _ConcludedScreenState extends State<ConcludedScreen> {
                     color: TheoColors.twentyThree,
                     size: 30,
                   ),
-                  'Pouco',
+                  _locale.review2,
                 ),
                 _avaliationButton(
                   Icon(
@@ -130,7 +133,7 @@ class _ConcludedScreenState extends State<ConcludedScreen> {
                     color: TheoColors.twentyThree,
                     size: 30,
                   ),
-                  'Neutro',
+                  _locale.review3,
                 ),
                 _avaliationButton(
                   Icon(
@@ -138,14 +141,14 @@ class _ConcludedScreenState extends State<ConcludedScreen> {
                     color: TheoColors.twentyThree,
                     size: 30,
                   ),
-                  'Gostei',
+                  _locale.review4,
                 ),
                 _avaliationButton(
                   SvgPicture.asset(
                     AssetsPath.happySvg,
                     color: TheoColors.twentyThree,
                   ),
-                  'Muito',
+                  _locale.review5,
                 ),
               ],
             ),

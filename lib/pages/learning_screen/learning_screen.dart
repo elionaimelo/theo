@@ -13,12 +13,16 @@ import 'package:theo/pages/learning_screen/components/section_card.dart';
 import 'package:theo/pages/media_story_screen/media_story_screen_controller.dart';
 import 'package:theo/styles/colors.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class LearningScreen extends StatefulWidget {
   @override
   _LearningScreenState createState() => _LearningScreenState();
 }
 
 class _LearningScreenState extends State<LearningScreen> {
+  AppLocalizations get _locale => AppLocalizations.of(context)!;
+
   List<Section> sections = TheoMocks.sectionsMock;
 
   void _onStoryCardTap() {
@@ -30,11 +34,10 @@ class _LearningScreenState extends State<LearningScreen> {
       Routes.mediaStory,
       arguments: MediaStoryScreenController(
         story: Story(
-          title: 'Aprendendo a gravar vídeos com o celular',
+          title: _locale.learningStoryTitle,
           id: '1',
           sectionId: '-1',
-          url:
-              'https://github.com/elionaimelo/theo/raw/pre-validacao/others/videos/educacional_celular.mp4',
+          url: _locale.learningStoryLink,
           format: StoryFormat(name: StoryFormatConsts.VIDEO),
         ),
         storyStore: GetIt.I.get(),
@@ -70,6 +73,10 @@ class _LearningScreenState extends State<LearningScreen> {
     );
   }
 
+  Widget get _title => TitleText(
+        title: _locale.learningPageTitle,
+      );
+
   Widget get _presentation => InkWell(
         onTap: _presentationTap,
         child: Container(
@@ -87,7 +94,7 @@ class _LearningScreenState extends State<LearningScreen> {
                     margin: EdgeInsets.only(left: 10),
                   ),
                   Text(
-                    'Apresentação',
+                    _locale.presentationStoryTitle,
                     style: Theme.of(context).textTheme.bodyText1!.copyWith(
                           fontSize: 18,
                           fontWeight: FontWeight.w800,
@@ -111,9 +118,5 @@ class _LearningScreenState extends State<LearningScreen> {
             onStartTap: _onStoryCardTap,
           );
         },
-      );
-
-  Widget get _title => TitleText(
-        title: 'Como contar?',
       );
 }

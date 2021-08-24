@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:theo/styles/colors.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CorfirmImageScreen extends StatefulWidget {
   CorfirmImageScreen({required this.mediaAsset, required this.onConfirmImage});
@@ -16,6 +17,8 @@ class CorfirmImageScreen extends StatefulWidget {
 }
 
 class _CorfirmImageScreenState extends State<CorfirmImageScreen> {
+  AppLocalizations get _locale => AppLocalizations.of(context)!;
+
   void _onCancelTap() {
     Navigator.of(context).pop();
   }
@@ -65,7 +68,7 @@ class _CorfirmImageScreenState extends State<CorfirmImageScreen> {
             TextButton(
               onPressed: _onCancelTap,
               child: Text(
-                'Cancelar',
+                _locale.cancel,
                 style: Theme.of(context).textTheme.bodyText1!.copyWith(
                       fontSize: 16,
                       color: TheoColors.sixteen,
@@ -76,7 +79,7 @@ class _CorfirmImageScreenState extends State<CorfirmImageScreen> {
             TextButton(
               onPressed: _onConfirmTap,
               child: Text(
-                'Escolher',
+                _locale.choose,
                 style: Theme.of(context).textTheme.bodyText1!.copyWith(
                       fontSize: 16,
                       color: TheoColors.primary,

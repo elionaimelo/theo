@@ -7,6 +7,7 @@ import 'package:theo/components/inputs/text_input.dart';
 import 'package:theo/components/title_text.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/styles/gerenal.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ContactScreen extends StatefulWidget {
   @override
@@ -14,6 +15,8 @@ class ContactScreen extends StatefulWidget {
 }
 
 class _ContactScreenState extends State<ContactScreen> {
+  AppLocalizations get _locale => AppLocalizations.of(context)!;
+
   void _onNameTextChanged(String value) {}
 
   void _onEmailTextChanged(String value) {}
@@ -32,34 +35,34 @@ class _ContactScreenState extends State<ContactScreen> {
               margin: EdgeInsets.only(top: 27),
             ),
             TitleText(
-              title: 'Contato',
+              title: _locale.contactTitle,
             ),
             Container(
               margin: EdgeInsets.only(top: 30),
             ),
             TextInput(
               onTextChanged: _onNameTextChanged,
-              label: 'Nome',
+              label: _locale.contactName,
               labelStyle: TheoStyles.of(context).labelInputStyle,
-              hintText: 'Escreva aqui',
+              hintText: _locale.defaultInputHint,
             ),
             Container(
               margin: EdgeInsets.only(top: 30),
             ),
             TextInput(
               onTextChanged: _onEmailTextChanged,
-              label: 'Email',
+              label: _locale.contactEmail,
               labelStyle: TheoStyles.of(context).labelInputStyle,
-              hintText: 'Escreva aqui',
+              hintText: _locale.defaultInputHint,
             ),
             Container(
               margin: EdgeInsets.only(top: 30),
             ),
             TextInput(
               onTextChanged: _onEmailTextChanged,
-              label: 'Mensagem',
+              label: _locale.contactMessage,
               labelStyle: TheoStyles.of(context).labelInputStyle,
-              hintText: 'Escreva aqui sua mensagem',
+              hintText: _locale.contactMessageInputHint,
               containerHeight: 246,
               maxLength: 450,
             ),
@@ -71,7 +74,7 @@ class _ContactScreenState extends State<ContactScreen> {
                 label: '',
                 minFileLength: '0',
                 onFileSelected: (List<String> value) {},
-                buttonText: 'Inserir Arquivo',
+                buttonText: _locale.insertFile,
                 buttonIcon: FeatherIcons.file,
                 assetType: AssetType.other,
                 focusNode: FocusNode(),
@@ -84,7 +87,7 @@ class _ContactScreenState extends State<ContactScreen> {
               onPressed: _onPublishButtonTap,
               backgroundColor: TheoColors.secondary,
               primaryColor: TheoColors.primary,
-              text: 'Enviar',
+              text: _locale.send,
               textStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
                     fontSize: 16,
                     fontWeight: FontWeight.w700,

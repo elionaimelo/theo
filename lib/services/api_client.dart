@@ -9,7 +9,6 @@ import 'package:theo/services/story_category_service.dart';
 import 'package:theo/services/story_format_service.dart';
 import 'package:theo/services/story_service.dart';
 import 'package:theo/services/user_service.dart';
-import 'package:theo/values/error_messages.dart';
 
 class APIClient {
   late sup.SupabaseClient _supabaseClient;

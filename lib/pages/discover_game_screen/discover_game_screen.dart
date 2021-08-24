@@ -12,6 +12,7 @@ import 'package:theo/pages/discover_game_screen/discover_game_screen_controller.
 import 'package:theo/styles/colors.dart';
 import 'package:theo/styles/metrics.dart';
 import 'package:theo/utils/assets_path.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DiscoverGameScreen extends StatefulWidget {
   const DiscoverGameScreen({
@@ -26,6 +27,8 @@ class DiscoverGameScreen extends StatefulWidget {
 }
 
 class _DiscoverGameScreenState extends State<DiscoverGameScreen> {
+  AppLocalizations get _locale => AppLocalizations.of(context)!;
+
   @override
   void initState() {
     super.initState();
@@ -137,13 +140,13 @@ class _DiscoverGameScreenState extends State<DiscoverGameScreen> {
           children: [
             ImageCarrossel(
               imageFiles: widget.controller.post.story?.imageFiles ?? [],
-              title: 'Clique na imagem para ampliar',
+              title: _locale.imageCarrosselTitle,
             ),
             Container(
               margin: EdgeInsets.only(top: 23),
             ),
             BottomButton(
-              text: 'Acesse aqui o jogo',
+              text: _locale.openGameButton,
               backgroundColor: Colors.transparent,
               primaryColor: TheoColors.primary,
               borderColor: TheoColors.primary,

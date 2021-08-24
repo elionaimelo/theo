@@ -13,6 +13,7 @@ import 'package:theo/pages/storytelling_learn_screen/storytelling_learn_screen_c
 import 'package:theo/pages/text_story_screen/text_story_screen_controller.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/styles/metrics.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class StorytellingLearnScreen extends StatefulWidget {
   const StorytellingLearnScreen({
@@ -28,6 +29,8 @@ class StorytellingLearnScreen extends StatefulWidget {
 }
 
 class _StorytellingLearnScreenState extends State<StorytellingLearnScreen> {
+  AppLocalizations get _locale => AppLocalizations.of(context)!;
+
   void onTapCard(Story story) {
     var name = story.format!.name;
 
@@ -81,7 +84,7 @@ class _StorytellingLearnScreenState extends State<StorytellingLearnScreen> {
       child: ListView(
         children: [
           Text(
-            'Aprendendo a gravar vídeos com o celular',
+            _locale.learningStoryTitle,
             style: Theme.of(context).textTheme.headline2!.copyWith(
                   color: TheoColors.seven,
                   fontWeight: FontWeight.w900,

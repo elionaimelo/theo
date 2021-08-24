@@ -19,6 +19,7 @@ import 'package:theo/types/enums.dart';
 import 'package:theo/validators/file_required_validator.dart';
 import 'package:theo/validators/multi_selector_required_validator.dart';
 import 'package:theo/validators/text_required_validator.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NewTellScreen extends StatefulWidget {
   NewTellScreen({required this.controller});
@@ -35,6 +36,8 @@ class NewTellScreen extends StatefulWidget {
 
 class _NewTellScreenState extends State<NewTellScreen> {
   final _formKey = GlobalKey<FormState>();
+
+  AppLocalizations get _locale => AppLocalizations.of(context)!;
 
   @override
   void initState() {
@@ -92,7 +95,7 @@ class _NewTellScreenState extends State<NewTellScreen> {
           items:
               widget.controller.languages.map((e) => e.displayName!).toList(),
           onSelectionChanged: widget.controller.onLangSelectionChanged,
-          label: 'Idioma padrão',
+          label: _locale.deafultLanguage,
           validators: [
             TextRequiredValidator(),
           ],
@@ -101,8 +104,8 @@ class _NewTellScreenState extends State<NewTellScreen> {
         _separator,
         TextInput(
           onTextChanged: widget.controller.onTitleTextChanged,
-          label: 'Título (*)',
-          hintText: 'Escreva aqui',
+          label: _locale.titleInputLabel,
+          hintText: _locale.defaultInputHint,
           labelStyle: TheoStyles.of(context).labelInputStyle,
           labelMargin: EdgeInsets.only(bottom: 5),
           validators: [
@@ -112,8 +115,8 @@ class _NewTellScreenState extends State<NewTellScreen> {
         _separator,
         TextInput(
           onTextChanged: widget.controller.onDescTextChanged,
-          label: 'Breve descrição (opcional)',
-          hintText: 'Escreva aqui',
+          label: _locale.descriptionInputLabel,
+          hintText: _locale.defaultInputHint,
           maxLength: 125,
           containerHeight: 110,
           labelStyle: TheoStyles.of(context).labelInputStyle,
@@ -122,8 +125,8 @@ class _NewTellScreenState extends State<NewTellScreen> {
         _separator,
         TextInput(
           onTextChanged: widget.controller.onAuthorTextChanged,
-          label: 'Autor (*)',
-          hintText: 'Escreva aqui',
+          label: _locale.authorInputLabel,
+          hintText: _locale.defaultInputHint,
           labelStyle: TheoStyles.of(context).labelInputStyle,
           labelMargin: EdgeInsets.only(bottom: 5),
           validators: [
@@ -135,8 +138,8 @@ class _NewTellScreenState extends State<NewTellScreen> {
             margin: marginLength,
             child: TextInput(
               onTextChanged: widget.controller.onLinkTextChanged,
-              label: 'Inserir link (*)',
-              hintText: 'Escreva aqui',
+              label: _locale.linkInputLabel,
+              hintText: _locale.defaultInputHint,
               labelStyle: TheoStyles.of(context).labelInputStyle,
               labelMargin: EdgeInsets.only(bottom: 5),
               validators: [
@@ -149,12 +152,12 @@ class _NewTellScreenState extends State<NewTellScreen> {
             margin: marginLength,
             child: FileInputFormField(
               FileInputFormFieldProps(
-                label: 'Arquivo (*)',
+                label: _locale.fileInputLabel,
                 minFileLength: '0',
                 onFileSelected: (List<String> paths) =>
                     widget.controller.onArchivePathSelected(paths.first),
                 buttonIcon: FeatherIcons.file,
-                buttonText: 'Inserir Arquivo',
+                buttonText: _locale.fileInputText,
                 assetType: AssetType.other,
                 focusNode: FocusNode(),
                 validators: [
@@ -168,12 +171,12 @@ class _NewTellScreenState extends State<NewTellScreen> {
             margin: marginLength,
             child: FileInputFormField(
               FileInputFormFieldProps(
-                label: 'Arquivo de Vídeo (*)',
+                label: _locale.videoFileInputLabel,
                 minFileLength: '0',
                 onFileSelected: (List<String> paths) =>
                     widget.controller.onVideoFilePathSelected(paths.first),
                 buttonIcon: FeatherIcons.video,
-                buttonText: 'Inserir Vídeo',
+                buttonText: _locale.videoFileInputText,
                 assetType: AssetType.video,
                 focusNode: FocusNode(),
                 validators: [
@@ -186,14 +189,14 @@ class _NewTellScreenState extends State<NewTellScreen> {
         _imagesInput,
         _separator,
         MultiSelectorButtonFormField(
-          label: 'Conteúdo restrito a maiores de 18 anos? (*)',
+          label: _locale.adultContentInputLabel,
           onSelectedValuesChanged: (List<SelectorItem> values) =>
               widget.controller.onContentAgeChanged(values),
           values: [
             SelectorItem(
-                key: ObjectKey(true), displayValue: 'Sim', value: true),
+                key: ObjectKey(true), displayValue: _locale.yes, value: true),
             SelectorItem(
-                key: ObjectKey(false), displayValue: 'Não', value: false),
+                key: ObjectKey(false), displayValue: _locale.no, value: false),
           ],
           uniqueSelect: true,
           bold: true,
@@ -204,7 +207,7 @@ class _NewTellScreenState extends State<NewTellScreen> {
         ),
         _separator,
         MultiSelectorButtonFormField(
-          label: 'Categoria (*)',
+          label: _locale.categoryInputLabel,
           onSelectedValuesChanged:
               widget.controller.onSelectedCategoriesChanged,
           values: widget.controller.storyCategories
@@ -225,8 +228,8 @@ class _NewTellScreenState extends State<NewTellScreen> {
           children: [
             TextInput(
               onTextChanged: widget.controller.onKeyword1TextChanged,
-              label: 'Palavras-chave',
-              hintText: 'Palavra-chave 1 aqui',
+              label: _locale.keywordInputLabel,
+              hintText: _locale.keyworkdHintText('1'),
               labelStyle: TheoStyles.of(context).labelInputStyle,
               labelMargin: EdgeInsets.only(bottom: 5),
             ),
@@ -235,7 +238,7 @@ class _NewTellScreenState extends State<NewTellScreen> {
             ),
             TextInput(
               onTextChanged: widget.controller.onKeyword2TextChanged,
-              hintText: 'Palavra-chave 2 aqui',
+              hintText: _locale.keyworkdHintText('2'),
               labelStyle: TheoStyles.of(context).labelInputStyle,
               labelMargin: EdgeInsets.only(bottom: 5),
             ),
@@ -244,7 +247,7 @@ class _NewTellScreenState extends State<NewTellScreen> {
             ),
             TextInput(
               onTextChanged: widget.controller.onKeyword3TextChanged,
-              hintText: 'Palavra-chave 3 aqui',
+              hintText: _locale.keyworkdHintText('3'),
               labelStyle: TheoStyles.of(context).labelInputStyle,
               labelMargin: EdgeInsets.only(bottom: 5),
             ),
@@ -254,8 +257,7 @@ class _NewTellScreenState extends State<NewTellScreen> {
         Container(
           margin: EdgeInsets.only(top: 25),
           child: AlertMessage(
-            text:
-                'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita',
+            text: _locale.new_tell_info,
           ),
         ),
         _separator,
@@ -268,7 +270,7 @@ class _NewTellScreenState extends State<NewTellScreen> {
             },
             backgroundColor: TheoColors.secondary,
             primaryColor: TheoColors.primary,
-            text: 'Publicar',
+            text: _locale.publish,
             textStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
                   fontSize: 16,
                   fontWeight: FontWeight.w700,
@@ -280,11 +282,11 @@ class _NewTellScreenState extends State<NewTellScreen> {
 
   Widget get _imagesInput => _multiplesImages
       ? FileInputFormField(FileInputFormFieldProps(
-          label: 'Disponibilize algumas imagens (*)',
+          label: _locale.galleryInputLabel,
           minFileLength: '0',
           onFileSelected: widget.controller.onImagesPathsSelected,
           buttonIcon: FeatherIcons.image,
-          buttonText: 'Inserir Imagem',
+          buttonText: _locale.imageInputText,
           assetType: AssetType.image,
           multipleFiles: _multiplesImages,
           focusNode: FocusNode(),
@@ -293,11 +295,11 @@ class _NewTellScreenState extends State<NewTellScreen> {
           ],
         ))
       : FileInputFormField(FileInputFormFieldProps(
-          label: 'Imagem de Capa (*)',
+          label: _locale.tumbnailImageInputLabel,
           minFileLength: '0',
           onFileSelected: widget.controller.onImagesPathsSelected,
           buttonIcon: FeatherIcons.image,
-          buttonText: 'Inserir Imagem',
+          buttonText: _locale.imageInputText,
           assetType: AssetType.image,
           multipleFiles: _multiplesImages,
           focusNode: FocusNode(),

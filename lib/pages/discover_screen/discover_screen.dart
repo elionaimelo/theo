@@ -18,6 +18,8 @@ import 'package:theo/pages/discover_sound_screen/discover_media_screen_controlle
 import 'package:theo/pages/graph_story_screen/graph_story_screen_controller.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/styles/metrics.dart';
+import 'package:theo/values/error_messages.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DiscoverScreen extends StatefulWidget {
   const DiscoverScreen({Key? key, required this.controller}) : super(key: key);
@@ -34,6 +36,8 @@ class _DiscoverScreenState extends State<DiscoverScreen>
 
   @override
   bool get wantKeepAlive => true;
+
+  AppLocalizations get _locale => AppLocalizations.of(context)!;
 
   void _onSearchTap() {
     Navigator.of(context).pushNamed(Routes.search);
@@ -71,7 +75,7 @@ class _DiscoverScreenState extends State<DiscoverScreen>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             BottomButton(
-              text: 'Pesquisar',
+              text: _locale.search,
               borderColor: TheoColors.primary,
               backgroundColor: TheoColors.secondary,
               primaryColor: TheoColors.primary,
@@ -82,7 +86,7 @@ class _DiscoverScreenState extends State<DiscoverScreen>
             Container(
               margin: EdgeInsets.only(top: 28),
               child: TitleText(
-                title: 'Descobrir histórias',
+                title: _locale.searchPosts,
               ),
             ),
           ],
@@ -130,14 +134,14 @@ class _DiscoverScreenState extends State<DiscoverScreen>
           LoadingStatus(),
         ),
         newPageErrorIndicatorBuilder: (context) => ErrorAlertDialog(
-          content: 'Erro ao carregar os posts seguintes!',
+          content: ErrorMessages.NEXT_POSTS_REQUEST_ERROR,
           withButton: false,
         ),
         newPageProgressIndicatorBuilder: (context) => LoadingStatus(),
         noMoreItemsIndicatorBuilder: (context) => Container(
           margin: EdgeInsets.symmetric(vertical: 30),
           child: NotFoundStatus(
-            title: 'Você chegou até o fim!',
+            title: _locale.feedEndText,
           ),
         ),
         firstPageErrorIndicatorBuilder: (context) => withTopContent(
@@ -148,7 +152,7 @@ class _DiscoverScreenState extends State<DiscoverScreen>
         ),
         noItemsFoundIndicatorBuilder: (context) => withTopContent(
           NotFoundStatus(
-            title: 'Nenhum post encontrado!',
+            title: _locale.postsNotFound,
           ),
         ),
       );

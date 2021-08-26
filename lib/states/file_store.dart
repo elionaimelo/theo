@@ -25,7 +25,7 @@ abstract class _FileStoreBase with Store {
       var response = await _fileService.getFileSignedUrl(file);
 
       if (response == null) {
-        throw Exception('Response Null');
+        throw Exception(response);
       }
 
       eResultStatus = EResultStatus.DONE;

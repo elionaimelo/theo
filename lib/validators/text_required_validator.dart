@@ -1,9 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:theo/validators/validator.dart';
 import 'package:theo/values/error_messages.dart';
 
 class TextRequiredValidator extends Validator<String?> {
-  TextRequiredValidator()
-      : super(errorMessage: ErrorMessages.REQUIRED, validatorFunc: _validator);
+  TextRequiredValidator(BuildContext context)
+      : super(
+            errorMessage: ErrorMessages.of(context).REQUIRED,
+            validatorFunc: _validator);
 
   static String? _validator({
     required String? value,

@@ -6,6 +6,7 @@ import 'package:theo/pages/graph_story_screen/graph_story_screen_controller.dart
 import 'package:theo/styles/colors.dart';
 import 'package:theo/styles/metrics.dart';
 import 'package:theo/utils/assets_path.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class GraphStoryScreen extends StatefulWidget {
   GraphStoryScreen({Key? key, required this.controller}) : super(key: key);
@@ -17,6 +18,8 @@ class GraphStoryScreen extends StatefulWidget {
 }
 
 class _GraphStoryScreenState extends State<GraphStoryScreen> {
+  AppLocalizations get _locale => AppLocalizations.of(context)!;
+
   void _onButtonTap() {
     widget.controller.storyStore
         .finishLearningStory(widget.controller.post.id!);
@@ -67,7 +70,7 @@ class _GraphStoryScreenState extends State<GraphStoryScreen> {
           ),
           BottomButton(
             backgroundColor: Colors.transparent,
-            text: 'Feito!',
+            text: _locale.done + '!',
             primaryColor: TheoColors.primary,
             borderColor: TheoColors.primary,
             onPressed: _onButtonTap,

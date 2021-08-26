@@ -7,6 +7,7 @@ import 'package:theo/pages/discover_screen/discover_screen_controller.dart';
 import 'package:theo/pages/home_screen/components/body.dart';
 import 'package:theo/pages/home_screen/home_screen_controller.dart';
 import 'package:theo/pages/learning_screen/learning_screen.dart';
+import 'package:theo/pages/learning_screen/learning_screen_controller.dart';
 import 'package:theo/pages/tell_screen/tell_screen.dart';
 import 'package:theo/pages/tell_screen/tell_screen_controller.dart';
 import 'package:theo/states/navigation_store.dart';
@@ -71,7 +72,11 @@ class _HomeScreenState extends State<HomeScreen>
       Body(
         controller: widget.controller,
       ),
-      LearningScreen(),
+      LearningScreen(
+        controller: LearningScreenController(
+          storyStore: GetIt.I.get(),
+        ),
+      ),
       DiscoverScreen(
         controller: DiscoverScreenController(
           postStore: GetIt.I.get(),
@@ -80,6 +85,7 @@ class _HomeScreenState extends State<HomeScreen>
       TellScreen(
         controller: TellScreenController(
           storyFormatStore: GetIt.I.get(),
+          navigationStore: GetIt.I.get(),
         ),
       ),
     ];

@@ -100,8 +100,8 @@ class _LoginScreenState extends State<LoginScreen>
                 onTextChanged: widget.controller.onPasswordTextChanged,
                 obscureText: true,
                 validators: [
-                  TextRequiredValidator(),
-                  PasswordValidator(),
+                  TextRequiredValidator(context),
+                  PasswordValidator(context),
                 ],
               ),
               Container(
@@ -141,8 +141,8 @@ class _LoginScreenState extends State<LoginScreen>
             onTextChanged: widget.controller.onEmailTextChanged,
             autoFocus: true,
             validators: [
-              TextRequiredValidator(),
-              EmailValidator(),
+              TextRequiredValidator(context),
+              EmailValidator(context),
             ],
           ),
           BottomButton(

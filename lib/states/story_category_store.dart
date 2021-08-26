@@ -27,11 +27,7 @@ abstract class _StoryCategoryStoreBase with Store {
     try {
       var response = await _storyCategoryService.fetchStoryCategories();
 
-      if (response == null) {
-        throw Exception('Response Null');
-      }
-
-      var listResult = [...response.data];
+      var listResult = [...response?.data];
 
       storyCategories =
           listResult.map((e) => StoryCategory.fromJson(e)!).toList();

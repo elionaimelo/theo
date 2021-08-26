@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:theo/states/navigation_store.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ErrorAlertDialog extends StatefulWidget {
   ErrorAlertDialog({
     Key? key,
-    this.title = 'Erro!',
+    this.title,
     required this.content,
     this.withButton = true,
   }) : super(key: key);
@@ -13,12 +14,12 @@ class ErrorAlertDialog extends StatefulWidget {
   @override
   _ErrorAlertDialogState createState() => _ErrorAlertDialogState();
 
-  final String title;
+  final String? title;
   final String content;
   final bool withButton;
 
   static void showAlertDialog({
-    String title = 'Erro!',
+    String? title,
     required String content,
     bool withButton = true,
   }) {
@@ -36,10 +37,12 @@ class ErrorAlertDialog extends StatefulWidget {
 }
 
 class _ErrorAlertDialogState extends State<ErrorAlertDialog> {
+  AppLocalizations get _locale => AppLocalizations.of(context)!;
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(widget.title),
+      title: Text(widget.title ?? _locale.error),
       content: Text(widget.content),
       actions: [
         if (widget.withButton) _okButton,
@@ -49,6 +52,6 @@ class _ErrorAlertDialogState extends State<ErrorAlertDialog> {
 
   Widget get _okButton => TextButton(
         onPressed: () => Navigator.of(context).pop(),
-        child: Text('OK'),
+        child: Text(_locale.ok),
       );
 }

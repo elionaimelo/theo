@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:theo/components/text_icon_button.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CloseTopBarButton extends StatelessWidget {
   const CloseTopBarButton({
@@ -23,7 +24,7 @@ class CloseTopBarButton extends StatelessWidget {
             fontSize: textSize,
             color: foregroundColor,
           ),
-      text: 'Fechar',
+      text: AppLocalizations.of(context)!.close,
       icon: Icon(
         FeatherIcons.x,
         color: foregroundColor,

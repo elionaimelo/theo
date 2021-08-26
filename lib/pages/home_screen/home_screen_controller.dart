@@ -5,6 +5,7 @@ import 'package:theo/models/theo_app_bar_settings.dart';
 import 'package:theo/states/navigation_store.dart';
 import 'package:theo/states/story_category_store.dart';
 import 'package:theo/types/enums.dart';
+import 'package:theo/values/error_messages.dart';
 part 'home_screen_controller.g.dart';
 
 class HomeScreenController = _HomeScreenControllerBase
@@ -37,7 +38,9 @@ abstract class _HomeScreenControllerBase with Store {
 
       eResultStatus = EResultStatus.DONE;
     } catch (err) {
-      errorMessage = err.toString();
+      errorMessage =
+          ErrorMessages.of(navigationStore.currentContext).RESQUEST_ERROR;
+
       eResultStatus = EResultStatus.REQUEST_ERROR;
     }
   }

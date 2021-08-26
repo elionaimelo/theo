@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:theo/core/routes.dart';
 import 'package:theo/states/navigation_store.dart';
 import 'package:theo/styles/colors.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TheoBottomBar extends StatefulWidget {
   TheoBottomBar({required this.navigationStore});
@@ -15,6 +16,8 @@ class TheoBottomBar extends StatefulWidget {
 }
 
 class _TheoBottomBarState extends State<TheoBottomBar> {
+  AppLocalizations get _locale => AppLocalizations.of(context)!;
+
   void _onBottomBarItemTap(int index) {
     widget.navigationStore.setCurrentPageIndex(TabPagesIndexes.values[index]);
 
@@ -62,28 +65,28 @@ class _TheoBottomBarState extends State<TheoBottomBar> {
                     homeIcon,
                     height: 27,
                   ),
-                  label: 'Início',
+                  label: _locale.home,
                 ),
                 BottomNavigationBarItem(
                   icon: SvgPicture.asset(
                     learningIcon,
                     height: 27,
                   ),
-                  label: 'Aprender',
+                  label: _locale.learn,
                 ),
                 BottomNavigationBarItem(
                   icon: SvgPicture.asset(
                     discoverIcon,
                     height: 27,
                   ),
-                  label: 'Descobrir',
+                  label: _locale.discover,
                 ),
                 BottomNavigationBarItem(
                   icon: SvgPicture.asset(
                     tellIcon,
                     height: 27,
                   ),
-                  label: 'Contar',
+                  label: _locale.tell,
                 ),
               ],
             ),

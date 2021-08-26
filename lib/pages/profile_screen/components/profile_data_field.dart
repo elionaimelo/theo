@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:theo/components/line_text_button.dart';
 import 'package:theo/styles/colors.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProfileDataField extends StatelessWidget {
   const ProfileDataField({
@@ -50,7 +51,7 @@ class ProfileDataField extends StatelessWidget {
             children: [
               Flexible(child: value),
               LineTextButton(
-                text: 'editar',
+                text: AppLocalizations.of(context)!.edit,
                 onTap: onTap,
               )
             ],

@@ -193,7 +193,7 @@ abstract class _NewTellScreenControllerBase with Store {
       var isValid = formState.validate();
 
       if (!isValid) {
-        throw ErrorMessages.VALIDATION_ERROR;
+        throw ErrorMessages.of(formState.context).VALIDATION_ERROR;
       }
 
       var newStory = Story(

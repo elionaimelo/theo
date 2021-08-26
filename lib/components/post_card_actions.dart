@@ -3,6 +3,7 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/utils/assets_path.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PostCardActions extends StatefulWidget {
   const PostCardActions({
@@ -22,6 +23,8 @@ class PostCardActions extends StatefulWidget {
 
 class _PostCardActionsState extends State<PostCardActions> {
   _PostCardActionsState();
+
+  AppLocalizations get _locale => AppLocalizations.of(context)!;
 
   @override
   void initState() {
@@ -50,23 +53,23 @@ class _PostCardActionsState extends State<PostCardActions> {
             children: [
               _actionButton(
                 icon: FeatherIcons.thumbsUp,
-                text: 'Gostei',
+                text: _locale.postLike,
                 onTap: _likeButtonTap,
                 selected: _likeSelected,
               ),
               _actionButton(
                 icon: FeatherIcons.messageCircle,
-                text: 'Comentar',
+                text: _locale.postComment,
                 onTap: () {},
               ),
               _actionButton(
                 icon: FeatherIcons.cornerUpRight,
-                text: 'Compartilhar',
+                text: _locale.postShare,
                 onTap: () {},
               ),
               _actionButton(
                 icon: FeatherIcons.download,
-                text: 'Baixar',
+                text: _locale.postDownload,
                 onTap: () {},
               ),
             ],
@@ -96,7 +99,7 @@ class _PostCardActionsState extends State<PostCardActions> {
           _likeText,
           Expanded(child: Container()),
           Text(
-            (widget.commentsCount?.toString() ?? '0') + ' comentários',
+            (widget.commentsCount?.toString() ?? '0') + ' ' + _locale.comments,
             style: Theme.of(context).textTheme.bodyText1!.copyWith(
                   color: TheoColors.seven,
                   fontSize: 14,

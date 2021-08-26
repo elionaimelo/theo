@@ -55,21 +55,17 @@ abstract class _PostStoreBase with Store {
 
       var response = await _postService.fetchPosts(nextPage);
 
-      if (response == null) {
-        throw Exception('Response Null');
-      }
+      totalPostsCount = response?.count ?? 0;
 
-      totalPostsCount = response.count ?? 0;
+      var listResult = [...response?.data];
 
-      var listResult = (response.data as List<dynamic>)
-          .map((e) => Post.fromJson(e) ?? Post())
-          .toList();
+      var posts = listResult.map((e) => Post.fromJson(e) ?? Post()).toList();
 
       if (isLastPage(nextPage)) {
-        pagingController.appendLastPage(listResult);
+        pagingController.appendLastPage(posts);
       } else {
         var futurePage = nextPage + 1;
-        pagingController.appendPage(listResult, futurePage);
+        pagingController.appendPage(posts, futurePage);
         fetchedPosts = pagingController.itemList ?? [];
       }
 
@@ -98,7 +94,7 @@ abstract class _PostStoreBase with Store {
       );
 
       if (response == null) {
-        throw Exception('Response Null');
+        throw Exception(null);
       }
 
       eResultStatus = EResultStatus.DONE;

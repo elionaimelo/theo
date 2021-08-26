@@ -16,7 +16,7 @@ class APIClient {
   APIClient() {
     try {
       if (DotEnv.SUPABASE_KEY == null || DotEnv.SUPABASE_URL == null) {
-        throw Exception('API() - Variáveis Env Nulas');
+        throw Exception(null);
       }
 
       _supabaseClient =

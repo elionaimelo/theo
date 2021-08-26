@@ -6,6 +6,7 @@ import 'package:theo/pages/signup_screen/components/term_bottom_sheet.dart';
 import 'package:theo/pages/tutorial_screen/tutorial_screen.dart';
 import 'package:theo/pages/tutorial_screen/tutorial_screen_controller.dart';
 import 'package:theo/styles/colors.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TermTab extends StatefulWidget {
   const TermTab({Key? key}) : super(key: key);
@@ -15,6 +16,8 @@ class TermTab extends StatefulWidget {
 }
 
 class _TermTabState extends State<TermTab> {
+  AppLocalizations get _locale => AppLocalizations.of(context)!;
+
   bool acceptEnabled = true;
 
   Future<void> _openTerm() async {
@@ -29,8 +32,8 @@ class _TermTabState extends State<TermTab> {
     Navigator.of(context).pushNamed(
       Routes.concluded,
       arguments: ConcludedScreenController(
-        message: 'O seu perfil já está pronto.',
-        title: 'Concluído!',
+        message: _locale.concludedMessage,
+        title: _locale.concluded + '!',
         onNextButtonTap: _navigateToTutorialOrHome,
       ),
     );
@@ -55,12 +58,13 @@ class _TermTabState extends State<TermTab> {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        _label('Termo de consentimento'),
-        OptionButton(text: 'Ler termo', onTap: _openTerm, selected: false),
+        _label(_locale.termTabTitle),
+        OptionButton(text: _locale.readTerm, onTap: _openTerm, selected: false),
         OptionButton(
-            text: 'Aceitar',
-            onTap: acceptEnabled ? _acceptTerm : () {},
-            selected: !acceptEnabled),
+          text: _locale.accept,
+          onTap: acceptEnabled ? _acceptTerm : () {},
+          selected: !acceptEnabled,
+        ),
       ],
     );
   }

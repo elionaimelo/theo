@@ -27,11 +27,7 @@ abstract class _RoleStoreBase with Store {
     try {
       var response = await _roleService.fetchRoles();
 
-      if (response == null) {
-        throw Exception('Response Null');
-      }
-
-      var listResult = [...response.data];
+      var listResult = [...response?.data];
 
       roles = listResult.map((e) => Role.fromJson(e)!).toList();
 

@@ -1,29 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:theo/components/story_progress.dart';
 import 'package:theo/components/title_text.dart';
 import 'package:theo/core/constants/story_format_consts.dart';
 import 'package:theo/core/routes.dart';
 import 'package:theo/models/story_format.dart';
-import 'package:theo/models/section.dart';
 import 'package:theo/models/story.dart';
-import 'package:theo/mocks/theo_mocks.dart';
 import 'package:theo/pages/learning_screen/components/section_card.dart';
+import 'package:theo/pages/learning_screen/learning_screen_controller.dart';
 import 'package:theo/pages/media_story_screen/media_story_screen_controller.dart';
 import 'package:theo/styles/colors.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LearningScreen extends StatefulWidget {
+  const LearningScreen({Key? key, required this.controller}) : super(key: key);
+
   @override
   _LearningScreenState createState() => _LearningScreenState();
+
+  final LearningScreenController controller;
 }
 
 class _LearningScreenState extends State<LearningScreen> {
   AppLocalizations get _locale => AppLocalizations.of(context)!;
 
-  List<Section> sections = TheoMocks.sectionsMock;
+  @override
+  void initState() {
+    super.initState();
+
+    widget.controller.storyStore.loadLearningStories(context);
+  }
 
   void _onStoryCardTap() {
     Navigator.of(context).pushNamed(Routes.storytellingLearn);
@@ -64,7 +73,9 @@ class _LearningScreenState extends State<LearningScreen> {
           Container(
             margin: EdgeInsets.only(bottom: 27),
           ),
-          Expanded(child: _list),
+          Observer(
+            builder: (_) => Expanded(child: _list),
+          ),
           Container(
             margin: EdgeInsets.only(bottom: 20),
           )
@@ -109,12 +120,12 @@ class _LearningScreenState extends State<LearningScreen> {
       );
 
   Widget get _list => ListView.builder(
-        itemCount: sections.length + 1,
+        itemCount: widget.controller.sections.length + 1,
         itemBuilder: (_, int index) {
           if (index == 0) return _presentation;
 
           return SectionCard(
-            section: sections[index - 1],
+            section: widget.controller.sections[index - 1],
             onStartTap: _onStoryCardTap,
           );
         },

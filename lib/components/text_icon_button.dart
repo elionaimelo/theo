@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:theo/styles/colors.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TextIconButton extends StatelessWidget {
   TextIconButton({
     this.foregroundColor = TheoColors.primary,
-    this.text = 'Cancelar',
+    this.text,
     this.direction = TextDirection.ltr,
     required this.onTap,
     this.icon,
@@ -13,7 +14,7 @@ class TextIconButton extends StatelessWidget {
   });
 
   final Color foregroundColor;
-  final String text;
+  final String? text;
   final TextDirection direction;
   final Function onTap;
   final Widget? icon;
@@ -32,7 +33,7 @@ class TextIconButton extends StatelessWidget {
           children: [
             if (icon != null) icon!,
             Text(
-              text,
+              text ?? AppLocalizations.of(context)!.cancel,
               style: textStyle ??
                   Theme.of(context).textTheme.bodyText1!.copyWith(
                         fontSize: 14,

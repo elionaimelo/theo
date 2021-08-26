@@ -209,7 +209,8 @@ abstract class _SignupScreenControllerBase with Store {
 
       if (password != passwordCheck) {
         ErrorAlertDialog.showAlertDialog(
-          content: ErrorMessages.INVALID_MATCH_PASSWORD,
+          content: ErrorMessages.of(navigationStore.currentContext)
+              .INVALID_MATCH_PASSWORD,
         );
         eResultStatus = EResultStatus.DONE;
         return false;

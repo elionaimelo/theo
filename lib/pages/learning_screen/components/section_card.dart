@@ -6,6 +6,7 @@ import 'package:theo/models/section.dart';
 import 'package:theo/states/story_store.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SectionCard extends StatelessWidget {
   SectionCard({
@@ -32,8 +33,8 @@ class SectionCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _status,
-                _button,
+                _status(context),
+                _button(context),
               ],
             )
           ],
@@ -42,7 +43,7 @@ class SectionCard extends StatelessWidget {
     );
   }
 
-  Widget get _status {
+  Widget _status(BuildContext context) {
     // normally the API would provide the finished virtual property, but in this case
     // because its only app layout development so I create this function
 
@@ -57,7 +58,7 @@ class SectionCard extends StatelessWidget {
                   margin: EdgeInsets.only(left: 7),
                 ),
                 Text(
-                  'Concluído',
+                  AppLocalizations.of(context)!.concluded,
                   style: GoogleFonts.muli(
                     fontSize: 15,
                     fontWeight: FontWeight.w700,
@@ -78,7 +79,7 @@ class SectionCard extends StatelessWidget {
         ),
       );
 
-  Widget get _button => Ink(
+  Widget _button(BuildContext context) => Ink(
         decoration: BoxDecoration(
           border: Border.all(
             color: TheoColors.primary,
@@ -100,7 +101,7 @@ class SectionCard extends StatelessWidget {
                 Container(
                   margin: EdgeInsets.only(left: 5),
                 ),
-                Text('Iniciar'),
+                Text(AppLocalizations.of(context)!.init),
               ],
             ),
           ),

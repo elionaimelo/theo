@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/utils/assets_path.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class StoryProgress extends StatelessWidget {
   StoryProgress({
@@ -15,6 +16,7 @@ class StoryProgress extends StatelessWidget {
   final int total;
   final bool hasThunder;
   final bool hasTitle;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,7 +30,7 @@ class StoryProgress extends StatelessWidget {
           Expanded(
             child: Column(
               children: [
-                _texts,
+                _texts(context),
                 Container(
                   margin: EdgeInsets.only(bottom: 4),
                 ),
@@ -69,11 +71,11 @@ class StoryProgress extends StatelessWidget {
     );
   }
 
-  Widget get _texts => Row(
+  Widget _texts(BuildContext context) => Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            hasTitle ? 'Progresso' : '',
+            hasTitle ? AppLocalizations.of(context)!.progress : '',
             style: GoogleFonts.muli(
               fontWeight: FontWeight.normal,
               fontSize: 16,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AdultContentTag extends StatelessWidget {
   const AdultContentTag({Key? key}) : super(key: key);
@@ -16,7 +17,7 @@ class AdultContentTag extends StatelessWidget {
             margin: EdgeInsets.only(right: 8),
           ),
           Text(
-            'Conteúdo para maiores de 18',
+            AppLocalizations.of(context)!.adultContentTagText,
             style: Theme.of(context).textTheme.bodyText1!.copyWith(
                   fontSize: 15,
                   fontWeight: FontWeight.w600,

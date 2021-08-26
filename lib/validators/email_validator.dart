@@ -1,10 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:theo/validators/validator.dart';
 import 'package:theo/values/error_messages.dart';
 
 class EmailValidator extends Validator<String?> {
-  EmailValidator()
+  EmailValidator(BuildContext context)
       : super(
-          errorMessage: ErrorMessages.INVALID_EMAIL,
+          errorMessage: ErrorMessages.of(context).INVALID_EMAIL,
           validatorFunc: _validator,
         );
 
@@ -13,11 +14,9 @@ class EmailValidator extends Validator<String?> {
     required String errorMessage,
   }) {
     try {
-      if (value == null) return ErrorMessages.REQUIRED;
-
       var emailValid = RegExp(
               r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-          .hasMatch(value);
+          .hasMatch(value ?? '');
 
       if (!emailValid) {
         return errorMessage;

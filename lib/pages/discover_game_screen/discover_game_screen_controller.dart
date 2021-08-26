@@ -2,6 +2,7 @@ import 'package:mobx/mobx.dart';
 import 'package:theo/components/error_alert_dialog.dart';
 import 'package:theo/models/post.dart';
 import 'package:theo/states/navigation_store.dart';
+import 'package:theo/values/error_messages.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 part 'discover_game_screen_controller.g.dart';
@@ -21,11 +22,12 @@ abstract class _DiscoverGameScreenControllerBase with Store {
 
   Future<void> openGameButtonTap(String url) async {
     try {
-      await canLaunch(url)
-          ? await launch(url)
-          : throw Exception('Não foi possivel abrir o link do jogo:\n$url');
+      await canLaunch(url) ? await launch(url) : throw Exception(url);
     } catch (err) {
-      ErrorAlertDialog.showAlertDialog(content: err.toString());
+      ErrorAlertDialog.showAlertDialog(
+        content:
+            ErrorMessages.of(navigationStore.currentContext).OPEN_LINK_ERROR,
+      );
     }
   }
 }

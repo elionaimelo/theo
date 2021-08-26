@@ -6,6 +6,7 @@ import 'package:theo/core/routes.dart';
 import 'package:theo/states/navigation_store.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/utils/assets_path.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TheoAppBar extends StatefulWidget {
   TheoAppBar({
@@ -21,6 +22,8 @@ class TheoAppBar extends StatefulWidget {
 }
 
 class _TheoAppBarState extends State<TheoAppBar> {
+  AppLocalizations get _locale => AppLocalizations.of(context)!;
+
   void _onMenuPressed() {
     TopSheetMenu.showTopSheetMenu(context);
   }
@@ -95,7 +98,7 @@ class _TheoAppBarState extends State<TheoAppBar> {
                     size: 30,
                   ),
                   Text(
-                    'Voltar',
+                    _locale.goBack,
                     style: Theme.of(context).textTheme.bodyText1!.copyWith(
                           fontWeight: FontWeight.w600,
                           color: TheoColors.primary,

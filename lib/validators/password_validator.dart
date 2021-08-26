@@ -1,10 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:theo/validators/validator.dart';
 import 'package:theo/values/error_messages.dart';
 
 class PasswordValidator extends Validator<String?> {
-  PasswordValidator()
+  PasswordValidator(BuildContext context)
       : super(
-          errorMessage: ErrorMessages.INVALID_EMAIL,
+          errorMessage: ErrorMessages.of(context).PASSWORD_MIN_LENGTH,
           validatorFunc: _validator,
         );
 
@@ -13,10 +14,9 @@ class PasswordValidator extends Validator<String?> {
     required String errorMessage,
   }) {
     try {
-      if (value == null) return ErrorMessages.REQUIRED;
-
-      if (value.isEmpty || value.length < 6) {
-        return ErrorMessages.PASSWORD_MIN_LENGTH;
+      var text = value ?? '';
+      if (text.isEmpty || text.length < 6) {
+        return errorMessage;
       }
     } catch (err) {
       print('RequiredTextValidator._validator - $err');

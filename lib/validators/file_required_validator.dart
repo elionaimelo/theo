@@ -1,10 +1,14 @@
+import 'package:flutter/cupertino.dart';
 import 'package:theo/components/inputs/file_input.dart';
 import 'package:theo/validators/validator.dart';
 import 'package:theo/values/error_messages.dart';
 
 class FileRequiredValidator extends Validator<List<SelectedFile>?> {
-  FileRequiredValidator()
-      : super(errorMessage: ErrorMessages.REQUIRED, validatorFunc: _validator);
+  FileRequiredValidator(BuildContext context)
+      : super(
+          errorMessage: ErrorMessages.of(context).REQUIRED,
+          validatorFunc: _validator,
+        );
 
   static String? _validator({
     required List<SelectedFile>? value,

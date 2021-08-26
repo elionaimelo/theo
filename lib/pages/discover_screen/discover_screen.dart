@@ -134,7 +134,7 @@ class _DiscoverScreenState extends State<DiscoverScreen>
           LoadingStatus(),
         ),
         newPageErrorIndicatorBuilder: (context) => ErrorAlertDialog(
-          content: ErrorMessages.NEXT_POSTS_REQUEST_ERROR,
+          content: ErrorMessages.of(context).NEXT_POSTS_REQUEST_ERROR,
           withButton: false,
         ),
         newPageProgressIndicatorBuilder: (context) => LoadingStatus(),
@@ -168,7 +168,10 @@ class _DiscoverScreenState extends State<DiscoverScreen>
       case StoryFormatConsts.PODCAST:
         Navigator.of(context).pushNamed(
           Routes.discoverMedia,
-          arguments: DiscoverMediaScreenController(post: p),
+          arguments: DiscoverMediaScreenController(
+            post: p,
+            navigationStore: GetIt.I.get(),
+          ),
         );
         break;
       case StoryFormatConsts.IMAGE:

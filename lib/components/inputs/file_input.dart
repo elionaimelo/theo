@@ -9,6 +9,8 @@ import 'package:theo/styles/gerenal.dart';
 import 'package:theo/utils/formatter.dart';
 import 'package:theo/validators/focus_multi_validator.dart';
 import 'package:theo/validators/validator.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:theo/values/error_messages.dart';
 
 class SelectedFile {
   SelectedFile({required this.title, required this.size, required this.path});
@@ -105,7 +107,9 @@ class _FileInputView extends StatelessWidget {
 
       props.onFileSelected(filesPath);
     } catch (err) {
-      ErrorAlertDialog.showAlertDialog(content: err.toString());
+      ErrorAlertDialog.showAlertDialog(
+        content: ErrorMessages.of(formState.context).PICK_IMAGE_ERROR,
+      );
     }
   }
 
@@ -215,7 +219,7 @@ class _FileInputView extends StatelessWidget {
                   child: Container(
                     margin: EdgeInsets.all(5),
                     child: Text(
-                      'remover',
+                      AppLocalizations.of(context)!.remove,
                       style: Theme.of(context)
                           .textTheme
                           .bodyText1!
@@ -277,7 +281,7 @@ class _FileInputView extends StatelessWidget {
       );
 
   Widget _minLengthText(BuildContext context) => Text(
-        'Tamanho mínimo de ${props.minFileLength} KB',
+        AppLocalizations.of(context)!.minFileLength(props.minFileLength),
         style: Theme.of(context).textTheme.bodyText1!.copyWith(
               fontSize: 15,
               color: TheoColors.seven,

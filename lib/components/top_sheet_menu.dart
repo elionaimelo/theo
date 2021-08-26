@@ -8,6 +8,7 @@ import 'package:theo/pages/tutorial_screen/tutorial_screen_controller.dart';
 import 'package:theo/states/navigation_store.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/utils/assets_path.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TopSheetMenu extends StatefulWidget {
   const TopSheetMenu({Key? key, required this.navigationStore})
@@ -47,6 +48,8 @@ class TopSheetMenu extends StatefulWidget {
 }
 
 class _TopSheetMenuState extends State<TopSheetMenu> {
+  AppLocalizations get _locale => AppLocalizations.of(context)!;
+
   void navigateToRoute(String route) {
     Navigator.of(context).pop();
 
@@ -114,7 +117,7 @@ class _TopSheetMenuState extends State<TopSheetMenu> {
             _appButton,
             TextIconButton(
               foregroundColor: TheoColors.secondary,
-              text: 'Fechar',
+              text: _locale.close,
               direction: TextDirection.rtl,
               onTap: () => Navigator.of(context).pop(),
               icon: Icon(
@@ -135,7 +138,7 @@ class _TopSheetMenuState extends State<TopSheetMenu> {
           children: [
             TextIconButton(
               foregroundColor: TheoColors.secondary,
-              text: 'Sobre o Theo',
+              text: _locale.aboutApp,
               onTap: () => navigateToRoute(Routes.about),
               textStyle: _buttonTextStyle,
             ),
@@ -144,7 +147,7 @@ class _TopSheetMenuState extends State<TopSheetMenu> {
             ),
             TextIconButton(
               foregroundColor: TheoColors.secondary,
-              text: 'Tutorial de uso',
+              text: _locale.tutorial,
               onTap: _tutorialTap,
               textStyle: _buttonTextStyle,
             ),
@@ -153,7 +156,7 @@ class _TopSheetMenuState extends State<TopSheetMenu> {
             ),
             TextIconButton(
               foregroundColor: TheoColors.secondary,
-              text: 'Contato',
+              text: _locale.contact,
               onTap: () => navigateToRoute(Routes.contact),
               textStyle: _buttonTextStyle,
             ),
@@ -162,7 +165,7 @@ class _TopSheetMenuState extends State<TopSheetMenu> {
             ),
             TextIconButton(
               foregroundColor: TheoColors.secondary,
-              text: 'Idioma',
+              text: _locale.language,
               onTap: () {},
               textStyle: _buttonTextStyle,
             ),
@@ -171,7 +174,7 @@ class _TopSheetMenuState extends State<TopSheetMenu> {
             ),
             TextIconButton(
               foregroundColor: TheoColors.secondary,
-              text: 'Português',
+              text: _locale.pt,
               onTap: () {},
               direction: TextDirection.rtl,
               icon: Container(
@@ -188,7 +191,7 @@ class _TopSheetMenuState extends State<TopSheetMenu> {
             ),
             TextIconButton(
               foregroundColor: TheoColors.secondary,
-              text: 'English',
+              text: _locale.en,
               onTap: () {},
               direction: TextDirection.rtl,
               icon: Container(
@@ -205,7 +208,7 @@ class _TopSheetMenuState extends State<TopSheetMenu> {
             ),
             TextIconButton(
               foregroundColor: TheoColors.secondary,
-              text: 'Español',
+              text: _locale.es,
               onTap: () {},
               direction: TextDirection.rtl,
               icon: Container(

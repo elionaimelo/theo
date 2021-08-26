@@ -27,11 +27,7 @@ abstract class _LanguageStoreBase with Store {
     try {
       var response = await _languageService.fetchLanguages();
 
-      if (response == null) {
-        throw Exception('Response Null');
-      }
-
-      var listResult = [...response.data];
+      var listResult = [...response?.data];
 
       languages = listResult.map((e) => Language.fromJson(e)!).toList();
 

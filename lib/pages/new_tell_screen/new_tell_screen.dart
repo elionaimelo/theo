@@ -97,7 +97,7 @@ class _NewTellScreenState extends State<NewTellScreen> {
           onSelectionChanged: widget.controller.onLangSelectionChanged,
           label: _locale.deafultLanguage,
           validators: [
-            TextRequiredValidator(),
+            TextRequiredValidator(context),
           ],
           autoFocus: true,
         ),
@@ -109,7 +109,7 @@ class _NewTellScreenState extends State<NewTellScreen> {
           labelStyle: TheoStyles.of(context).labelInputStyle,
           labelMargin: EdgeInsets.only(bottom: 5),
           validators: [
-            TextRequiredValidator(),
+            TextRequiredValidator(context),
           ],
         ),
         _separator,
@@ -130,7 +130,7 @@ class _NewTellScreenState extends State<NewTellScreen> {
           labelStyle: TheoStyles.of(context).labelInputStyle,
           labelMargin: EdgeInsets.only(bottom: 5),
           validators: [
-            TextRequiredValidator(),
+            TextRequiredValidator(context),
           ],
         ),
         if (widget.withLink)
@@ -143,7 +143,7 @@ class _NewTellScreenState extends State<NewTellScreen> {
               labelStyle: TheoStyles.of(context).labelInputStyle,
               labelMargin: EdgeInsets.only(bottom: 5),
               validators: [
-                TextRequiredValidator(),
+                TextRequiredValidator(context),
               ],
             ),
           ),
@@ -161,7 +161,7 @@ class _NewTellScreenState extends State<NewTellScreen> {
                 assetType: AssetType.other,
                 focusNode: FocusNode(),
                 validators: [
-                  FileRequiredValidator(),
+                  FileRequiredValidator(context),
                 ],
               ),
             ),
@@ -180,7 +180,7 @@ class _NewTellScreenState extends State<NewTellScreen> {
                 assetType: AssetType.video,
                 focusNode: FocusNode(),
                 validators: [
-                  FileRequiredValidator(),
+                  FileRequiredValidator(context),
                 ],
               ),
             ),
@@ -202,7 +202,7 @@ class _NewTellScreenState extends State<NewTellScreen> {
           bold: true,
           focusNode: FocusNode(),
           validators: [
-            MultiSelectorRequiredValidator(),
+            MultiSelectorRequiredValidator(context),
           ],
         ),
         _separator,
@@ -220,7 +220,7 @@ class _NewTellScreenState extends State<NewTellScreen> {
           bold: false,
           focusNode: FocusNode(),
           validators: [
-            MultiSelectorRequiredValidator(),
+            MultiSelectorRequiredValidator(context),
           ],
         ),
         _separator,
@@ -291,7 +291,7 @@ class _NewTellScreenState extends State<NewTellScreen> {
           multipleFiles: _multiplesImages,
           focusNode: FocusNode(),
           validators: [
-            FileRequiredValidator(),
+            FileRequiredValidator(context),
           ],
         ))
       : FileInputFormField(FileInputFormFieldProps(
@@ -304,7 +304,7 @@ class _NewTellScreenState extends State<NewTellScreen> {
           multipleFiles: _multiplesImages,
           focusNode: FocusNode(),
           validators: [
-            FileRequiredValidator(),
+            FileRequiredValidator(context),
           ],
         ));
 

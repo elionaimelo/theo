@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:theo/styles/colors.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AlertMessage extends StatelessWidget {
   const AlertMessage({Key? key, required this.text}) : super(key: key);
@@ -30,7 +31,7 @@ class AlertMessage extends StatelessWidget {
               Container(
                 margin: EdgeInsets.only(left: 7),
                 child: Text(
-                  'Lembrete',
+                  AppLocalizations.of(context)!.reminder,
                   style: Theme.of(context).textTheme.bodyText1!.copyWith(
                         fontSize: 16,
                         fontWeight: FontWeight.w800,

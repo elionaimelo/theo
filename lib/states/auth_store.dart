@@ -39,7 +39,7 @@ abstract class _AuthStoreBase with Store {
           await _authService.signUp(user: newUser, password: password);
 
       if (response == null) {
-        throw Exception('Response Null');
+        throw Exception(response);
       }
 
       session = response[0];
@@ -63,7 +63,7 @@ abstract class _AuthStoreBase with Store {
           await _authService.signIn(email: email, password: password);
 
       if (response == null) {
-        throw Exception('Response Null');
+        throw Exception(response);
       }
 
       session = response[0];

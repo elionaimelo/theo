@@ -27,11 +27,7 @@ abstract class _StoryFormatStoreBase with Store {
     try {
       var response = await _storyCategoryService.fetchStoryFormats();
 
-      if (response == null) {
-        throw Exception('Response Null');
-      }
-
-      var listResult = [...response.data];
+      var listResult = [...response?.data];
 
       storyFormats = listResult.map((e) => StoryFormat.fromJson(e)!).toList();
 

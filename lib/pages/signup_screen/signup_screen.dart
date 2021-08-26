@@ -123,7 +123,7 @@ class _SignupScreenState extends State<SignupScreen>
         children: [
           TextInput(
             validators: [
-              TextRequiredValidator(),
+              TextRequiredValidator(context),
             ],
             hintText: AppLocalizations.of(context)!.nameInputHint,
             label: AppLocalizations.of(context)!.nameInputLabel,
@@ -140,7 +140,7 @@ class _SignupScreenState extends State<SignupScreen>
             label: AppLocalizations.of(context)!.emailInputLabel,
             onTextChanged: widget.controller.onEmailTextChanged,
             validators: [
-              EmailValidator(),
+              EmailValidator(context),
             ],
           ),
         ],
@@ -154,7 +154,7 @@ class _SignupScreenState extends State<SignupScreen>
             label: AppLocalizations.of(context)!.countryInputLabel,
             onTextChanged: widget.controller.onCountryTextChanged,
             validators: [
-              TextRequiredValidator(),
+              TextRequiredValidator(context),
             ],
           ),
         ],
@@ -178,7 +178,7 @@ class _SignupScreenState extends State<SignupScreen>
                     ),
                 focusNode: FocusNode(),
                 validators: [
-                  TextRequiredValidator(),
+                  TextRequiredValidator(context),
                 ],
               ),
             ),
@@ -209,7 +209,7 @@ class _SignupScreenState extends State<SignupScreen>
                     ),
                 focusNode: FocusNode(),
                 validators: [
-                  TextRequiredValidator(),
+                  TextRequiredValidator(context),
                 ],
               ),
             ),
@@ -226,7 +226,7 @@ class _SignupScreenState extends State<SignupScreen>
             onTextChanged: widget.controller.onPasswordTextChanged,
             obscureText: true,
             validators: [
-              PasswordValidator(),
+              PasswordValidator(context),
             ],
           ),
           Container(
@@ -238,9 +238,10 @@ class _SignupScreenState extends State<SignupScreen>
             onTextChanged: widget.controller.onPasswordCheckTextChanged,
             obscureText: true,
             validators: [
-              PasswordValidator(),
+              PasswordValidator(context),
               MatchPasswordValidator(
                 matchValue: widget.controller.password ?? '',
+                context: context,
               )
             ],
           ),

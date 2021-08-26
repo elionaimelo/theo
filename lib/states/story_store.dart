@@ -1,8 +1,13 @@
+import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
-import 'package:theo/mocks/theo_mocks.dart';
+import 'package:theo/core/constants/story_format_consts.dart';
+import 'package:theo/models/section.dart';
 import 'package:theo/models/story.dart';
+import 'package:theo/models/story_format.dart';
 import 'package:theo/services/api_client.dart';
 import 'package:theo/types/enums.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 part 'story_store.g.dart';
 
 class StoryStore = _StoryStoreBase with _$StoryStore;
@@ -14,6 +19,9 @@ abstract class _StoryStoreBase with Store {
 
   @observable
   EResultStatus eResultStatus = EResultStatus.NONE;
+
+  @observable
+  List<Section> sections = [];
 
   @action
   void finishLearningStory(String id) {
@@ -36,6 +44,43 @@ abstract class _StoryStoreBase with Store {
     });
   }
 
+  @action
+  void loadLearningStories(BuildContext context) {
+    if (learningStories.isNotEmpty) return;
+
+    var locale = AppLocalizations.of(context)!;
+
+    sections = [
+      Section(
+        title: locale.section1,
+        id: '1',
+      ),
+      Section(
+        title: locale.section2,
+        id: '2',
+      )
+    ];
+
+    learningStories = [
+      Story(
+        id: '1',
+        sectionId: '1',
+        finished: false,
+        format: StoryFormat(name: StoryFormatConsts.VIDEO),
+        title: locale.learningStoryTitle,
+        url: locale.learningStoryLink,
+      ),
+      Story(
+        id: '2',
+        sectionId: '1',
+        finished: false,
+        format: StoryFormat(name: StoryFormatConsts.PODCAST),
+        title: locale.learningStory2Title,
+        url: locale.learningStory2Link,
+      ),
+    ];
+  }
+
   @observable
-  List<Story> learningStories = TheoMocks.learningStories;
+  List<Story> learningStories = [];
 }

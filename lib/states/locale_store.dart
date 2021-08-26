@@ -11,4 +11,9 @@ abstract class _LocaleStoreBase with Store {
 
   @observable
   Locale? locale;
+
+  @action
+  void changeLocale(String languageCode) {
+    locale = Locale(languageCode);
+  }
 }

@@ -31,6 +31,8 @@ class _SignupScreenState extends State<SignupScreen>
 
   SignupScreenController get controller => widget.controller;
 
+  AppLocalizations get _locale => AppLocalizations.of(context)!;
+
   @override
   void initState() {
     super.initState();
@@ -166,8 +168,7 @@ class _SignupScreenState extends State<SignupScreen>
           children: [
             QuestionTabFormField(
               QuestionTabFormFieldProps(
-                options:
-                    widget.controller.roles.map((e) => e.displayName!).toList(),
+                options: _options,
                 onSelectedIndex: widget.controller.onRoleSelected,
                 question: AppLocalizations.of(context)!.roleInputQuestion,
                 crossAxisAlign: CrossAxisAlignment.start,
@@ -185,6 +186,10 @@ class _SignupScreenState extends State<SignupScreen>
           ],
         ),
       );
+
+  List<String> get _options => widget.controller.roles
+      .map((e) => e.displayName?[_locale.localeName].toString() ?? '')
+      .toList();
 
   Widget get _ageTab => Container(
         child: Column(

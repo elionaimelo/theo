@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:theo/components/lazy_image.dart';
 import 'package:theo/models/story_category.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CategoryCard extends StatefulWidget {
   const CategoryCard({
@@ -16,6 +17,8 @@ class CategoryCard extends StatefulWidget {
 }
 
 class _CategoryCardState extends State<CategoryCard> {
+  AppLocalizations get _locale => AppLocalizations.of(context)!;
+
   @override
   void initState() {
     super.initState();
@@ -53,7 +56,9 @@ class _CategoryCardState extends State<CategoryCard> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          widget.storyCategory.name!,
+                          widget.storyCategory
+                                  .displayName?[_locale.localeName] ??
+                              '-',
                           style:
                               Theme.of(context).textTheme.headline2!.copyWith(
                                     color: Colors.white,

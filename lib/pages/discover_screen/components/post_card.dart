@@ -9,6 +9,7 @@ import 'package:theo/core/constants/story_format_consts.dart';
 import 'package:theo/models/post.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/utils/assets_path.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PostCard extends StatefulWidget {
   const PostCard({
@@ -25,6 +26,8 @@ class PostCard extends StatefulWidget {
 }
 
 class _PostCardState extends State<PostCard> {
+  AppLocalizations get _locale => AppLocalizations.of(context)!;
+
   final double _horizontalPadding = 18;
 
   @override
@@ -206,10 +209,13 @@ class _PostCardState extends State<PostCard> {
         ),
       );
 
-  String get _typeDescription =>
-      (widget.post.story?.category?.name ?? '-') +
-      ' | ' +
-      (widget.post.story?.format?.displayName ?? '-');
+  String get _typeDescription => _categoryName + ' | ' + _formatName;
+
+  String get _categoryName =>
+      widget.post.story?.category?.displayName?[_locale.localeName] ?? '-';
+
+  String get _formatName =>
+      widget.post.story?.format?.displayName?[_locale.localeName] ?? '-';
 
   bool get _hasRightPlayer {
     switch (widget.post.story?.format?.name) {

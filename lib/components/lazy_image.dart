@@ -65,7 +65,16 @@ class _LazyImageState extends State<LazyImage> {
       );
     }
 
-    return Icon(Icons.error);
+    return Expanded(
+      child: Container(
+        color: Colors.grey,
+        margin: EdgeInsets.all(5),
+        child: Icon(
+          Icons.error,
+          size: 50,
+        ),
+      ),
+    );
   }
 
   Widget _cachedNetworkImage(String imageUrl) => CachedNetworkImage(

@@ -5,6 +5,7 @@ import 'package:theo/models/story.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/styles/metrics.dart';
 import 'package:theo/utils/assets_path.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LearnCardItem extends StatefulWidget {
   const LearnCardItem({
@@ -27,6 +28,8 @@ class LearnCardItem extends StatefulWidget {
 }
 
 class _LearnCardItemState extends State<LearnCardItem> {
+  AppLocalizations get _locale => AppLocalizations.of(context)!;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -98,7 +101,8 @@ class _LearnCardItemState extends State<LearnCardItem> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.story.format!.displayName,
+                      widget.story.format?.displayName?[_locale.localeName] ??
+                          '-',
                       style: Theme.of(context).textTheme.bodyText1!.copyWith(
                             fontSize: 14,
                             color: TheoColors.fourteen,

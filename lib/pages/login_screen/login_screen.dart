@@ -25,13 +25,15 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen>
     with SingleTickerProviderStateMixin {
-  late TabController _tabController;
+  TabController? _tabController;
 
   AppLocalizations get _locale => AppLocalizations.of(context)!;
 
   Future<bool> _onBackPressed() async {
-    if (_tabController.index > 0) {
-      _tabController.animateTo(_tabController.index - 1);
+    if (_tabController == null) return false;
+
+    if (_tabController!.index > 0) {
+      _tabController!.animateTo(_tabController!.index - 1);
       return false;
     }
 
@@ -43,6 +45,11 @@ class _LoginScreenState extends State<LoginScreen>
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
 
     _tabController = TabController(vsync: this, length: _tabs.length);
   }
@@ -148,7 +155,8 @@ class _LoginScreenState extends State<LoginScreen>
           BottomButton(
             text: _locale.nextButton,
             icon: Icons.arrow_forward,
-            onPressed: () => widget.controller.onEmailButtonTap(_tabController),
+            onPressed: () =>
+                widget.controller.onEmailButtonTap(_tabController!),
           )
         ],
       );

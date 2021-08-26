@@ -31,7 +31,9 @@ class _LearningScreenState extends State<LearningScreen> {
   void initState() {
     super.initState();
 
-    widget.controller.storyStore.loadLearningStories(context);
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+      widget.controller.storyStore.loadLearningStories(context);
+    });
   }
 
   void _onStoryCardTap() {

@@ -1,52 +1,28 @@
-import 'package:theo/core/constants/story_format_consts.dart';
+import 'dart:convert';
 
 class StoryFormat {
-  StoryFormat({this.id, this.name});
+  StoryFormat({this.id, this.name, this.displayName});
 
   String? id;
   String? name;
 
-  String get displayName {
-    switch (name) {
-      case StoryFormatConsts.VIDEO:
-        return 'Vídeo';
-      case StoryFormatConsts.GAME:
-        return 'Jogo';
-      case StoryFormatConsts.IMAGE:
-        return 'Imagem';
-      case StoryFormatConsts.ANIMATION:
-        return 'Animação';
-      case StoryFormatConsts.HQ:
-        return 'HQ';
-      case StoryFormatConsts.INTERACTIVE_FIGURE:
-        return 'Figura Interativa';
-      case StoryFormatConsts.PODCAST:
-        return 'Podcast';
-      case StoryFormatConsts.INFROGRAPHIC:
-        return 'Infográfico';
-      case StoryFormatConsts.TEXT:
-        return 'Texto';
-      case StoryFormatConsts.QUIZ:
-        return 'Quiz';
-      case StoryFormatConsts.MUSIC:
-        return 'Música';
-      default:
-        return '';
-    }
-  }
+  // pt, en, es
+  Map<String, dynamic>? displayName;
 
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': name,
+        'display_name': json.encode(displayName),
       };
 
-  static StoryFormat? fromJson(Map<String, dynamic>? json) {
-    if (json == null) return null;
+  static StoryFormat? fromJson(Map<String, dynamic>? jsonData) {
+    if (jsonData == null) return null;
 
     try {
       return StoryFormat(
-        id: json['id'],
-        name: json['name'],
+        id: jsonData['id'],
+        name: jsonData['name'],
+        displayName: jsonData['display_name'],
       );
     } catch (err) {
       print('StoryFormat.fromJson - $err');

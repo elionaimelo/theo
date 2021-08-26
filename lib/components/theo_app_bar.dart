@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get_it/get_it.dart';
 import 'package:theo/components/top_sheet_menu.dart';
 import 'package:theo/core/routes.dart';
 import 'package:theo/states/navigation_store.dart';
@@ -25,7 +26,13 @@ class _TheoAppBarState extends State<TheoAppBar> {
   AppLocalizations get _locale => AppLocalizations.of(context)!;
 
   void _onMenuPressed() {
-    TopSheetMenu.showTopSheetMenu(context);
+    TopSheetMenu.showTopSheetMenu(
+      context,
+      TopSheetMenuProps(
+        navigationStore: GetIt.I.get(),
+        localeStore: GetIt.I.get(),
+      ),
+    );
   }
 
   void _onTapProfile() {

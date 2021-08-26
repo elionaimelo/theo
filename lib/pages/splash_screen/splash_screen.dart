@@ -40,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen> {
             child: Container(
               margin: EdgeInsets.only(bottom: 90),
               child: Text(
-                AppLocalizations.of(context)!.loadingSplash,
+                AppLocalizations.of(context)?.loadingSplash ?? 'Loading..',
                 style: GoogleFonts.muli().copyWith(
                   fontSize: 18,
                   color: TheoColors.secondary,

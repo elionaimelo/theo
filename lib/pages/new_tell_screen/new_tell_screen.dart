@@ -26,7 +26,6 @@ class NewTellScreen extends StatefulWidget {
 
   final NewTellScreenController controller;
 
-  String get pagTitle => controller.format.displayName;
   bool get withLink => controller.withLink;
   bool get withArchive => controller.withArchive;
 
@@ -88,7 +87,8 @@ class _NewTellScreenState extends State<NewTellScreen> {
 
   List<Widget> get _inputs => <Widget>[
         TitleText(
-          title: widget.pagTitle,
+          title:
+              widget.controller.format.displayName?[_locale.localeName] ?? '-',
         ),
         _separator,
         TextSelectorInput(
@@ -213,7 +213,10 @@ class _NewTellScreenState extends State<NewTellScreen> {
           values: widget.controller.storyCategories
               .map(
                 (e) => SelectorItem(
-                    key: ObjectKey(e), displayValue: e.name!, value: e),
+                  key: ObjectKey(e),
+                  displayValue: e.displayName?[_locale.localeName] ?? '',
+                  value: e,
+                ),
               )
               .toList(),
           uniqueSelect: true,

@@ -132,6 +132,7 @@ class _TellScreenState extends State<TellScreen>
       );
 
   Widget? getMenuItem(StoryFormat storyFormat) {
+    var text = storyFormat.displayName?[_locale.localeName] ?? '-';
     switch (storyFormat.name) {
       case StoryFormatConsts.VIDEO:
         return Container(
@@ -141,7 +142,7 @@ class _TellScreenState extends State<TellScreen>
               FeatherIcons.video,
               color: TheoColors.eleven,
             ),
-            text: storyFormat.displayName,
+            text: text,
             onTap: () => _onMenuItemTap(format: storyFormat),
           ),
         );
@@ -149,7 +150,7 @@ class _TellScreenState extends State<TellScreen>
       case StoryFormatConsts.ANIMATION:
         return TellMenuItem(
           icon: SvgPicture.asset(AssetsPath.animationSvg),
-          text: storyFormat.displayName,
+          text: text,
           onTap: () => _onMenuItemTap(format: storyFormat, withLink: true),
         );
 
@@ -159,21 +160,21 @@ class _TellScreenState extends State<TellScreen>
             FeatherIcons.fileText,
             color: TheoColors.primary,
           ),
-          text: storyFormat.displayName,
+          text: text,
           onTap: () => _onMenuItemTap(format: storyFormat, withArchive: true),
         );
 
       case StoryFormatConsts.HQ:
         return TellMenuItem(
           icon: SvgPicture.asset(AssetsPath.comicSvg),
-          text: storyFormat.displayName,
+          text: text,
           onTap: () => _onMenuItemTap(format: storyFormat),
         );
 
       case StoryFormatConsts.GAME:
         return TellMenuItem(
           icon: SvgPicture.asset(AssetsPath.gameSvg),
-          text: storyFormat.displayName,
+          text: text,
           onTap: () => _onMenuItemTap(format: storyFormat, withLink: true),
         );
 
@@ -183,7 +184,7 @@ class _TellScreenState extends State<TellScreen>
             FeatherIcons.pieChart,
             color: TheoColors.primary,
           ),
-          text: storyFormat.displayName,
+          text: text,
           onTap: () => _onMenuItemTap(format: storyFormat, withArchive: true),
         );
       case StoryFormatConsts.IMAGE:
@@ -192,13 +193,13 @@ class _TellScreenState extends State<TellScreen>
             FeatherIcons.image,
             color: TheoColors.eleven,
           ),
-          text: storyFormat.displayName,
+          text: text,
           onTap: () => _onMenuItemTap(format: storyFormat),
         );
       case StoryFormatConsts.INTERACTIVE_FIGURE:
         return TellMenuItem(
           icon: SvgPicture.asset(AssetsPath.interactiveSvg),
-          text: storyFormat.displayName,
+          text: text,
           onTap: () => _onMenuItemTap(format: storyFormat),
         );
       case StoryFormatConsts.MUSIC:
@@ -207,7 +208,7 @@ class _TellScreenState extends State<TellScreen>
             FeatherIcons.music,
             color: TheoColors.primary,
           ),
-          text: storyFormat.displayName,
+          text: text,
           onTap: () => _onMenuItemTap(format: storyFormat, withArchive: true),
         );
       case StoryFormatConsts.PODCAST:
@@ -216,7 +217,7 @@ class _TellScreenState extends State<TellScreen>
             FeatherIcons.radio,
             color: TheoColors.eleven,
           ),
-          text: storyFormat.displayName,
+          text: text,
           onTap: () => _onMenuItemTap(format: storyFormat, withLink: true),
         );
     }

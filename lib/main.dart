@@ -102,13 +102,11 @@ class _MyAppState extends State<MyApp> {
 
   PreferredSize get _appBar => PreferredSize(
         preferredSize: Size.fromHeight(TheoMetrics.appBarHeight),
-        child: Observer(
-          builder: (_) => TheoAppBar(
-            onBackPressed: () {
-              _navigationStore.navigationKey.currentState!.maybePop();
-            },
-            navigationStore: _navigationStore,
-          ),
+        child: TheoAppBar(
+          onBackPressed: () {
+            _navigationStore.navigationKey.currentState!.maybePop();
+          },
+          navigationStore: _navigationStore,
         ),
       );
 }

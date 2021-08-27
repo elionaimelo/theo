@@ -5,9 +5,17 @@ import 'package:theo/styles/colors.dart';
 import 'package:theo/validators/focus_multi_validator.dart';
 import 'package:theo/validators/validator.dart';
 
+class OptionItem {
+  OptionItem({required this.text, this.icon, required this.key});
+
+  final ValueKey key;
+  final String text;
+  final Widget? icon;
+}
+
 class QuestionTabFormFieldProps {
   final String question;
-  final List<String> options;
+  final List<OptionItem> options;
   final Function(int index) onSelectedIndex;
   final CrossAxisAlignment crossAxisAlign;
   final TextStyle? questionStyle;
@@ -27,10 +35,10 @@ class QuestionTabFormFieldProps {
   });
 }
 
-class QuestionTabFormField extends FormField<String?> {
+class QuestionTabFormField extends FormField<OptionItem?> {
   QuestionTabFormField(QuestionTabFormFieldProps props)
       : super(
-          initialValue: '',
+          initialValue: OptionItem(text: '', key: ValueKey('')),
           validator: FocusMultiValidator(
             validators: props.validators,
             focusNode: props.focusNode,
@@ -52,18 +60,21 @@ class QuestionTabView extends StatelessWidget {
   }) : super(key: key);
 
   final QuestionTabFormFieldProps props;
-  final FormFieldState<String?> formState;
+  final FormFieldState<OptionItem?> formState;
 
-  String get selectedOption => formState.value ?? '';
+  static final OptionItem initialValue =
+      OptionItem(text: '', key: ValueKey(''));
 
-  void _onOptionButtonTap(String text) {
-    if (text == selectedOption) {
-      text = '';
+  OptionItem get selectedOption => formState.value ?? initialValue;
+
+  void _onOptionButtonTap(OptionItem item) {
+    if (item.key == selectedOption.key) {
+      item = initialValue;
     }
 
-    props.onSelectedIndex(props.options.indexOf(text));
+    props.onSelectedIndex(props.options.indexOf(item));
 
-    formState.didChange(text);
+    formState.didChange(item);
   }
 
   @override
@@ -95,7 +106,7 @@ class QuestionTabView extends StatelessWidget {
         children: props.options
             .map(
               (e) => OptionButton(
-                text: e,
+                item: e,
                 onTap: () => _onOptionButtonTap(e),
                 selected: e == selectedOption,
               ),

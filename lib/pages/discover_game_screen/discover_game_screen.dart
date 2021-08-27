@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:theo/components/bottom_button.dart';
+import 'package:theo/components/lang_icon.dart';
 import 'package:theo/components/post_card_actions.dart';
 import 'package:theo/components/profile_bar.dart';
 import 'package:theo/components/story_app_bar.dart';
 import 'package:theo/components/text_icon_button.dart';
-import 'package:theo/core/constants/language_consts.dart';
 import 'package:theo/pages/discover_game_screen/components/expandable_text.dart';
 import 'package:theo/pages/discover_game_screen/components/image_carousel.dart';
 import 'package:theo/pages/discover_game_screen/discover_game_screen_controller.dart';
@@ -107,31 +106,14 @@ class _DiscoverGameScreenState extends State<DiscoverGameScreen> {
         text: widget.controller.post.story?.language?.displayName ?? '-',
         onTap: () {},
         direction: TextDirection.ltr,
-        icon: Container(
-          margin: EdgeInsets.only(right: 10),
-          child: SvgPicture.asset(
-            _assetIcon,
-            height: 28,
-          ),
+        icon: LangIcon(
+          languageCode: widget.controller.post.languageName,
         ),
         textStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
               fontSize: 16,
               color: TheoColors.twentyTwo,
             ),
       );
-
-  String get _assetIcon {
-    switch (widget.controller.post.story?.language?.name) {
-      case LanguageConsts.PT_BR:
-        return AssetsPath.brSvg;
-      case LanguageConsts.ES_ES:
-        return AssetsPath.espSvg;
-      case LanguageConsts.EN_US:
-        return AssetsPath.enSvg;
-      default:
-        return AssetsPath.brSvg;
-    }
-  }
 
   Widget get _bottomContent => Container(
         padding: TheoMetrics.paddingScreen.copyWith(top: 0, bottom: 0),

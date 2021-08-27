@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:theo/components/option_button.dart';
+import 'package:theo/components/question_tab.dart';
 import 'package:theo/core/routes.dart';
 import 'package:theo/pages/concluded_screen/concluded_screen_controller.dart';
 import 'package:theo/pages/signup_screen/components/term_bottom_sheet.dart';
@@ -59,9 +60,18 @@ class _TermTabState extends State<TermTab> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         _label(_locale.termTabTitle),
-        OptionButton(text: _locale.readTerm, onTap: _openTerm, selected: false),
         OptionButton(
-          text: _locale.accept,
+            item: OptionItem(
+              text: _locale.readTerm,
+              key: ValueKey('term'),
+            ),
+            onTap: _openTerm,
+            selected: false),
+        OptionButton(
+          item: OptionItem(
+            text: _locale.accept,
+            key: ValueKey('accept'),
+          ),
           onTap: acceptEnabled ? _acceptTerm : () {},
           selected: !acceptEnabled,
         ),

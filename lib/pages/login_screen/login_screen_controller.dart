@@ -7,6 +7,8 @@ import 'package:theo/models/theo_app_bar_settings.dart';
 import 'package:theo/states/auth_store.dart';
 import 'package:theo/states/navigation_store.dart';
 import 'package:theo/types/enums.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 part 'login_screen_controller.g.dart';
 
 class LoginScreenController = _LoginScreenControllerBase
@@ -61,6 +63,8 @@ abstract class _LoginScreenControllerBase with Store {
       return false;
     }
 
+    var locale = AppLocalizations.of(navigationStore.currentContext)!;
+
     try {
       eResultStatus = EResultStatus.LOADING;
 
@@ -75,7 +79,12 @@ abstract class _LoginScreenControllerBase with Store {
 
       return authStore.authenticated;
     } catch (err) {
-      ErrorAlertDialog.showAlertDialog(content: err.toString());
+      if (err.toString().contains('Invalid login credentials') ||
+          err.toString().contains('Invalid email or password')) {
+        ErrorAlertDialog.showAlertDialog(content: locale.invalidLogin);
+      } else {
+        ErrorAlertDialog.showAlertDialog(content: err.toString());
+      }
       eResultStatus = EResultStatus.DONE;
       return false;
     }

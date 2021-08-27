@@ -51,6 +51,10 @@ class Post {
     }
   }
 
+  String? get languageName {
+    return story?.language?.name;
+  }
+
   Map<String, dynamic> toJson({bool withId = true}) => {
         if (withId) 'id': id,
         'user_id': userId,

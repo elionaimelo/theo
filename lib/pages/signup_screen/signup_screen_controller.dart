@@ -12,6 +12,7 @@ import 'package:theo/pages/tutorial_screen/tutorial_screen.dart';
 import 'package:theo/pages/tutorial_screen/tutorial_screen_controller.dart';
 import 'package:theo/states/auth_store.dart';
 import 'package:theo/states/language_store.dart';
+import 'package:theo/states/locale_store.dart';
 import 'package:theo/states/navigation_store.dart';
 import 'package:theo/states/role_store.dart';
 import 'package:theo/types/enums.dart';
@@ -29,12 +30,16 @@ abstract class _SignupScreenControllerBase with Store {
     required this.roleStore,
     required this.authStore,
     required this.navigationStore,
+    required this.localeStore,
   });
 
   final LanguageStore languageStore;
   final RoleStore roleStore;
   final AuthStore authStore;
   final NavigationStore navigationStore;
+  final LocaleStore localeStore;
+
+  TabController? tabController;
 
   GlobalKey<FormState> formState = GlobalKey();
 
@@ -46,6 +51,9 @@ abstract class _SignupScreenControllerBase with Store {
 
   @observable
   double currentBarValue = 0;
+
+  @observable
+  int tabIndex = 0;
 
   @observable
   EResultStatus eResultStatus = EResultStatus.LOADING;
@@ -73,6 +81,26 @@ abstract class _SignupScreenControllerBase with Store {
 
   @observable
   String? errorMessage = '';
+
+  @action
+  void setTabController(TabController controller) {
+    tabController = controller;
+
+    if (tabController != null) {
+      tabController!.addListener(() {
+        setTabIndex(tabController!.index);
+      });
+    }
+  }
+
+  void dispose() {
+    tabController?.dispose();
+  }
+
+  @action
+  void setTabIndex(int index) {
+    tabIndex = index;
+  }
 
   @action
   void onEmailTextChanged(String value) {
@@ -127,9 +155,20 @@ abstract class _SignupScreenControllerBase with Store {
   }
 
   @action
-  Future<bool> onBackPressed(TabController tabController) async {
-    if (tabController.index > 0) {
-      tabController.animateTo(tabController.index - 1);
+  void onLanguageSelected(BuildContext context, int index) {
+    if (languages[index].name != null) {
+      localeStore.changeLocale(languages[index].name!);
+
+      onNextButtonTap(context);
+    }
+  }
+
+  @action
+  Future<bool> onBackPressed() async {
+    var tabIndex = tabController?.index ?? 0;
+
+    if (tabIndex > 0) {
+      tabController!.animateTo(tabIndex - 1);
       currentBarValue -= 1;
       return false;
     }
@@ -140,16 +179,17 @@ abstract class _SignupScreenControllerBase with Store {
   }
 
   @action
-  Future<void> onNextButtonTap(
-      TabController tabController, BuildContext context) async {
+  Future<void> onNextButtonTap(BuildContext context) async {
     if (!formState.currentState!.validate()) {
       return;
     }
 
     FocusScope.of(context).unfocus();
 
-    var index = tabController.index;
-    if (index + 1 >= tabController.length /*- 1*/) {
+    var index = tabController?.index ?? 0;
+    var length = tabController?.length ?? 0;
+
+    if (index + 1 >= length) {
       var succeeded = await signUpUser();
 
       if (succeeded) {
@@ -166,10 +206,9 @@ abstract class _SignupScreenControllerBase with Store {
       return;
     }
 
-    tabController.animateTo(index + 1);
+    tabController?.animateTo(index + 1);
 
-    currentBarValue =
-        (index.toDouble() + 1) / (tabController.length.toDouble() - 1);
+    currentBarValue = (index.toDouble() + 1) / (length.toDouble() - 1);
   }
 
   @action

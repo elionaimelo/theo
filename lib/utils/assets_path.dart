@@ -30,13 +30,14 @@ class AssetsPath {
   static const comicSvg = 'assets/icons/comic.svg';
   static const gameSvg = 'assets/icons/game.svg';
   static const appSymbolPng = 'assets/icons/simbolo-app.png';
-  static const brSvg = 'assets/icons/br.svg';
-  static const enSvg = 'assets/icons/en.svg';
-  static const espSvg = 'assets/icons/esp.svg';
   static const thumbsUpSvg = 'assets/icons/thumbs-up.svg';
   static const rightReplay = 'assets/icons/right-replay.svg';
   static const leftReplay = 'assets/icons/left-replay.svg';
   static const playSvg = 'assets/icons/play.svg';
   static const unhappySvg = 'assets/icons/unhappy.svg';
   static const happySvg = 'assets/icons/happy.svg';
+
+  static String getLangIconSvg(String languageCode) {
+    return 'assets/icons/langs/$languageCode.svg';
+  }
 }

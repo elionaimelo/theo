@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:theo/components/lang_icon.dart';
 import 'package:theo/components/text_icon_button.dart';
 import 'package:theo/core/routes.dart';
 import 'package:theo/pages/tutorial_screen/tutorial_screen_controller.dart';
@@ -206,13 +206,7 @@ class _TopSheetMenuState extends State<TopSheetMenu> {
         text: _locale.pt,
         onTap: () => _changeAppLanguage('pt'),
         direction: TextDirection.rtl,
-        icon: Container(
-          margin: EdgeInsets.only(left: 10),
-          child: SvgPicture.asset(
-            AssetsPath.brSvg,
-            height: 28,
-          ),
-        ),
+        icon: LangIcon(languageCode: 'pt'),
         textStyle: _langButtonTextStyle,
       );
 
@@ -221,13 +215,7 @@ class _TopSheetMenuState extends State<TopSheetMenu> {
         text: _locale.en,
         onTap: () => _changeAppLanguage('en'),
         direction: TextDirection.rtl,
-        icon: Container(
-          margin: EdgeInsets.only(left: 10),
-          child: SvgPicture.asset(
-            AssetsPath.enSvg,
-            height: 28,
-          ),
-        ),
+        icon: LangIcon(languageCode: 'en'),
         textStyle: _langButtonTextStyle,
       );
 
@@ -236,13 +224,7 @@ class _TopSheetMenuState extends State<TopSheetMenu> {
         text: _locale.es,
         onTap: () => _changeAppLanguage('es'),
         direction: TextDirection.rtl,
-        icon: Container(
-          margin: EdgeInsets.only(left: 10),
-          child: SvgPicture.asset(
-            AssetsPath.espSvg,
-            height: 28,
-          ),
-        ),
+        icon: LangIcon(languageCode: 'es'),
         textStyle: _langButtonTextStyle,
       );
 

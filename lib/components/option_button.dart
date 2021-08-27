@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:theo/components/question_tab.dart';
 import 'package:theo/styles/colors.dart';
 import 'package:theo/styles/metrics.dart';
 
 class OptionButton extends StatelessWidget {
   const OptionButton({
     Key? key,
-    required this.text,
+    required this.item,
     required this.onTap,
     required this.selected,
   }) : super(key: key);
 
-  final String text;
+  final OptionItem item;
   final Function() onTap;
   final bool selected;
 
@@ -27,14 +28,24 @@ class OptionButton extends StatelessWidget {
         child: Container(
           color: _color,
           padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-          child: Text(
-            text,
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  color: TheoColors.seven,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (item.icon != null)
+                Container(
+                  margin: EdgeInsets.only(right: 10),
+                  child: item.icon!,
                 ),
+              Text(
+                item.text,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: TheoColors.seven,
+                    ),
+              ),
+            ],
           ),
         ),
       ),

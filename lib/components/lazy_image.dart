@@ -31,7 +31,7 @@ class _LazyImageState extends State<LazyImage> {
   }
 
   Future<String> getImageUrl() async {
-    var url = await widget.file?.getUrl(GetIt.I.get<APIClient>().fileService);
+    var url = await widget.file?.getUrl(APIClient().fileService);
 
     return url ?? 'UNKNOW_IMAGE_URL';
   }

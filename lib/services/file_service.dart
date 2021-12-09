@@ -71,9 +71,9 @@ class FileService {
     File file, {
     int secondsActive = FileConsts.ONE_DAY_IN_SECONDS,
   }) async {
-    var response = await client.supabase.storage
+    var response = client.supabase.storage
         .from(DotEnv.SUPABASE_BUCKET_NAME!)
-        .createSignedUrl(file.bucketPath!, secondsActive);
+        .getPublicUrl(file.bucketPath!);
 
     if (response.error != null) {
       throw Exception(response.error!.message);
